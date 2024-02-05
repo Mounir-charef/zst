@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "tailwind": {
+    "config": "apps/client/tailwind.config.js",
+    "css": "apps/client/app/global.css",
+    "baseColor": "slate",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@ecom/global-ui/components",
+    "utils": "@ecom/global-ui/utils"
+  }
+}

@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ecom/global-ui": ["global-ui/src/index.ts"],
+      "@ecom/global-ui/server": ["global-ui/src/server.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

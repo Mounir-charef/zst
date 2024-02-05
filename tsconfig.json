@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ecom/global-ui": ["global-ui/src/index.tsx"],
+      "@ecom/global-ui/*": ["global-ui/src/*"]
+    }
+  }
+}
