@@ -5,7 +5,7 @@ const TailwindAnimate = require('tailwindcss-animate');
 module.exports = {
   content: [
     // relative path by consumer app
-    './{app,pages,components}/**/*.{js,jsx,ts,tsx}',
+    './**/*.{js,jsx,ts,tsx}',
     // path to ui-kit components (relative to current dir)
     join(__dirname, '../../../ui/**/*.{js,jsx,ts,tsx}'),
   ],
