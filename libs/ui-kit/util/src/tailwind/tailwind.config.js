@@ -1,26 +1,15 @@
-/** @type {import('tailwindcss').Config} */
-
-const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
-const { fontFamily } = require('tailwindcss/defaultTheme');
 
-export const tailwindConfig = {
-  darkMode: ['class'],
+const TailwindAnimate = require('tailwindcss-animate');
+
+module.exports = {
   content: [
-    join(
-      __dirname,
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'
-    ),
-    ...createGlobPatternsForDependencies(__dirname),
+    // relative path by consumer app
+    './{app,pages,components}/**/*.{js,jsx,ts,tsx}',
+    // path to ui-kit components (relative to current dir)
+    join(__dirname, '../../../ui/**/*.{js,jsx,ts,tsx}'),
   ],
   theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
-    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',
@@ -62,17 +51,14 @@ export const tailwindConfig = {
         md: `calc(var(--radius) - 2px)`,
         sm: 'calc(var(--radius) - 4px)',
       },
-      fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
-      },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
+          from: { height: 0 },
           to: { height: 'var(--radix-accordion-content-height)' },
         },
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          to: { height: 0 },
         },
       },
       animation: {
@@ -81,5 +67,6 @@ export const tailwindConfig = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [TailwindAnimate],
+  darkMode: ['class'],
 };

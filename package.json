@@ -2,7 +2,14 @@
   "name": "@ecom/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev": "nx run-many -t dev",
+    "build": "nx run-many -t build",
+    "client:dev": "nx dev client",
+    "client:build": "nx build client",
+    "server:dev": "nx dev server",
+    "server:build": "nx build server"
+  },
   "private": true,
   "devDependencies": {
     "@nx/eslint": "18.0.1",
