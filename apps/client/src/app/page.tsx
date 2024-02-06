@@ -1,5 +1,10 @@
+import { Button } from '@mono/ui';
 const page = () => {
-  return <div className="text-blue-800">page</div>;
+  return (
+    <div>
+      <Button>crazy</Button>
+    </div>
+  );
 };
 
 export default page;

@@ -4,6 +4,7 @@
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true
   },
   "files": [],
@@ -13,5 +14,5 @@
       "path": "./tsconfig.lib.json"
     }
   ],
-  "extends": "../tsconfig.base.json"
+  "extends": "../../../tsconfig.base.json"
 }

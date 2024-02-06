@@ -1,9 +1,4 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@ecom/global-ui": ["global-ui/src/index.tsx"],
-      "@ecom/global-ui/*": ["global-ui/src/*"]
-    }
-  }
+  "_COMMENT": "only used by shadcn/ui cli to generate shadcn/ui components",
+  "extends": "./tsconfig.base.json"
 }
