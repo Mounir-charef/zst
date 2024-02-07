@@ -2,6 +2,8 @@ import './global.css';
 import { Providers } from '@mono/ui';
 import { cn } from '@mono/util';
 import { Inter } from 'next/font/google';
+import { getServerSession } from 'next-auth';
+import { SessionProvider } from '@mono/ui';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -10,21 +12,24 @@ export const metadata = {
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession();
   return (
     <html lang="en" className="h-full">
       <body
         className={cn('relative h-full font-sans antialiased', inter.className)}
       >
-        <Providers>
-          <main className="relative flex min-h-screen flex-col">
-            <div className="flex-1 flex-grow">{children}</div>
-          </main>
-        </Providers>
+        <SessionProvider session={session}>
+          <Providers>
+            <main className="relative flex min-h-screen flex-col">
+              <div className="flex-1 flex-grow">{children}</div>
+            </main>
+          </Providers>
+        </SessionProvider>
       </body>
     </html>
   );
