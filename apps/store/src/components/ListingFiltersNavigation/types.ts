@@ -1,3 +1,5 @@
+import { Shirt } from 'lucide-react';
+
 import { LucideIcon } from 'lucide-react';
 
 export interface TLink {
@@ -9,9 +11,4 @@ export interface TLink {
   children?: TLink[];
 }
 
-export interface TLinks {
-  [property: string]: {
-    title: string;
-    links: TLink[];
-  };
-}
+export type TLinks = TLink[];

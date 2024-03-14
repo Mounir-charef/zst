@@ -53,7 +53,7 @@ const Page = () => {
       </div>
       <div className="flex-1 flex-grow  flex-wrap flex relative">
         <ListingFiltersNavigation links={clothingLinks} />
-        <div className="font-bold text-center flex-1 flex items-start p-4 flex-col">
+        <div className="font-bold text-center flex-1 flex items-start p-4 flex-col bg-gray-100">
           <ListProducts products={products} />
         </div>
       </div>

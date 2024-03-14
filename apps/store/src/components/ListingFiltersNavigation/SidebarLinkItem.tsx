@@ -6,39 +6,32 @@ import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { TLink } from './types';
+import { TSelectedNavItem } from './ListingFiltersNavigation';
 
 interface TProps {
   link: TLink;
-  collapsedItem?: null | string;
+  selectedNavItem?: TSelectedNavItem;
   parent?: string;
-  setCollapsedItem?: React.Dispatch<React.SetStateAction<null | string>>;
+  setSelectedNavItem?: React.Dispatch<React.SetStateAction<TSelectedNavItem>>;
 }
 
 const SidebarLinkItem = ({
   link,
   parent,
-  collapsedItem,
-  setCollapsedItem,
+  selectedNavItem,
+  setSelectedNavItem,
 }: TProps) => {
-  const { id, href, Icon, title, children } = link;
+  const { href, Icon, title, children } = link;
   const hasChildren = children && children?.length > 0;
 
-  const collapseID = `${parent}-${id}`;
-  const isSubLinksVisible = collapsedItem === collapseID;
+  const isSelected = hasChildren
+    ? selectedNavItem?.parent === link.segment
+    : selectedNavItem?.child === link.segment;
+
+  const isSubLinksVisible = isSelected;
 
   return (
-    <li
-      onClick={() => {
-        if (hasChildren && setCollapsedItem) {
-          setCollapsedItem((current) => {
-            if (current === collapseID) {
-              return null;
-            }
-            return collapseID;
-          });
-        }
-      }}
-    >
+    <li>
       <Link
         href={href || '#'}
         className={cn(
@@ -46,7 +39,7 @@ const SidebarLinkItem = ({
           { 'text-primary': isSubLinksVisible }
         )}
         onClick={(e) => {
-          if (!href || href === '#' || hasChildren) {
+          if (!href || href === '#') {
             e.preventDefault();
           }
         }}
@@ -74,7 +67,13 @@ const SidebarLinkItem = ({
             }}
           >
             {children.map((child) => {
-              return <SidebarLinkItem key={child.id} link={child} />;
+              return (
+                <SidebarLinkItem
+                  selectedNavItem={selectedNavItem}
+                  key={child.segment}
+                  link={child}
+                />
+              );
             })}
           </ul>
         </Collapse>

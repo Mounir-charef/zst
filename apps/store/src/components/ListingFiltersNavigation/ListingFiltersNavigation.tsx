@@ -1,63 +1,55 @@
 'use client';
 
-import { useState } from 'react';
-import SidebarLinkItem from './SidebarLinkItem';
-import { useSelectedLayoutSegment } from 'next/navigation';
 import { cn } from '@mono/util';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import SidebarLinkItem from './SidebarLinkItem';
 import { TLinks } from './types';
 
+export type TSelectedNavItem = undefined | { parent?: string; child?: string };
 const ListingFiltersNavigation = ({ links }: { links: TLinks }) => {
-  const segment = useSelectedLayoutSegment();
+  const searchParams = useSearchParams();
 
-  const [collapsedItem, setCollapsedItem] = useState<null | string>(() => {
-    const groupedlinks = Object.entries(links);
+  const selectedCategory = Object.fromEntries(searchParams.entries()).category;
 
-    for (let i = 0; i < groupedlinks.length; i++) {
-      const [key, content] = groupedlinks[i];
-      const { links: contentLinks } = content;
-      for (let j = 0; j < contentLinks.length; j++) {
-        const link = contentLinks[j];
-        if (link.segment === segment) {
-          return `${key}-${link.id}`;
-        }
-      }
-    }
+  const [selectedNavItem, setSelectedNavItem] = useState<TSelectedNavItem>();
 
-    return null;
-  });
+  useEffect(() => {
+    const link = links?.find((link) => {
+      return (
+        link.segment === selectedCategory ||
+        !!link.children
+          ?.flatMap((child) => child.segment)
+          ?.includes(selectedCategory)
+      );
+    });
+
+    setSelectedNavItem({
+      parent: link?.segment,
+      child: link?.children?.find((child) => child.segment === selectedCategory)
+        ?.segment,
+    });
+  }, [links, selectedCategory]);
 
   return (
     <aside
       className={cn(
-        'sticky top-20 z-10 h-[calc(100vh-80px)] w-[250px] overflow-y-auto bg-gray-100  transition-all duration-150 ease-in-out '
+        'sticky top-20 z-10 h-[calc(100vh-80px)] w-[250px] overflow-y-auto p-4 bg-white  transition-all duration-150 ease-in-out '
       )}
     >
       <div className="flex flex-col gap-5 py-4 sticky top-0">
-        {Object.entries(links).map(([key, content]) => {
-          const { links, title } = content;
-          return (
-            <div key={key}>
-              {title && (
-                <h2 className="mb-2 px-4 text-sm font-semibold uppercase">
-                  {title}
-                </h2>
-              )}
-              <ul>
-                {links.map((link) => {
-                  return (
-                    <SidebarLinkItem
-                      parent={key}
-                      collapsedItem={collapsedItem}
-                      setCollapsedItem={setCollapsedItem}
-                      key={link.id}
-                      link={link}
-                    />
-                  );
-                })}
-              </ul>
-            </div>
-          );
-        })}
+        <ul>
+          {links.map((link) => {
+            return (
+              <SidebarLinkItem
+                selectedNavItem={selectedNavItem}
+                setSelectedNavItem={setSelectedNavItem}
+                key={link.id}
+                link={link}
+              />
+            );
+          })}
+        </ul>
       </div>
     </aside>
   );
