@@ -5,7 +5,7 @@ import { cn } from '@mono/util';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
-import { TLink } from './data';
+import { TLink } from './types';
 
 interface TProps {
   link: TLink;
@@ -42,7 +42,7 @@ const SidebarLinkItem = ({
       <Link
         href={href || '#'}
         className={cn(
-          'flex items-center justify-between px-4 py-2 text-sm transition hover:text-primary',
+          'flex items-center font-medium justify-between px-4 py-2 text-sm transition hover:text-primary',
           { 'text-primary': isSubLinksVisible }
         )}
         onClick={(e) => {

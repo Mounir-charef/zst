@@ -3,7 +3,7 @@ import { Providers } from '@mono/ui';
 import { cn } from '@mono/util';
 import { Inter } from 'next/font/google';
 import Navbar from '../../components/navbar/Navbar';
-import Sidebar from '../../components/Sidebar/Sidebar';
+import Sidebar from '../../components/ListingFiltersNavigation/ListingFiltersNavigation';
 
 export const metadata = {
   title: 'Welcome to store',
@@ -25,11 +25,7 @@ export default function RootLayout({
         <Providers>
           <main className="relative flex min-h-screen flex-col">
             <Navbar />
-            <div className="flex-1 flex-grow flex relative">
-              <Sidebar />
-
-              {children}
-            </div>
+            <div>{children}</div>
           </main>
         </Providers>
       </body>

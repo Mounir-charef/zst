@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import SidebarLinkItem from './SidebarLinkItem';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import links from './data';
 import { cn } from '@mono/util';
+import { TLinks } from './types';
 
-const Sidebar = () => {
+const ListingFiltersNavigation = ({ links }: { links: TLinks }) => {
   const segment = useSelectedLayoutSegment();
 
   const [collapsedItem, setCollapsedItem] = useState<null | string>(() => {
@@ -63,4 +63,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default ListingFiltersNavigation;
