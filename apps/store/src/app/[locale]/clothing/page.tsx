@@ -1,3 +1,5 @@
+'use client';
+import { useGetClothingProducts } from '../../../dataApi/clothing';
 import ListingFiltersNavigation from '../../../components/ListingFiltersNavigation/ListingFiltersNavigation';
 import ListProducts from './(components)/ListProducts';
 import { clothingLinks } from './data/data';
@@ -46,6 +48,13 @@ const products = [
 ];
 
 const Page = () => {
+  const productFetched = useGetClothingProducts({});
+
+  console.log(
+    '%cappsstoresrcapp[locale]clothingpage.tsx:52 productFetched',
+    'color: white; background-color: #007acc;',
+    productFetched
+  );
   return (
     <div className="flex flex-col">
       <div className="bg-blue-100 flex justify-center items-center h-40">
@@ -54,7 +63,7 @@ const Page = () => {
       <div className="flex-1 flex-grow  flex-wrap flex relative">
         <ListingFiltersNavigation links={clothingLinks} />
         <div className="font-bold text-center flex-1 flex items-start p-4 flex-col bg-gray-100">
-          <ListProducts products={products} />
+          <ListProducts products={productFetched.data} />
         </div>
       </div>
     </div>

@@ -25,6 +25,9 @@ const nextConfig = {
       {
         hostname: 'pickbazar-react-rest.vercel.app',
         pathname: '**',
+      }, {
+        hostname: 'picsum.photos',
+        pathname: '**',
       },
     ],
   },

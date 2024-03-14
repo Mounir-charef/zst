@@ -71,7 +71,7 @@ function _delete(id: number) {
 function saveData() {
   try {
     fs.writeFileSync(
-      `${absolutePath}clothes/clothes.json`,
+      `${absolutePath}clothing/clothes.json`,
       JSON.stringify(clothes, null, 4)
     );
     console.log('File written successfully.');

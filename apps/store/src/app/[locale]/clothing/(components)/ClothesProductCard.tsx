@@ -19,8 +19,8 @@ export type ClothingProduct = {
 export function ClothesProductCard({ product }: { product: ClothingProduct }) {
   return (
     <Card className="w-full hover:-translate-y-2 transition-all duration-150">
-      <CardHeader className="pt-4">
-        <div className="h-40 w-full min-w-48 relative">
+      <CardHeader className="pt-4 ">
+        <div className="h-60 w-full   relative overflow-hidden">
           <Image
             className="bg-red-100"
             src={product.imgUrl}
@@ -31,7 +31,7 @@ export function ClothesProductCard({ product }: { product: ClothingProduct }) {
         </div>
       </CardHeader>
       <CardContent className="gap-2 pb-2">
-        <CardTitle className="text-sm text-gray-500">{product.name}</CardTitle>
+        <CardTitle className="text-sm text-gray-500 text-ellipsis overflow-hidden w-full whitespace-nowrap">{product.name}</CardTitle>
       </CardContent>
       <CardFooter className="flex justify-between gap-4 font-medium text-sm">
         <p>
