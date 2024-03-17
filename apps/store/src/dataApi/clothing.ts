@@ -1,11 +1,14 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { API_ENDPOINTS } from './api_endpoints';
-import client from './client';
+import {
+  UseInfiniteQueryOptions,
+  useInfiniteQuery,
+} from '@tanstack/react-query';
 import {
   IQueryResultInfo,
   InfinitePaginatorInfo,
   QueryOptions,
 } from '../types';
+import { API_ENDPOINTS } from './api_endpoints';
+import client from './client';
 
 export interface ClothingProductQueryOptions extends QueryOptions {
   name: string;
@@ -20,7 +23,14 @@ export type ClothingProduct = {
 };
 
 export function useGetClothingProducts(
-  options?: Partial<ClothingProductQueryOptions>
+  params?: Partial<ClothingProductQueryOptions>,
+  options?: Partial<
+    UseInfiniteQueryOptions<
+      IQueryResultInfo<ClothingProduct>,
+      unknown,
+      InfinitePaginatorInfo<ClothingProduct>
+    >
+  >
 ) {
   const {
     data,
@@ -35,7 +45,7 @@ export function useGetClothingProducts(
     unknown,
     InfinitePaginatorInfo<ClothingProduct>
   >({
-    queryKey: [API_ENDPOINTS.CLOTHING, options],
+    queryKey: [API_ENDPOINTS.CLOTHING, params],
     queryFn: ({ queryKey, pageParam = 1 }) => {
       const obj = Object.assign(
         {},
@@ -45,13 +55,15 @@ export function useGetClothingProducts(
 
       return client.products.all(obj);
     },
-    initialPageParam: {},
     getNextPageParam: ({ meta }) => {
       const currentPage = meta?.currentPage;
       const totalPages = meta?.totalPages;
 
       return currentPage < totalPages ? { page: currentPage + 1 } : undefined;
     },
+    initialPageParam: options?.initialPageParam ?? 1,
+
+    ...options,
   });
 
   function handleLoadMore() {

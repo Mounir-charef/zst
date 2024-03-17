@@ -1,27 +1,38 @@
-'use client';
-import { useGetClothingProducts } from '../../../dataApi/clothing';
-import ListingFiltersNavigation from '../../../components/ListingFiltersNavigation/ListingFiltersNavigation';
-import ListProducts from './(components)/ListProducts';
-import { clothingLinks } from './data/data';
+import { QueryKey } from '@tanstack/react-query';
+import { API_ENDPOINTS } from '../../../dataApi/api_endpoints';
+import ProductsListClientSide from './ProductsListClientSide';
+import useServerFetching from './useServerSideFetching';
+import { getFullApiPath } from '../../../lib/getFullApiPath';
+import { convertObjectToStringRecord } from '../../../lib/convertObjectToStringRecord';
 
-const Page = () => {
-  const productFetched = useGetClothingProducts({ page: 1, limit: 10 });
+async function getClothingProducts({ queryKey }: { queryKey: QueryKey }) {
+  'use server';
 
+  const url = new URL(getFullApiPath(API_ENDPOINTS.CLOTHING));
+  url.search = new URLSearchParams(
+    convertObjectToStringRecord(queryKey[1] as object)
+  ).toString();
+
+  const res = await fetch(url.href);
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+}
+
+const Page = async () => {
+  const defaultParams = { page: 1 };
+  const { ServerComponent } = await useServerFetching({
+    endpoint: API_ENDPOINTS.CLOTHING,
+    queryFn: getClothingProducts,
+    defaultParams: defaultParams,
+  });
   return (
-    <div className="flex flex-col">
-      <div className="bg-blue-100 flex justify-center items-center h-40">
-        SECTION HERO
-      </div>
-      <div className="flex-1 flex-grow  flex-wrap flex relative">
-        <ListingFiltersNavigation links={clothingLinks} />
-        <div className="font-bold text-center flex-1 flex items-start p-4 flex-col bg-gray-100">
-          <ListProducts
-            loadMore={productFetched.loadMore}
-            products={productFetched.data}
-          />
-        </div>
-      </div>
-    </div>
+    <ServerComponent>
+      <ProductsListClientSide defaultParams={defaultParams} />
+    </ServerComponent>
   );
 };
 

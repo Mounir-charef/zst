@@ -1,7 +1,5 @@
 {
-  "i18n-ally.localesPaths": [
-    "apps/store/src/locales"
-  ],
-  "i18n-ally.keystyle": "nested",
-  "javascript.preferences.importModuleSpecifier": "project-relative"
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "i18n-ally.localesPaths": ["apps/store/src/locales"],
+  "i18n-ally.keystyle": "nested"
 }

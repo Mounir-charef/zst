@@ -1,4 +1,6 @@
-export interface QueryOptions {
+import { UseQueryOptions } from "@tanstack/react-query";
+
+export interface QueryOptions extends UseQueryOptions{
   page?: number;
   limit?: number;
 }

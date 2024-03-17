@@ -3,6 +3,13 @@ import { clothingRepo } from './clothing-repo';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+  console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
+  console.log(
+    '%capps/store/src/app/api/clothing/route.ts:7 searchParams',
+    'color: white; background-color: #007acc;',
+    searchParams
+  );
+  console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
   const page = searchParams.get('page') ?? '1';
   const limit = searchParams.get('limit') ?? '20';
 

@@ -1,29 +1,37 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ClothesProductCard, ClothingProduct } from './ClothesProductCard';
+import { Loader } from 'lucide-react';
 
 const ListProducts = ({
-  products,
-  loadMore,
+  query,
 }: {
-  products: ClothingProduct[];
-  loadMore: () => void;
+  query: {
+    data: ClothingProduct[];
+    isLoading: boolean;
+    error: unknown;
+    isFetching: boolean;
+    isLoadingMore: boolean;
+    loadMore: () => void;
+    hasMore: boolean;
+  };
 }) => {
   return (
     <InfiniteScroll
-      dataLength={products?.length} //This is important field to render the next data
-      next={loadMore}
-      hasMore={true}
-      loader={<h4>Loading...</h4>}
-      endMessage={
-        <p style={{ textAlign: 'center' }}>
-          <b>Yay! You have seen it all</b>
-        </p>
+      dataLength={query.data?.length} //This is important field to render the next data
+      next={query.loadMore}
+      hasMore={query.hasMore}
+      loader={
+        <div className="flex items-center justify-center h-48">
+          <Loader className="animate-spin" />
+        </div>
       }
-      className="grid grid-cols-5 gap-4 w-full"
+      className="flex flex-col gap-2 pb-4 items-center"
     >
-      {products.map((product) => (
-        <ClothesProductCard key={product.id} product={product} />
-      ))}
+      <div className="grid grid-cols-3 gap-4 w-full">
+        {query?.data?.map((product) => (
+          <ClothesProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </InfiniteScroll>
   );
 };
