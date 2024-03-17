@@ -4,6 +4,8 @@ import ProductsListClientSide from './ProductsListClientSide';
 import useServerFetching from './useServerSideFetching';
 import { getFullApiPath } from '../../../lib/getFullApiPath';
 import { convertObjectToStringRecord } from '../../../lib/convertObjectToStringRecord';
+import { ClothingProductQueryOptions } from 'apps/store/src/dataApi/clothing';
+import { ClothingHeroSection } from './ClothingHeroSection';
 
 async function getClothingProducts({ queryKey }: { queryKey: QueryKey }) {
   'use server';
@@ -22,15 +24,22 @@ async function getClothingProducts({ queryKey }: { queryKey: QueryKey }) {
   return res.json();
 }
 
-const Page = async () => {
-  const defaultParams = { page: 1 };
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: ClothingProductQueryOptions;
+}) => {
+  const defaultParams = { ...searchParams, page: 1 };
+
   const { ServerComponent } = await useServerFetching({
     endpoint: API_ENDPOINTS.CLOTHING,
     queryFn: getClothingProducts,
     defaultParams: defaultParams,
   });
+
   return (
     <ServerComponent>
+      <ClothingHeroSection />
       <ProductsListClientSide defaultParams={defaultParams} />
     </ServerComponent>
   );
