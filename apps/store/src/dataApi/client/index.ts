@@ -1,13 +1,12 @@
 import { API_ENDPOINTS } from '../api_endpoints';
 import { HttpClient } from '../http-client';
-import { PaginatorInfo } from '../../types';
-import { ClothingProduct } from '../../app/[locale]/clothing/(components)/ClothesProductCard';
-import { ClothingProductQueryOptions } from '../clothing';
+import { ClothingProduct, ClothingProductQueryOptions } from '../clothing';
+import { IQueryResultInfo } from '../../types';
 
 class Client {
   products = {
     all: (params: Partial<ClothingProductQueryOptions>) =>
-      HttpClient.get<PaginatorInfo<ClothingProduct>>(
+      HttpClient.get<IQueryResultInfo<ClothingProduct>>(
         API_ENDPOINTS.CLOTHING,
         params
       ),

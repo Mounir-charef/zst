@@ -1,29 +1,14 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { API_ENDPOINTS } from './api_endpoints';
 import client from './client';
-
-export interface QueryOptions {
-  page?: number;
-  limit?: number;
-}
+import {
+  IQueryResultInfo,
+  InfinitePaginatorInfo,
+  QueryOptions,
+} from '../types';
 
 export interface ClothingProductQueryOptions extends QueryOptions {
-  shop_id: string;
-  sortedBy: string;
-  orderBy: string;
   name: string;
-  categories: string;
-  tags: string;
-  type: string;
-  manufacturer: string;
-  author: string;
-  price: string;
-  min_price: string;
-  max_price: string;
-  language: string;
-  searchType: string;
-  searchQuery: string;
-  text: string;
 }
 
 export type ClothingProduct = {
@@ -37,10 +22,6 @@ export type ClothingProduct = {
 export function useGetClothingProducts(
   options?: Partial<ClothingProductQueryOptions>
 ) {
-  const formattedOptions = {
-    ...options,
-  };
-
   const {
     data,
     isLoading,
@@ -49,15 +30,28 @@ export function useGetClothingProducts(
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: [API_ENDPOINTS.CLOTHING, formattedOptions],
-    queryFn: ({ queryKey, pageParam }) =>
-      client.products.all(Object.assign({}, queryKey[1], pageParam)),
+  } = useInfiniteQuery<
+    IQueryResultInfo<ClothingProduct>,
+    unknown,
+    InfinitePaginatorInfo<ClothingProduct>
+  >({
+    queryKey: [API_ENDPOINTS.CLOTHING, options],
+    queryFn: ({ queryKey, pageParam = 1 }) => {
+      const obj = Object.assign(
+        {},
+        queryKey[1],
+        pageParam
+      ) as Partial<ClothingProductQueryOptions>;
 
-    // @ts-expect-error No overload matches this call.
+      return client.products.all(obj);
+    },
+    initialPageParam: {},
+    getNextPageParam: ({ meta }) => {
+      const currentPage = meta?.currentPage;
+      const totalPages = meta?.totalPages;
 
-    getNextPageParam: ({ current_page, last_page }) =>
-      last_page > current_page && { page: current_page + 1 },
+      return currentPage < totalPages ? { page: currentPage + 1 } : undefined;
+    },
   });
 
   function handleLoadMore() {
@@ -66,7 +60,6 @@ export function useGetClothingProducts(
 
   return {
     data: data?.pages?.flatMap((page) => page.data) ?? [],
-    paginatorInfo: null,
     isLoading,
     error,
     isFetching,
