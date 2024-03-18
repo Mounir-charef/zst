@@ -32,8 +32,7 @@ export function ClothingHeroSection() {
       <Image
         src={clothingHeroSection}
         alt="clothings"
-        objectFit="cover"
-        className="h-full w-full absolute top-0"
+        className="h-full w-full absolute top-0 object-cover"
       />
 
       <div className="flex items-center justify-center flex-col gap-8 z-10">
