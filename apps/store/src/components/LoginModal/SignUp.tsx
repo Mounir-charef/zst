@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form } from '@mono/ui';
+import { Button, CheckBoxField, Form, InputField, PasswordField } from '@mono/ui';
 import { Lock, Mail, Phone, UserCircle2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
@@ -54,7 +54,7 @@ const SignUp = ({
           errorMap: () => ({ message: t('errors.acceptTerms.required_error') }),
         }),
       }),
-    [t],
+    [t]
   );
 
   type SignUp = z.infer<typeof SignUpSchema>;
@@ -77,7 +77,7 @@ const SignUp = ({
   return (
     <div className="w-full space-y-4">
       <Form {...form}>
-        {/* <form
+        <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-6"
         >
@@ -135,7 +135,7 @@ const SignUp = ({
           <Button type="submit" className="w-full">
             {t('sign-up')}
           </Button>
-        </form> */}
+        </form>
       </Form>
       <span className="inline-block w-full text-center text-sm">
         {t('already-have-account')}{' '}

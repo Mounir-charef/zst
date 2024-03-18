@@ -6,3 +6,5 @@ export * from './lib/ui/card';
 export * from './lib/ui/drawer';
 export * from './lib/ui/alert';
 export * from './lib/ui/form';
+export * from './lib/ui/checkbox';
+export * from './lib/ui/textarea';

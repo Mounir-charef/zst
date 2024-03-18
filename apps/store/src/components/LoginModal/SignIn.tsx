@@ -1,7 +1,15 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, AlertDescription, Button, Form } from '@mono/ui';
+import {
+  Alert,
+  AlertDescription,
+  Button,
+  CheckBoxField,
+  Form,
+  InputField,
+  PasswordField,
+} from '@mono/ui';
 import { Lock, Mail } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
@@ -57,15 +65,13 @@ const SignIn = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-6"
         >
-          {/* <InputField
+          <InputField
             control={form.control}
             name="email"
             Icon={Mail}
-            showErrors={false}
             placeholder={t('email')}
           />
           <PasswordField
-            showErrors={false}
             control={form.control}
             name="password"
             Icon={Lock}
@@ -83,16 +89,8 @@ const SignIn = ({
             >
               {t('forgot-password')}
             </Link>
-          </div> */}
-          {Object.keys(form.formState.errors).some((err) => err) && (
-            <Alert variant="destructive">
-              <AlertDescription className="space-y-1">
-                {Object.values(form.formState.errors).map((error) => (
-                  <div key={error.message}>{error.message}</div>
-                ))}
-              </AlertDescription>
-            </Alert>
-          )}
+          </div>
+
           <Button type="submit" className="w-full">
             {t('sign-in')}
           </Button>

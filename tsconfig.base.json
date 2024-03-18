@@ -18,7 +18,9 @@
     "baseUrl": ".",
     "paths": {
       "@mono/ui": ["libs/ui-kit/ui/src/index.ts"],
+      "@mono/ui/*": ["libs/ui-kit/ui/src/*"],
       "@mono/util": ["libs/ui-kit/util/src/index.ts"],
+      "@mono/util/*": ["libs/ui-kit/util/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
