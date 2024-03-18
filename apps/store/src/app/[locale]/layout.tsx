@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/ListingFiltersNavigation/ListingFiltersNavigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
+import CartDrawer from '../../components/CartDrawer/CartDrawer';
 
 export const metadata = {
   title: 'Welcome to store',
@@ -28,6 +29,7 @@ export default function RootLayout({
           <Providers>
             <main className="relative flex min-h-screen flex-col">
               <Navbar />
+              <CartDrawer />
               <div>{children}</div>
             </main>
           </Providers>
