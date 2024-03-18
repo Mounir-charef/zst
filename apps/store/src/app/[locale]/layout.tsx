@@ -4,6 +4,7 @@ import { cn } from '@mono/util';
 import { Inter } from 'next/font/google';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/ListingFiltersNavigation/ListingFiltersNavigation';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 
 export const metadata = {
   title: 'Welcome to store',
@@ -17,17 +18,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const messages = useMessages();
   return (
     <html lang="en" className="h-full">
       <body
         className={cn('relative h-full font-sans antialiased', inter.className)}
       >
-        <Providers>
-          <main className="relative flex min-h-screen flex-col">
-            <Navbar />
-            <div>{children}</div>
-          </main>
-        </Providers>
+        <NextIntlClientProvider messages={messages}>
+          <Providers>
+            <main className="relative flex min-h-screen flex-col">
+              <Navbar />
+              <div>{children}</div>
+            </main>
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

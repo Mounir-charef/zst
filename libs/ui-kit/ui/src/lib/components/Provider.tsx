@@ -9,14 +9,14 @@ export const Providers = ({ children }: PropsWithChildren) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ThemeProvider
+      <ThemeProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="light"
         enableSystem
         disableTransitionOnChange
-      > */}
-      {children}
-      {/* </ThemeProvider> */}
+      >
+        {children}
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

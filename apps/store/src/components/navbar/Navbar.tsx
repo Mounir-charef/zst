@@ -2,9 +2,11 @@
 import { Button } from '@mono/ui';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { logo } from '../../assets';
 import { cn } from '@mono/util';
+import LoginModal from '../LoginModal/LoginModal';
+import AuthModal from '../LoginModal/AuthModal';
 
 const links = [
   {
@@ -61,8 +63,8 @@ const Navbar = () => {
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <Button>Join</Button>
-          <Button>Become a seller</Button>
+          <AuthModal defaultLogin />
+          <AuthModal defaultLogin={false} />
         </div>
       </div>
     </div>

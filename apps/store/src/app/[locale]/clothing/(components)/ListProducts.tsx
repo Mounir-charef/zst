@@ -27,7 +27,7 @@ const ListProducts = ({
       }
       className="flex flex-col gap-2 pb-4 items-center"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 w-full">
+      <div className="grid pt-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 w-full">
         {query?.data?.map((product) => (
           <ClothesProductCard key={product.id} product={product} />
         ))}
