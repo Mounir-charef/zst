@@ -1,8 +1,9 @@
-import { UseQueryOptions } from "@tanstack/react-query";
+import { UseQueryOptions } from '@tanstack/react-query';
 
-export interface QueryOptions extends UseQueryOptions{
+export interface QueryOptions {
   page?: number;
   limit?: number;
+  search?: string;
 }
 
 export interface InfinitePaginatorInfo<T> {
