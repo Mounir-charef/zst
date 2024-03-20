@@ -8,3 +8,4 @@ export * from './lib/ui/alert';
 export * from './lib/ui/form';
 export * from './lib/ui/checkbox';
 export * from './lib/ui/textarea';
+export * from './lib/ui/badge';

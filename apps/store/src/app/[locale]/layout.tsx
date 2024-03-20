@@ -27,7 +27,7 @@ export default function RootLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            <main className="relative flex min-h-screen flex-col">
+            <main className="relative container m-auto flex min-h-screen flex-col">
               <Navbar />
               {/* <CartDrawer /> */}
               <div>{children}</div>

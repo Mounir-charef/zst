@@ -46,6 +46,11 @@ export async function GET(request: Request) {
   });
 }
 
+export enum AttributeType {
+  BADGES = 'BADGES',
+  TEXT = 'TEXT',
+}
+
 export async function POST(request: Request) {
   const body = await request.json(); // res now contains body
 
@@ -57,14 +62,27 @@ export async function POST(request: Request) {
     startPrice: body.startPrice ?? startPrice,
     endPrice: body.startPrice ?? endPrice,
     imgUrl: body.imgUrl ?? faker.image.urlPicsumPhotos(),
-    textDescription: body.description ?? faker.lorem.paragraphs(2, '<br/>\n'),
+    textDescription: body.description ?? faker.lorem.paragraphs(10, '<br/><br/>\n'),
 
-    details: {
-      condition:
-        body.details?.condition ?? faker.helpers.enumValue(ProductCondition),
-      color: body.details?.color ?? faker.color.human(),
-      reference: body.details?.reference ?? faker.internet.domainWord,
-    },
+    details:
+      body.details ??
+      new Array(faker.number.int(10)).fill('_').map(() =>
+        faker.helpers.enumValue(AttributeType) === 'BADGES'
+          ? {
+              key: faker.word.sample(),
+              label: faker.word.sample(),
+              type: 'BADGES',
+              values: new Array(faker.number.int(10))
+                .fill('_')
+                .map(() => faker.word.sample()),
+            }
+          : {
+              key: faker.word.sample(),
+              label: faker.word.sample(),
+              type: 'TEXT',
+              value: faker.word.sample(),
+            }
+      ),
   };
 
   marketplaceProductRepo.create(marketplaceProduct);

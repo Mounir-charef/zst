@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { marketplaceProductRepo } from '../marketplace-repo';
-import { ProductCondition } from 'apps/store/src/dataApi/marketplace';
+import { AttributeType } from '../route';
 
 export async function GET(
   _request: Request,
@@ -30,18 +30,35 @@ export async function PUT(
 
   const startPrice = faker.number.int(1000);
   const endPrice = startPrice + faker.number.int(80);
+  const type = faker.helpers.enumValue(AttributeType);
 
   const marketplaceProduct = {
     name: body.name ?? faker.company.buzzPhrase(),
     startPrice: body.startPrice ?? startPrice,
     endPrice: body.startPrice ?? endPrice,
     imgUrl: body.imgUrl ?? faker.image.urlPicsumPhotos(),
-    details: {
-      condition:
-        body.details?.condition ?? faker.helpers.enumValue(ProductCondition),
-      color: body.details?.color ?? faker.color.human(),
-      reference: body.details?.reference ?? faker.internet.domainWord
-    },
+    details:
+      body.details ??
+      new Array(faker.number.int(10)).fill('_').map(() =>
+        type === 'BADGES'
+          ? {
+              key: 'papers',
+              label: 'Papers',
+              type: 'array',
+              values: [
+                'Real estate promotion',
+                'Notarial act',
+                'Real estate booklet',
+                'Construction autorisation',
+              ],
+            }
+          : {
+              key: 'id',
+              label: 'ID',
+              type: 'text',
+              value: '40206324',
+            }
+      ),
   };
 
   const newMarketplaceProduct = marketplaceProductRepo.update(

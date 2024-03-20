@@ -18,11 +18,22 @@ export interface MarketplaceProductQueryOptions extends QueryOptions {
   name: string;
 }
 
-export const ProductCondition = {
-  NEW: 'New',
-  GOOD_AS_NEW: 'Good as new',
-  USED: 'Used',
-} as const;
+export type TProductAttributes = Array<
+  | {
+      key: string;
+      label: string;
+      type: 'TEXT';
+      value: string;
+      values: never;
+    }
+  | {
+      key: string;
+      label: string;
+      type: 'BADGES';
+      values: string[];
+      value: never;
+    }
+>;
 
 export type MarketplaceProduct = {
   id: number;
@@ -30,10 +41,8 @@ export type MarketplaceProduct = {
   imgUrl: string;
   startPrice: number;
   endPrice: number;
-  details: {
-    condition: keyof typeof ProductCondition;
-    [x: string]: string;
-  };
+  textDescription: string;
+  details: TProductAttributes;
 };
 
 export function useGetMarketplaceProducts(

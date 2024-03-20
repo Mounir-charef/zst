@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import marketplaceProductsData from './marketplace.json';
+import { TProductAttributes } from 'apps/store/src/dataApi/marketplace';
 
 export const absolutePath = './src/app/api/';
 
@@ -16,16 +17,15 @@ interface MarketplaceProduct {
   imgUrl: string;
   startPrice: number;
   endPrice: number;
-  details: {
-    condition: keyof typeof ProductCondition;
-  };
+  details: TProductAttributes;
   textDescription: string;
 
   createdAt: string;
   updatedAt: string;
 }
 
-let marketplaceProducts: MarketplaceProduct[] = marketplaceProductsData as MarketplaceProduct[];
+let marketplaceProducts: MarketplaceProduct[] =
+  marketplaceProductsData as MarketplaceProduct[];
 
 export const marketplaceProductRepo = {
   getAll: (): MarketplaceProduct[] => marketplaceProducts,
