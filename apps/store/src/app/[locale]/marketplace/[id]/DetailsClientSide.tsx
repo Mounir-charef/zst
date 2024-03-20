@@ -1,5 +1,5 @@
 'use client';
-import { Badge, Card, CardContent } from '@mono/ui';
+import { Badge, Card, CardContent, CardHeader, Gallery } from '@mono/ui';
 import { useFindMarketplaceProduct } from 'apps/store/src/dataApi/marketplace';
 import { FileText } from 'lucide-react';
 import React from 'react';
@@ -11,13 +11,32 @@ const DetailsClientSide = ({
 }) => {
   const { data } = useFindMarketplaceProduct(defaultParams.id);
 
-  console.log(
-    '%capps/store/src/app/[locale]/marketplace/[id]/DetailsClientSide.tsx:14 data',
-    'color: #26bfa5;',
-    data
-  );
   return (
     <div className="flex flex-col gap-4 py-4">
+      <section className="flex flex-col gap-4">
+        <h1 className="flex items-center gap-2 text-2xl">{data?.name}</h1>
+
+        <Gallery
+          images={
+            data?.attachments?.map((item) => ({
+              src: item,
+              alt: 'zedtrip',
+            })) ?? []
+          }
+          socials={{
+            facebookLink: 'https://www.facebook.com',
+            twitterLink: 'https://www.twitter.com',
+          }}
+          headerProps={{
+            showRating: true,
+            rating: 4.5,
+            name: 'Hotel Stanford',
+            location: 'New York',
+            totalReviews: 100,
+          }}
+        />
+      </section>
+
       <section className="flex flex-col gap-4">
         <h2 className="flex items-center gap-2 text-lg">
           <FileText className="text-primary" /> Ad description
@@ -47,6 +66,7 @@ const DetailsClientSide = ({
         </Card>
 
         <Card>
+          <CardHeader className="text-primary">Description</CardHeader>
           <CardContent
             className="py-0"
             dangerouslySetInnerHTML={{ __html: data?.textDescription ?? '' }}

@@ -43,7 +43,7 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        'sticky top-0 bg-primary-foreground flex w-full items-center justify-between px-8 h-20 transition-all duration-150 z-20',
+        'sticky top-0 bg-primary-foreground flex w-full items-center justify-between h-20 transition-all duration-150 z-20',
         scrolled && 'border-b border-gray-200 '
       )}
     >

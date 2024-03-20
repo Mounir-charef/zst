@@ -1,105 +1,75 @@
 [
     {
         "id": 1,
-        "name": "repurpose enterprise mindshare",
-        "startPrice": 708,
-        "endPrice": 769,
-        "imgUrl": "https://picsum.photos/seed/lnOXw/640/480",
-        "textDescription": "Acervus possimus aetas ante abbas clarus. Supplanto autem arbitro cernuus. Volaticus super truculenter.<br/><br/>\nDepereo dolore uredo comptus. Desidero comminor comburo annus terga denique usitas appositus. Canto surculus terreo assumenda vae acquiro.<br/><br/>\nAvarus utique dicta torrens teres votum cruentus cometes terminatio. Calcar casso subnecto brevis cattus creptio cohors officia. Aestivus suscipit callide timor succedo deleo utpote explicabo adnuo cupiditas.<br/><br/>\nDemergo arbustum conatus. Umbra molestias patruus animi claudeo validus quidem carcer. Currus tergiversatio cupio totus utrum animus velit.<br/><br/>\nTerror combibo crebro. Arx vulgo verumtamen vallum defluo. Qui demum a deripio truculenter verecundia.<br/><br/>\nVoluptates laudantium statim. Ago vindico agnosco solitudo vesper cunabula averto verbera audacia timidus. Aspernatur reiciendis sui voluptate valde cavus neque amita deprecator.<br/><br/>\nTantillus necessitatibus cuius damnatio talio certe pecus despecto. Maiores ustilo argumentum comparo sponte abutor vulgo. Attollo in theologus vallum abscido tertius adimpleo capitulus cattus.<br/><br/>\nDolores cur cauda ventus. Aeneus atqui universe. Ducimus volutabrum adulatio taceo utique arbustum vitae.<br/><br/>\nFacere vesper cado animadverto cuppedia tutis demum cunabula. Speciosus cilicium dolorum. Cunctatio laborum coaegresco vulgo.<br/><br/>\nAttollo praesentium dolorem synagoga. Excepturi quae basium corroboro. Sum quos a sub.",
+        "name": "deploy cross-platform channels",
+        "startPrice": 261,
+        "endPrice": 297,
+        "imgUrl": "https://picsum.photos/seed/rnPm1dxPwU/640/480",
+        "textDescription": "Sopor dolorum usus cornu illum arbor taedium. Artificiose suffoco undique cogo vis casus ipsam acceptus voluptatem. Tutamen ventito eos rerum totam despecto consuasor denego conventus verto.<br/><br/>\nCaveo paens veritatis denuncio acceptus cogito. Timor solio qui valens hic vulticulus. Vapulus constans veritatis amicitia stella curiositas itaque summopere tumultus.<br/><br/>\nDebeo statim alveus denego cuius consuasor tracto turbo. Accommodo vitium speciosus tum acsi tamquam arbustum cogo ancilla abundans. Apto nobis demoror territo thermae abstergo debitis canonicus tabgo arx.<br/><br/>\nTollo confido sui sed vinum victoria. Curis beatus deludo nam taedium sum eveniet colo. Vulticulus sit vindico conqueror tendo spiritus cribro dolore.<br/><br/>\nComptus crudelis amita iste necessitatibus bis architecto adfectus. Aggredior villa alius illum capto deficio et. Demergo crinis pauper thymum ulciscor quaerat venustas tabula.<br/><br/>\nDecimus volubilis universe aveho tumultus. Vicinus tabella sapiente dens eaque arto aggero testimonium. Deludo acies expedita ventus.<br/><br/>\nVulnero arca conscendo perferendis tubineus inflammatio sufficio amo nisi acervus. Atqui verto cotidie defaeco defaeco umbra trucido amo contego pecus. Ultio reiciendis clementia defero cervus atque deprecator vulgo.<br/><br/>\nTexo conqueror arceo. Desipio molestias bos viscus adhuc. Reiciendis amplitudo curto coepi facilis atqui capillus volo caput contigo.<br/><br/>\nPatrocinor somnus acquiro adficio. Compono certus aro. Architecto aegrotatio expedita demulceo torqueo surgo soluta patrocinor depereo.<br/><br/>\nDeinde suasoria crudelis sollicito clam cogito vulgivagus bene supellex audentia. Calculus termes sulum tum. Titulus temperantia clibanus contigo utroque.",
+        "attachments": [
+            "https://picsum.photos/seed/sJ7Sfuw/640/480",
+            "https://picsum.photos/seed/nSmYhtjXk/640/480",
+            "https://picsum.photos/seed/SAFvE/640/480",
+            "https://picsum.photos/seed/zv1BVtym/640/480",
+            "https://picsum.photos/seed/4LWZtlJs3/640/480",
+            "https://picsum.photos/seed/sY3JGD/640/480",
+            "https://picsum.photos/seed/UlTHXVlE/640/480"
+        ],
         "details": [
             {
-                "key": "seldom",
-                "label": "beside",
+                "key": "intensely",
+                "label": "seemingly",
                 "type": "BADGES",
                 "values": [
-                    "prep",
-                    "rapid",
-                    "that",
-                    "boo",
-                    "colonisation"
-                ]
-            },
-            {
-                "key": "expert",
-                "label": "justly",
-                "type": "BADGES",
-                "values": [
-                    "execution",
+                    "eleventh",
+                    "questionable",
+                    "minus",
                     "yum",
-                    "impressionable",
-                    "authentic",
-                    "grown",
-                    "constellation",
-                    "repeatedly",
-                    "until",
-                    "apropos"
+                    "armadillo",
+                    "midst",
+                    "bashfully",
+                    "although"
                 ]
             },
             {
-                "key": "inasmuch",
-                "label": "aha",
+                "key": "actually",
+                "label": "aggravating",
                 "type": "TEXT",
-                "value": "horrible"
+                "value": "emboss"
             },
             {
-                "key": "yowza",
-                "label": "ick",
-                "type": "BADGES",
-                "values": [
-                    "than",
-                    "um"
-                ]
-            },
-            {
-                "key": "bottom",
-                "label": "how",
-                "type": "BADGES",
-                "values": [
-                    "fondly",
-                    "diagnose",
-                    "till",
-                    "without"
-                ]
-            },
-            {
-                "key": "likewise",
-                "label": "yesterday",
-                "type": "BADGES",
-                "values": [
-                    "capital",
-                    "ha",
-                    "pfft",
-                    "provided",
-                    "till"
-                ]
-            },
-            {
-                "key": "throughout",
-                "label": "detour",
-                "type": "BADGES",
-                "values": [
-                    "silently",
-                    "incidentally",
-                    "terribly",
-                    "peel"
-                ]
-            },
-            {
-                "key": "afore",
-                "label": "under",
-                "type": "BADGES",
-                "values": [
-                    "aw"
-                ]
-            },
-            {
-                "key": "naturally",
-                "label": "mean",
+                "key": "longingly",
+                "label": "athwart",
                 "type": "TEXT",
-                "value": "idolized"
+                "value": "next"
+            },
+            {
+                "key": "sweetly",
+                "label": "but",
+                "type": "TEXT",
+                "value": "husk"
+            },
+            {
+                "key": "controversy",
+                "label": "gadzooks",
+                "type": "BADGES",
+                "values": [
+                    "weakly",
+                    "algebra",
+                    "times",
+                    "yuck",
+                    "incarcerate",
+                    "generously"
+                ]
+            },
+            {
+                "key": "plight",
+                "label": "where",
+                "type": "BADGES",
+                "values": []
             }
         ],
-        "createdAt": "2024-03-20T14:47:50.534Z",
-        "updatedAt": "2024-03-20T14:47:50.534Z"
+        "createdAt": "2024-03-20T14:58:00.725Z",
+        "updatedAt": "2024-03-20T14:58:00.725Z"
     }
 ]

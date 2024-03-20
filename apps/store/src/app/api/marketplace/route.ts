@@ -63,6 +63,11 @@ export async function POST(request: Request) {
     endPrice: body.startPrice ?? endPrice,
     imgUrl: body.imgUrl ?? faker.image.urlPicsumPhotos(),
     textDescription: body.description ?? faker.lorem.paragraphs(10, '<br/><br/>\n'),
+    attachments:
+      body.attachments ??
+      new Array(faker.number.int(10))
+        .fill('_')
+        .map(() => faker.image.urlPicsumPhotos()),
 
     details:
       body.details ??

@@ -43,6 +43,7 @@ export type MarketplaceProduct = {
   endPrice: number;
   textDescription: string;
   details: TProductAttributes;
+  attachments?: string[];
 };
 
 export function useGetMarketplaceProducts(

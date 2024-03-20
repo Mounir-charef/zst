@@ -37,6 +37,11 @@ export async function PUT(
     startPrice: body.startPrice ?? startPrice,
     endPrice: body.startPrice ?? endPrice,
     imgUrl: body.imgUrl ?? faker.image.urlPicsumPhotos(),
+    attachments:
+      body.attachments ??
+      new Array(faker.number.int(10))
+        .fill('_')
+        .map(() => faker.image.urlPicsumPhotos()),
     details:
       body.details ??
       new Array(faker.number.int(10)).fill('_').map(() =>

@@ -15,6 +15,7 @@ interface MarketplaceProduct {
   id: number;
   name: string;
   imgUrl: string;
+  attachments?: string[];
   startPrice: number;
   endPrice: number;
   details: TProductAttributes;
