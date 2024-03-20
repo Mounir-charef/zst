@@ -39,7 +39,7 @@ export interface PaginatorInfo<T> {
   };
 }
 
-export interface TUserQueryResult<T>{
+export interface TUseQueryListResult<T>{
   data: T[];
   isLoading: boolean;
   error: unknown;
@@ -47,4 +47,11 @@ export interface TUserQueryResult<T>{
   isLoadingMore: boolean;
   loadMore: () => void;
   hasMore: boolean;
+}
+
+export interface TUseQueryOneResult<T>{
+  data?: T;
+  isLoading: boolean;
+  error: unknown;
+  isFetching: boolean;
 }

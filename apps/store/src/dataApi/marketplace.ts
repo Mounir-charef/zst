@@ -1,12 +1,15 @@
 import {
   UseInfiniteQueryOptions,
+  UseQueryOptions,
   useInfiniteQuery,
+  useQuery,
 } from '@tanstack/react-query';
 import {
   IQueryResultInfo,
   InfinitePaginatorInfo,
   QueryOptions,
-  TUserQueryResult,
+  TUseQueryListResult,
+  TUseQueryOneResult,
 } from '../types';
 import { API_ENDPOINTS } from './api_endpoints';
 import client from './client';
@@ -42,7 +45,7 @@ export function useGetMarketplaceProducts(
       InfinitePaginatorInfo<MarketplaceProduct>
     >
   >
-): TUserQueryResult<MarketplaceProduct> {
+): TUseQueryListResult<MarketplaceProduct> {
   const {
     data,
     isLoading,
@@ -89,5 +92,32 @@ export function useGetMarketplaceProducts(
     isLoadingMore: isFetchingNextPage,
     loadMore: handleLoadMore,
     hasMore: Boolean(hasNextPage),
+  };
+}
+
+export function useFindMarketplaceProduct(
+  id: string | number,
+  options?: Partial<
+    UseQueryOptions<MarketplaceProduct, unknown, MarketplaceProduct>
+  >
+): TUseQueryOneResult<MarketplaceProduct> {
+  const { data, isLoading, error, isFetching } = useQuery<
+    MarketplaceProduct,
+    unknown,
+    MarketplaceProduct
+  >({
+    queryKey: [API_ENDPOINTS.MARKETPLACE + `/${id}`, id],
+    queryFn: () => {
+      return client.marketplace_products.findOne(id);
+    },
+    staleTime: 5000,
+    ...options,
+  });
+
+  return {
+    data,
+    isLoading,
+    error,
+    isFetching,
   };
 }

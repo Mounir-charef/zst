@@ -2,12 +2,12 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { MarketPlaceCard } from './MarketPlaceCard';
 import { Loader } from 'lucide-react';
 import { MarketplaceProduct } from 'apps/store/src/dataApi/marketplace';
-import { TUserQueryResult } from 'apps/store/src/types';
+import { TUseQueryListResult } from 'apps/store/src/types';
 
 const ListProducts = ({
   query,
 }: {
-  query: TUserQueryResult<MarketplaceProduct>;
+  query: TUseQueryListResult<MarketplaceProduct>;
 }) => {
   return (
     <InfiniteScroll
