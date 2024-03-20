@@ -38,3 +38,13 @@ export interface PaginatorInfo<T> {
     totalItems: number;
   };
 }
+
+export interface TUserQueryResult<T>{
+  data: T[];
+  isLoading: boolean;
+  error: unknown;
+  isFetching: boolean;
+  isLoadingMore: boolean;
+  loadMore: () => void;
+  hasMore: boolean;
+}

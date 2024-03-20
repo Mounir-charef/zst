@@ -6,6 +6,7 @@ import {
   IQueryResultInfo,
   InfinitePaginatorInfo,
   QueryOptions,
+  TUserQueryResult,
 } from '../types';
 import { API_ENDPOINTS } from './api_endpoints';
 import client from './client';
@@ -14,12 +15,22 @@ export interface MarketplaceProductQueryOptions extends QueryOptions {
   name: string;
 }
 
+export const ProductCondition = {
+  NEW: 'New',
+  GOOD_AS_NEW: 'Good as new',
+  USED: 'Used',
+} as const;
+
 export type MarketplaceProduct = {
   id: number;
   name: string;
   imgUrl: string;
   startPrice: number;
   endPrice: number;
+  details: {
+    condition: keyof typeof ProductCondition;
+    [x: string]: string;
+  };
 };
 
 export function useGetMarketplaceProducts(
@@ -31,7 +42,7 @@ export function useGetMarketplaceProducts(
       InfinitePaginatorInfo<MarketplaceProduct>
     >
   >
-) {
+): TUserQueryResult<MarketplaceProduct> {
   const {
     data,
     isLoading,
@@ -53,7 +64,7 @@ export function useGetMarketplaceProducts(
         pageParam
       ) as Partial<MarketplaceProductQueryOptions>;
 
-      return client.products.all(obj);
+      return client.marketplace_products.all(obj);
     },
     getNextPageParam: ({ meta }) => {
       const currentPage = meta?.currentPage;

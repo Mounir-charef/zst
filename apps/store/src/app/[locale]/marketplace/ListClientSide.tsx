@@ -1,17 +1,17 @@
 'use client';
-import React from 'react';
 import {
-  ClothingProductQueryOptions,
-  useGetClothingProducts,
-} from '../../../dataApi/clothing';
+  MarketplaceProductQueryOptions,
+  useGetMarketplaceProducts,
+} from 'apps/store/src/dataApi/marketplace';
+import React from 'react';
 import ListProducts from './(components)/ListProducts';
 
 const ListClientSide = ({
   defaultParams,
 }: {
-  defaultParams: Partial<ClothingProductQueryOptions>;
+  defaultParams: Partial<MarketplaceProductQueryOptions>;
 }) => {
-  const productFetched = useGetClothingProducts(defaultParams, {
+  const productFetched = useGetMarketplaceProducts(defaultParams, {
     staleTime: 5000,
   });
 

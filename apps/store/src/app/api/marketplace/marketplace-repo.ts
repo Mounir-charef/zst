@@ -4,13 +4,22 @@ import marketplaceProductsData from './marketplace.json';
 
 export const absolutePath = './src/app/api/';
 
+export const ProductCondition = {
+  NEW: 'New',
+  GOOD_AS_NEW: 'Good as new',
+  USED: 'Used',
+} as const;
+
 interface MarketplaceProduct {
   id: number;
   name: string;
+  imgUrl: string;
   startPrice: number;
   endPrice: number;
-  imgUrl: string;
-  soldPercent: number;
+  details: {
+    condition: keyof typeof ProductCondition;
+  };
+
   createdAt: string;
   updatedAt: string;
 }

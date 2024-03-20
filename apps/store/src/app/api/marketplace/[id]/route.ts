@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { marketplaceProductRepo } from '../marketplace-repo';
+import { ProductCondition } from 'apps/store/src/dataApi/marketplace';
 
 export async function GET(
   _request: Request,
@@ -30,13 +31,17 @@ export async function PUT(
   const startPrice = faker.number.int(1000);
   const endPrice = startPrice + faker.number.int(80);
 
-  const onSold = faker.datatype.boolean() ? faker.number.int(10) : 0;
   const marketplaceProduct = {
     name: body.name ?? faker.company.buzzPhrase(),
     startPrice: body.startPrice ?? startPrice,
     endPrice: body.startPrice ?? endPrice,
     imgUrl: body.imgUrl ?? faker.image.urlPicsumPhotos(),
-    soldPercent: body.soldPercent ?? onSold,
+    details: {
+      condition:
+        body.details?.condition ?? faker.helpers.enumValue(ProductCondition),
+      color: body.details?.color ?? faker.color.human(),
+      reference: body.details?.reference ?? faker.internet.domainWord
+    },
   };
 
   const newMarketplaceProduct = marketplaceProductRepo.update(
