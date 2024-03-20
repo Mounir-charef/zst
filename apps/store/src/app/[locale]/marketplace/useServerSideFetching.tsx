@@ -5,12 +5,12 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 import { ReactNode } from 'react';
-import { ClothingProductQueryOptions } from '../../../dataApi/clothing';
+import { MarketplaceProductQueryOptions } from 'apps/store/src/dataApi/marketplace';
 
 type ServerTableProps = {
   endpoint: string;
   queryFn: ({ queryKey }: { queryKey: QueryKey }) => void;
-  defaultParams: Partial<ClothingProductQueryOptions>;
+  defaultParams: Partial<MarketplaceProductQueryOptions>;
 };
 
 const useServerFetching = async ({

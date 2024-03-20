@@ -15,7 +15,7 @@ class Client {
   marketplace_products = {
     all: (params: Partial<MarketplaceProductQueryOptions>) =>
       HttpClient.get<IQueryResultInfo<MarketplaceProduct>>(
-        API_ENDPOINTS.CLOTHING,
+        API_ENDPOINTS.MARKETPLACE,
         params
       ),
   };

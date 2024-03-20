@@ -19,12 +19,13 @@ interface MarketplaceProduct {
   details: {
     condition: keyof typeof ProductCondition;
   };
+  textDescription: string;
 
   createdAt: string;
   updatedAt: string;
 }
 
-let marketplaceProducts: MarketplaceProduct[] = marketplaceProductsData;
+let marketplaceProducts: MarketplaceProduct[] = marketplaceProductsData as MarketplaceProduct[];
 
 export const marketplaceProductRepo = {
   getAll: (): MarketplaceProduct[] => marketplaceProducts,
@@ -88,7 +89,7 @@ function _delete(id: number) {
 function saveData() {
   try {
     fs.writeFileSync(
-      `${absolutePath}marketplaceProduct/marketplaceProducts.json`,
+      `${absolutePath}marketplace/marketplace.json`,
       JSON.stringify(marketplaceProducts, null, 4)
     );
     console.log('File written successfully.');

@@ -57,6 +57,8 @@ export async function POST(request: Request) {
     startPrice: body.startPrice ?? startPrice,
     endPrice: body.startPrice ?? endPrice,
     imgUrl: body.imgUrl ?? faker.image.urlPicsumPhotos(),
+    textDescription: body.description ?? faker.lorem.paragraphs(2, '<br/>\n'),
+
     details: {
       condition:
         body.details?.condition ?? faker.helpers.enumValue(ProductCondition),
