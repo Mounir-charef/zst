@@ -12,7 +12,7 @@ export interface GalleryProps {
     facebookLink?: string;
     twitterLink?: string;
   };
-  headerProps: GalleryHeaderProps;
+  headerProps?: GalleryHeaderProps;
   features?: {
     name: string;
     label: string;
@@ -28,9 +28,9 @@ export const Gallery = ({
 }: GalleryProps) => {
   return (
     <div className="space-y-4 pb-8" dir="ltr">
-      <GalleryHeader {...headerProps} />
+      {headerProps && <GalleryHeader {...headerProps} />}
       {features && <GalleryFeatures features={features} />}
-      <ImageCarousel images={images} hasLike socials={socials} expanable />
+      <ImageCarousel images={images} expanable />
     </div>
   );
 };

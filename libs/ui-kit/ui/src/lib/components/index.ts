@@ -6,3 +6,5 @@ export * from './InputField';
 export * from './PasswordField';
 export * from './TextAreaField';
 export * from './Gallery/Gallery';
+export * from './ImageCarousel/ImageCarousel';
+export * from './ImageCarousel/ThumbnailCarousel';

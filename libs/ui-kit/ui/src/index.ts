@@ -9,3 +9,4 @@ export * from './lib/ui/form';
 export * from './lib/ui/checkbox';
 export * from './lib/ui/textarea';
 export * from './lib/ui/badge';
+export * from './lib/ui/carousel';

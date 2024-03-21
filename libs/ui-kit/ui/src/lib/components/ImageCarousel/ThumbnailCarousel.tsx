@@ -1,10 +1,10 @@
+import { cn } from '@mono/util';
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
-  cn,
-} from '@zadtrip/shared';
+} from '../../ui/carousel';
 import Image from 'next/image';
 
 const ThumbnailCarousel = ({
@@ -48,11 +48,11 @@ const ThumbnailCarousel = ({
             <CarouselItem
               key={index}
               className={cn(
-                'relative aspect-square basis-1/4 cursor-pointer overflow-hidden pl-0 md:basis-1/5 lg:basis-1/6',
+                'relative flex-0 w-20 h-20 shrink-0 flex aspect-square  cursor-pointer overflow-hidden pl-0 basis-auto ',
                 {
                   'ring ring-blue-500/50 ': current === index,
                 },
-                itemClassName,
+                itemClassName
               )}
               aria-label="thumbnail"
               onClick={() => onThumbClick(index)}

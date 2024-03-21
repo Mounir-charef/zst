@@ -23,17 +23,6 @@ const DetailsClientSide = ({
               alt: 'zedtrip',
             })) ?? []
           }
-          socials={{
-            facebookLink: 'https://www.facebook.com',
-            twitterLink: 'https://www.twitter.com',
-          }}
-          headerProps={{
-            showRating: true,
-            rating: 4.5,
-            name: 'Hotel Stanford',
-            location: 'New York',
-            totalReviews: 100,
-          }}
         />
       </section>
 

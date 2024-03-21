@@ -1,15 +1,6 @@
 'use client';
 
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  Dialog,
-  DialogContent,
-  cn,
-  type CarouselApi,
-} from '@zadtrip/shared';
-import {
   ArrowLeft,
   ArrowRight,
   Facebook,
@@ -22,7 +13,15 @@ import {
 import Image from 'next/image';
 import { FC, useCallback, useEffect, useState } from 'react';
 import ThumbnailCarousel from './ThumbnailCarousel';
-import { Link } from '../../navigation';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from '../../ui/carousel';
+import { Dialog, DialogContent } from '../../ui/dialog';
+import { cn } from '@mono/util';
+import Link from 'next/link';
 
 interface ImageCarouselProps {
   overplay?: boolean;
@@ -65,7 +64,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
       if (!api || !thumbnailApi) return;
       api.scrollTo(index);
     },
-    [api, thumbnailApi],
+    [api, thumbnailApi]
   );
 
   const scrollNext = useCallback(() => {
@@ -111,7 +110,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                         'absolute inset-y-0 -start-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all will-change-transform group-hover:translate-x-8',
                         {
                           'group-hover:opacity-100': canScollPrev,
-                        },
+                        }
                       )}
                     >
                       <ArrowLeft className="h-6 w-6 text-white" />
@@ -123,7 +122,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                         'absolute inset-y-0 -end-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all group-hover:-translate-x-8',
                         {
                           'group-hover:opacity-100': canScollNext,
-                        },
+                        }
                       )}
                     >
                       <ArrowRight className="h-6 w-6 text-white" />
@@ -185,7 +184,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                   'absolute inset-y-0 -start-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all will-change-transform group-hover:translate-x-8',
                   {
                     'group-hover:opacity-100': canScollPrev,
-                  },
+                  }
                 )}
               >
                 <ArrowLeft className="h-6 w-6 text-white" />
@@ -197,7 +196,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                   'absolute inset-y-0 -end-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all group-hover:-translate-x-8',
                   {
                     'group-hover:opacity-100': canScollNext,
-                  },
+                  }
                 )}
               >
                 <ArrowRight className="h-6 w-6 text-white" />
@@ -257,7 +256,11 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
 
           <CarouselContent>
             {images.map((image, index) => (
-              <CarouselItem key={index}>
+              <CarouselItem
+                key={index}
+                className="basis-1/4"
+                onClick={() => setIsExpanded(true)}
+              >
                 <Image
                   src={image.src}
                   alt={image.alt}
