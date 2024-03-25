@@ -1,12 +1,12 @@
 'use client';
 import { Button } from '@mono/ui';
 import Image from 'next/image';
-import Link from 'next/link';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { logo } from '../../assets';
 import { cn } from '@mono/util';
 import LoginModal from '../LoginModal/LoginModal';
 import AuthModal from '../LoginModal/AuthModal';
+import { Link } from '../../navigation';
 
 const links = [
   {
@@ -47,9 +47,9 @@ const Navbar = () => {
         scrolled && 'border-b border-gray-200 '
       )}
     >
-      <div className="flex items-center ">
+      <Link href={'/'} className="flex items-center ">
         <Image src={logo} alt="logo" width={150} height={80} />
-      </div>
+      </Link>
       <div className="flex items-center gap-8">
         <div className="flex items-center gap-8">
           {links?.map((link, index) => (
