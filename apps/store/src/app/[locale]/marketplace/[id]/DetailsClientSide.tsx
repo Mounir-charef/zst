@@ -28,13 +28,8 @@ const DetailsClientSide = ({
     id: defaultParams.id,
   });
 
-  console.log(
-    '%capps/store/src/app/[locale]/marketplace/[id]/DetailsClientSide.tsx:31 bids',
-    'color: white; background-color: #007acc;',
-    bids
-  );
   return (
-    <div className="flex flex-col gap-4 py-4">
+    <div className="flex flex-col gap-8 py-4">
       <section className="flex flex-col gap-4">
         <h1 className="flex items-center gap-2 text-2xl">{data?.name}</h1>
 
@@ -79,7 +74,7 @@ const DetailsClientSide = ({
         <Card>
           <CardHeader className="text-primary">Description</CardHeader>
           <CardContent
-            className="py-0"
+            className="pt-0"
             dangerouslySetInnerHTML={{ __html: data?.textDescription ?? '' }}
           />
         </Card>
