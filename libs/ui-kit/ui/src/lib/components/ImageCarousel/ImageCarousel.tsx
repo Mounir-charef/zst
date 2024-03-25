@@ -98,17 +98,21 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
           dir="ltr"
           animate={false}
           hasCloseButton={false}
-          className="h-screen w-screen max-w-none border-none bg-black pt-0 sm:rounded-none lg:px-52"
+          className="h-screen w-screen flex flex-col  items-center max-w-none border-none bg-black/20 backdrop-blur-sm pt-0 sm:rounded-none lg:px-52"
         >
-          <div className={cn('select-none space-y-4', className)}>
+          <div
+            className={cn(
+              'select-none flex flex-col gap-8 items-center justify-center h-full  ',
+              className
+            )}
+          >
             <Carousel
               setApi={setApi}
-              className="w-full"
               opts={{
                 startIndex: current,
               }}
             >
-              <div className="group relative">
+              <div className="group relative w-full flex justify-center items-center  h-full ">
                 {overplay && (
                   <>
                     <div
@@ -145,7 +149,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                   </div>
                 )}
 
-                <CarouselContent className="relative min-h-[75dvh]">
+                <CarouselContent className="relative min-h-[75dvh] ">
                   {images.map((image, index) => (
                     <CarouselItem key={index}>
                       <Image
@@ -153,7 +157,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                         alt={image.alt}
                         width={1500}
                         height={1000}
-                        className="absolute inset-y-0 my-auto aspect-video w-full object-cover"
+                        className="my-auto aspect-video w-full object-contain"
                       />
                     </CarouselItem>
                   ))}
