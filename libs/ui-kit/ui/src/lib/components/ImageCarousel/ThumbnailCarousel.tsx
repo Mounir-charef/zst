@@ -37,6 +37,7 @@ const ThumbnailCarousel = ({
       opts={{
         containScroll: 'keepSnaps',
         dragFree: true,
+        startIndex: current,
       }}
       setApi={setApi}
       className={cn('w-full', className)}

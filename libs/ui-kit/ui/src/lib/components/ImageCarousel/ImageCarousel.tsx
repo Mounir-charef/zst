@@ -10,7 +10,6 @@ import {
   Share2,
   Twitter,
 } from 'lucide-react';
-import Image from 'next/image';
 import { FC, useCallback, useEffect, useState } from 'react';
 import ThumbnailCarousel from './ThumbnailCarousel';
 import {
@@ -22,6 +21,7 @@ import {
 import { Dialog, DialogContent } from '../../ui/dialog';
 import { cn } from '@mono/util';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface ImageCarouselProps {
   overplay?: boolean;
@@ -55,8 +55,6 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
 
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const canScollNext = current < images.length - 1;
-  const canScollPrev = current > 0;
   const [like, setLike] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -64,7 +62,6 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
     (index: number) => {
       if (!api || !thumbnailApi) return;
       api.scrollTo(index);
-      setCurrent(index);
     },
     [api, thumbnailApi]
   );
@@ -82,6 +79,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
   const onSelect = useCallback(() => {
     if (!api || !thumbnailApi) return;
     thumbnailApi.scrollTo(api.selectedScrollSnap());
+    setCurrent(api.selectedScrollSnap());
   }, [api, thumbnailApi, setCurrent]);
 
   useEffect(() => {
@@ -110,18 +108,18 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
               setApi={setApi}
               opts={{
                 startIndex: current,
+                loop: true,
               }}
             >
-              <div className="group relative w-full flex justify-center items-center  h-full ">
+              <div className="group relative w-full flex justify-center items-center  h-full   ">
                 {overplay && (
                   <>
                     <div
                       onClick={scrollPrev}
                       className={cn(
-                        'absolute inset-y-0 -start-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all will-change-transform group-hover:translate-x-8',
-                        {
-                          'group-hover:opacity-100': canScollPrev,
-                        }
+                        'absolute inset-y-0 start-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all will-change-transform ',
+
+                        'opacity-100'
                       )}
                     >
                       <ArrowLeft className="h-6 w-6 text-white" />
@@ -130,10 +128,9 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                     <div
                       onClick={scrollNext}
                       className={cn(
-                        'absolute inset-y-0 -end-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all group-hover:-translate-x-8',
-                        {
-                          'group-hover:opacity-100': canScollNext,
-                        }
+                        'absolute inset-y-0 end-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all ',
+
+                        'opacity-100'
                       )}
                     >
                       <ArrowRight className="h-6 w-6 text-white" />
@@ -143,21 +140,25 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                 {expanable && (
                   <div
                     onClick={() => setIsExpanded(false)}
-                    className="absolute -end-4 top-2 z-40 grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all group-hover:-translate-x-8 group-hover:translate-y-4 group-hover:opacity-100"
+                    className="absolute end-4 top-2 z-40 grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 transition-all opacity-100"
                   >
                     <Minimize2 className="h-6 w-6 text-white" />
                   </div>
                 )}
 
-                <CarouselContent className="relative min-h-[75dvh] ">
+                <CarouselContent className="relative min-h-[75dvh] flex items-center ">
                   {images.map((image, index) => (
-                    <CarouselItem key={index}>
+                    <CarouselItem
+                      key={index}
+                      className="relative  h-full items-center"
+                    >
                       <Image
                         src={image.src}
                         alt={image.alt}
                         width={1500}
                         height={1000}
-                        className="my-auto aspect-video w-full object-contain"
+                        className="my-auto aspect-video h-full w-full object-contain"
+                        priority
                       />
                     </CarouselItem>
                   ))}
@@ -188,7 +189,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
       <Carousel
         setApi={setApi}
         className="w-full"
-        opts={{ startIndex: current }}
+        opts={{ startIndex: current, loop: true }}
       >
         <div className="group relative">
           {overplay && (
@@ -197,9 +198,8 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                 onClick={scrollPrev}
                 className={cn(
                   'absolute inset-y-0 -start-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all will-change-transform group-hover:translate-x-8',
-                  {
-                    'group-hover:opacity-100': canScollPrev,
-                  }
+
+                  'group-hover:opacity-100'
                 )}
               >
                 <ArrowLeft className="h-6 w-6 text-white" />
@@ -209,9 +209,8 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
                 onClick={scrollNext}
                 className={cn(
                   'absolute inset-y-0 -end-4 z-50 my-auto grid h-12 w-12 cursor-pointer place-items-center rounded bg-secondary/50 opacity-0 transition-all group-hover:-translate-x-8',
-                  {
-                    'group-hover:opacity-100': canScollNext,
-                  }
+
+                  'group-hover:opacity-100'
                 )}
               >
                 <ArrowRight className="h-6 w-6 text-white" />
@@ -271,14 +270,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
 
           <CarouselContent>
             {images.map((image, index) => (
-              <CarouselItem
-                key={index}
-                onClick={() => {
-                  onThumbClick(index);
-
-                  setIsExpanded(true);
-                }}
-              >
+              <CarouselItem key={index}>
                 <Image
                   src={image.src}
                   alt={image.alt}
