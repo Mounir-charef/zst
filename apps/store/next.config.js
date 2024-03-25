@@ -16,6 +16,7 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+
   images: {
     remotePatterns: [
       {
@@ -25,11 +26,26 @@ const nextConfig = {
       {
         hostname: 'pickbazar-react-rest.vercel.app',
         pathname: '**',
-      }, {
+      },
+      {
         hostname: 'picsum.photos',
         pathname: '**',
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/marketplace',
+        permanent: true,
+      },
+      {
+        source: '/en',
+        destination: '/marketplace',
+        permanent: true,
+      }
+    ];
   },
 };
 
