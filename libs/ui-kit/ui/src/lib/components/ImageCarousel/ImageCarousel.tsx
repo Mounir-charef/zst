@@ -52,6 +52,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
   className,
 }) => {
   const [api, setApi] = useState<CarouselApi>();
+
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const canScollNext = current < images.length - 1;
@@ -63,6 +64,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
     (index: number) => {
       if (!api || !thumbnailApi) return;
       api.scrollTo(index);
+      setCurrent(index);
     },
     [api, thumbnailApi]
   );
@@ -79,7 +81,6 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
 
   const onSelect = useCallback(() => {
     if (!api || !thumbnailApi) return;
-    setCurrent(api.selectedScrollSnap());
     thumbnailApi.scrollTo(api.selectedScrollSnap());
   }, [api, thumbnailApi, setCurrent]);
 
@@ -100,7 +101,13 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
           className="h-screen w-screen max-w-none border-none bg-black pt-0 sm:rounded-none lg:px-52"
         >
           <div className={cn('select-none space-y-4', className)}>
-            <Carousel setApi={setApi} className="w-full">
+            <Carousel
+              setApi={setApi}
+              className="w-full"
+              opts={{
+                startIndex: current,
+              }}
+            >
               <div className="group relative">
                 {overplay && (
                   <>
@@ -174,7 +181,11 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
 
   return (
     <div className={cn('select-none space-y-4', className)}>
-      <Carousel setApi={setApi} className="w-full">
+      <Carousel
+        setApi={setApi}
+        className="w-full"
+        opts={{ startIndex: current }}
+      >
         <div className="group relative">
           {overplay && (
             <>
@@ -258,8 +269,11 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
             {images.map((image, index) => (
               <CarouselItem
                 key={index}
-                className="basis-1/4"
-                onClick={() => setIsExpanded(true)}
+                onClick={() => {
+                  onThumbClick(index);
+
+                  setIsExpanded(true);
+                }}
               >
                 <Image
                   src={image.src}

@@ -45,7 +45,7 @@ const DetailsClientSide = ({
                 ) : attribute.type === 'BADGES' ? (
                   <div className="col-span-3 flex gap-2 flex-wrap">
                     {attribute.values.map((value) => (
-                      <Badge>{value}</Badge>
+                      <Badge key={value}>{value}</Badge>
                     ))}
                   </div>
                 ) : null}
