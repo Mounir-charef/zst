@@ -1,10 +1,12 @@
 import { API_ENDPOINTS } from '../api_endpoints';
 import { HttpClient } from '../http-client';
 import { ClothingProduct, ClothingProductQueryOptions } from '../clothing';
-import { IQueryResultInfo } from '../../types';
+import { IQueryResultInfo, QueryOptions } from '../../types';
 import {
   MarketplaceProduct,
+  MarketplaceProductBidsQueryOptions,
   MarketplaceProductQueryOptions,
+  TBid,
 } from '../marketplace';
 
 class Client {
@@ -24,6 +26,12 @@ class Client {
 
     findOne: (id: number | string) =>
       HttpClient.get<MarketplaceProduct>(API_ENDPOINTS.MARKETPLACE + `/${id}`),
+
+    findBids: (params: Partial<MarketplaceProductBidsQueryOptions>) =>
+      HttpClient.get<IQueryResultInfo<TBid>>(
+        API_ENDPOINTS.MARKETPLACE + `/${params.id}/bids`,
+        params
+      ),
   };
 }
 

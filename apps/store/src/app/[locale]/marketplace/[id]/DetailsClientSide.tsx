@@ -1,6 +1,20 @@
 'use client';
-import { Badge, Card, CardContent, CardHeader, Gallery } from '@mono/ui';
-import { useFindMarketplaceProduct } from 'apps/store/src/dataApi/marketplace';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  Gallery,
+} from '@mono/ui';
+import { getRelativeTime } from '@mono/util';
+import {
+  TBid,
+  useFindMarketplaceProduct,
+  useFindMarketplaceProductBids,
+} from 'apps/store/src/dataApi/marketplace';
 import { FileText } from 'lucide-react';
 import React from 'react';
 
@@ -10,7 +24,15 @@ const DetailsClientSide = ({
   defaultParams: { id: number | string };
 }) => {
   const { data } = useFindMarketplaceProduct(defaultParams.id);
+  const { data: bids } = useFindMarketplaceProductBids({
+    id: defaultParams.id,
+  });
 
+  console.log(
+    '%capps/store/src/app/[locale]/marketplace/[id]/DetailsClientSide.tsx:31 bids',
+    'color: white; background-color: #007acc;',
+    bids
+  );
   return (
     <div className="flex flex-col gap-4 py-4">
       <section className="flex flex-col gap-4">
@@ -62,8 +84,41 @@ const DetailsClientSide = ({
           />
         </Card>
       </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="flex items-center gap-2 text-lg">
+          <FileText className="text-primary" /> Bids
+        </h2>
+
+        <div className="flex flex-col gap-4">
+          {bids?.map((bid) => (
+            <BidItem key={bid.id} bid={bid} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
 
 export default DetailsClientSide;
+
+function BidItem({ bid }: { bid: TBid }) {
+  return (
+    <Card>
+      {/* <CardHeader className="text-primary">Description</CardHeader> */}
+      <CardContent className="py-4 flex gap-4">
+        <Avatar>
+          <AvatarImage src={bid.avatar} />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-gray-600 font-medium ">
+            {getRelativeTime(new Date(bid.date))}
+          </p>
+          <p>{bid.content}</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

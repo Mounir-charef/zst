@@ -18,6 +18,10 @@ export interface MarketplaceProductQueryOptions extends QueryOptions {
   name: string;
 }
 
+export interface MarketplaceProductBidsQueryOptions extends QueryOptions {
+  id: string | number;
+}
+
 export type TProductAttributes = Array<
   | {
       key: string;
@@ -44,6 +48,13 @@ export type MarketplaceProduct = {
   textDescription: string;
   details: TProductAttributes;
   attachments?: string[];
+};
+
+export type TBid = {
+  id: number;
+  date: string;
+  content: string;
+  avatar: string;
 };
 
 export function useGetMarketplaceProducts(
@@ -129,5 +140,64 @@ export function useFindMarketplaceProduct(
     isLoading,
     error,
     isFetching,
+  };
+}
+
+export function useFindMarketplaceProductBids(
+  params?: Partial<MarketplaceProductBidsQueryOptions>,
+  options?: Partial<
+    UseInfiniteQueryOptions<
+      IQueryResultInfo<TBid>,
+      unknown,
+      InfinitePaginatorInfo<TBid>
+    >
+  >
+): TUseQueryListResult<TBid> {
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useInfiniteQuery<
+    IQueryResultInfo<TBid>,
+    unknown,
+    InfinitePaginatorInfo<TBid>
+  >({
+    queryKey: [API_ENDPOINTS.MARKETPLACE + `/${params?.id}/bids`, params],
+    queryFn: ({ queryKey, pageParam = 1 }) => {
+      const obj = Object.assign(
+        {},
+        queryKey[1],
+        pageParam
+      ) as Partial<MarketplaceProductBidsQueryOptions>;
+
+      return client.marketplace_products.findBids(obj);
+    },
+    getNextPageParam: ({ meta }) => {
+      const currentPage = meta?.currentPage;
+      const totalPages = meta?.totalPages;
+
+      return currentPage < totalPages ? { page: currentPage + 1 } : undefined;
+    },
+    initialPageParam: options?.initialPageParam ?? 1,
+
+    ...options,
+  });
+
+  function handleLoadMore() {
+    fetchNextPage();
+  }
+
+  return {
+    data: data?.pages?.flatMap((page) => page.data) ?? [],
+    isLoading,
+    error,
+    isFetching,
+    isLoadingMore: isFetchingNextPage,
+    loadMore: handleLoadMore,
+    hasMore: Boolean(hasNextPage),
   };
 }
