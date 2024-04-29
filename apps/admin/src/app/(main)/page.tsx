@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import axiosInstance from '../lib/axios';
+import axiosInstance from '../../lib/axios';
 import { Loader2 } from 'lucide-react';
 
 const Page = () => {
@@ -18,7 +18,7 @@ const Page = () => {
     );
   return (
     <div className="font-bold text-center">
-      <h1 className="text-4xl">Admin: {data}</h1>
+      <h1 className="text-4xl text-primary">Admin: {data}</h1>
     </div>
   );
 };

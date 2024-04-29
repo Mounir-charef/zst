@@ -19,16 +19,10 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession();
   return (
-    <html lang="en" className="h-full">
-      <body
-        className={cn('relative h-full font-sans antialiased', inter.className)}
-      >
+    <html lang="en">
+      <body className={cn('font-sans antialiased', inter.className)}>
         <SessionProvider session={session}>
-          <Providers>
-            <main className="relative flex min-h-screen flex-col">
-              <div className="flex-1 flex-grow">{children}</div>
-            </main>
-          </Providers>
+          <Providers>{children}</Providers>
         </SessionProvider>
       </body>
     </html>
