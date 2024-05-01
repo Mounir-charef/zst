@@ -7,29 +7,28 @@ import { useTranslations } from 'next-intl';
 import { cn, useDisclosure } from '@mono/util';
 import { Collapse } from '@mono/ui';
 import { SidebarLink } from '../../data/sidebarLinks';
+import { useAppContext } from '../../contexts/appContext';
+import SidebarLinkItemSublinks from './SidebarLinkItemSublinks';
 
 interface TProps {
   link: SidebarLink;
-  collapsedItem?: null | string;
-  parent?: string;
-  setCollapsedItem?: React.Dispatch<React.SetStateAction<null | string>>;
 }
 
-const SidebarLinkItem = ({
-  link,
-  parent,
-  collapsedItem,
-  setCollapsedItem,
-}: TProps) => {
+const SidebarLinkItem = ({ link }: TProps) => {
   const { id, href, Icon, title, children } = link;
-  const hasChildren = children && children?.length > 0;
+  const hasChildren = !!(children && children?.length > 0);
 
-  const { isOpen, toggle } = useDisclosure();
+  const { isOpen: isSubMenuOpen, toggle: toggleSubMenu } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    sidebarStatus: { isCollapsed },
+  } = useAppContext();
 
   return (
     <li
+      className="relative"
       onClick={() => {
-        toggle();
+        toggleSubMenu();
       }}
     >
       <Link
@@ -45,43 +44,23 @@ const SidebarLinkItem = ({
       >
         <div className="flex items-center gap-2">
           {Icon && <Icon size={20} />}
-          <span>{title}</span>
+          <span className={cn(isCollapsed && 'lg:hidden')}>{title}</span>
         </div>
         {hasChildren && (
           <IoChevronForward
             size={14}
-            className={cn('duration-[400ms] transition', isOpen && 'rotate-90')}
+            className={cn(
+              'duration-[400ms] transition',
+              isCollapsed && 'lg:hidden',
+              isSubMenuOpen && 'rotate-90'
+            )}
           />
         )}
       </Link>
-      {hasChildren && (
-        <Collapse isOpen={isOpen}>
-          <div className="pl-6 py-1">
-            <ul
-              className="border-l border-dashed flex flex-col gap-0.5"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              {children.map((child) => {
-                return (
-                  <li key={child.id}>
-                    <Link
-                      className={cn(
-                        'text-sm hover:text-primary inline-block pl-5 py-2 border-dashed relative text-dark text-text-color',
-                        'before:absolute before:left-0.5 before:top-1/2 before:-translate-y-1/2 before:w-3 before:border-dashed before:border'
-                      )}
-                      href={child.href}
-                    >
-                      {child.title}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </Collapse>
-      )}
+      <SidebarLinkItemSublinks
+        children={children}
+        isSubMenuOpen={isSubMenuOpen}
+      />
     </li>
   );
 };

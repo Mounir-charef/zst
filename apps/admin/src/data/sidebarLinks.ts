@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
 import { RxDashboard } from "react-icons/rx";
+import { PiPackageDuotone } from "react-icons/pi";
 import routesConfig from "../config/routesConfig";
 
 export interface SidebarLink {
@@ -37,7 +38,7 @@ const sidebarLinks: SidebarLinks = {
             {
                 id: 2,
                 title: 'Products',
-                Icon: RxDashboard,
+                Icon: PiPackageDuotone,
                 href: '#',
                 children: [
                     {
@@ -46,7 +47,7 @@ const sidebarLinks: SidebarLinks = {
                         href: routesConfig.products
                     },
                     {
-                        id: 3,
+                        id: 4,
                         title: 'Add New Product',
                         href: routesConfig.addNewProduct
                     },

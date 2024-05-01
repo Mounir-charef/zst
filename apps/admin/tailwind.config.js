@@ -4,6 +4,9 @@ module.exports = {
   ...TailwindConfig,
   theme: {
     ...TailwindConfig.theme,
+    transitionDuration: {
+      DEFAULT: '400ms'
+    },
     extend: {
       ...TailwindConfig.theme.extend,
       colors: {

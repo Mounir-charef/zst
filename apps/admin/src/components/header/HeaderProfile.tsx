@@ -1,7 +1,7 @@
 'use client';
 
 import { CustomisableAvatar, CustomisablePopover } from '@mono/ui';
-import { useDisclosure } from '@mono/util';
+import { cn, useDisclosure } from '@mono/util';
 import Link from 'next/link';
 import React from 'react';
 import { IconType } from 'react-icons';
@@ -9,11 +9,17 @@ import { MdLogout, MdOutlineShoppingCart } from 'react-icons/md';
 import { FaUserCircle } from 'react-icons/fa';
 import { VscSettings } from 'react-icons/vsc';
 
-const Profile = () => {
+const Profile = ({
+  className,
+  contentClassName,
+}: {
+  className?: string;
+  contentClassName?: string;
+}) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className={cn('flex items-center gap-2', className)}>
       <CustomisableAvatar src="/images/user-avatar.webp" />
-      <div>
+      <div className={cn(contentClassName)}>
         <h2 className="font-semibold text-sm">John Doe</h2>
         <h3 className="text-gray-400 text-xs">Super Admin</h3>
       </div>
@@ -53,10 +59,10 @@ const HeaderProfile = () => {
   return (
     <>
       <div
-        className="border-l pl-6 h-full flex items-center pr-20 cursor-pointer"
+        className="border-l pl-5 h-full flex items-center lg:pr-20 cursor-pointer"
         onClick={onOpen}
       >
-        <Profile />
+        <Profile contentClassName="hidden lg:block" />
       </div>
 
       <CustomisablePopover

@@ -4,6 +4,7 @@ import { cn } from '@mono/util';
 import { Inter } from 'next/font/google';
 import { getServerSession } from 'next-auth';
 import { SessionProvider } from '@mono/ui';
+import AppProvider from '../contexts/appContext';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -22,7 +23,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={cn('font-sans antialiased', inter.className)}>
         <SessionProvider session={session}>
-          <Providers>{children}</Providers>
+          <Providers>
+            <AppProvider>{children}</AppProvider>
+          </Providers>
         </SessionProvider>
       </body>
     </html>
