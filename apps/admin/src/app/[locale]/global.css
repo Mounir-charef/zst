@@ -8,6 +8,7 @@
     --text-body: 0, 0%, 40%;
     --radius: 0.5rem;
     --text-base: 0, 0%, 40%;
+    --text-muted: 217.89, 10.61%, 64.9%;
     /* --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -76,3 +77,5 @@
     background: #555; 
   } */
 }
+
+@import url('../../styles/data-table.css');

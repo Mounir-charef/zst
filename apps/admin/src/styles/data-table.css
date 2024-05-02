@@ -1,0 +1,77 @@
+.rc-table {
+    @apply border-separate;
+    border-spacing: 0;
+  }
+
+  .rc-table table {
+    width: 100%;
+  }
+
+  /* thead th */
+  .rc-table thead.rc-table-thead th {
+    @apply text-start px-5 py-3 text-sm font-semibold whitespace-nowrap bg-gray-50 first:rounded-tl first:rounded-bl last:rounded-tr last:rounded-br;
+  }
+
+  /* .rc-table tr.rc-table-row:hover {
+    background-color: inherit;
+  } */
+
+  /* tbody tr */
+  .rc-table .rc-table-tbody .rc-table-row {
+    @apply bg-white hover:bg-gray-100
+  }
+
+  .rc-table tr.rc-table-row td.rc-table-cell {
+    @apply px-5 py-4;
+  }
+  
+  .rc-table .rc-table-content {
+    @apply overflow-x-auto;
+  }
+
+  /*
+  
+  .rc-table tr th,
+  .rc-table tr td {
+    @apply border-0;
+  }
+  .rc-table tr td {
+    @apply border-b border-dashed;
+  }
+
+  
+  .rc-table tr.rc-table-row:hover {
+    background-color: inherit;
+  }
+  
+  .rc-table tr.rc-table-row td {
+    @apply px-3 py-4 text-sm font-normal cursor-default text-body first:ps-5 last:pe-5;
+  }
+  .rc-table tr.rc-table-row td.rc-table-cell-row-hover {
+    @apply bg-gray-100;
+  }
+  
+  .rc-table tr.rc-table-row-level-1 td,
+  .rc-table tr.rc-table-row-level-1 td {
+    @apply bg-gray-100;
+  }
+  
+  .rc-table tr.rc-table-row:last-child td {
+    @apply border-b-0;
+  }
+  
+  .rc-table tr.rc-table-expanded-row > td {
+    @apply p-0 whitespace-normal bg-gray-200 border border-gray-50;
+  }
+  
+  .rc-table tr.rc-table-expanded-row tr.rc-table-row {
+    cursor: default;
+  }
+  
+  .rc-table .rc-table-row-expand-icon {
+    @apply inline-flex items-center justify-center;
+  }
+  
+  .rc-table .rc-table-expanded-row-fixed::after {
+    border-width: 0;
+  } */

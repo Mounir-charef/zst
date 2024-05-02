@@ -1,27 +1,57 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import axiosInstance from '../../../lib/axios';
-import { Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { Card, CardContent } from '../../../components/ui/Card';
+import DataTable from '../../../components/ui/DataTable';
+import { useState } from 'react';
+
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+  },
+  {
+    title: 'Operations',
+    render: () => <a href="#">Delete</a>,
+  },
+];
+
+const data = [
+  { name: 'Jack', age: 28, address: 'some where', key: '1' },
+  { name: 'Rose', age: 36, address: 'some where', key: '2' },
+];
 
 const Page = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['hello'],
-    queryFn: () =>
-      axiosInstance.get('/api/hello').then((res) => res.data as string),
+  const [filters, setFilters] = useState({
+    page: 1,
   });
-  const t = useTranslations();
-  if (isLoading)
-    return (
-      <div className="font-bold text-center">
-        <Loader2 className="animate-spin mx-auto" />
-      </div>
-    );
   return (
-    <div className="font-bold text-center">
-      <h1 className="text-4xl text-primary">{t('hello-world')}</h1>
-    </div>
+    <>
+      <Card className="mb-8">
+        <CardContent>Hello</CardContent>
+      </Card>
+      <DataTable
+        columns={columns}
+        data={data}
+        pagination={{
+          currentPage: filters.page,
+          onChange(page) {
+            setFilters((current) => ({
+              ...current,
+              page,
+            }));
+          },
+          totalPages: 1000,
+        }}
+      />
+    </>
   );
 };
 

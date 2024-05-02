@@ -14,6 +14,9 @@ module.exports = {
         "text-color": {
           DEFAULT: '#333'
         },
+        muted: {
+          DEFAULT: 'hsl(var(--text-muted), <alpha-value>)'
+        },
         body: {
           DEFAULT: 'hsl(var(--text-base), <alpha-value>)'
         }
