@@ -5,7 +5,9 @@ const routesConfig = {
 
     products: '/products',
     addNewProduct: '/products/create',
-    editProduct: (id: ID) => `/products/${id}/edit`
+    editProduct: (id: ID) => `/products/${id}/edit`,
+
+    attributes: '/attributes'
 }
 
 export default routesConfig

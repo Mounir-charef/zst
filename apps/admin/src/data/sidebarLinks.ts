@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
 import { RxDashboard } from "react-icons/rx";
 import { PiPackageDuotone } from "react-icons/pi";
+import { PiShootingStarDuotone } from "react-icons/pi";
 import routesConfig from "../config/routesConfig";
 
 export interface SidebarLink {
@@ -52,11 +53,16 @@ const sidebarLinks: SidebarLinks = {
                         href: routesConfig.addNewProduct
                     },
                 ],
+            },
+            {
+                id: 5,
+                title: 'Attributes',
+                Icon: PiShootingStarDuotone,
+                href: routesConfig.attributes,
+                children: []
             }
         ]
-    }
-    
-
+    },
 }
 
 export default sidebarLinks

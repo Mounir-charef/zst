@@ -1,11 +1,13 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { SidebarLink } from '../../data/sidebarLinks';
 import Link from 'next/link';
 import { useAppContext } from '../../contexts/appContext';
 import { Collapse } from '@mono/ui';
-import { cn } from '@mono/util';
+import { cn, useDisclosure } from '@mono/util';
 
-const Sublinks = ({
+const SublinksCollapse = ({
   isOpen,
   children,
 }: {
@@ -45,35 +47,79 @@ const Sublinks = ({
   );
 };
 
-const SublinksCollapsed = ({ children }: { children: SidebarLink[] }) => {
-  return (
-    <div className="absolute top-1/2 -translate-y-1/2 left-[76px] bg-white rounded-md shadow border py-[10px] px-5 min-w-52 hidden lg:block">
-      <ul>
-        {children.map((link) => {
-          return (
-            <li key={link.id}>
-              {' '}
-              <Link
-                className="inline-block whitespace-nowrap py-2 text-sm hover:text-primary"
-                href={link.href}
-              >
-                {link.title}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+const SublinksPopover = ({
+  children,
+  liRef,
+}: {
+  children: SidebarLink[];
+  liRef: React.RefObject<HTMLLIElement>;
+}) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [top, setTop] = useState<null | number>(null);
+
+  useEffect(() => {
+    if (liRef.current) {
+      liRef.current.addEventListener('mouseenter', onOpen);
+      liRef.current.addEventListener('mouseleave', onClose);
+    }
+    return () => {
+      if (liRef.current) {
+        liRef.current.removeEventListener('mouseenter', onOpen);
+        liRef.current.removeEventListener('mouseleave', onClose);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (liRef.current) {
+      const { top, bottom } = liRef.current.getBoundingClientRect();
+      setTop((top + bottom) / 2);
+    }
+  }, []);
+
+  return top ? (
+    <div
+      className={cn(
+        'fixed z-40 transition-all invisible opacity-0 -translate-y-1/2 pl-5',
+        isOpen && 'visible opacity-100'
+      )}
+      style={{
+        top: top,
+        left: `calc(96px - 20px)`,
+      }}
+    >
+      <div className="bg-white rounded-md shadow border py-[10px] px-5 min-w-52 hidden lg:block">
+        <ul>
+          {children.map((link) => {
+            return (
+              <li key={link.id}>
+                {' '}
+                <Link
+                  className="inline-block whitespace-nowrap py-2 text-sm hover:text-primary"
+                  href={link.href}
+                >
+                  {link.title}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
+  ) : (
+    <></>
   );
 };
 
 interface SidebarLinkItemSublinksProps {
   children?: SidebarLink[];
+  liRef: React.RefObject<HTMLLIElement>;
   isSubMenuOpen: boolean;
 }
 const SidebarLinkItemSublinks = ({
   isSubMenuOpen,
   children,
+  liRef,
 }: SidebarLinkItemSublinksProps) => {
   const {
     sidebarStatus: { isCollapsed },
@@ -82,8 +128,8 @@ const SidebarLinkItemSublinks = ({
     children &&
     children.length > 0 && (
       <>
-        <Sublinks isOpen={isSubMenuOpen} children={children} />
-        {isCollapsed && <SublinksCollapsed children={children} />}
+        <SublinksCollapse isOpen={isSubMenuOpen} children={children} />
+        {isCollapsed && <SublinksPopover liRef={liRef} children={children} />}
       </>
     )
   );
