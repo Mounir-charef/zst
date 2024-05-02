@@ -1,5 +1,6 @@
 {
   "javascript.preferences.importModuleSpecifier": "relative",
-  "i18n-ally.localesPaths": ["apps/store/src/locales"],
+  "i18n-ally.localesPaths": ["apps/admin/messages"],
+  "typescript.preferences.importModuleSpecifier": "project-relative",
   "i18n-ally.keystyle": "nested"
 }

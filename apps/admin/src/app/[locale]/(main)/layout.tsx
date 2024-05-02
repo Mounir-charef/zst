@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import Header from '../../components/header/Header';
-import Sidebar from '../../components/sidebar/Sidebar';
-import { useAppContext } from '../../contexts/appContext';
+import Header from '../../../components/header/Header';
+import Sidebar from '../../../components/sidebar/Sidebar';
+import { useAppContext } from '../../../contexts/appContext';
 import { cn } from '@mono/util';
-import SidebarMobile from '../../components/sidebar/SidebarMobile';
+import SidebarMobile from '../../../components/sidebar/SidebarMobile';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const {
