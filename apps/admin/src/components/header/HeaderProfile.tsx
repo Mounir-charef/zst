@@ -2,12 +2,12 @@
 
 import { CustomisableAvatar, CustomisablePopover } from '@mono/ui';
 import { cn, useDisclosure } from '@mono/util';
-import Link from 'next/link';
 import React from 'react';
 import { IconType } from 'react-icons';
 import { MdLogout, MdOutlineShoppingCart } from 'react-icons/md';
 import { FaUserCircle } from 'react-icons/fa';
 import { VscSettings } from 'react-icons/vsc';
+import { Link } from '../../navigation';
 
 const Profile = ({
   className,
