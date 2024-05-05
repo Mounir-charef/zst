@@ -47,24 +47,21 @@ const EmailForm = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 w-full sm:w-8/12 md:w-2/3"
         >
-          <div className="bg-background md:p-8 p-5 shadow rounded">
+          <div className="bg-background space-y-5 md:p-8 p-5 shadow rounded">
             <PasswordField
               control={form.control}
               name="oldPassword"
               label="Old Password"
-              className="mb-5"
             />
             <PasswordField
               control={form.control}
               name="newPassword"
               label="New Password"
-              className="mb-5"
             />
             <PasswordField
               control={form.control}
               name="confirmPassword"
               label="Confirm Password"
-              className="mb-5"
             />
           </div>
           <div className="w-full flex justify-end">
