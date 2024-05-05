@@ -59,7 +59,18 @@ const sidebarLinks: SidebarLinks = {
                 title: 'Attributes',
                 Icon: PiShootingStarDuotone,
                 href: routesConfig.attributes,
-                children: []
+                children: [
+                    {
+                        id: 6,
+                        title: 'All Attributes',
+                        href: routesConfig.attributes
+                    },
+                    {
+                        id: 7,
+                        title: 'Add New Attribute',
+                        href: routesConfig.addNewAttribute
+                    },
+                ]
             }
         ]
     },
