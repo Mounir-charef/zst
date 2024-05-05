@@ -6,7 +6,6 @@ const createNextIntlPlugin = require('next-intl/plugin');
 
 const withNextIntl = createNextIntlPlugin();
 
-
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
@@ -23,4 +22,4 @@ const plugins = [
   withNx,
 ];
 
-module.exports = withNextIntl(composePlugins(...plugins)(nextConfig));
+module.exports = composePlugins(...plugins)(withNextIntl(nextConfig));
