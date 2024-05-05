@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import EmailForm from './_components/EmailForm';
+import PasswordForm from './_components/PasswordForm';
 
 const page = () => {
   return (
@@ -8,6 +9,7 @@ const page = () => {
         <h1 className="text-lg font-semibold text-heading">Profile Settings</h1>
       </div>
       <EmailForm />
+      <PasswordForm />
     </div>
   );
 };
