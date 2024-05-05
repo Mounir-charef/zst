@@ -78,7 +78,11 @@ const HeaderProfile = () => {
           </div>
         </div>
         <div className="flex flex-col px-2 py-2">
-          <ProfileMenuLink title="Profile" Icon={FaUserCircle} />
+          <ProfileMenuLink
+            href="/profile"
+            title="Profile"
+            Icon={FaUserCircle}
+          />
           <ProfileMenuLink title="Create Shop" Icon={MdOutlineShoppingCart} />
           <ProfileMenuLink title="Settings" Icon={VscSettings} />
         </div>
