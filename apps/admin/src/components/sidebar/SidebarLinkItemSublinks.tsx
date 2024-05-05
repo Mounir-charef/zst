@@ -31,7 +31,7 @@ const SublinksCollapse = ({
               <li key={child.id}>
                 <Link
                   className={cn(
-                    'text-sm hover:text-primary inline-block pl-5 py-2 border-dashed relative text-dark text-text-color',
+                    'text-sm hover:text-primary inline-block pl-5 py-2 border-dashed relative text-dark text-base-color',
                     'before:absolute before:left-0.5 before:top-1/2 before:-translate-y-1/2 before:w-3 before:border-dashed before:border'
                   )}
                   href={child.href}

@@ -68,6 +68,7 @@ const HeaderProfile = () => {
       <CustomisablePopover
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        sideOffset={36}
         side="bottom"
         align="end"
         className="w-[220px]"

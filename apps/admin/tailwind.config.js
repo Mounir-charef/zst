@@ -1,24 +1,28 @@
 const TailwindConfig = require('../../libs/ui-kit/util/src/tailwind/tailwind.config');
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  ...TailwindConfig,
+  content: TailwindConfig.content,
   theme: {
-    ...TailwindConfig.theme,
-    transitionDuration: {
-      DEFAULT: '400ms'
-    },
     extend: {
-      ...TailwindConfig.theme.extend,
+      borderColor: {
+        DEFAULT: 'hsl(var(--color-border-base))'
+      },
+      transitionDuration: {
+        DEFAULT: '400ms'
+      },
       colors: {
-        ...TailwindConfig.theme.extend.colors,
-        "text-color": {
+        primary: {
+          DEFAULT: 'hsl(var(--color-primary), <alpha-value>)'
+        },
+        "base-color": {
           DEFAULT: '#333'
         },
         muted: {
-          DEFAULT: 'hsl(var(--text-muted), <alpha-value>)'
+          DEFAULT: 'hsl(var(--color-text-muted), <alpha-value>)'
         },
         body: {
-          DEFAULT: 'hsl(var(--text-base), <alpha-value>)'
+          DEFAULT: 'hsl(var(--color-text-base), <alpha-value>)'
         }
       }
     }

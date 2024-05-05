@@ -6,6 +6,7 @@ import Sidebar from '../../../components/sidebar/Sidebar';
 import { useAppContext } from '../../../contexts/appContext';
 import { cn } from '@mono/util';
 import SidebarMobile from '../../../components/sidebar/SidebarMobile';
+import Footer from '../../../components/footer/Footer';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const {
@@ -23,6 +24,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       >
         {children}
       </main>
+      {/* <Footer /> */}
       <SidebarMobile />
     </div>
   );

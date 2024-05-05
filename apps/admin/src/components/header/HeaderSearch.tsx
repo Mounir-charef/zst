@@ -1,8 +1,8 @@
-import { Input } from '@mono/ui';
 import React, { useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import Overlay from '../ui/Overlay';
 import { cn, useDisclosure } from '@mono/util';
+import Input from '../ui/form/input/Input';
 
 const SearchField = () => {
   return (
