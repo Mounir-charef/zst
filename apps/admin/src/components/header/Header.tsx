@@ -39,7 +39,7 @@ const Header = () => {
   return (
     <header
       className={cn(
-        'h-[76px] bg-white border-b sticky top-0 px-5 lg:px-8 flex items-center transition-all',
+        'h-[76px] bg-white border-b sticky top-0 px-5 lg:px-8 flex items-center transition-all z-10',
         isCollapsed ? 'lg:ml-[96px]' : 'lg:ml-[280px]'
       )}
     >

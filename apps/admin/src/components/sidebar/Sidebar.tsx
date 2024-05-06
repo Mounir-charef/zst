@@ -4,10 +4,10 @@ import React from 'react';
 import HeadingLargeLogo from '../common/HeadingLargeLogo';
 import SidebarContent from './SidebarContent';
 import { useAppContext } from '../../contexts/appContext';
-import Link from 'next/link';
 import routesConfig from '../../config/routesConfig';
 import Image from 'next/image';
 import { cn } from '@mono/util';
+import { Link } from '../../navigation';
 
 const Sidebar = () => {
   const {

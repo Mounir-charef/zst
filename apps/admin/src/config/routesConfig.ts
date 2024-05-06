@@ -7,7 +7,8 @@ const routesConfig = {
     addNewProduct: '/products/create',
     editProduct: (id: ID) => `/products/${id}/edit`,
 
-    attributes: '/attributes'
+    attributes: '/attributes',
+    addNewAttribute: '/attributes/create',
 }
 
 export default routesConfig

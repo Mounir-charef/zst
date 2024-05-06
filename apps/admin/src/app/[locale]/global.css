@@ -4,6 +4,14 @@
 
 @layer base {
   :root {
+    --color-primary: 167.92, 100%, 31.18%;
+    --color-text-body: 0, 0%, 40%;
+    --color-text-base: 0, 0%, 40%;
+    --color-text-muted: 217.89, 10.61%, 64.9%;
+    --color-border-base: 216, 12.2%, 83.92%;
+    --color-danger: 0, 84%, 60%;
+    --color-danger-dark: 0, 74%, 42%;
+
     --text-body: 0 0% 40%;
     --text-base: 0 0% 40%;
     --text-muted: 217.89 10.61% 64.9%;
@@ -70,10 +78,16 @@
   .sidebar-content::-webkit-scrollbar-thumb {
     background: theme('colors.gray.200');
   }
-
-  /* .sidebar-content::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  } */
 }
 
+@layer components {
+  .form-control {
+    
+  }
+}
+
+
+
 @import url('../../styles/data-table.css');
+@import url('../../styles/text-editor.css');
+@import url('../../styles/radio.css');

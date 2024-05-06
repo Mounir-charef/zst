@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import {
+  Control,
   Controller,
   ControllerProps,
   FieldPath,
@@ -14,6 +15,13 @@ import {
 
 import { cn } from '@mono/util';
 import { Label } from './label';
+
+export type FormFieldProps<T> = {
+  control: Control;
+  name: string;
+  description?: string;
+  label: string;
+} & T;
 
 const Form = FormProvider;
 
