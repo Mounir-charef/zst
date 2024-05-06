@@ -9,6 +9,7 @@ import { Link } from '../../../../navigation';
 import { signIn } from 'next-auth/react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 const LoginForm = () => {
   const { mutate, isPending } = useMutation({
@@ -86,8 +87,9 @@ const LoginForm = () => {
             Forgot your password?
           </Link>
         </div>
-        <Button type="submit" className="w-full">
+        <Button disabled={isPending} type="submit" className="w-full gap-2">
           Login
+          {isPending && <Loader2 className="animate-spin" size={20} />}
         </Button>
       </form>
     </Form>
