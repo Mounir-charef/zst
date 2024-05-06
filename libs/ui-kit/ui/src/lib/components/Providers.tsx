@@ -11,7 +11,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider
         attribute="class"
-        defaultTheme="light" // TODO: change to system after implementing
+        defaultTheme="light"
         enableSystem
         disableTransitionOnChange
       >

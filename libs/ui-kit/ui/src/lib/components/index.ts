@@ -1,4 +1,4 @@
-export * from './Provider';
+export * from './Providers';
 export * from './SessionProvider';
 export * from './Collapse';
 export * from './CheckBoxField';

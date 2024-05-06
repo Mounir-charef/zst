@@ -16,7 +16,7 @@ import { cn } from '@mono/util';
 
 export const InputField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   InputProps,
   label,
@@ -27,11 +27,13 @@ export const InputField = <
   description,
   descriptionProps,
   labelProps,
+  required,
   ...props
 }: {
   control: Control<TFieldValues>;
   showErrors?: boolean;
   shouldUnregister?: boolean;
+  required?: boolean;
   name: TName;
   placeholder?: string;
   label?: string | JSX.Element;
@@ -40,7 +42,7 @@ export const InputField = <
   className?: string;
   type?: InputHTMLAttributes<HTMLInputElement>['type'];
   Icon?: LucideIcon;
-  InputProps?: Omit<InputProps, 'name' | 'type' | 'placeholder'>;
+  InputProps?: Omit<InputProps, 'name' | 'type' | 'placeholder' | 'required'>;
   labelProps?: LabelProps;
 }) => {
   const { className: inputClassName, ...restInputProps } = InputProps || {};
@@ -62,12 +64,13 @@ export const InputField = <
                     {
                       'focus-visible:ring-destructive': fieldState.error,
                     },
-                    inputClassName
+                    inputClassName,
                   )}
                   onChange={(e) => {
                     field.onChange(e);
                     restInputProps?.onChange?.(e);
                   }}
+                  required={required}
                 />
               </FormControl>
 

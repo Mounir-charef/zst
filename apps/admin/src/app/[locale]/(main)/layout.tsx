@@ -8,7 +8,6 @@ import { redirect } from '../../../navigation';
 
 const MainLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getAuthSession();
-
   if (!session) {
     redirect('/sign-in');
   }
