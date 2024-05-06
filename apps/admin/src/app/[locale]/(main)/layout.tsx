@@ -1,39 +1,22 @@
-'use client';
-
-import React, { useEffect } from 'react';
+import { cn } from '@mono/util';
+import React from 'react';
 import Header from '../../../components/header/Header';
 import Sidebar from '../../../components/sidebar/Sidebar';
-import { useAppContext } from '../../../contexts/appContext';
-import { cn } from '@mono/util';
 import SidebarMobile from '../../../components/sidebar/SidebarMobile';
-import { useSession } from 'next-auth/react';
-import { useRouter } from '../../../navigation';
+import { getAuthSession } from '../../../config/auth/auth';
+import { redirect } from '../../../navigation';
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
-  const {
-    sidebarStatus: { isCollapsed },
-  } = useAppContext();
+const MainLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await getAuthSession();
 
-  const { status } = useSession();
-
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-    }
-  }, [status]);
+  if (!session) {
+    redirect('/sign-in');
+  }
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Header />
       <Sidebar />
-      <main
-        className={cn(
-          'p-5 md:p-8 bg-[#f3f4f6] flex-1 transition-all',
-          isCollapsed ? 'lg:ml-[96px]' : 'lg:ml-[280px]'
-        )}
-      >
-        {children}
-      </main>
+      {children}
       <SidebarMobile />
     </div>
   );

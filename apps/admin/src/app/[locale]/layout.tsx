@@ -28,8 +28,8 @@ export default async function RootLayout({
   const { langDir, hrefLang } = availableLocalesMap[locale] || defaultLocale;
   const session = await getAuthSession();
   return (
-    <html lang={hrefLang} dir={langDir}>
-      <body className={cn('font-sans antialiased', inter.className)}>
+    <html lang={hrefLang} dir={langDir} className="h-full">
+      <body className={cn('font-sans antialiased h-full', inter.className)}>
         <Providers>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
             <SessionProvider session={session}>
