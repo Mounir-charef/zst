@@ -82,13 +82,13 @@ export const PasswordField = <
                 )}
               >
                 {showPassword ? (
-                  <Eye
+                  <EyeOff
                     className={cn('h-5 w-5 text-gray-500', {
                       'text-destructive': fieldState.error,
                     })}
                   />
                 ) : (
-                  <EyeOff
+                  <Eye
                     className={cn('h-5 w-5 text-gray-500', {
                       'text-destructive': fieldState.error,
                     })}

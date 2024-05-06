@@ -2,9 +2,12 @@ const TailwindConfig = require('../../libs/ui-kit/util/src/tailwind/tailwind.con
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: TailwindConfig.content,
+  ...TailwindConfig,
+  // content: TailwindConfig.content,
   theme: {
+    ...TailwindConfig.theme,
     extend: {
+      ...TailwindConfig.theme.extend,
       borderColor: {
         DEFAULT: 'hsl(var(--color-border-base))'
       },
@@ -12,6 +15,7 @@ module.exports = {
         DEFAULT: '400ms'
       },
       colors: {
+        ...TailwindConfig.theme.extend.colors,
         primary: {
           DEFAULT: 'hsl(var(--color-primary), <alpha-value>)'
         },
