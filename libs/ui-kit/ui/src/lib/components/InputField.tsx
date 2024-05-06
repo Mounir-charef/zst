@@ -1,15 +1,17 @@
-'use client';
+import { InputHTMLAttributes } from 'react';
+import { LabelProps } from '@radix-ui/react-label';
 
 import { LucideIcon } from 'lucide-react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
-import { Input, InputProps } from '../ui/input';
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '../ui/form';
+import { Input, InputProps } from '../ui/input';
 import { cn } from '@mono/util';
 
 export const InputField = <
@@ -22,53 +24,66 @@ export const InputField = <
   showErrors = true,
   Icon,
   placeholder,
+  description,
+  descriptionProps,
+  labelProps,
   ...props
 }: {
   control: Control<TFieldValues>;
   showErrors?: boolean;
+  shouldUnregister?: boolean;
   name: TName;
   placeholder?: string;
-  label?: string;
+  label?: string | JSX.Element;
+  description?: string;
+  descriptionProps?: React.HTMLAttributes<HTMLParagraphElement>;
   className?: string;
-  type?: 'text' | 'email';
+  type?: InputHTMLAttributes<HTMLInputElement>['type'];
   Icon?: LucideIcon;
   InputProps?: Omit<InputProps, 'name' | 'type' | 'placeholder'>;
+  labelProps?: LabelProps;
 }) => {
   const { className: inputClassName, ...restInputProps } = InputProps || {};
   return (
     <FormField
       {...props}
-      render={({ field, fieldState }) => (
-        <FormItem className={className}>
-          {!!label && <FormLabel>{label}</FormLabel>}
-          <div className="relative flex w-full items-center">
-            <FormControl>
-              <Input
-                {...restInputProps}
-                {...field}
-                placeholder={placeholder}
-                className={cn(
-                  {
-                    'ring-destructive ring-2': fieldState.error,
-                  },
-                  inputClassName
-                )}
-              />
-            </FormControl>
-            {Icon && (
-              <Icon
-                className={cn(
-                  'absolute end-4 flex h-5 w-5 items-center text-gray-500',
-                  {
-                    'text-destructive': fieldState.error,
-                  }
-                )}
-              />
+      render={({ field, fieldState }) => {
+        return (
+          <FormItem className={className}>
+            {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
+            <div className="relative flex w-full items-center">
+              <FormControl>
+                <Input
+                  {...field}
+                  type={props?.type ?? 'text'}
+                  {...restInputProps}
+                  placeholder={placeholder}
+                  className={cn(
+                    {
+                      'focus-visible:ring-destructive': fieldState.error,
+                    },
+                    inputClassName
+                  )}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    restInputProps?.onChange?.(e);
+                  }}
+                />
+              </FormControl>
+
+              {Icon && (
+                <Icon className="absolute end-4 flex h-5 w-5 items-center text-gray-500" />
+              )}
+            </div>
+            {description && (
+              <FormDescription {...descriptionProps}>
+                {description}
+              </FormDescription>
             )}
-          </div>
-          {showErrors && <FormMessage />}
-        </FormItem>
-      )}
+            {showErrors && <FormMessage />}
+          </FormItem>
+        );
+      }}
     />
   );
 };
