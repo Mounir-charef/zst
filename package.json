@@ -88,6 +88,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-quill": "^2.0.0",
     "react-quill-emoji": "^0.1.9",
+    "react-select": "^5.8.0",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
