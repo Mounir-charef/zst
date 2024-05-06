@@ -21,13 +21,14 @@ const imgTypes = [
 
 interface FileUploaderItemProps extends FileUploaderItemType {
   disabled?: boolean;
+  handleDelete?: () => unknown;
 }
 
 const FileUploaderItem = ({
-  file,
   disabled,
   url,
   name,
+  handleDelete,
 }: FileUploaderItemProps) => {
   const splitName = name.split('.');
   const fileType = splitName?.pop();
@@ -76,7 +77,7 @@ const FileUploaderItem = ({
       {!disabled ? (
         <button
           className="absolute flex items-center justify-center w-4 h-4 text-xs bg-red-600 rounded-full shadow-xl outline-none top-1 text-light end-1"
-          //   onClick={() => handleDelete(file.thumbnail)}
+          onClick={() => handleDelete?.()}
         >
           <IoMdClose size={10} />
         </button>

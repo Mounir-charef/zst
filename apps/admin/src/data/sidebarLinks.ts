@@ -3,6 +3,10 @@ import { RxDashboard } from "react-icons/rx";
 import { PiPackageDuotone } from "react-icons/pi";
 import { PiShootingStarDuotone } from "react-icons/pi";
 import routesConfig from "../config/routesConfig";
+import { FaWpforms } from "react-icons/fa";
+import { CiViewTable } from "react-icons/ci";
+
+
 
 export interface SidebarLink {
     id: number;
@@ -74,6 +78,26 @@ const sidebarLinks: SidebarLinks = {
             }
         ]
     },
+
+    examples: {
+        title: 'Examples',
+        links: [
+            {
+                id: 8,
+                title: 'Form',
+                Icon: FaWpforms,
+                href: '/examples/form',
+            },
+            {
+                id: 9,
+                title: 'Listing',
+                Icon: CiViewTable,
+                href: '/examples/listing',
+            },
+        ]
+    },
 }
+
+
 
 export default sidebarLinks

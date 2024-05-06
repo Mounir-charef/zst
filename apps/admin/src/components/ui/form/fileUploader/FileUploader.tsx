@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DropzoneOptions, useDropzone } from 'react-dropzone';
 import { cn } from '@mono/util';
 import { FaCloudUploadAlt } from 'react-icons/fa';
@@ -14,7 +14,7 @@ import { transformFileToObject } from '../../../../utils/file-uploaderUtils';
 //   return images;
 // };
 
-interface FileUploaderProps extends DropzoneOptions {
+export interface FileUploaderProps extends DropzoneOptions {
   value?: FileUploaderItemType | FileUploaderItemType[];
   onChange?: () => unknown;
   helperText?: string;
@@ -28,25 +28,56 @@ function FileUploader({
   disabled,
   ...props
 }: FileUploaderProps) {
-  const [files, setFiles] = useState<FileUploaderItemType[]>([]);
+  const [files, setFiles] = useState<
+    FileUploaderItemType[] | FileUploaderItemType | null
+  >(multiple ? [] : null);
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/*': ['.jpg', '.jpeg', '.png', '.webp', '.svg'],
     },
     onDrop(acceptedFiles) {
-      console.log({ acceptedFiles });
-      //   const files = acceptedFiles.map((file) => transformFileToObject(file));
-      //   setFiles(files);
+      if (!acceptedFiles) return;
+      if (multiple) {
+        const files = acceptedFiles.map((file) => transformFileToObject(file));
+        setFiles((prevFiles) => [
+          ...(prevFiles as FileUploaderItemType[]),
+          ...files,
+        ]);
+      } else {
+        const file = acceptedFiles[0];
+        setFiles(transformFileToObject(file));
+      }
     },
+    multiple,
     ...props,
   });
 
-  const handleDelete = (image: string) => {
-    //
+  const handleDelete = (idx: number) => {
+    if (multiple) {
+      setFiles((files) => {
+        if (files && Array.isArray(files)) {
+          return files.filter((_, index) => index !== idx);
+        }
+        return files;
+      });
+    } else {
+      setFiles(null);
+    }
   };
-  const thumbs = files?.map((file: any, idx) => {
-    return <FileUploaderItem key={idx} {...file} />;
-  });
+
+  const thumbs = (files ? (Array.isArray(files) ? files : [files]) : [])?.map(
+    (file: any, idx) => {
+      return (
+        <FileUploaderItem
+          key={idx}
+          handleDelete={() => handleDelete(idx)}
+          {...file}
+        />
+      );
+    }
+  );
+
+  useEffect(() => {}, [files]);
 
   return (
     <section className="upload">

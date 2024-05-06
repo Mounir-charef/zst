@@ -1,3 +1,5 @@
+import React from 'react';
+import { Textarea, TextareaProps } from './Textarea';
 import {
   FormControl,
   FormDescription,
@@ -6,13 +8,17 @@ import {
   FormLabel,
   FormMessage,
 } from '@mono/ui';
-import React from 'react';
-import Input, { InputProps } from './Input';
 import { FormFieldProps } from '../form';
 
-export type InputFieldProps = FormFieldProps<InputProps>;
+type TextareaFieldProps = FormFieldProps<TextareaProps>;
 
-const InputField = ({ control, name, label, description }: InputFieldProps) => {
+const TextareaField = ({
+  control,
+  label,
+  name,
+  description,
+  ...props
+}: TextareaFieldProps) => {
   return (
     <FormField
       control={control}
@@ -21,7 +27,7 @@ const InputField = ({ control, name, label, description }: InputFieldProps) => {
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Input {...field} />
+            <Textarea {...props} {...field} />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
@@ -31,4 +37,4 @@ const InputField = ({ control, name, label, description }: InputFieldProps) => {
   );
 };
 
-export default InputField;
+export default TextareaField;
