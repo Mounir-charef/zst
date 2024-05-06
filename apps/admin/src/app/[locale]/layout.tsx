@@ -5,6 +5,7 @@ import { NextIntlClientProvider, useMessages, useTimeZone } from 'next-intl';
 import AppProvider from '../../contexts/appContext';
 import './global.css';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
+import { Toaster } from 'sonner';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -15,10 +16,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
-  locale,
+  params: { locale },
 }: {
   children: React.ReactNode;
-  locale: string;
+  params: { locale: string };
 }) {
   const messages = useMessages();
   const timezone = useTimeZone();
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Providers>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
             <AppProvider>{children}</AppProvider>
+            <Toaster richColors closeButton position="top-right" />
           </NextIntlClientProvider>
         </Providers>
       </body>
