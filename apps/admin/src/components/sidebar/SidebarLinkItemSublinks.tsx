@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SidebarLink } from '../../data/sidebarLinks';
-import Link from 'next/link';
 import { useAppContext } from '../../contexts/appContext';
 import { Collapse } from '@mono/ui';
 import { cn, useDisclosure } from '@mono/util';
+import { Link } from '../../navigation';
 
 const SublinksCollapse = ({
   isOpen,

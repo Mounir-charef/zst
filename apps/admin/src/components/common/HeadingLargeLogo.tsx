@@ -1,7 +1,7 @@
 import { cn } from '@mono/util';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
+import { Link } from '../../navigation';
 
 interface HeadingLargeLogoProps {
   className?: string;
