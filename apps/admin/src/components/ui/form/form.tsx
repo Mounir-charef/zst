@@ -5,6 +5,7 @@ export type FormFieldProps<T> = {
   name: string;
   description?: string;
   label: string;
+  formItemClassName?: string;
 } & T;
 
 // export interface FormFieldProps extends T {

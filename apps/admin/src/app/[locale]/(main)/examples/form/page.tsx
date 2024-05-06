@@ -13,6 +13,8 @@ import RadioField from '../../../../../components/ui/form/radio/RadioField';
 import PageTitle from '../../../../../components/common/PageTitle';
 import FileUploaderField from '../../../../../components/ui/form/fileUploader/FileUploaderField';
 import TextareaField from '../../../../../components/ui/form/textarea/TextareaField';
+import FormFooter from '../../../../../components/ui/form/FormFooter';
+import { Button } from '../../../../../components/ui/Button';
 
 const FormPage = () => {
   const form = useForm({});
@@ -26,13 +28,27 @@ const FormPage = () => {
           <Card>
             <CardContent>
               <FormFieldsWrapper>
+                <InputField control={form.control} label="Name" name="name" />
+
+                <InputField
+                  formItemClassName="!col-span-6"
+                  control={form.control}
+                  label="Col 1"
+                  name="col1"
+                />
+                <InputField
+                  formItemClassName="!col-span-6"
+                  control={form.control}
+                  label="Col 2"
+                  name="col2"
+                />
+
                 <FileUploaderField
                   control={form.control}
                   name="gallery"
                   label="Gallery"
                   multiple
                 />
-                <InputField control={form.control} label="Name" name="name" />
                 <TextareaField
                   name="shortDescription"
                   control={form.control}
@@ -80,6 +96,10 @@ const FormPage = () => {
           </Card>
         </FormSection>
       </BoundedSectionWrapper>
+      <FormFooter>
+        <Button variant="outline">Back</Button>
+        <Button>Save</Button>
+      </FormFooter>
     </Form>
   );
 };

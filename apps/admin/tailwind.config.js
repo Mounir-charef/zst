@@ -19,6 +19,10 @@ module.exports = {
         primary: {
           DEFAULT: 'hsl(var(--color-primary), <alpha-value>)'
         },
+        danger: {
+          DEFAULT: 'hsl(var(--color-danger), <alpha-value>)',
+          dark: 'hsl(var(--color-danger-dark), <alpha-value>)'
+        },
         "base-color": {
           DEFAULT: '#333'
         },
