@@ -30,7 +30,6 @@ const RadioField = ({
                 {...props}
                 {...field}
                 onChange={(e) => {
-                  console.log(e.target.value);
                   field.onChange(e.target.value);
                 }}
               />

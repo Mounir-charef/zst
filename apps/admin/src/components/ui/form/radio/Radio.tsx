@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, forwardRef } from 'react';
+import React, { InputHTMLAttributes, forwardRef, useMemo } from 'react';
 import { Label } from '@mono/ui/lib/ui/label';
 import { SelectOption } from '../select/Select';
 import { ID } from '../../../../types/common';
@@ -13,7 +13,7 @@ export interface RadioProps extends RadioItemProps {
 
 const RadioItem = React.forwardRef<HTMLInputElement, RadioItemProps>(
   ({ className, label, name, id, ...props }, ref) => {
-    const randomID = id || Math.random().toString(16);
+    const randomID = useMemo(() => Math.random().toString(16), [id]);
     return (
       <div className={className}>
         <div className="flex items-center">
@@ -24,9 +24,6 @@ const RadioItem = React.forwardRef<HTMLInputElement, RadioItemProps>(
             ref={ref}
             className={'radio_input'}
             {...props}
-            onChange={(e) => {
-              console.log(e.target.value);
-            }}
           />
           <Label htmlFor={randomID} className="pl-2.5">
             {label}
