@@ -10,3 +10,5 @@ export * from './ImageCarousel/ImageCarousel';
 export * from './ImageCarousel/ThumbnailCarousel';
 export * from './CustomisableAvatar';
 export * from './CustomisablePopover';
+export * from './Texteditor';
+export * from './TexteditorField';

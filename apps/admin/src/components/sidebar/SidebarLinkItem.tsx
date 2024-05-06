@@ -1,14 +1,12 @@
 'use client';
 
 import { IoChevronForward } from 'react-icons/io5';
-import Link from 'next/link';
-import React, { useEffect, useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import React, { useRef } from 'react';
 import { cn, useDisclosure } from '@mono/util';
-import { Collapse } from '@mono/ui';
 import { SidebarLink } from '../../data/sidebarLinks';
 import { useAppContext } from '../../contexts/appContext';
 import SidebarLinkItemSublinks from './SidebarLinkItemSublinks';
+import { Link } from '../../navigation';
 
 interface TProps {
   link: SidebarLink;

@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SidebarLink } from '../../data/sidebarLinks';
-import Link from 'next/link';
 import { useAppContext } from '../../contexts/appContext';
 import { Collapse } from '@mono/ui';
 import { cn, useDisclosure } from '@mono/util';
+import { Link } from '../../navigation';
 
 const SublinksCollapse = ({
   isOpen,
@@ -31,7 +31,7 @@ const SublinksCollapse = ({
               <li key={child.id}>
                 <Link
                   className={cn(
-                    'text-sm hover:text-primary inline-block pl-5 py-2 border-dashed relative text-dark text-text-color',
+                    'text-sm hover:text-primary inline-block pl-5 py-2 border-dashed relative text-dark text-base-color',
                     'before:absolute before:left-0.5 before:top-1/2 before:-translate-y-1/2 before:w-3 before:border-dashed before:border'
                   )}
                   href={child.href}
