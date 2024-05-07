@@ -11,8 +11,9 @@ import { Button } from '../../../../../../components/ui/Button';
 import AttributeFormValues from './AttributeFormValues';
 import AttributeFormInfo from './AttributeFormInfo';
 import FormFooter from '../../../../../../components/ui/form/FormFooter';
+import { FormProps } from '../../../../../../types/form';
 
-const AttributeForm = () => {
+const AttributeForm = ({ variant, defaultValues }: FormProps) => {
   const form = useForm({});
 
   const { control } = form;
