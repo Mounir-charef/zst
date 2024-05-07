@@ -15,7 +15,7 @@ import { cn } from '@mono/util';
 
 export const PasswordField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   InputProps,
   label,
@@ -23,6 +23,7 @@ export const PasswordField = <
   showErrors = true,
   Icon,
   placeholder,
+  required,
   ...props
 }: {
   control: Control<TFieldValues>;
@@ -32,7 +33,8 @@ export const PasswordField = <
   className?: string;
   Icon?: LucideIcon;
   placeholder?: string;
-  InputProps?: Omit<InputProps, 'name' | 'type' | 'placeholder'>;
+  required?: boolean;
+  InputProps?: Omit<InputProps, 'name' | 'type' | 'placeholder' | 'required'>;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const type = showPassword ? 'text' : 'password';
@@ -53,11 +55,12 @@ export const PasswordField = <
                 {...field}
                 placeholder={placeholder}
                 type={type}
+                required={required}
                 className={cn(
                   {
                     'ring-destructive ring-2': fieldState.error,
                   },
-                  inputClassName
+                  inputClassName,
                 )}
               />
             </FormControl>
@@ -67,7 +70,7 @@ export const PasswordField = <
                   'absolute end-4 flex h-5 w-5 items-center text-gray-500',
                   {
                     'text-destructive': fieldState.error,
-                  }
+                  },
                 )}
               />
             ) : (
@@ -78,7 +81,7 @@ export const PasswordField = <
                   'absolute end-4 flex h-5 w-5 items-center text-gray-500',
                   {
                     'text-destructive': fieldState.error,
-                  }
+                  },
                 )}
               >
                 {showPassword ? (

@@ -1,7 +1,14 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, Input, InputField, Label } from '@mono/ui';
+import {
+  Button,
+  Form,
+  Input,
+  InputField,
+  Label,
+  PasswordField,
+} from '@mono/ui';
 import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -72,11 +79,10 @@ const LoginForm = () => {
         />
 
         <div className="relative">
-          <InputField
+          <PasswordField
             control={form.control}
             name="password"
             label="Password"
-            type="password"
             placeholder="Enter your password"
             required
           />
