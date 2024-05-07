@@ -59,7 +59,7 @@ const ModalHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('p-6 border-b', className)} {...props} />
+  <div className={cn('p-4 border-b', className)} {...props} />
 );
 ModalHeader.displayName = 'ModalHeader';
 
@@ -68,7 +68,7 @@ const ModalFooter = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn('p-6 border-t flex justify-end gap-2', className)}
+    className={cn('p-4 border-t flex justify-end gap-2', className)}
     {...props}
   />
 );
@@ -104,7 +104,7 @@ DialogDescription.displayName = DialogPrimitive.Description.displayName;
 interface ModalBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const ModalBody = ({ className, ...props }: ModalBodyProps) => {
-  return <div className={cn('p-4 pb-6', className)} {...props} />;
+  return <div className={cn('p-4', className)} {...props} />;
 };
 
 interface ModalProps extends DialogContentProps {

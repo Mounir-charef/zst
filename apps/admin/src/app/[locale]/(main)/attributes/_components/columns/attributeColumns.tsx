@@ -6,12 +6,14 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { Link } from '../../../../../../navigation';
 import routesConfig from '../../../../../../config/routesConfig';
 import AttributeColumnDelete from './AttributeColumnDelete';
+import ColumnID from '../../../../../../components/common/columns/ColumnID';
+import Badge from '../../../../../../components/ui/Badge';
 
 const attributeColumns: ColumnType<Attribute>[] = [
   {
     title: 'ID',
     render(_, record) {
-      return <span>#ID: {record.id}</span>;
+      return <ColumnID id={record.id} />;
     },
   },
   {
@@ -25,12 +27,13 @@ const attributeColumns: ColumnType<Attribute>[] = [
         <div className="flex flex-wrap gap-1.5">
           {record.values.map((value) => {
             return (
-              <span
+              <Badge
                 key={value.id}
-                className="rounded bg-gray-200/50 px-2.5 py-1"
+                variant="simple"
+                // className="rounded bg-gray-200/50 px-2.5 py-1"
               >
                 {value.value}
-              </span>
+              </Badge>
             );
           })}
         </div>

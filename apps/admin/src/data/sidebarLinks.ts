@@ -5,6 +5,9 @@ import { PiShootingStarDuotone } from "react-icons/pi";
 import routesConfig from "../config/routesConfig";
 import { FaWpforms } from "react-icons/fa";
 import { CiViewTable } from "react-icons/ci";
+import { SiDialogflow } from "react-icons/si";
+import { RxBadge } from "react-icons/rx";
+import { MdOutlineFormatOverline } from "react-icons/md";
 
 
 
@@ -93,6 +96,24 @@ const sidebarLinks: SidebarLinks = {
                 title: 'Listing',
                 Icon: CiViewTable,
                 href: '/examples/listing',
+            },
+            {
+                id: 10,
+                title: 'Modal',
+                Icon: SiDialogflow,
+                href: '/examples/modal',
+            },
+            {
+                id: 11,
+                title: 'Badge',
+                Icon: RxBadge,
+                href: '/examples/badge',
+            },
+            {
+                id: 12,
+                title: 'Popover',
+                Icon: MdOutlineFormatOverline,
+                href: '/examples/popover',
             },
         ]
     },
