@@ -19,10 +19,10 @@ import {
 import { Input, InputProps } from './input';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
-import { ScrollArea } from './scroll-area';
-import { Button } from './button';
 import { cn } from '@mono/util';
+import { Button } from './button';
 import { useFormField } from './form';
+import { ScrollArea } from './scroll-area';
 
 type PhoneInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -37,11 +37,17 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
     ({ className, onChange, ...props }, ref) => {
       return (
         <RPNInput.default
+          {...props}
           ref={ref}
           className={cn('flex', className)}
           flagComponent={FlagComponent}
           countrySelectComponent={CountrySelect}
           inputComponent={InputComponent}
+          international
+          countryCallingCodeEditable={false}
+          readOnly={props.disabled}
+          limitMaxLength
+          smartCaret
           /**
            * Handles the onChange event.
            *
@@ -66,7 +72,7 @@ const InputComponent = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <Input
         className={cn(
-          'rounded-e-lg rounded-s-none',
+          'rounded-e-lg rounded-s-none border-s-0',
           {
             'focus-visible:ring-destructive': error,
           },

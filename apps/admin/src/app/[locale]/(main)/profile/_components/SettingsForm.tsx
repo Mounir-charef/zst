@@ -13,6 +13,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import FileUploaderField from '../../../../../components/ui/form/fileUploader/FileUploaderField';
 import ProfileCell from './ProfileCell';
+import { emptyStringToUndefined } from '../../../../../lib/emrtyStringToUndefined';
 
 const PasswordForm = () => {
   const schema = useMemo(
@@ -20,13 +21,13 @@ const PasswordForm = () => {
       z.object({
         avatar: z.any().optional(),
         notifications: z.object({
-          email: z.string().email(),
+          email: z.string().email().or(emptyStringToUndefined),
           enable: z.boolean(),
         }),
         informations: z.object({
-          name: z.string().min(2).max(50),
-          bio: z.string().min(2).max(500),
-          phone: z.string().min(4).max(15),
+          name: z.string().min(2).max(50).or(emptyStringToUndefined),
+          bio: z.string().max(500),
+          phone: z.string().min(4).max(15).or(emptyStringToUndefined),
         }),
       }),
     [],
@@ -45,12 +46,10 @@ const PasswordForm = () => {
       informations: {
         name: '',
         bio: '',
-        phone: '+213',
+        phone: '',
       },
     },
   });
-
-  console.log(form.getValues('informations.phone'));
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
@@ -124,11 +123,13 @@ const PasswordForm = () => {
                 label="Phone"
                 placeholder="Enter your phone number"
                 PhoneInputProps={{
-                  maxLength: 15,
+                  defaultCountry: 'DZ',
                 }}
               />
             </div>
-            <Button type="submit">Save</Button>
+            <div className="flex w-full justify-end">
+              <Button type="submit">Save Changes</Button>
+            </div>
           </div>
         </ProfileCell>
       </form>

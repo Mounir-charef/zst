@@ -2,7 +2,6 @@
 
 import { LabelProps } from '@radix-ui/react-label';
 
-import { cn } from '@mono/util';
 import { LucideIcon } from 'lucide-react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 import {
@@ -28,6 +27,7 @@ export const PhoneInputField = <
   descriptionProps,
   labelProps,
   required,
+  PhoneInputProps,
   ...props
 }: {
   control: Control<TFieldValues>;
@@ -57,6 +57,7 @@ export const PhoneInputField = <
                   {...field}
                   placeholder={placeholder}
                   required={required}
+                  {...PhoneInputProps}
                 />
               </FormControl>
 
