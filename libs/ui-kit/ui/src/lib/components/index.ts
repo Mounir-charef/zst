@@ -12,3 +12,4 @@ export * from './CustomisableAvatar';
 export * from './CustomisablePopover';
 export * from './Texteditor';
 export * from './TexteditorField';
+export * from './SwitchField';

@@ -45,19 +45,19 @@ const UserMenu = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link className="self-center" href="/user/dashboard">
+            <Link className="self-center" href="/profile">
               <FaUserCircle className="me-2 h-4 w-4" />
               <span>Profile</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link className="self-center" href="/user/dashboard">
+            <Link className="self-center" href="#">
               <MdOutlineShoppingCart className="me-2 h-4 w-4" />
               <span>Create Shop</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link className="self-center" href="/user/dashboard">
+            <Link className="self-center" href="#">
               <VscSettings className="me-2 h-4 w-4" />
               <span>Settings</span>
             </Link>
