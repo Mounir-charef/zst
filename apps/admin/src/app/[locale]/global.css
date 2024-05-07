@@ -59,12 +59,8 @@
     --ring: 142.4 71.8% 29.2%;
   }
 
-  .text-body {
-    /* @apply text- */
-  }
-
   .form-control {
-    @apply placeholder:text-gray-400 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 inline-block;
+    @apply bg-background ring-offset-background focus-visible:ring-ring inline-block w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .sidebar-content::-webkit-scrollbar {
@@ -79,14 +75,6 @@
     background: theme('colors.gray.200');
   }
 }
-
-@layer components {
-  .form-control {
-    
-  }
-}
-
-
 
 @import url('../../styles/data-table.css');
 @import url('../../styles/text-editor.css');
