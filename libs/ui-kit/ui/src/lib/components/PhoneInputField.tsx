@@ -47,7 +47,7 @@ export const PhoneInputField = <
   return (
     <FormField
       {...props}
-      render={({ field, fieldState }) => {
+      render={({ field }) => {
         return (
           <FormItem className={className}>
             {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
@@ -56,9 +56,6 @@ export const PhoneInputField = <
                 <PhoneInput
                   {...field}
                   placeholder={placeholder}
-                  className={cn({
-                    'focus-visible:ring-destructive': fieldState.error,
-                  })}
                   required={required}
                 />
               </FormControl>

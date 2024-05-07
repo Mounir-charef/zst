@@ -1,6 +1,13 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, InputField, SwitchField } from '@mono/ui';
+import {
+  Button,
+  Form,
+  InputField,
+  PhoneInputField,
+  SwitchField,
+  TextAreaField,
+} from '@mono/ui';
 import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -18,8 +25,8 @@ const PasswordForm = () => {
         }),
         informations: z.object({
           name: z.string().min(2).max(50),
-          bio: z.string().min(2).max(255),
-          phone: z.string().min(10).max(10),
+          bio: z.string().min(2).max(500),
+          phone: z.string().min(4).max(15),
         }),
       }),
     [],
@@ -38,10 +45,12 @@ const PasswordForm = () => {
       informations: {
         name: '',
         bio: '',
-        phone: '',
+        phone: '+213',
       },
     },
   });
+
+  console.log(form.getValues('informations.phone'));
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
@@ -93,13 +102,33 @@ const PasswordForm = () => {
         >
           <div className="w-full space-y-4 sm:w-8/12 md:w-2/3">
             <div className="bg-background rounded p-5 shadow md:p-8">
-              <FileUploaderField
+              <InputField
                 control={form.control}
-                name="avatar"
-                className="mb-5"
-                multiple
+                name="informations.name"
+                label="Name"
+                placeholder="Enter your name"
+              />
+              <TextAreaField
+                control={form.control}
+                name="informations.bio"
+                label="Bio"
+                placeholder="Enter your bio"
+                TextAreaProps={{
+                  rows: 3,
+                  maxLength: 500,
+                }}
+              />
+              <PhoneInputField
+                control={form.control}
+                name="informations.phone"
+                label="Phone"
+                placeholder="Enter your phone number"
+                PhoneInputProps={{
+                  maxLength: 15,
+                }}
               />
             </div>
+            <Button type="submit">Save</Button>
           </div>
         </ProfileCell>
       </form>

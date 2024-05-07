@@ -22,6 +22,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { ScrollArea } from './scroll-area';
 import { Button } from './button';
 import { cn } from '@mono/util';
+import { useFormField } from './form';
 
 type PhoneInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -60,13 +61,22 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
 PhoneInput.displayName = 'PhoneInput';
 
 const InputComponent = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, ...props }, ref) => (
-    <Input
-      className={cn('rounded-e-lg rounded-s-none', className)}
-      {...props}
-      ref={ref}
-    />
-  ),
+  ({ className, ...props }, ref) => {
+    const { error } = useFormField();
+    return (
+      <Input
+        className={cn(
+          'rounded-e-lg rounded-s-none',
+          {
+            'focus-visible:ring-destructive': error,
+          },
+          className,
+        )}
+        {...props}
+        ref={ref}
+      />
+    );
+  },
 );
 InputComponent.displayName = 'InputComponent';
 
