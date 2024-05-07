@@ -10,14 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@mono/ui';
-import { AreaChart, Loader2, LogOut } from 'lucide-react';
-import { signOut, useSession } from 'next-auth/react';
+import { Loader2, LogOut } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { MdOutlineShoppingCart } from 'react-icons/md';
-import UserAvatar from './UserAvatar';
 import { VscSettings } from 'react-icons/vsc';
+import useSession from '../hooks/useSession';
+import UserAvatar from './UserAvatar';
 
 const UserMenu = () => {
   const [loading, setLoading] = useState(false);
