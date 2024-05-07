@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../ui/form';
-import { PhoneInput } from '../ui/phone-input';
+import { PhoneInput, type PhoneInputProps } from '../ui/phone-input';
 
 export const PhoneInputField = <
   TFieldValues extends FieldValues = FieldValues,
@@ -42,6 +42,7 @@ export const PhoneInputField = <
   className?: string;
   Icon?: LucideIcon;
   labelProps?: LabelProps;
+  PhoneInputProps?: PhoneInputProps;
 }) => {
   return (
     <FormField
