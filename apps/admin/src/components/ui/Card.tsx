@@ -19,7 +19,7 @@ const CardContent = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <SharedCardContent className={cn('p-8', className)} {...props}>
+    <SharedCardContent className={cn('p-5 md:p-8', className)} {...props}>
       {children}
     </SharedCardContent>
   );
