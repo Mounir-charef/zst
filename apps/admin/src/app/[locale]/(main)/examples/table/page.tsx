@@ -1,7 +1,6 @@
 import { DataTable } from '@mono/ui';
 import { promises as fs } from 'fs';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import path from 'path';
 import { z } from 'zod';
 import { columns } from './_components/Columns';
@@ -31,24 +30,7 @@ export default async function TaskPage() {
   const tasks = await getTasks();
 
   return (
-    <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/tasks-light.png"
-          width={1280}
-          height={998}
-          alt="Playground"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/tasks-dark.png"
-          width={1280}
-          height={998}
-          alt="Playground"
-          className="hidden dark:block"
-        />
-      </div>
-
+    <div className="space-y-16">
       <DataTable
         header={{
           title: 'Tasks',
@@ -62,6 +44,6 @@ export default async function TaskPage() {
         }}
         filterOptions={filterOptions}
       />
-    </>
+    </div>
   );
 }
