@@ -1,10 +1,15 @@
-import React from 'react';
+import { cn } from '@mono/util';
+import React, { ButtonHTMLAttributes } from 'react';
 import { GoArrowUp } from 'react-icons/go';
 
-const ListingHeaderFilterButton = () => {
+interface ListingHeaderFilterButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  isOpen: boolean
+}
+
+const ListingHeaderFilterButton = ({ isOpen, onClick }: ListingHeaderFilterButtonProps) => {
   return (
-    <button className="flex items-center gap-1 text-primary">
-      <span className="font-semibold">Filter</span> <GoArrowUp />
+    <button onClick={onClick} className="flex items-center gap-1 text-primary">
+      <span className="font-semibold">Filter</span> <GoArrowUp className={cn(isOpen && 'rotate-180')} />
     </button>
   );
 };
