@@ -34,6 +34,7 @@ import {
 } from '../../ui/table';
 import { DefaultTableToolbar } from './DefaultToolBar';
 import { DataTablePagination } from './TablePagination';
+import { ItemTableToolbar } from './ItemTableToolbar';
 
 export type filterOption<TData> = {
   column: keyof TData;
@@ -145,7 +146,13 @@ export function DataTable<TData, TValue>({
             searchOptions={searchOptions}
             filterOptions={filters}
           />
-        ) : null}
+        ) : (
+          <ItemTableToolbar
+            table={table}
+            searchOptions={searchOptions}
+            filterOptions={filters}
+          />
+        )}
         <div className="bg-background rounded-md border p-4">
           <Table>
             <TableHeader>

@@ -16,3 +16,5 @@ export * from './lib/ui/dropdown-menu';
 export * from './lib/ui/table';
 export * from './lib/ui/separator';
 export * from './lib/ui/select';
+export * from './lib/ui/toggle';
+export * from './lib/ui/toggle-group';

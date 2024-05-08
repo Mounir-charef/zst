@@ -70,6 +70,8 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@radix-ui/react-toggle": "^1.0.3",
+    "@radix-ui/react-toggle-group": "^1.0.4",
     "@tanstack/react-query": "^5.18.1",
     "@tanstack/react-table": "^8.16.0",
     "axios": "^1.6.7",
