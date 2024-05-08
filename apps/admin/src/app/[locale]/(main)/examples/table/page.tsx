@@ -1,18 +1,11 @@
+import { DataTable } from '@mono/ui';
 import { promises as fs } from 'fs';
-import path from 'path';
 import { Metadata } from 'next';
 import Image from 'next/image';
+import path from 'path';
 import { z } from 'zod';
-import { taskSchema } from './_data/schema';
-import { DataTable } from '@mono/ui';
 import { columns } from './_components/Columns';
-import {
-  CheckCircledIcon,
-  CircleIcon,
-  CrossCircledIcon,
-  QuestionMarkCircledIcon,
-  StopwatchIcon,
-} from '@radix-ui/react-icons';
+import { taskSchema } from './_data/schema';
 import { filterOptions } from './filters';
 
 export const metadata: Metadata = {
@@ -55,23 +48,20 @@ export default async function TaskPage() {
           className="hidden dark:block"
         />
       </div>
-      <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-        <div className="flex items-center justify-between space-y-2">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Title</h2>
-            <p className="text-muted-foreground">Lorem ipsum dolor sit amet.</p>
-          </div>
-        </div>
-        <DataTable
-          data={tasks}
-          columns={columns}
-          searchOptions={{
-            column: 'title',
-            placeholder: 'Search tasks',
-          }}
-          filterOptions={filterOptions}
-        />
-      </div>
+
+      <DataTable
+        header={{
+          title: 'Tasks',
+          description: 'Manage your tasks and issues.',
+        }}
+        data={tasks}
+        columns={columns}
+        searchOptions={{
+          column: 'title',
+          placeholder: 'Search tasks',
+        }}
+        filterOptions={filterOptions}
+      />
     </>
   );
 }

@@ -8,6 +8,7 @@ import {
   QuestionMarkCircledIcon,
   StopwatchIcon,
 } from '@radix-ui/react-icons';
+import { CgProfile } from 'react-icons/cg';
 
 export const labels = [
   {
@@ -67,5 +68,13 @@ export const priorities = [
     label: 'High',
     value: 'high',
     icon: ArrowUpIcon,
+  },
+];
+
+export const ids = [
+  {
+    label: 'TASK-1591',
+    value: 'TASK-1591',
+    icon: CgProfile,
   },
 ];

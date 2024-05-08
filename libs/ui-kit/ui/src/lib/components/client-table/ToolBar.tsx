@@ -21,30 +21,12 @@ interface DataTableToolbarProps<TData, TValue> {
 
 export function DataTableToolbar<TData, TValue>({
   table,
-  searchOptions,
   filterOptions,
 }: DataTableToolbarProps<TData, TValue>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   return (
     <div className="flex items-start justify-between gap-x-4">
       <div className="flex flex-1 flex-wrap items-center gap-1 gap-x-2">
-        {searchOptions && (
-          <Input
-            placeholder={searchOptions.placeholder ?? 'Search...'}
-            value={
-              (table
-                .getColumn(searchOptions.column)
-                ?.getFilterValue() as string) ?? ''
-            }
-            onChange={(event) =>
-              table
-                .getColumn(searchOptions.column)
-                ?.setFilterValue(event.target.value)
-            }
-            className="h-8 w-[150px] lg:w-[250px]"
-          />
-        )}
-
         {filterOptions?.map((filterOption) => {
           if (!filterOption.column) return null;
           return (

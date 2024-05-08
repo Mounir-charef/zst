@@ -40,6 +40,9 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => <div className="w-[80px]">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: 'title',
