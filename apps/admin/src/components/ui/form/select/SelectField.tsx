@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import Select, { SelectProps } from './Select';
 import { FormFieldProps } from '../form';
+import { cn } from '@mono/util';
 
 type SelectFieldProps = FormFieldProps<
   Pick<SelectProps, 'options' | 'isMulti'>
@@ -21,13 +22,14 @@ const SelectField = ({
   description,
   options,
   isMulti,
+  formItemClassName,
 }: SelectFieldProps) => {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={cn(formItemClassName)}>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
             <Select
