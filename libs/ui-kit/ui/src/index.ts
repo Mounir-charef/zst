@@ -15,3 +15,4 @@ export * from './lib/ui/label';
 export * from './lib/ui/dropdown-menu';
 export * from './lib/ui/table';
 export * from './lib/ui/separator';
+export * from './lib/ui/select';

@@ -18,8 +18,8 @@ import { Separator } from '../../ui/separator';
 import { cn } from '@mono/util';
 
 interface DataTableFacetedFilterProps<TData, TValue> {
-  column?: Column<TData, TValue>;
-  title?: string;
+  column: Column<TData, TValue>;
+  title: string;
   options: {
     label: string;
     value: string;
