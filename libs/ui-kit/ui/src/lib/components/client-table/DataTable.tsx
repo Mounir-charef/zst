@@ -36,6 +36,16 @@ import {
 import { Input } from '../../ui/input';
 import { Search } from 'lucide-react';
 
+export type filterOption<TData> = {
+  column: keyof TData;
+  title: string;
+  options: {
+    label: string;
+    value: string;
+    icon?: React.ComponentType<{ className?: string }>;
+  }[];
+};
+
 interface DataTableProps<TData, TValue> {
   header?: {
     title: string;
@@ -44,15 +54,10 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchOptions?: {
-    column: string;
+    column: keyof TData;
     placeholder?: string;
   };
-  filterOptions?: (Omit<
-    DataTableFacetedFilterProps<TData, TValue>,
-    'column'
-  > & {
-    column: string;
-  })[];
+  filterOptions?: filterOption<TValue>[];
 }
 
 export function DataTable<TData, TValue>({
@@ -96,7 +101,7 @@ export function DataTable<TData, TValue>({
     return filterOptions?.map((filterOption) => {
       return {
         ...filterOption,
-        column: table.getColumn(filterOption.column),
+        column: table.getColumn(filterOption.column.toString()),
       };
     });
   }, [filterOptions, table]);
@@ -118,12 +123,12 @@ export function DataTable<TData, TValue>({
                 placeholder={searchOptions.placeholder ?? 'Search...'}
                 value={
                   (table
-                    .getColumn(searchOptions.column)
+                    .getColumn(searchOptions.column.toString())
                     ?.getFilterValue() as string) ?? ''
                 }
                 onChange={(event) =>
                   table
-                    .getColumn(searchOptions.column)
+                    .getColumn(searchOptions.column.toString())
                     ?.setFilterValue(event.target.value)
                 }
                 className="bg-background w-full rounded-lg ps-8 md:w-[200px] lg:w-[336px]"

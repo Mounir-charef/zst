@@ -13,7 +13,7 @@ import { DataTableViewOptions } from './ViewOptions';
 interface DataTableToolbarProps<TData, TValue> {
   table: Table<TData>;
   searchOptions?: {
-    column: string;
+    column: keyof TData;
     placeholder?: string;
   };
   filterOptions?: DataTableFacetedFilterProps<TData, TValue>[];
