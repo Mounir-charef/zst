@@ -1,10 +1,13 @@
-import { Providers } from '@mono/ui';
+import { Providers, SessionProvider } from '@mono/ui';
 import { cn } from '@mono/util';
 import { Inter } from 'next/font/google';
 import { NextIntlClientProvider, useMessages, useTimeZone } from 'next-intl';
 import AppProvider from '../../contexts/appContext';
 import './global.css';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
+import { Toaster } from 'sonner';
+import { getAuthSession } from '../../config/auth/auth';
+import { getMessages, getTimeZone } from 'next-intl/server';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -13,22 +16,31 @@ export const metadata = {
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  locale,
+  params: { locale },
 }: {
   children: React.ReactNode;
-  locale: string;
+  params: { locale: string };
 }) {
-  const messages = useMessages();
-  const timezone = useTimeZone();
+  const messages = await getMessages();
+  const timezone = await getTimeZone();
   const { langDir, hrefLang } = availableLocalesMap[locale] || defaultLocale;
+  const session = await getAuthSession();
   return (
-    <html lang={hrefLang} dir={langDir}>
-      <body className={cn('font-sans antialiased', inter.className)}>
+    <html
+      lang={hrefLang}
+      dir={langDir}
+      className="h-full"
+      suppressHydrationWarning
+    >
+      <body className={cn('h-full font-sans antialiased', inter.className)}>
         <Providers>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
-            <AppProvider>{children}</AppProvider>
+            <SessionProvider session={session}>
+              <AppProvider>{children}</AppProvider>
+            </SessionProvider>
+            <Toaster richColors closeButton position="top-right" />
           </NextIntlClientProvider>
         </Providers>
       </body>

@@ -8,10 +8,10 @@ interface ProfileCellProps {
 
 const ProfileCell = ({ children, description, title }: ProfileCellProps) => {
   return (
-    <div className="flex flex-wrap border-b border-dashed border-border-base pb-8 py-5">
-      <div className="sm:pe-4 md:pe-5 w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3">
-        <h4 className="text-base font-semibold mb-2">{title}</h4>
-        <p className="text-sm text-muted-foreground">{description}</p>
+    <div className="border-border-base flex flex-wrap border-b border-dashed py-5 pb-8">
+      <div className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5">
+        <h4 className="mb-2 text-base font-semibold">{title}</h4>
+        <p className="text-muted-foreground text-sm">{description}</p>
       </div>
       {children}
     </div>

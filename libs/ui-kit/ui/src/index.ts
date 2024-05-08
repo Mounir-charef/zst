@@ -11,3 +11,5 @@ export * from './lib/ui/textarea';
 export * from './lib/ui/badge';
 export * from './lib/ui/carousel';
 export * from './lib/ui/avatar';
+export * from './lib/ui/label';
+export * from './lib/ui/dropdown-menu';

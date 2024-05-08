@@ -1,4 +1,4 @@
-export * from './Provider';
+export * from './Providers';
 export * from './SessionProvider';
 export * from './Collapse';
 export * from './CheckBoxField';
@@ -12,3 +12,5 @@ export * from './CustomisableAvatar';
 export * from './CustomisablePopover';
 export * from './Texteditor';
 export * from './TexteditorField';
+export * from './SwitchField';
+export * from './PhoneInputField';
