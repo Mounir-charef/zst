@@ -17,8 +17,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
 import { Separator } from '../../ui/separator';
 import { cn } from '@mono/util';
 
-interface DataTableFacetedFilterProps<TData, TValue> {
-  column: Column<TData, TValue>;
+export interface DataTableFacetedFilterProps<TData, TValue> {
+  column?: Column<TData, TValue>;
   title: string;
   options: {
     label: string;
