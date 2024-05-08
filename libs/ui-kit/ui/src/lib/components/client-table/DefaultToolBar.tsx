@@ -2,15 +2,14 @@
 
 import { Table } from '@tanstack/react-table';
 import { X } from 'lucide-react';
+import { Button } from '../../ui/button';
 import {
   DataTableFacetedFilter,
   DataTableFacetedFilterProps,
 } from './FacetedFilter';
-import { Input } from '../../ui/input';
-import { Button } from '../../ui/button';
 import { DataTableViewOptions } from './ViewOptions';
 
-interface DataTableToolbarProps<TData, TValue> {
+interface DefaultTableToolbarProps<TData, TValue> {
   table: Table<TData>;
   searchOptions?: {
     column: keyof TData;
@@ -19,10 +18,10 @@ interface DataTableToolbarProps<TData, TValue> {
   filterOptions?: DataTableFacetedFilterProps<TData, TValue>[];
 }
 
-export function DataTableToolbar<TData, TValue>({
+export function DefaultTableToolbar<TData, TValue>({
   table,
   filterOptions,
-}: DataTableToolbarProps<TData, TValue>) {
+}: DefaultTableToolbarProps<TData, TValue>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   return (
     <div className="flex items-start justify-between gap-x-4">

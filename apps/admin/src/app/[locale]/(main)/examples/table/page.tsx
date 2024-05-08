@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: 'A task and issue tracker build using Tanstack Table.',
 };
 
-// Simulate a database read for tasks.
+// Simulate a fetch from an API
 async function getTasks() {
   const data = await fs.readFile(
     path.join(
@@ -43,6 +43,21 @@ export default async function TaskPage() {
           placeholder: 'Search tasks',
         }}
         filterOptions={filterOptions}
+      />
+
+      <DataTable
+        header={{
+          title: 'Tasks',
+          description: 'Manage your tasks and issues.',
+        }}
+        data={tasks}
+        columns={columns}
+        searchOptions={{
+          column: 'title',
+          placeholder: 'Search tasks',
+        }}
+        filterOptions={filterOptions}
+        variant="items-table"
       />
     </div>
   );

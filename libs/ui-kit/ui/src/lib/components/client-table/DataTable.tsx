@@ -14,18 +14,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { Search } from 'lucide-react';
 import * as React from 'react';
-import { DataTableFacetedFilterProps } from './FacetedFilter';
-import { DataTableToolbar } from './ToolBar';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '../../ui/table';
-import { DataTablePagination } from './TablePagination';
 import {
   Card,
   CardContent,
@@ -34,7 +24,16 @@ import {
   CardTitle,
 } from '../../ui/card';
 import { Input } from '../../ui/input';
-import { Search } from 'lucide-react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '../../ui/table';
+import { DefaultTableToolbar } from './DefaultToolBar';
+import { DataTablePagination } from './TablePagination';
 
 export type filterOption<TData> = {
   column: keyof TData;
@@ -58,6 +57,7 @@ interface DataTableProps<TData, TValue> {
     placeholder?: string;
   };
   filterOptions?: filterOption<TValue>[];
+  variant?: 'default' | 'items-table';
 }
 
 export function DataTable<TData, TValue>({
@@ -66,6 +66,7 @@ export function DataTable<TData, TValue>({
   data,
   searchOptions,
   filterOptions,
+  variant = 'default',
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -138,11 +139,13 @@ export function DataTable<TData, TValue>({
         </CardHeader>
       ) : null}
       <CardContent className="space-y-4">
-        <DataTableToolbar
-          table={table}
-          searchOptions={searchOptions}
-          filterOptions={filters}
-        />
+        {variant === 'default' ? (
+          <DefaultTableToolbar
+            table={table}
+            searchOptions={searchOptions}
+            filterOptions={filters}
+          />
+        ) : null}
         <div className="bg-background rounded-md border p-4">
           <Table>
             <TableHeader>
