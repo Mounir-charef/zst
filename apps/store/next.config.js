@@ -33,20 +33,6 @@ const nextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/marketplace',
-        permanent: true,
-      },
-      {
-        source: '/en',
-        destination: '/marketplace',
-        permanent: true,
-      }
-    ];
-  },
 };
 
 const plugins = [

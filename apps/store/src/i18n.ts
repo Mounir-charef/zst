@@ -1,17 +1,27 @@
-import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
-import { locales } from './navigation';
+import { availableLocaleCodes } from '../i18n/locales';
 
-export default getRequestConfig(async ({ locale }) => {
-  // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as never)) notFound();
+// Loads the Application Locales/Translations Dynamically
+const loadLocaleDictionary = (locale: string) => {
+  if (locale === 'en') {
+    // This enables HMR on the English Locale, so that instant refresh
+    // happens while we add/change texts on the source locale
+    return import('../i18n/messages/en.json').then((f) => f.default);
+  }
 
-  return {
-    messages: (
-      await (locale === 'en'
-        ? // When using Turbopack, this will enable HMR for `en`
-          import('./locales/en.json')
-        : import(`./locales/${locale}.json`))
-    ).default,
-  };
-});
+  if (availableLocaleCodes.includes(locale)) {
+    // Other languages don't really require HMR as they will never be development languages
+    // so we can load them dynamically
+    return import(`../i18n/messages/${locale}.json`).then((f) => f.default);
+  }
+
+  throw new Error(`Unsupported locale: ${locale}`);
+};
+
+// Provides `next-intl` configuration for RSC/SSR
+export default getRequestConfig(async ({ locale }) => ({
+  // This is the dictionary of messages to be loaded
+  messages: await loadLocaleDictionary(locale),
+  // We always define the App timezone as UTC
+  timeZone: 'Etc/UTC',
+}));
