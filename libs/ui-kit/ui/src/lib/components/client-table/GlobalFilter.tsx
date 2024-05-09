@@ -39,10 +39,7 @@ export function GlobalFilter<TData, TValue>({
         <ToggleGroupItem
           key={option.value}
           value={option.value}
-          aria-label={`
-            ${option.label}
-            ${column.getFilterValue() === option.value ? 'selected' : ''}
-          `}
+          aria-label={`${option.label}${column.getFilterValue() === option.value ? ' selected' : ''}`}
         >
           {option.label}
         </ToggleGroupItem>
