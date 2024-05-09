@@ -35,7 +35,7 @@ import {
 } from '../../ui/table';
 import { DefaultTableToolbar } from './DefaultToolBar';
 import { DataTablePagination } from './TablePagination';
-import { ItemTableToolbar } from './ItemTableToolbar';
+import { ItemsTableToolbar } from './ItemsTableToolbar';
 
 export type FilterOption<TData> = {
   column: keyof TData;
@@ -203,7 +203,7 @@ export function DataTable<TData, TValue>({
         {variant === 'default' ? (
           <DefaultTableToolbar table={table} filterOptions={filters} />
         ) : (
-          <ItemTableToolbar
+          <ItemsTableToolbar
             table={table}
             filterOptions={filters}
             globalFilter={globalFilterOption}

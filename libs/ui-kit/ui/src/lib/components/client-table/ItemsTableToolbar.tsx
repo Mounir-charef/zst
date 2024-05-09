@@ -6,7 +6,7 @@ import { DataTableFacetedFilterProps } from './FacetedFilter';
 import { GlobalFilter } from './GlobalFilter';
 import { DataTableViewOptions } from './ViewOptions';
 
-interface ItemTableToolbarProps<TData, TValue> {
+interface ItemsTableToolbarProps<TData, TValue> {
   table: Table<TData>;
 
   filterOptions?: DataTableFacetedFilterProps<TData, TValue>[];
@@ -19,11 +19,11 @@ interface ItemTableToolbarProps<TData, TValue> {
   };
 }
 
-export function ItemTableToolbar<TData, TValue>({
+export function ItemsTableToolbar<TData, TValue>({
   table,
   filterOptions,
   globalFilter,
-}: ItemTableToolbarProps<TData, TValue>) {
+}: ItemsTableToolbarProps<TData, TValue>) {
   return (
     <div className="flex items-start justify-between gap-x-4">
       <div className="flex flex-1 flex-wrap items-center gap-1 gap-x-2">
