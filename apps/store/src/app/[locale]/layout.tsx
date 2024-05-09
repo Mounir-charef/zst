@@ -6,6 +6,7 @@ import { Toaster } from 'sonner';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
 import '../../global.css';
 import { Providers } from '../../components/Providers';
+import NavBar from '../../components/navbar/NavBar';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -31,10 +32,20 @@ export default async function RootLayout({
       className="h-full"
       suppressHydrationWarning
     >
-      <body className={cn('h-full font-sans antialiased', inter.className)}>
+      <body
+        className={cn(
+          'text-foreground bg-background h-full font-sans antialiased',
+          inter.className,
+        )}
+      >
         <Providers>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
-            {children}
+            <main className="flex h-full w-full flex-col">
+              <NavBar />
+              <div className="mx-auto w-full max-w-7xl flex-grow flex-col py-12 sm:py-6">
+                {children}
+              </div>
+            </main>
             <Toaster richColors closeButton position="top-right" />
           </NextIntlClientProvider>
         </Providers>
