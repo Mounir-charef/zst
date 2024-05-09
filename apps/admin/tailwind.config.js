@@ -3,7 +3,6 @@ const TailwindConfig = require('../../libs/ui-kit/util/src/tailwind/tailwind.con
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   ...TailwindConfig,
-  // content: TailwindConfig.content,
   theme: {
     ...TailwindConfig.theme,
     extend: {

@@ -19,7 +19,27 @@ const attributes: Attribute[] = [
                 value: 'White',
             },
         ]
-    }
+    },
+
+    {
+        id: 2,
+        name: 'Size',
+        slug: 'size',
+        values: [
+            {
+                id: 4,
+                value: 'Small',
+            },
+            {
+                id: 5,
+                value: 'Medium',
+            },
+            {
+                id: 6,
+                value: 'Large',
+            },
+        ]
+    },
 ]
 
 export default attributes
