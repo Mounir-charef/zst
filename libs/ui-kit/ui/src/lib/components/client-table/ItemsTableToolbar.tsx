@@ -5,6 +5,7 @@ import { Button } from '../../ui/button';
 import { DataTableFacetedFilterProps } from './FacetedFilter';
 import { GlobalFilter } from './GlobalFilter';
 import { DataTableViewOptions } from './ViewOptions';
+import { ItemsTableFiltersMenu } from './ItemsTableFiltersMenu';
 
 interface ItemsTableToolbarProps<TData, TValue> {
   table: Table<TData>;
@@ -31,7 +32,11 @@ export function ItemsTableToolbar<TData, TValue>({
           <GlobalFilter {...globalFilter} />
         ) : null}
       </div>
-      <div className="itece flex flex-col items-end gap-1 md:flex-row-reverse md:items-center">
+      <div className="itece flex flex-col-reverse items-end gap-1 md:flex-row md:items-center md:gap-2">
+        {filterOptions && filterOptions.length > 0 ? (
+          <ItemsTableFiltersMenu filterOptions={filterOptions} />
+        ) : null}
+        <DataTableViewOptions table={table} />
         <Button
           size="sm"
           className="h-8"
@@ -43,7 +48,6 @@ export function ItemsTableToolbar<TData, TValue>({
         >
           Action
         </Button>
-        <DataTableViewOptions table={table} />
       </div>
     </div>
   );
