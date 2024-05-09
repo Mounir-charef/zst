@@ -8,16 +8,22 @@ import {
 import React from 'react';
 import { FormFieldProps } from '../form';
 import { Checkbox, CheckboxProps } from './Checkbox';
+import { FieldPath, FieldValues } from 'react-hook-form';
 
-type CheckboxFieldProps = Omit<FormFieldProps<unknown>, 'label'> &
-  CheckboxProps;
+type CheckboxFieldProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = Omit<FormFieldProps<unknown, TFieldValues, TName>, 'label'> & CheckboxProps;
 
-const CheckboxField = ({
+const CheckboxField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
   control,
   name,
   description,
   ...props
-}: CheckboxFieldProps) => {
+}: CheckboxFieldProps<TFieldValues, TName>) => {
   return (
     <FormField
       control={control}

@@ -10,16 +10,23 @@ import React from 'react';
 import Input, { InputProps } from './Input';
 import { FormFieldProps } from '../form';
 import { cn } from '@mono/util';
+import { FieldPath, FieldValues } from 'react-hook-form';
 
-export type InputFieldProps = FormFieldProps<InputProps>;
+export type InputFieldProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = FormFieldProps<InputProps, TFieldValues, TName>;
 
-const InputField = ({
+const InputField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
   control,
   name,
   label,
   description,
   formItemClassName,
-}: InputFieldProps) => {
+}: InputFieldProps<TFieldValues, TName>) => {
   return (
     <FormField
       control={control}
