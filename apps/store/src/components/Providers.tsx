@@ -1,5 +1,6 @@
 'use client';
 
+import { TooltipProvider } from '@mono/ui';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NextIntlClientProvider } from 'next-intl';
 import { ThemeProvider } from 'next-themes';
@@ -16,7 +17,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
         enableSystem
         disableTransitionOnChange
       >
-        {children}
+        <TooltipProvider>{children}</TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
