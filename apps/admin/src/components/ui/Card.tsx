@@ -7,7 +7,10 @@ const Card = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <SharedCard className={cn('bg-white rounded-md', className)} {...props}>
+    <SharedCard
+      className={cn('bg-background rounded-md', className)}
+      {...props}
+    >
       {children}
     </SharedCard>
   );

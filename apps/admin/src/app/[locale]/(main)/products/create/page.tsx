@@ -5,12 +5,14 @@ import ProductForm from '../_components/form/ProductForm';
 import { CREATE_VARIANT } from '../../../../../constants';
 
 const CreateProductPage = () => {
-  return <>
-    <BoundedSectionWrapper noSpacing>
+  return (
+    <>
+      <BoundedSectionWrapper noSpacing>
         <PageTitle>Create New Product</PageTitle>
       </BoundedSectionWrapper>
       <ProductForm variant={CREATE_VARIANT} />
-  </>;
+    </>
+  );
 };
 
 export default CreateProductPage;

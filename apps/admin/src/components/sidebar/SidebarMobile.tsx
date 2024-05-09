@@ -18,15 +18,15 @@ const SidebarMobile = () => {
       <Overlay onClick={closeSidebar} isVisible={isOpen} />
       <div
         className={cn(
-          'fixed top-0 left-0 w-full z-50 h-screen max-w-md bg-white flex flex-col transition-transform duration-500 ',
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+          'bg-background fixed left-0 top-0 z-50 flex h-screen w-full max-w-md flex-col transition-transform duration-500 ',
+          isOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <div className="flex justify-between px-8 py-5 border-b items-center">
+        <div className="flex items-center justify-between border-b px-8 py-5">
           <HeadingLargeLogo />
           <button
             onClick={closeSidebar}
-            className="w-7 h-7 rounded-full border bg-gray-200 flex items-center justify-center"
+            className="flex h-7 w-7 items-center justify-center rounded-full border bg-gray-200"
           >
             <IoIosClose size={16} />
           </button>

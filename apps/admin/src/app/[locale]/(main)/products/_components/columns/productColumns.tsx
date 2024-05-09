@@ -54,10 +54,10 @@ const productColumns: ColumnType<ProductListing>[] = [
       return (
         <div className="flex items-center gap-2">
           <Link href={'#'}>
-            <FiEdit className="text-base-color" />
+            <FiEdit />
           </Link>
           <Link href={'#'}>
-            <FiEye className="text-base-color" />
+            <FiEye />
           </Link>
           <AttributeColumnDelete id={record.id} />
         </div>

@@ -16,12 +16,12 @@ const PaginationItem = ({
   return (
     <button
       className={cn(
-        'h-8 min-w-8 p-2 flex items-center justify-center border rounded-md bg-white text-sm',
+        'bg-background flex h-8 min-w-8 items-center justify-center rounded-md border p-2 text-sm',
         active
           ? 'bg-primary text-white'
           : !disabled && 'hover:border-primary hover:text-primary',
-        disabled && 'cursor-not-allowed text-muted',
-        className
+        disabled && 'text-muted-foreground cursor-not-allowed',
+        className,
       )}
       disabled={disabled}
       {...props}

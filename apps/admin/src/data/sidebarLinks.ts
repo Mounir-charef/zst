@@ -8,6 +8,7 @@ import { CiViewTable } from "react-icons/ci";
 import { SiDialogflow } from "react-icons/si";
 import { RxBadge } from "react-icons/rx";
 import { MdOutlineFormatOverline } from "react-icons/md";
+import { MdAdsClick } from "react-icons/md";
 
 
 
@@ -114,6 +115,12 @@ const sidebarLinks: SidebarLinks = {
                 title: 'Popover',
                 Icon: MdOutlineFormatOverline,
                 href: '/examples/popover',
+            },
+            {
+                id: 13,
+                title: 'Button',
+                Icon: MdAdsClick,
+                href: '/examples/button',
             },
         ]
     },

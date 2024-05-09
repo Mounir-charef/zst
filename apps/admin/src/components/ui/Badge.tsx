@@ -3,19 +3,19 @@ import { VariantProps, cva } from 'class-variance-authority';
 import React from 'react';
 
 const badgeVariants = cva(
-  'inline-block px-3 py-1.5 rounded text-xs whitespace-nowrap relative font-medium bg-opacity-10 capitalize',
+  'inline-block px-3 py-1.5 rounded text-xs whitespace-nowrap relative font-medium capitalize',
   {
     variants: {
       variant: {
-        primary: 'bg-primary text-primary',
-        danger: 'bg-danger text-danger',
+        primary: 'bg-primary/10 text-primary',
+        danger: 'bg-destructive/10 text-destructive',
         simple: 'bg-gray-200/50',
       },
     },
     defaultVariants: {
       variant: 'primary',
     },
-  }
+  },
 );
 
 export interface BadgeProps

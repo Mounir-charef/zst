@@ -4,17 +4,19 @@
 
 @layer base {
   :root {
-    --color-primary: 167.92 100% 31.18%;
+    /* --color-primary: 167.92 100% 31.18%; */
     --color-text-body: 0 0% 40%;
     --color-text-base: 0 0% 40%;
-    --color-text-muted: 217.89 10.61% 64.9%;
+    /* --color-text-muted: 217.89 10.61% 64.9%; */
     --color-border-base: 216 12.2% 83.92%;
-    --color-danger: 0 84% 60%;
-    --color-danger-dark: 0 74% 42%;
-
+    /* --color-danger: 0 84% 60%;
+    --color-danger-dark: 0 74% 42%; */
     --text-body: 0 0% 40%;
     --text-base: 0 0% 40%;
     --text-muted: 217.89 10.61% 64.9%;
+
+    /* Shadcn Colors */
+
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -26,10 +28,11 @@
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted-foreground: 217.89 10.61% 64.9%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
+    --destructive-dark: 0 74% 42%;
     --destructive-foreground: 0 0% 98%;
     --border: 216 12% 84%;
     --input: 240 5.9% 90%;
