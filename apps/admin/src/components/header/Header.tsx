@@ -9,6 +9,7 @@ import { useAppContext } from '../../contexts/appContext';
 import { cn } from '@mono/util';
 import HeadingLargeLogo from '../common/HeadingLargeLogo';
 import HeaderSearch from './HeaderSearch';
+import UserMenu from '../UserMenu';
 
 const HeaderMenuIcon = ({
   onClick,
@@ -22,7 +23,7 @@ const HeaderMenuIcon = ({
       onClick={onClick}
       className={cn(
         'hover:text-primary cursor-pointer transition-all',
-        className
+        className,
       )}
       size={28}
     />
@@ -39,11 +40,11 @@ const Header = () => {
   return (
     <header
       className={cn(
-        'h-[76px] bg-white border-b sticky top-0 px-5 lg:px-8 flex items-center transition-all z-10',
-        isCollapsed ? 'lg:ml-[96px]' : 'lg:ml-[280px]'
+        'sticky top-0 z-10 flex h-[76px] items-center border-b bg-white px-5 transition-all lg:px-8',
+        isCollapsed ? 'lg:ml-[96px]' : 'lg:ml-[280px]',
       )}
     >
-      <div className="flex items-center gap-6 flex-1 pr-5 lg:pr-8 justif">
+      <div className="justif flex flex-1 items-center gap-6 pr-5 lg:pr-8">
         <div className="flex items-center gap-4">
           <HeaderMenuIcon
             onClick={collapseSidebar}
@@ -54,7 +55,7 @@ const Header = () => {
         </div>
         <HeaderSearch />
       </div>
-      <HeaderProfile />
+      <UserMenu />
     </header>
   );
 };

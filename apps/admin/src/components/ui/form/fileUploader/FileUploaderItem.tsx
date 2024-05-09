@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import { FileUploaderItemType } from '../../../../types/file-uploader';
 import { IoMdClose } from 'react-icons/io';
+import { Button } from '@mono/ui';
 
 const imgTypes = [
   'tif',
@@ -36,13 +37,13 @@ const FileUploaderItem = ({
   return (
     <div
       className={cn(
-        'relative mt-2 inline-flex flex-col overflow-hidden rounded me-2',
-        isImage ? 'border border-border-200' : '',
-        disabled ? 'cursor-not-allowed border-[#D4D8DD] bg-[#EEF1F4]' : ''
+        'relative me-2 mt-2 inline-flex flex-col overflow-hidden rounded',
+        isImage ? 'border-border-200 border' : '',
+        disabled ? 'cursor-not-allowed border-[#D4D8DD] bg-[#EEF1F4]' : '',
       )}
     >
       {isImage ? (
-        <figure className="relative flex items-center justify-center h-16 w-28 aspect-square">
+        <figure className="relative flex aspect-square h-16 w-28 items-center justify-center">
           <Image
             src={url}
             alt={name}
@@ -53,7 +54,7 @@ const FileUploaderItem = ({
         </figure>
       ) : (
         <div className="flex flex-col items-center">
-          <div className="flex items-center justify-center min-w-0 overflow-hidden h-14 w-14">
+          <div className="flex h-14 w-14 min-w-0 items-center justify-center overflow-hidden">
             <Image
               src={'/images/zip.png'}
               width={56}
@@ -61,7 +62,7 @@ const FileUploaderItem = ({
               alt="upload placeholder"
             />
           </div>
-          <p className="flex items-baseline p-1 text-xs cursor-default text-body">
+          <p className="text-body flex cursor-default items-baseline p-1 text-xs">
             <span
               className="inline-block max-w-[64px] overflow-hidden overflow-ellipsis whitespace-nowrap"
               title={`${name}.${fileType}`}
@@ -75,12 +76,14 @@ const FileUploaderItem = ({
       {/* {multiple ? (
           ) : null} */}
       {!disabled ? (
-        <button
-          className="absolute flex items-center justify-center w-4 h-4 text-xs bg-red-600 rounded-full shadow-xl outline-none top-1 text-light end-1"
+        <Button
+          size="icon"
+          variant="ghost"
+          className="text-light absolute end-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs shadow-xl outline-none"
           onClick={() => handleDelete?.()}
         >
           <IoMdClose size={10} />
-        </button>
+        </Button>
       ) : (
         ''
       )}

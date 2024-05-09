@@ -3,5 +3,8 @@
   "i18n-ally.localesPaths": ["apps/admin/messages"],
   "typescript.preferences.importModuleSpecifier": "project-relative",
   "i18n-ally.keystyle": "nested",
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

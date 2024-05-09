@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    --color-primary: 167.92, 100%, 31.18%;
-    --color-text-body: 0, 0%, 40%;
-    --color-text-base: 0, 0%, 40%;
-    --color-text-muted: 217.89, 10.61%, 64.9%;
-    --color-border-base: 216, 12.2%, 83.92%;
-    --color-danger: 0, 84%, 60%;
-    --color-danger-dark: 0, 74%, 42%;
+    --color-primary: 167.92 100% 31.18%;
+    --color-text-body: 0 0% 40%;
+    --color-text-base: 0 0% 40%;
+    --color-text-muted: 217.89 10.61% 64.9%;
+    --color-border-base: 216 12.2% 83.92%;
+    --color-danger: 0 84% 60%;
+    --color-danger-dark: 0 74% 42%;
 
     --text-body: 0 0% 40%;
     --text-base: 0 0% 40%;
@@ -31,7 +31,7 @@
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
+    --border: 216 12% 84%;
     --input: 240 5.9% 90%;
     --ring: 167.92 100% 31.18%;
     --radius: 0.5rem;
@@ -59,12 +59,20 @@
     --ring: 142.4 71.8% 29.2%;
   }
 
-  .text-body {
-    /* @apply text- */
+  @layer base {
+    * {
+      @apply border-border;
+    }
+    body {
+      @apply bg-background text-foreground;
+      font-feature-settings:
+        'rlig' 1,
+        'calt' 1;
+    }
   }
 
   .form-control {
-    @apply placeholder:text-gray-400 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 inline-block;
+    @apply bg-background ring-offset-background focus-visible:ring-ring inline-block w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .sidebar-content::-webkit-scrollbar {
@@ -79,14 +87,6 @@
     background: theme('colors.gray.200');
   }
 }
-
-@layer components {
-  .form-control {
-    
-  }
-}
-
-
 
 @import url('../../styles/data-table.css');
 @import url('../../styles/text-editor.css');
