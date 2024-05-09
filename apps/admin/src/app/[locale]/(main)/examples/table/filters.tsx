@@ -21,6 +21,18 @@ export const filterOptions: FilterOption<Task>[] = [
     options: ids,
   },
 ];
+export const itemsFilters: FilterOption<Task>[] = [
+  {
+    column: 'priority',
+    title: 'Priority',
+    options: priorities,
+  },
+  {
+    column: 'id',
+    title: 'Id',
+    options: ids,
+  },
+];
 
 export const globalFilter: GlobalFilterOption<Task> = {
   column: 'status',

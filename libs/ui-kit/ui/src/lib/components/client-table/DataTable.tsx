@@ -82,7 +82,7 @@ interface ItemsTableProps<TData, TValue> {
     column: keyof TData;
     placeholder?: string;
   };
-  filterOptions?: FilterOption<TValue>[];
+  filterOptions?: FilterOption<TData>[];
   globalFilter?: {
     column: keyof TData;
     options: {
@@ -106,6 +106,13 @@ export function DataTable<TData, TValue>({
   globalFilter,
   variant = 'default',
 }: DataTableProps<TData, TValue>) {
+  // if global filter's column is in filterOptions's columns throw an error
+  if (
+    globalFilter &&
+    filterOptions?.some((filter) => filter.column === globalFilter.column)
+  ) {
+    throw new Error('Global filter column should not be in filter options');
+  }
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});

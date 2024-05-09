@@ -5,7 +5,7 @@ import path from 'path';
 import { z } from 'zod';
 import { columns } from './_components/Columns';
 import { taskSchema } from './_data/schema';
-import { filterOptions, globalFilter } from './filters';
+import { filterOptions, globalFilter, itemsFilters } from './filters';
 
 export const metadata: Metadata = {
   title: 'Tasks',
@@ -57,7 +57,7 @@ export default async function TaskPage() {
           column: 'title',
           placeholder: 'Search tasks',
         }}
-        filterOptions={filterOptions}
+        filterOptions={itemsFilters}
         globalFilter={globalFilter}
       />
     </div>

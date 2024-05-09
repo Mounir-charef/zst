@@ -4,18 +4,12 @@ import { ListFilter } from 'lucide-react';
 import { Button } from '../../ui/button';
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '../../ui/dropdown-menu';
 import { DataTableFacetedFilterProps } from './FacetedFilter';
+import { MenuFilter } from './MenuFilter';
 
 export function ItemsTableFiltersMenu<TData, TValue>({
   filterOptions,
@@ -33,31 +27,11 @@ export function ItemsTableFiltersMenu<TData, TValue>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {/* <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={task.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub> */}
-        {filterOptions.map((filterOption) => (
-          <DropdownMenuSub key={filterOption.title}>
-            <DropdownMenuSubTrigger>
-              {filterOption.title}
-            </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent>
-              {filterOption.options.map((option) => (
-                <DropdownMenuCheckboxItem key={option.value}>
-                  {option.label}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
+        {filterOptions.map((filterOption, index) => (
+          <>
+            <MenuFilter {...filterOption} />
+            {index < filterOptions.length - 1 && <DropdownMenuSeparator />}
+          </>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
