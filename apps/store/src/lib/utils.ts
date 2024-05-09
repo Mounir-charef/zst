@@ -1,3 +1,10 @@
+export function nameToSlug(name: string) {
+  return name
+    .split(' ')
+    .map((word) => word[0].toUpperCase())
+    .join('');
+}
+
 export function convertObjectToStringRecord(object: object) {
   const stringParams: Record<string, string> = {};
 
