@@ -11,10 +11,6 @@ import { DataTableViewOptions } from './ViewOptions';
 
 interface DefaultTableToolbarProps<TData, TValue> {
   table: Table<TData>;
-  searchOptions?: {
-    column: keyof TData;
-    placeholder?: string;
-  };
   filterOptions?: DataTableFacetedFilterProps<TData, TValue>[];
 }
 

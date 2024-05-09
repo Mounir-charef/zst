@@ -1,53 +1,35 @@
 'use client';
 
-import { Table } from '@tanstack/react-table';
+import { Column, Table } from '@tanstack/react-table';
 import { Button } from '../../ui/button';
-import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group';
 import { DataTableFacetedFilterProps } from './FacetedFilter';
+import { GlobalFilter } from './GlobalFilter';
 import { DataTableViewOptions } from './ViewOptions';
-import { useState } from 'react';
 
 interface ItemTableToolbarProps<TData, TValue> {
   table: Table<TData>;
-  searchOptions?: {
-    column: keyof TData;
-    placeholder?: string;
-  };
+
   filterOptions?: DataTableFacetedFilterProps<TData, TValue>[];
+  globalFilter?: {
+    column: Column<TData, TValue>;
+    options: {
+      label: string;
+      value: string;
+    }[];
+  };
 }
 
 export function ItemTableToolbar<TData, TValue>({
   table,
   filterOptions,
+  globalFilter,
 }: ItemTableToolbarProps<TData, TValue>) {
-  const [selectedFilter, setSelectedFilter] = useState<string>('all');
   return (
     <div className="flex items-start justify-between gap-x-4">
       <div className="flex flex-1 flex-wrap items-center gap-1 gap-x-2">
-        <ToggleGroup
-          defaultValue="all"
-          variant="filter"
-          size="sm"
-          type="single"
-          className="bg-muted text-muted-foreground rounded-md p-1"
-          onValueChange={(value) => {
-            if (!!value) setSelectedFilter(value);
-          }}
-          value={selectedFilter}
-        >
-          <ToggleGroupItem value="all" aria-label="Toggle All">
-            All
-          </ToggleGroupItem>
-          <ToggleGroupItem value="low" aria-label="Toggle low">
-            Low
-          </ToggleGroupItem>
-          <ToggleGroupItem value="medium" aria-label="Toggle medium">
-            Medium
-          </ToggleGroupItem>
-          <ToggleGroupItem value="high" aria-label="Toggle high">
-            High
-          </ToggleGroupItem>
-        </ToggleGroup>
+        {globalFilter && globalFilter.options.length > 0 ? (
+          <GlobalFilter {...globalFilter} />
+        ) : null}
       </div>
       <div className="itece flex flex-col items-end gap-1 md:flex-row-reverse md:items-center">
         <Button

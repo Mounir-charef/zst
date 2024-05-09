@@ -5,7 +5,7 @@ import path from 'path';
 import { z } from 'zod';
 import { columns } from './_components/Columns';
 import { taskSchema } from './_data/schema';
-import { filterOptions } from './filters';
+import { filterOptions, globalFilter } from './filters';
 
 export const metadata: Metadata = {
   title: 'Tasks',
@@ -46,6 +46,7 @@ export default async function TaskPage() {
       />
 
       <DataTable
+        variant="items-table"
         header={{
           title: 'Tasks',
           description: 'Manage your tasks and issues.',
@@ -57,7 +58,7 @@ export default async function TaskPage() {
           placeholder: 'Search tasks',
         }}
         filterOptions={filterOptions}
-        variant="items-table"
+        globalFilter={globalFilter}
       />
     </div>
   );

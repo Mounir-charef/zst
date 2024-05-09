@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Column,
   ColumnDef,
   ColumnFiltersState,
   SortingState,
@@ -36,9 +37,17 @@ import { DefaultTableToolbar } from './DefaultToolBar';
 import { DataTablePagination } from './TablePagination';
 import { ItemTableToolbar } from './ItemTableToolbar';
 
-export type filterOption<TData> = {
+export type FilterOption<TData> = {
   column: keyof TData;
   title: string;
+  options: {
+    label: string;
+    value: string;
+  }[];
+};
+
+export type GlobalFilterOption<TData> = {
+  column: keyof TData;
   options: {
     label: string;
     value: string;
@@ -46,7 +55,7 @@ export type filterOption<TData> = {
   }[];
 };
 
-interface DataTableProps<TData, TValue> {
+interface DefaultTableProps<TData, TValue> {
   header?: {
     title: string;
     description?: string;
@@ -57,9 +66,36 @@ interface DataTableProps<TData, TValue> {
     column: keyof TData;
     placeholder?: string;
   };
-  filterOptions?: filterOption<TValue>[];
-  variant?: 'default' | 'items-table';
+  filterOptions?: FilterOption<TValue>[];
+  globalFilter?: undefined;
+  variant?: 'default';
 }
+
+interface ItemsTableProps<TData, TValue> {
+  header?: {
+    title: string;
+    description?: string;
+  };
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  searchOptions?: {
+    column: keyof TData;
+    placeholder?: string;
+  };
+  filterOptions?: FilterOption<TValue>[];
+  globalFilter?: {
+    column: keyof TData;
+    options: {
+      label: string;
+      value: string;
+    }[];
+  };
+  variant: 'items-table';
+}
+
+type DataTableProps<TData, TValue> =
+  | DefaultTableProps<TData, TValue>
+  | ItemsTableProps<TData, TValue>;
 
 export function DataTable<TData, TValue>({
   header,
@@ -67,6 +103,7 @@ export function DataTable<TData, TValue>({
   data,
   searchOptions,
   filterOptions,
+  globalFilter,
   variant = 'default',
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
@@ -104,9 +141,32 @@ export function DataTable<TData, TValue>({
       return {
         ...filterOption,
         column: table.getColumn(filterOption.column.toString()),
+      } as {
+        column: Column<TData, TValue>;
+        title: string;
+        options: {
+          label: string;
+          value: string;
+        }[];
       };
     });
   }, [filterOptions, table]);
+
+  const globalFilterOption = React.useMemo(() => {
+    return globalFilter
+      ? ({
+          column: table.getColumn(globalFilter.column.toString()),
+          options: globalFilter.options,
+        } as {
+          column: Column<TData, TValue>;
+          options: {
+            label: string;
+            value: string;
+            icon?: React.ComponentType<{ className?: string }>;
+          }[];
+        })
+      : undefined;
+  }, []);
 
   return (
     <Card>
@@ -141,16 +201,12 @@ export function DataTable<TData, TValue>({
       ) : null}
       <CardContent className="space-y-4">
         {variant === 'default' ? (
-          <DefaultTableToolbar
-            table={table}
-            searchOptions={searchOptions}
-            filterOptions={filters}
-          />
+          <DefaultTableToolbar table={table} filterOptions={filters} />
         ) : (
           <ItemTableToolbar
             table={table}
-            searchOptions={searchOptions}
             filterOptions={filters}
+            globalFilter={globalFilterOption}
           />
         )}
         <div className="bg-background rounded-md border p-4">
