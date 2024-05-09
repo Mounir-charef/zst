@@ -4,9 +4,8 @@ import { getMessages, getTimeZone } from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
-import '../../global.css';
 import { Providers } from '../../components/Providers';
-import NavBar from '../../components/navbar/NavBar';
+import '../../global.css';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -32,24 +31,19 @@ export default async function RootLayout({
       className="h-full"
       suppressHydrationWarning
     >
-      <body
-        className={cn(
-          'text-foreground bg-background h-full font-sans antialiased',
-          inter.className,
-        )}
-      >
-        <Providers>
-          <NextIntlClientProvider messages={messages} timeZone={timezone}>
-            <main className="flex h-full w-full flex-col">
-              <NavBar />
-              <div className="mx-auto w-full max-w-7xl flex-grow flex-col py-12 sm:py-6">
-                {children}
-              </div>
-            </main>
+      <Providers>
+        <NextIntlClientProvider messages={messages} timeZone={timezone}>
+          <body
+            className={cn(
+              'text-foreground bg-background h-full font-sans antialiased',
+              inter.className,
+            )}
+          >
+            {children}
             <Toaster richColors closeButton position="top-right" />
-          </NextIntlClientProvider>
-        </Providers>
-      </body>
+          </body>
+        </NextIntlClientProvider>
+      </Providers>
     </html>
   );
 }
