@@ -1,10 +1,9 @@
-import { cn } from '@mono/util';
-import * as React from 'react';
 import { SVGProps, memo } from 'react';
-const LogoDark = ({ className, ...props }: SVGProps<SVGSVGElement>) => (
+const LogoDark = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={cn('h-72 w-36', className)}
+    width={80}
+    height={40}
     fill="none"
     {...props}
   >
