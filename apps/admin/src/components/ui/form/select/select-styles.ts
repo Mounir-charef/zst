@@ -22,7 +22,7 @@ export const selectStyles = {
       backgroundColor: state?.isDisabled ? '#EEF1F4' : '#ffffff',
       borderRadius: 5,
       border: '1px solid #D1D5DB',
-      borderColor: state?.isDisabled ? '#D4D8DD' : state.isFocused ? 'hsl(var(--color-primary))' : '#D1D5DB',
+      borderColor: state?.isDisabled ? '#D4D8DD' : state.isFocused ? 'hsl(var(--primary))' : '#D1D5DB',
       boxShadow:
         state.menuIsOpen &&
         '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
@@ -65,7 +65,7 @@ export const selectStyles = {
     }),
     multiValue: (provided: any, _: any) => ({
       ...provided,
-      backgroundColor: 'hsl(var(--color-primary))',
+      backgroundColor: 'hsl(var(--primary))',
       borderRadius: 9999,
       overflow: 'hidden',
       boxShadow:
@@ -86,7 +86,7 @@ export const selectStyles = {
       cursor: 'pointer',
   
       '&:hover': {
-        backgroundColor: 'hsl(var(--color-primary))',
+        backgroundColor: 'hsl(var(--primary))',
         color: '#F3F4F6',
       },
     }),
@@ -134,7 +134,7 @@ export const selectStyles = {
       borderColor: state?.isDisabled
         ? '#D4D8DD'
         : state.isFocused
-        ? 'hsl(var(--color-primary))'
+        ? 'hsl(var(--primary))'
         : '#D1D5DB',
       boxShadow: state.menuIsOpen && '0px 2px 6px rgba(59, 74, 92, 0.1)',
     }),
@@ -177,7 +177,7 @@ export const selectStyles = {
     }),
     multiValue: (provided: any, _: any) => ({
       ...provided,
-      backgroundColor: 'hsl(var(--color-primary))',
+      backgroundColor: 'hsl(var(--primary))',
       borderRadius: 9999,
       overflow: 'hidden',
       boxShadow:
@@ -198,7 +198,7 @@ export const selectStyles = {
       cursor: 'pointer',
   
       '&:hover': {
-        backgroundColor: 'hsl(var(--color-primary))',
+        backgroundColor: 'hsl(var(--primary))',
         color: '#F3F4F6',
       },
     }),

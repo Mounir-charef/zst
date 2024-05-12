@@ -11,8 +11,11 @@ import { Button } from '../../../../../../components/ui/Button';
 import AttributeFormValues from './AttributeFormValues';
 import AttributeFormInfo from './AttributeFormInfo';
 import FormFooter from '../../../../../../components/ui/form/FormFooter';
+import { FormProps } from '../../../../../../types/form';
+import { Link } from '../../../../../../navigation';
+import routesConfig from '../../../../../../config/routesConfig';
 
-const AttributeForm = () => {
+const AttributeForm = ({ variant, defaultValues }: FormProps) => {
   const form = useForm({});
 
   const { control } = form;
@@ -22,7 +25,9 @@ const AttributeForm = () => {
       <AttributeFormInfo control={control} />
       <AttributeFormValues control={control} />
       <FormFooter>
-        <Button variant="outline">Back</Button>
+        <Link href={routesConfig.attributes}>
+          <Button variant="outline">Back</Button>
+        </Link>
         <Button>Create New Attribute</Button>
       </FormFooter>
     </Form>

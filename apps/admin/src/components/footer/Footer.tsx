@@ -10,8 +10,8 @@ const Footer = () => {
   return (
     <footer
       className={cn(
-        'bg-white px-8 py-6',
-        isCollapsed ? 'lg:ml-[96px]' : 'lg:ml-[280px]'
+        'bg-background px-8 py-6',
+        isCollapsed ? 'lg:ml-[96px]' : 'lg:ml-[280px]',
       )}
     ></footer>
   );

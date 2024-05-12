@@ -6,6 +6,7 @@ import { Button } from '../../../../../../components/ui/Button';
 import { Control, useFieldArray } from 'react-hook-form';
 import InputField from '../../../../../../components/ui/form/input/InputField';
 import FormFieldsWrapper from '../../../../../../components/ui/form/FormFieldsWrapper';
+import RemoveBorderlessButton from '../../../../../../components/common/RemoveBorderlessButton';
 
 interface AttributeFormValuesProps {
   control: Control;
@@ -41,12 +42,10 @@ const AttributeFormValues = ({ control }: AttributeFormValuesProps) => {
                         name={`values.${index}.meta`}
                         label="Meta"
                       />
-                      <button
+                      <RemoveBorderlessButton
+                        className="!col-span-2 mt-8"
                         onClick={() => remove(index)}
-                        className="text-sm text-danger hover:text-danger-dark transition-colors duration-200 transition-colors !col-span-2 mt-8 inline-block"
-                      >
-                        Remove
-                      </button>
+                      />
                     </FormFieldsWrapper>
                   </BoundedSectionWrapper>
                 );

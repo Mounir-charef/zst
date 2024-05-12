@@ -17,11 +17,11 @@ const Sidebar = () => {
     <>
       <aside
         className={cn(
-          'fixed top-0 left-0 bg-white h-full border-r lg:flex flex-col hidden transition-all',
-          isCollapsed ? 'w-[96px]' : 'w-[280px]'
+          'bg-background fixed left-0 top-0 hidden h-full flex-col border-r transition-all lg:flex',
+          isCollapsed ? 'w-[96px]' : 'w-[280px]',
         )}
       >
-        <div className="flex items-center h-[76px] border-b px-8">
+        <div className="flex h-[76px] items-center border-b px-8">
           {isCollapsed ? (
             <Link href={routesConfig.dashboard}>
               <Image

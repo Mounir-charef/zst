@@ -9,13 +9,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         ref={ref}
         className={cn(
-          'px-4 h-12 flex items-center w-full border rounded appearance-none transition duration-300 ease-in-out text-sm focus:outline-none focus:ring-0 bg-white border-border-base focus:shadow focus:bg-light focus:border-primary',
-          className
+          'bg-background border-border-base focus:bg-light focus:border-primary flex h-12 w-full appearance-none items-center rounded border px-4 text-sm transition duration-300 ease-in-out focus:shadow focus:outline-none focus:ring-0',
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 
 export default Input;

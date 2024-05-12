@@ -9,16 +9,23 @@ import {
   FormMessage,
 } from '@mono/ui';
 import { FormFieldProps } from '../form';
+import { FieldPath, FieldValues } from 'react-hook-form';
 
-type TextareaFieldProps = FormFieldProps<TextareaProps>;
+type TextareaFieldProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = FormFieldProps<TextareaProps, TFieldValues, TName>;
 
-const TextareaField = ({
+const TextareaField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
   control,
   label,
   name,
   description,
   ...props
-}: TextareaFieldProps) => {
+}: TextareaFieldProps<TFieldValues, TName>) => {
   return (
     <FormField
       control={control}
