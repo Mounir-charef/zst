@@ -1,9 +1,9 @@
 import { jwtDecode } from 'jwt-decode';
-import { Awaitable, NextAuthOptions, User, getServerSession } from 'next-auth';
+import { NextAuthOptions, User, getServerSession } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { cookies, headers } from 'next/headers';
-import { env } from '../env.mjs';
+import { env } from '../../env.mjs';
 
 async function refreshAccessToken(token: JWT) {
   try {

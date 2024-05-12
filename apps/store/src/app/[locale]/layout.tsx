@@ -6,7 +6,7 @@ import { Toaster } from 'sonner';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
 import { Providers } from '../../components/Providers';
 import SessionProvider from '../../components/auth/SessionProvider';
-import { getAuthSession } from '../../config/auth';
+import { getAuthSession } from '../../lib/auth/auth';
 import '../../global.css';
 
 export const metadata = {
