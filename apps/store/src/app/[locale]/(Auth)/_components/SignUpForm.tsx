@@ -5,7 +5,7 @@ import { Button, Form, InputField, PasswordField } from '@mono/ui';
 import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import GoogleIcon from '../../../assets/GoogleIcon';
+import GoogleIcon from '../../../../assets/icons/GoogleIcon';
 
 const SignUpForm = () => {
   const schema = useMemo(

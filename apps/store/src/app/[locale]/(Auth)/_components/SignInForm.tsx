@@ -9,7 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { Link } from '../../../../navigation';
-import GoogleIcon from '../../../assets/GoogleIcon';
+import GoogleIcon from '../../../../assets/icons/GoogleIcon';
 
 const LoginForm = () => {
   const { mutate, isPending } = useMutation({
