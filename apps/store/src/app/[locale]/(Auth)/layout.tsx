@@ -3,5 +3,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <main className="dark flex h-full w-full flex-col">{children}</main>;
+  return (
+    <main className="dark flex h-full w-full flex-col px-2">{children}</main>
+  );
 }

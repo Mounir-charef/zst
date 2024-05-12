@@ -17,6 +17,7 @@ import { signIn } from 'next-auth/react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
+import GoogleIcon from '../../../assets/GoogleIcon';
 
 const LoginForm = () => {
   const { mutate, isPending } = useMutation({
@@ -93,10 +94,24 @@ const LoginForm = () => {
             Forgot your password?
           </Link>
         </div>
-        <Button disabled={isPending} type="submit" className="w-full gap-2">
-          Login
-          {isPending && <Loader2 className="animate-spin" size={20} />}
-        </Button>
+        <div className="space-y-4">
+          <Button
+            disabled={isPending}
+            isLoading={isPending}
+            type="submit"
+            className="w-full gap-2"
+          >
+            Login
+          </Button>
+          <Button
+            variant="outline"
+            disabled
+            type="button"
+            className="w-full gap-2"
+          >
+            <GoogleIcon /> Login with Google
+          </Button>
+        </div>
       </form>
     </Form>
   );

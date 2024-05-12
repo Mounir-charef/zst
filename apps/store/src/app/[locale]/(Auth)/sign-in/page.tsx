@@ -1,4 +1,3 @@
-import { Button, Input, Label } from '@mono/ui';
 import Image from 'next/image';
 import { memo } from 'react';
 import { Link } from '../../../../navigation';
@@ -6,12 +5,12 @@ import SignInForm from '../_components/SignInForm';
 
 const page = () => {
   return (
-    <div className="h-full w-full lg:grid lg:grid-cols-2">
+    <div className="grid h-full w-full max-lg:place-items-center lg:grid-cols-2">
       <div className="flex items-center justify-center py-12">
-        <div className="mx-auto grid w-[350px] gap-6">
+        <div className="mx-auto grid gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
-            <p className="text-muted-foreground text-balance">
+            <h1 className="text-3xl font-bold">Log In</h1>
+            <p className="text-pretty">
               Enter your email below to login to your account
             </p>
           </div>
