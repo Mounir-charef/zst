@@ -1,30 +1,95 @@
 import { jwtDecode } from 'jwt-decode';
-import { NextAuthOptions, User, getServerSession } from 'next-auth';
+import { Awaitable, NextAuthOptions, User, getServerSession } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { cookies, headers } from 'next/headers';
+import { env } from '../env.mjs';
+
+async function refreshAccessToken(token: JWT) {
+  try {
+    const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_API}/auth/refresh`, {
+      method: 'POST',
+      headers: headers(),
+    });
+
+    const { success, data } = await res.json();
+
+    if (!success) {
+      console.log('The token could not be refreshed!');
+      throw data;
+    }
+
+    console.log('The token has been refreshed successfully.');
+
+    // get some data from the new access token such as exp (expiration time)
+    const decodedAccessToken = JSON.parse(
+      Buffer.from(data.accessToken.split('.')[1], 'base64').toString(),
+    );
+
+    return {
+      ...token,
+      accessToken: data.accessToken,
+      refreshToken: data.refreshToken ?? token.refreshToken,
+      expires_at: decodedAccessToken['exp'] * 1000,
+      error: '',
+    };
+  } catch (error) {
+    console.log(error);
+
+    // return an error if somethings goes wrong
+    return {
+      ...token,
+      error: 'RefreshAccessTokenError', // attention!
+    };
+  }
+}
 
 export const authOptions = {
+  debug: env.NODE_ENV === 'development',
+
+  pages: {
+    signIn: '/sign-in',
+  },
+
   session: {
     strategy: 'jwt',
   },
+
   providers: [
     CredentialsProvider({
       name: 'Credentials',
 
       credentials: {
-        username: { label: 'username', type: 'text' },
+        email: { label: 'email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const res = await fetch('https://dummyjson.com/auth/login', {
+        const res = await fetch(env.NEXT_PUBLIC_BACKEND_API + 'auth/signin', {
           method: 'POST',
           body: JSON.stringify({
             ...credentials,
+            role: 'SUPPLIER',
           }),
           headers: { 'Content-Type': 'application/json' },
         });
+
         const user = (await res.json()) as User;
 
+        // check if response is ok
+        if (!res.ok) {
+          //@ts-ignore
+          throw new Error(user.message);
+        }
+
         if (res.ok && user) {
+          cookies().set({
+            name: 'xxx.refresh-token',
+            value: user.refreshToken,
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: true,
+          } as any);
+
           return user;
         }
 
@@ -32,58 +97,37 @@ export const authOptions = {
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      const data = { ...token };
 
-      if (user && user.token) {
+  secret: env.NEXTAUTH_SECRET,
+
+  callbacks: {
+    async jwt({ token, user, account }) {
+      if (user && account) {
         // If login with Credentials
         // - user object is what the credential provider returns (from the authorize function)
         // - for instance, you return `accessToken` in the authorize function => bind accessToken to the data
         // and make it available to the client.
-        data.id = user.id;
-        data.email = user.email;
-        data.username = user.username;
-        data.image = user.image;
-        data.accessToken = user.token;
-        data.refreshToken = user.token;
+        token.id = user.id;
+        token.email = user.email;
+        token.username = user.username;
+        token.image = user.image;
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
 
         // exp date
-        data.expires_at =
-          Date.now() + (jwtDecode(user.token as string).exp as number);
+        token.expires_at =
+          Date.now() + (jwtDecode(user.accessToken as string).exp as number);
 
-        return data;
-      } else if (Date.now() < token.expires_at) {
-        // If the access token has not expired yet, return it
         return token;
-      } else {
-        // If the access token has expired, try to refresh it
-        try {
-          // https://accounts.google.com/.well-known/openid-configuration
-          // We need the `token_endpoint`.
-          const response = await fetch('https://dummyjson.com/auth/refresh', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token.refreshToken}`,
-            },
-          });
-
-          const newToken: User = await response.json();
-
-          if (!response.ok) throw newToken;
-          return {
-            ...token, // Keep the previous token properties
-            accessToken: newToken.token,
-            refreshToken: newToken.token,
-            expires_at:
-              Date.now() +
-              (jwtDecode(token.accessToken as string).exp as number),
-          };
-        } catch (error) {
-          return { ...token, error: 'RefreshAccessTokenError' as const };
-        }
       }
+
+      if (Date.now() < token.expires_at) {
+        // if our access token has not expired yet, return all information except the refresh token
+        const { refreshToken, ...rest } = token;
+        return rest;
+      }
+
+      return await refreshAccessToken(token);
     },
 
     async session({ session, token }) {
@@ -97,6 +141,10 @@ export const authOptions = {
         },
         expires: session.expires,
       } as const;
+    },
+
+    redirect() {
+      return '/';
     },
   },
 } satisfies NextAuthOptions;

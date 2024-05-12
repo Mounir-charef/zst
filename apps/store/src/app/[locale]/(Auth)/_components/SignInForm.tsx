@@ -1,38 +1,39 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  Form,
-  Input,
-  InputField,
-  Label,
-  PasswordField,
-} from '@mono/ui';
+import { Button, Form, InputField, PasswordField } from '@mono/ui';
+import { useMutation } from '@tanstack/react-query';
+import { signIn } from 'next-auth/react';
 import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 import { Link } from '../../../../navigation';
-import { signIn } from 'next-auth/react';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
 import GoogleIcon from '../../../assets/GoogleIcon';
 
 const LoginForm = () => {
   const { mutate, isPending } = useMutation({
     mutationKey: ['login'],
-    mutationFn: ({
-      username,
+    mutationFn: async ({
+      email,
       password,
     }: {
-      username: string;
+      email: string;
       password: string;
-    }) => signIn('credentials', { username, password, callbackUrl: '/' }),
-    onError() {
-      toast.error(
-        'An error occurred while trying to sign in. Please try again.',
-      );
+    }) => {
+      const res = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+      if (res?.error) {
+        throw new Error(res.error);
+      }
+
+      return res;
+    },
+    onError(error) {
+      toast.error(error.message);
     },
     onSuccess() {
       toast.success(
@@ -61,11 +62,7 @@ const LoginForm = () => {
   });
 
   const submit: SubmitHandler<LoginFormValues> = (values) => {
-    console.log(values);
-    mutate({
-      username: 'kminchelle',
-      password: '0lelplR',
-    });
+    mutate(values);
   };
 
   return (
