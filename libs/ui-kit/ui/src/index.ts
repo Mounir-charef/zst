@@ -23,3 +23,4 @@ export * from './lib/ui/separator';
 export * from './lib/ui/toggle';
 export * from './lib/ui/toggle-group';
 export * from './lib/ui/popover';
+export * from './lib/ui/navigation-menu';

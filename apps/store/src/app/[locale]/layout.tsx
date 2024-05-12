@@ -1,7 +1,7 @@
 import { cn } from '@mono/util';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTimeZone } from 'next-intl/server';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
 import { Providers } from '../../components/Providers';
@@ -28,7 +28,10 @@ export const metadata = {
   },
 };
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600'],
+});
 
 export default async function RootLayout({
   children,
@@ -54,7 +57,7 @@ export default async function RootLayout({
       <body
         className={cn(
           'text-foreground bg-background h-full font-sans antialiased',
-          inter.className,
+          poppins.className,
         )}
       >
         <Providers>
