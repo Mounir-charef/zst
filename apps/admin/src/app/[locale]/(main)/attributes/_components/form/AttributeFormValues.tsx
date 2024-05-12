@@ -7,9 +7,10 @@ import { Control, useFieldArray } from 'react-hook-form';
 import FormFieldsWrapper from '../../../../../../components/ui/form/FormFieldsWrapper';
 import RemoveBorderlessButton from '../../../../../../components/common/RemoveBorderlessButton';
 import { InputField } from '@mono/ui';
+import { AttributeValues } from '../../../../../../schemas/attribute-schema';
 
 interface AttributeFormValuesProps {
-  control: Control;
+  control: Control<AttributeValues>;
 }
 
 const AttributeFormValues = ({ control }: AttributeFormValuesProps) => {

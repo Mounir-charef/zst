@@ -4,9 +4,10 @@ import FormSection from '../../../../../../components/ui/form/formSection/FormSe
 import { Card, CardContent } from '../../../../../../components/ui/Card';
 import { Control } from 'react-hook-form';
 import { InputField } from '@mono/ui';
+import { AttributeValues } from '../../../../../../schemas/attribute-schema';
 
 interface AttributeFormInfoProps {
-  control: Control;
+  control: Control<AttributeValues>;
 }
 
 const AttributeFormInfo = ({ control }: AttributeFormInfoProps) => {
