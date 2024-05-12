@@ -1,8 +1,12 @@
-import { Control } from 'react-hook-form';
+import { Control, FieldPath, FieldValues } from 'react-hook-form';
 
-export type FormFieldProps<T> = {
-  control: Control;
-  name: string;
+export type FormFieldProps<
+  T,
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = {
+  control: Control<TFieldValues>;
+  name: TName;
   description?: string;
   label: string;
   formItemClassName?: string;

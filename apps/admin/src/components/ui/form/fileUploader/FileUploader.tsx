@@ -74,7 +74,7 @@ function FileUploader({
           {...file}
         />
       );
-    }
+    },
   );
 
   useEffect(() => {}, [files]);
@@ -87,18 +87,18 @@ function FileUploader({
             'border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none relative',
             disabled
               ? 'pointer-events-none select-none opacity-80 bg-[#EEF1F4]'
-              : 'cursor-pointer'
+              : 'cursor-pointer',
           ),
         })}
       >
         {!disabled ? <input {...getInputProps()} /> : ''}
-        <FaCloudUploadAlt className="text-muted" size={40} />
-        <p className="mt-4 text-sm text-center text-body">
+        <FaCloudUploadAlt className="text-muted-foreground" size={40} />
+        <p className="text-body mt-4 text-center text-sm">
           {helperText ? (
             <span className="font-semibold text-gray-500">{helperText}</span>
           ) : (
             <>
-              <span className="font-semibold text-primary">
+              <span className="text-primary font-semibold">
                 Upload an image
               </span>{' '}
               or drag and drop <br />
@@ -107,7 +107,7 @@ function FileUploader({
         </p>
       </div>
 
-      {!!thumbs.length && <div className="flex flex-wrap mt-2">{thumbs}</div>}
+      {!!thumbs.length && <div className="mt-2 flex flex-wrap">{thumbs}</div>}
     </section>
   );
 }

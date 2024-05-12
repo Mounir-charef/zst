@@ -1,7 +1,7 @@
-import React from 'react';
+import AttributesPageContent from './_components/AttributesPageContent';
 
 const AttributesPage = () => {
-  return <div>AttributesPage</div>;
+  return <AttributesPageContent />;
 };
 
 export default AttributesPage;

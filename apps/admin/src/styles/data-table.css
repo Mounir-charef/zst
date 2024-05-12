@@ -1,35 +1,35 @@
 .rc-table {
-    @apply border-separate;
-    border-spacing: 0;
-  }
+  @apply border-separate;
+  border-spacing: 0;
+}
 
-  .rc-table table {
-    width: 100%;
-  }
+.rc-table table {
+  width: 100%;
+}
 
-  /* thead th */
-  .rc-table thead.rc-table-thead th {
-    @apply text-start px-5 py-3 text-sm font-semibold whitespace-nowrap bg-gray-50 first:rounded-tl first:rounded-bl last:rounded-tr last:rounded-br;
-  }
+/* thead th */
+.rc-table thead.rc-table-thead th {
+  @apply whitespace-nowrap bg-gray-50 px-5 py-3 text-start text-sm font-semibold first:rounded-bl first:rounded-tl last:rounded-br last:rounded-tr;
+}
 
-  /* .rc-table tr.rc-table-row:hover {
+/* .rc-table tr.rc-table-row:hover {
     background-color: inherit;
   } */
 
-  /* tbody tr */
-  .rc-table .rc-table-tbody .rc-table-row {
-    @apply bg-white hover:bg-gray-100
-  }
+/* tbody tr */
+.rc-table .rc-table-tbody .rc-table-row {
+  @apply bg-background hover:bg-gray-100;
+}
 
-  .rc-table tr.rc-table-row td.rc-table-cell {
-    @apply px-5 py-4;
-  }
-  
-  .rc-table .rc-table-content {
-    @apply overflow-x-auto;
-  }
+.rc-table tr.rc-table-row td.rc-table-cell {
+  @apply px-5 py-4;
+}
 
-  /*
+.rc-table .rc-table-content {
+  @apply overflow-x-auto;
+}
+
+/*
   
   .rc-table tr th,
   .rc-table tr td {

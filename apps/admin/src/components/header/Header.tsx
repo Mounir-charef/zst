@@ -40,7 +40,7 @@ const Header = () => {
   return (
     <header
       className={cn(
-        'sticky top-0 z-10 flex h-[76px] items-center border-b bg-white px-5 transition-all lg:px-8',
+        'bg-background sticky top-0 z-10 flex h-[76px] items-center border-b px-5 transition-all lg:px-8',
         isCollapsed ? 'lg:ml-[96px]' : 'lg:ml-[280px]',
       )}
     >

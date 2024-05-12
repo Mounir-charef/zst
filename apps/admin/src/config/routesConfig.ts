@@ -9,6 +9,7 @@ const routesConfig = {
 
     attributes: '/attributes',
     addNewAttribute: '/attributes/create',
+    editAttribute: (id: ID) => `/attributes/${id}/edit`
 }
 
 export default routesConfig

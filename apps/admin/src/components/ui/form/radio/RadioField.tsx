@@ -8,15 +8,22 @@ import {
 import React from 'react';
 import { FormFieldProps } from '../form';
 import Radio, { RadioProps } from './Radio';
+import { FieldPath, FieldValues } from 'react-hook-form';
 
-type RadioFieldProps = Omit<FormFieldProps<unknown>, 'label'> & RadioProps;
+type RadioFieldProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = Omit<FormFieldProps<unknown, TFieldValues, TName>, 'label'> & RadioProps;
 
-const RadioField = ({
+const RadioField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
   control,
   name,
   description,
   ...props
-}: RadioFieldProps) => {
+}: RadioFieldProps<TFieldValues, TName>) => {
   return (
     <FormField
       control={control}

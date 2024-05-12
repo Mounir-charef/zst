@@ -9,25 +9,36 @@ import {
 import React from 'react';
 import Select, { SelectProps } from './Select';
 import { FormFieldProps } from '../form';
+import { cn } from '@mono/util';
+import { FieldPath, FieldValues } from 'react-hook-form';
 
-type SelectFieldProps = FormFieldProps<
-  Pick<SelectProps, 'options' | 'isMulti'>
+type SelectFieldProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = FormFieldProps<
+  Pick<SelectProps, 'options' | 'isMulti'>,
+  TFieldValues,
+  TName
 >;
 
-const SelectField = ({
+const SelectField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
   control,
   name,
   label,
   description,
   options,
   isMulti,
-}: SelectFieldProps) => {
+  formItemClassName,
+}: SelectFieldProps<TFieldValues, TName>) => {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={cn(formItemClassName)}>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
             <Select

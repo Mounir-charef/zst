@@ -19,9 +19,9 @@ const SublinksCollapse = ({
   } = useAppContext();
   return (
     <Collapse isOpen={isOpen}>
-      <div className={cn('pl-6 py-1', isCollapsed && 'lg:hidden')}>
+      <div className={cn('py-1 pl-6', isCollapsed && 'lg:hidden')}>
         <ul
-          className="border-l border-dashed flex flex-col gap-0.5"
+          className="flex flex-col gap-0.5 border-l border-dashed"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -31,8 +31,8 @@ const SublinksCollapse = ({
               <li key={child.id}>
                 <Link
                   className={cn(
-                    'text-sm hover:text-primary inline-block pl-5 py-2 border-dashed relative text-dark text-base-color',
-                    'before:absolute before:left-0.5 before:top-1/2 before:-translate-y-1/2 before:w-3 before:border-dashed before:border'
+                    'hover:text-primary text-dark text-base-color relative inline-block border-dashed py-2 pl-5 text-sm',
+                    'before:absolute before:left-0.5 before:top-1/2 before:w-3 before:-translate-y-1/2 before:border before:border-dashed',
                   )}
                   href={child.href}
                 >
@@ -80,22 +80,22 @@ const SublinksPopover = ({
   return top ? (
     <div
       className={cn(
-        'fixed z-40 transition-all invisible opacity-0 -translate-y-1/2 pl-5',
-        isOpen && 'visible opacity-100'
+        'invisible fixed z-40 -translate-y-1/2 pl-5 opacity-0 transition-all',
+        isOpen && 'visible opacity-100',
       )}
       style={{
         top: top,
         left: `calc(96px - 20px)`,
       }}
     >
-      <div className="bg-white rounded-md shadow border py-[10px] px-5 min-w-52 hidden lg:block">
+      <div className="bg-background hidden min-w-52 rounded-md border px-5 py-[10px] shadow lg:block">
         <ul>
           {children.map((link) => {
             return (
               <li key={link.id}>
                 {' '}
                 <Link
-                  className="inline-block whitespace-nowrap py-2 text-sm hover:text-primary"
+                  className="hover:text-primary inline-block whitespace-nowrap py-2 text-sm"
                   href={link.href}
                 >
                   {link.title}
