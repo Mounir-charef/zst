@@ -8,8 +8,8 @@ const page = () => {
     <div className="grid h-full w-full max-lg:place-items-center lg:grid-cols-2">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid gap-6">
-          <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Log In</h1>
+          <div className="grid gap-6 text-center">
+            <h1 className="text-3xl font-bold md:text-4xl">Log In</h1>
             <p className="text-pretty">
               Enter your email below to login to your account
             </p>
