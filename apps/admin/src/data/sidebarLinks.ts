@@ -3,7 +3,7 @@ import { RxDashboard } from "react-icons/rx";
 import { PiPackageDuotone } from "react-icons/pi";
 import { PiShootingStarDuotone } from "react-icons/pi";
 import routesConfig from "../config/routesConfig";
-import { FaWpforms } from "react-icons/fa";
+import { FaWpforms, FaTable } from "react-icons/fa";
 import { CiViewTable } from "react-icons/ci";
 import { SiDialogflow } from "react-icons/si";
 import { RxBadge } from "react-icons/rx";
@@ -11,14 +11,13 @@ import { MdOutlineFormatOverline } from "react-icons/md";
 import { MdAdsClick } from "react-icons/md";
 
 
-
 export interface SidebarLink {
-    id: number;
-    href: string;
-    title: string;
-    Icon?: IconType | null;
-    // segment?: string;
-    children?: SidebarLink[];
+  id: number;
+  href: string;
+  title: string;
+  Icon?: IconType | null;
+  // segment?: string;
+  children?: SidebarLink[];
 }
 
 interface SidebarLinks {
@@ -122,10 +121,16 @@ const sidebarLinks: SidebarLinks = {
                 Icon: MdAdsClick,
                 href: '/examples/button',
             },
+            {
+              id: 10,
+              title: 'Client/Store Table',
+              Icon: FaTable,
+              href: '/examples/table',
+            },
         ]
     },
 }
 
 
 
-export default sidebarLinks
+export default sidebarLinks;
