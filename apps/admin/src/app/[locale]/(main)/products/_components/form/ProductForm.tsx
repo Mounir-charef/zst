@@ -22,7 +22,7 @@ const ProductForm = ({ variant, defaultValues }: FormProps) => {
         <ProductFormInfo control={control} />
         <ProductFormVariation control={control} watch={watch} />
         <FormFooter>
-          <Link href={routesConfig.dashboard}>
+          <Link href={routesConfig.products}>
             <Button variant="outline">Back</Button>
           </Link>
           <Button>Create New Product</Button>
