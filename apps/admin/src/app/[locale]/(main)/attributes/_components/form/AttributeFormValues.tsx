@@ -4,9 +4,9 @@ import FormSection from '../../../../../../components/ui/form/formSection/FormSe
 import { Card, CardContent } from '../../../../../../components/ui/Card';
 import { Button } from '../../../../../../components/ui/Button';
 import { Control, useFieldArray } from 'react-hook-form';
-import InputField from '../../../../../../components/ui/form/input/InputField';
 import FormFieldsWrapper from '../../../../../../components/ui/form/FormFieldsWrapper';
 import RemoveBorderlessButton from '../../../../../../components/common/RemoveBorderlessButton';
+import { InputField } from '@mono/ui';
 
 interface AttributeFormValuesProps {
   control: Control;
@@ -31,13 +31,13 @@ const AttributeFormValues = ({ control }: AttributeFormValuesProps) => {
                   <BoundedSectionWrapper key={field.id} className="">
                     <FormFieldsWrapper>
                       <InputField
-                        formItemClassName="!col-span-5"
+                        className="!col-span-5"
                         control={control}
                         name={`values.${index}.value`}
                         label="Value"
                       />
                       <InputField
-                        formItemClassName="!col-span-5"
+                        className="!col-span-5"
                         control={control}
                         name={`values.${index}.meta`}
                         label="Meta"
