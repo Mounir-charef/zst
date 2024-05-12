@@ -5,7 +5,8 @@ import { SidebarLink } from '../../data/sidebarLinks';
 import { useAppContext } from '../../contexts/appContext';
 import { Collapse } from '@mono/ui';
 import { cn, useDisclosure } from '@mono/util';
-import { Link } from '../../navigation';
+import { Link, usePathname } from '../../navigation';
+import { ID } from '../../types/common';
 
 const SublinksCollapse = ({
   isOpen,
@@ -17,6 +18,7 @@ const SublinksCollapse = ({
   const {
     sidebarStatus: { isCollapsed },
   } = useAppContext();
+  const pathname = usePathname();
   return (
     <Collapse isOpen={isOpen}>
       <div className={cn('py-1 pl-6', isCollapsed && 'lg:hidden')}>
@@ -33,6 +35,7 @@ const SublinksCollapse = ({
                   className={cn(
                     'hover:text-primary text-dark text-base-color relative inline-block border-dashed py-2 pl-5 text-sm',
                     'before:absolute before:left-0.5 before:top-1/2 before:w-3 before:-translate-y-1/2 before:border before:border-dashed',
+                    pathname === child.href && 'text-primary',
                   )}
                   href={child.href}
                 >
@@ -54,6 +57,8 @@ const SublinksPopover = ({
   children: SidebarLink[];
   liRef: React.RefObject<HTMLLIElement>;
 }) => {
+  const pathname = usePathname();
+
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [top, setTop] = useState<null | number>(null);
 
@@ -75,12 +80,12 @@ const SublinksPopover = ({
       const { top, bottom } = liRef.current.getBoundingClientRect();
       setTop((top + bottom) / 2);
     }
-  }, []);
+  }, [isOpen]);
 
   return top ? (
     <div
       className={cn(
-        'invisible fixed z-40 -translate-y-1/2 pl-5 opacity-0 transition-all',
+        'invisible fixed z-50 -translate-y-1/2 pl-5 opacity-0 transition-all',
         isOpen && 'visible opacity-100',
       )}
       style={{
@@ -95,7 +100,10 @@ const SublinksPopover = ({
               <li key={link.id}>
                 {' '}
                 <Link
-                  className="hover:text-primary inline-block whitespace-nowrap py-2 text-sm"
+                  className={cn(
+                    'hover:text-primary inline-block whitespace-nowrap py-2 text-sm',
+                    pathname === link.href && 'text-primary',
+                  )}
                   href={link.href}
                 >
                   {link.title}
@@ -115,6 +123,7 @@ interface SidebarLinkItemSublinksProps {
   children?: SidebarLink[];
   liRef: React.RefObject<HTMLLIElement>;
   isSubMenuOpen: boolean;
+  // setCollapsedItems: React.Dispatch<React.SetStateAction<ID[]>>
 }
 const SidebarLinkItemSublinks = ({
   isSubMenuOpen,

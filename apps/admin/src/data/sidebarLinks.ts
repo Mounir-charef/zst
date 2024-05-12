@@ -16,7 +16,7 @@ export interface SidebarLink {
   href: string;
   title: string;
   Icon?: IconType | null;
-  // segment?: string;
+//   segment: string;
   children?: SidebarLink[];
 }
 
@@ -122,7 +122,7 @@ const sidebarLinks: SidebarLinks = {
                 href: '/examples/button',
             },
             {
-              id: 10,
+              id: 14,
               title: 'Client/Store Table',
               Icon: FaTable,
               href: '/examples/table',

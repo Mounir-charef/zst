@@ -17,7 +17,7 @@ const Sidebar = () => {
     <>
       <aside
         className={cn(
-          'bg-background fixed left-0 top-0 hidden h-full flex-col border-r transition-all lg:flex',
+          'bg-background fixed left-0 top-0 z-40 hidden h-full flex-col border-r transition-all lg:flex',
           isCollapsed ? 'w-[96px]' : 'w-[280px]',
         )}
       >
