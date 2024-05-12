@@ -17,10 +17,12 @@ export const NavItems: NavigationItem[] = [
       {
         title: 'All Products',
         href: '#',
+        description: 'View all products',
       },
       {
         title: 'Add Product',
         href: '#',
+        description: 'Add a new product',
       },
     ],
   },
@@ -32,10 +34,12 @@ export const NavItems: NavigationItem[] = [
       {
         title: 'All Auctions',
         href: '#',
+        description: 'View all auctions',
       },
       {
         title: 'Add Auction',
         href: '#',
+        description: 'Add a new auction',
       },
     ],
   },
@@ -47,10 +51,12 @@ export const NavItems: NavigationItem[] = [
       {
         title: 'All Orders',
         href: '#',
+        description: 'View all orders',
       },
       {
         title: 'Add Order',
         href: '#',
+        description: 'Add a new order',
       },
     ],
   },

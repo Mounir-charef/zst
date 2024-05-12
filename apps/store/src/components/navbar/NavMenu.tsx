@@ -1,14 +1,22 @@
 'use client';
 
-import { ReactNode, memo, useState } from 'react';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from '@mono/ui';
+import { cn } from '@mono/util';
+import * as React from 'react';
 import { NavItems } from '../../config';
 import { Link } from '../../navigation';
-import { buttonVariants } from '@mono/ui';
-import HoverMenu from './HoverMenu';
 
 export interface BaseItem {
   title: string;
-  icon: ReactNode;
+  icon: React.ReactNode;
 }
 
 export interface NavigationLink extends BaseItem {
@@ -21,35 +29,82 @@ export interface NavigationMenu extends BaseItem {
   children: {
     title: string;
     href: string;
+    description?: string;
   }[];
 }
 
 export type NavigationItem = NavigationLink | NavigationMenu;
 
-const NavMenu = () => {
+function NavMenu() {
   return (
-    <nav className="flex items-center">
-      {NavItems.map((item) => {
-        console.log(item);
-        if (item.type === 'link') {
-          return (
-            <Link
-              key={item.title}
-              href={item.href}
-              aria-label={item.title}
-              className={buttonVariants({
-                variant: 'ghost',
-                className: 'items-center gap-2 font-light',
-              })}
-            >
-              {item.icon} {item.title}
-            </Link>
-          );
-        }
-        return <HoverMenu {...item} />;
-      })}
-    </nav>
-  );
-};
+    <NavigationMenu>
+      <NavigationMenuList>
+        {NavItems.map((item) => {
+          if (item.type === 'link')
+            return (
+              <NavigationMenuItem key={item.title}>
+                <Link href={item.href} legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={navigationMenuTriggerStyle({
+                      className: 'gap-1',
+                    })}
+                  >
+                    {item.icon} <span>{item.title}</span>
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            );
 
-export default memo(NavMenu);
+          return (
+            <NavigationMenuItem key={item.title}>
+              <NavigationMenuTrigger className="gap-1">
+                {item.icon} <span>{item.title}</span>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                  {item.children.map((component) => (
+                    <ListItem
+                      key={component.title}
+                      title={component.title}
+                      href={component.href}
+                    >
+                      {component.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          );
+        })}
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+}
+
+const ListItem = React.forwardRef<
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors',
+            className,
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = 'ListItem';
+
+export default React.memo(NavMenu);

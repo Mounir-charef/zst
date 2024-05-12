@@ -1,10 +1,10 @@
+import { buttonVariants } from '@mono/ui';
 import Image from 'next/image';
 import { memo } from 'react';
 import { Link } from '../../navigation';
-import ThemeToggle from './ThemeToggle';
-import Notification from './Notification';
-import { buttonVariants } from '@mono/ui';
 import NavMenu from './NavMenu';
+import Notification from './Notification';
+import ThemeToggle from './ThemeToggle';
 
 const NavBar = () => {
   return (
