@@ -19,5 +19,6 @@ export * from './lib/ui/sheet';
 export * from './lib/ui/select';
 export * from './lib/ui/tooltip';
 export * from './lib/ui/table';
+export * from './lib/ui/separator';
 export * from './lib/ui/toggle';
 export * from './lib/ui/toggle-group';
