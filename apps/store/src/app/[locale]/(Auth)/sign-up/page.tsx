@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { memo } from 'react';
 import { Link } from '../../../../navigation';
 import SignUpForm from '../_components/SignUpForm';
+import ImageCarousel from '../_components/ImageCarousel';
 
 const page = () => {
   return (
@@ -23,14 +24,8 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="bg-muted hidden lg:block">
-        <Image
-          src="/placeholder.svg"
-          alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+      <div className="light bg-muted border-border text-foreground hidden lg:grid lg:place-items-center">
+        <ImageCarousel />
       </div>
     </div>
   );

@@ -43,7 +43,7 @@ const SignUpForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submit)} className="grid gap-8">
+      <form onSubmit={form.handleSubmit(submit)} className="grid gap-4">
         <InputField
           control={form.control}
           name="fullName"
@@ -60,23 +60,25 @@ const SignUpForm = () => {
           required
         />
 
-        <PasswordField
+        <InputField
           control={form.control}
           name="password"
           label="Password"
           placeholder="Enter your password"
+          type="password"
           required
         />
 
-        <PasswordField
+        <InputField
           control={form.control}
           name="confirmPassword"
           label="Confirm Password"
           placeholder="Confirm your password"
+          type="password"
           required
         />
 
-        <div className="space-y-4">
+        <div className="mt-8 space-y-4">
           <Button type="submit" className="w-full gap-2">
             SignUp
           </Button>
