@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -32,15 +33,19 @@ const Productvariants = () => {
         <CardTitle>variants</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-6">
-        {fields.map((variant, index) => (
-          <VariantCard
-            index={index}
-            update={update}
-            remove={remove}
-            variant={variant}
-            key={variant.id}
-          />
-        ))}
+        {fields.length > 0 ? (
+          fields.map((variant, index) => (
+            <VariantCard
+              index={index}
+              update={update}
+              remove={remove}
+              variant={variant}
+              key={variant.id}
+            />
+          ))
+        ) : (
+          <CardDescription>No variants added yet</CardDescription>
+        )}
       </CardContent>
       <CardFooter className="justify-center border-t p-4">
         <Button size="sm" variant="ghost" className="gap-1" type="button">
