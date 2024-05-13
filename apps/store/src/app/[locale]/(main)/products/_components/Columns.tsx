@@ -2,61 +2,31 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { labels, priorities, statuses } from '../_data/Data';
-import { Task } from '../_data/schema';
-import { Badge, Checkbox, DataTableColumnHeader } from '@mono/ui';
+import { Badge, DataTableColumnHeader } from '@mono/ui';
+import Image from 'next/image';
+import { statuses } from '../_data/Data';
+import { Product } from '../_data/schema';
 import { DataTableRowActions } from './Actions';
+import { cn } from '@mono/util';
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<Product>[] = [
   {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'id',
+    accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue('id')}</div>,
-    enableSorting: false,
-    enableHiding: false,
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: 'title',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Product" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
-
       return (
-        <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue('title')}
+        <div className="flex items-center gap-x-4">
+          <Image
+            alt="Product image"
+            className="aspect-square rounded-md object-cover"
+            height="64"
+            src="/placeholder.svg"
+            width="64"
+          />
+          <span className="max-w-80 truncate font-medium">
+            {row.getValue('name')}
           </span>
         </div>
       );
@@ -76,46 +46,52 @@ export const columns: ColumnDef<Task>[] = [
         return null;
       }
 
-      return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="text-muted-foreground mr-2 h-4 w-4" />
-          )}
-          <span>{status.label}</span>
-        </div>
-      );
+      return <Badge variant="secondary">{status.label}</Badge>;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
   },
+
   {
-    accessorKey: 'priority',
+    accessorKey: 'price',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
+      <DataTableColumnHeader column={column} title="Price" />
     ),
     cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue('priority'),
-      );
-
-      if (!priority) {
-        return null;
-      }
-
-      return (
-        <div className="flex items-center">
-          {priority.icon && (
-            <priority.icon className="text-muted-foreground mr-2 h-4 w-4" />
-          )}
-          <span>{priority.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      return <span>${Number(row.getValue('price')).toFixed(2)}</span>;
     },
   },
+
+  {
+    accessorKey: 'stock',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Stock" />
+    ),
+    cell: ({ row }) => {
+      console.log(row.getValue('stock'));
+      return (
+        <span
+          className={cn({
+            'text-destructive-foreground': row.getValue('stock') === 0,
+          })}
+        >
+          {row.getValue('stock')} in stock
+        </span>
+      );
+    },
+  },
+
+  {
+    accessorKey: 'created_at',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Created At" />
+    ),
+    cell: ({ row }) => {
+      return <span>{row.getValue('created_at')}</span>;
+    },
+  },
+
   {
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,

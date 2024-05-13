@@ -1,40 +1,12 @@
 'use client';
 
 import { FilterOption, GlobalFilterOption } from '@mono/ui';
-import { ids, priorities, statuses } from '../_data/Data';
-import { Task } from '../_data/schema';
+import { statuses } from '../_data/Data';
+import { type Product } from '../_data/schema';
 
-export const filterOptions: FilterOption<Task>[] = [
-  {
-    column: 'status',
-    title: 'Status',
-    options: statuses,
-  },
-  {
-    column: 'priority',
-    title: 'Priority',
-    options: priorities,
-  },
-  {
-    column: 'id',
-    title: 'Id',
-    options: ids,
-  },
-];
-export const itemsFilters: FilterOption<Task>[] = [
-  {
-    column: 'priority',
-    title: 'Priority',
-    options: priorities,
-  },
-  {
-    column: 'id',
-    title: 'Id',
-    options: ids,
-  },
-];
+export const itemsFilters: FilterOption<Product>[] = [];
 
-export const globalFilter: GlobalFilterOption<Task> = {
+export const globalFilter: GlobalFilterOption<Product> = {
   column: 'status',
   options: statuses,
 };

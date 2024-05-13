@@ -5,7 +5,7 @@ import path from 'path';
 import { z } from 'zod';
 import { columns } from './_components/Columns';
 import { globalFilter, itemsFilters } from './_components/filters';
-import { taskSchema } from './_data/schema';
+import { productSchema } from './_data/schema';
 
 export const metadata: Metadata = {
   title: 'Products',
@@ -23,7 +23,7 @@ async function getProducts() {
 
   const products = JSON.parse(data.toString());
 
-  return z.array(taskSchema).parse(products);
+  return z.array(productSchema).parse(products);
 }
 
 const ProductsPage = async () => {
@@ -38,7 +38,7 @@ const ProductsPage = async () => {
       data={products}
       columns={columns}
       searchOptions={{
-        column: 'title',
+        column: 'name',
         placeholder: 'Search tasks',
       }}
       filterOptions={itemsFilters}
