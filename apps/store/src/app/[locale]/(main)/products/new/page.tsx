@@ -66,12 +66,7 @@ export default function NewProductPage() {
         name: '',
         description: '',
       },
-      variants: [
-        {
-          name: 'color',
-          value: ['alger', 'blida'],
-        },
-      ],
+      variants: [],
     },
   });
 

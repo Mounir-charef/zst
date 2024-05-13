@@ -22,10 +22,7 @@ import {
 } from 'react-hook-form';
 import { z } from 'zod';
 import { NewProduct, Variant } from '../page';
-
-const VARIANT_VALUE_OPTIONS = ['XL', 'L', 'S'];
-
-const VARIANT_NAMES = ['size', 'color', 'material'];
+import { VARIANT_NAMES, VARIANT_VALUE_OPTIONS } from './ProductVariants';
 
 interface VariantEditCardProps {
   variant: Variant;
@@ -73,7 +70,7 @@ const VariantEditCard = ({
     const restNames = VARIANT_NAMES.filter((name) => {
       return !selectedVariants.some((variant) => variant.name === name);
     });
-    return [variant.name, ...restNames];
+    return variant.name ? [variant.name, ...restNames] : restNames;
   }, [selectedVariants]);
 
   const addValue = useCallback(
