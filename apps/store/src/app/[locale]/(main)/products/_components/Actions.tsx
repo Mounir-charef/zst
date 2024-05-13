@@ -13,9 +13,11 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
   GlobalAction,
+  buttonVariants,
 } from '@mono/ui';
+import { FileIcon, PlusCircle } from 'lucide-react';
+import { Link } from '../../../../../navigation';
 import { Product, productSchema } from '../_data/schema';
-import { PlusCircle } from 'lucide-react';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -54,15 +56,21 @@ export function DataTableRowActions<TData>({
   );
 }
 
-export const globalAction: GlobalAction<Product> = (table) => {
+export const globalAction: GlobalAction<Product> = () => {
   return (
-    <Button
-      variant="reverse"
-      className="h-8"
-      size="sm"
-      onClick={() => console.log('clicked')}
-    >
-      <PlusCircle className="me-2 h-4 w-4" /> Add Product
-    </Button>
+    <>
+      <Button variant="outline" className="h-8">
+        <FileIcon className="me-2 h-4 w-4" /> Export
+      </Button>
+      <Link
+        href={'/products/new'}
+        className={buttonVariants({
+          variant: 'reverse',
+          className: 'h-8',
+        })}
+      >
+        <PlusCircle className="me-2 h-4 w-4" /> Add Product
+      </Link>
+    </>
   );
 };

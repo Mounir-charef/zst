@@ -46,7 +46,11 @@ export const columns: ColumnDef<Product>[] = [
         return null;
       }
 
-      return <Badge variant="secondary">{status.label}</Badge>;
+      return (
+        <Badge variant={status.value === 'active' ? 'success' : 'outline'}>
+          {status.label}
+        </Badge>
+      );
     },
     filterFn: (row, id, value) => value === row.getValue(id),
   },
