@@ -5,10 +5,12 @@ import {
   Button,
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@mono/ui';
-import { memo, useCallback, useState } from 'react';
+import { PlusCircle } from 'lucide-react';
+import { memo, useState } from 'react';
 import {
   UseFieldArrayRemove,
   UseFieldArrayUpdate,
@@ -40,6 +42,12 @@ const Productvariants = () => {
           />
         ))}
       </CardContent>
+      <CardFooter className="justify-center border-t p-4">
+        <Button size="sm" variant="ghost" className="gap-1" type="button">
+          <PlusCircle className="h-3.5 w-3.5" />
+          Add Variant
+        </Button>
+      </CardFooter>
     </Card>
   );
 };
@@ -49,13 +57,15 @@ const VariantCard = ({
   index,
   update,
   remove,
+  defaultState = false,
 }: {
   variant: Variant;
   index: number;
   update: UseFieldArrayUpdate<NewProduct, 'variants'>;
   remove: UseFieldArrayRemove;
+  defaultState?: boolean;
 }) => {
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(defaultState);
 
   return (
     <Card>
