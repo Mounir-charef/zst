@@ -74,7 +74,7 @@ export const columns: ColumnDef<Product>[] = [
       return (
         <span
           className={cn({
-            'text-destructive-foreground': row.getValue('stock') === 0,
+            'text-destructive': row.getValue('stock') === 0,
           })}
         >
           {row.getValue('stock')} in stock

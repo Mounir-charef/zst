@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronLeft, PlusCircle, Upload } from 'lucide-react';
 import Image from 'next/image';
 
