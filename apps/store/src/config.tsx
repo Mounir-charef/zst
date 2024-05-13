@@ -21,7 +21,7 @@ export const NavItems: NavigationItem[] = [
       },
       {
         title: 'Add Product',
-        href: '#',
+        href: '/products/new',
         description: 'Add a new product',
       },
     ],

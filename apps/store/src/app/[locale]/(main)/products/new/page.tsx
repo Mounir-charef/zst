@@ -26,16 +26,19 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Link } from '../../../../../navigation';
 import ProductDetails from './_components/ProductDetails';
+import ProductVariants from './_components/ProductVariants';
+
+export type Variant = {
+  name: string;
+  value: string[];
+};
 
 export type NewProduct = {
   details: {
     name: string;
     description: string;
   };
-  variants: {
-    name: string;
-    value: string;
-  }[];
+  variants: Variant[];
 };
 
 export default function NewProductPage() {
@@ -49,7 +52,7 @@ export default function NewProductPage() {
         variants: z.array(
           z.object({
             name: z.string().min(3).max(255),
-            value: z.string().min(3).max(255),
+            value: z.array(z.string().min(1).max(255)).min(1),
           }),
         ),
       }),
@@ -63,7 +66,12 @@ export default function NewProductPage() {
         name: '',
         description: '',
       },
-      variants: [],
+      variants: [
+        {
+          name: 'color',
+          value: ['alger', 'blida'],
+        },
+      ],
     },
   });
 
@@ -99,7 +107,7 @@ export default function NewProductPage() {
             <Button variant="outline" size="sm" type="button">
               Preview
             </Button>
-            <Button size="sm" variant="reverse" type="submit">
+            <Button size="sm" type="submit">
               Save Product
             </Button>
           </div>
@@ -107,6 +115,7 @@ export default function NewProductPage() {
         <div className="grid gap-4 md:grid-cols-[2fr_1fr] lg:grid-cols-3 lg:gap-8">
           <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
             <ProductDetails />
+            <ProductVariants />
             <Card x-chunk="A card with a form to edit the product stock and variants">
               <CardHeader>
                 <CardTitle>Stock</CardTitle>
