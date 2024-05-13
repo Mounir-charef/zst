@@ -8,11 +8,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
+  GlobalAction,
 } from '@mono/ui';
-import { productSchema } from '../_data/schema';
+import { Product, productSchema } from '../_data/schema';
+import { PlusCircle } from 'lucide-react';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -21,7 +24,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const products = productSchema.parse(row.original);
+  const product = productSchema.parse(row.original);
 
   return (
     <DropdownMenu>
@@ -35,8 +38,13 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuLabel>
+          {product.name} - {product.id}
+        </DropdownMenuLabel>
+
         <DropdownMenuSeparator />
+
+        <DropdownMenuItem>Edit</DropdownMenuItem>
         <DropdownMenuItem>
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
@@ -45,3 +53,16 @@ export function DataTableRowActions<TData>({
     </DropdownMenu>
   );
 }
+
+export const globalAction: GlobalAction<Product> = (table) => {
+  return (
+    <Button
+      variant="reverse"
+      className="h-8"
+      size="sm"
+      onClick={() => console.log('clicked')}
+    >
+      <PlusCircle className="me-2 h-4 w-4" /> Add Product
+    </Button>
+  );
+};
