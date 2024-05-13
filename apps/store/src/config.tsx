@@ -6,7 +6,7 @@ export const NavItems: NavigationItem[] = [
   {
     type: 'link',
     title: 'Dashboard',
-    href: '#',
+    href: '/',
     icon: <DashboardIcon className="h-4 w-4" />,
   },
   {
@@ -16,7 +16,7 @@ export const NavItems: NavigationItem[] = [
     children: [
       {
         title: 'All Products',
-        href: '#',
+        href: '/products',
         description: 'View all products',
       },
       {

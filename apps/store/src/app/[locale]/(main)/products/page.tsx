@@ -1,0 +1,50 @@
+import { DataTable } from '@mono/ui';
+import { promises as fs } from 'fs';
+import { Metadata } from 'next';
+import path from 'path';
+import { z } from 'zod';
+import { columns } from './_components/Columns';
+import { globalFilter, itemsFilters } from './_components/filters';
+import { taskSchema } from './_data/schema';
+
+export const metadata: Metadata = {
+  title: 'Products',
+  description: 'Products page',
+};
+
+// Simulate a fetch from an API
+async function getProducts() {
+  const data = await fs.readFile(
+    path.join(
+      process.cwd(),
+      'src/app/[locale]/(main)/products/_data/products.json',
+    ),
+  );
+
+  const products = JSON.parse(data.toString());
+
+  return z.array(taskSchema).parse(products);
+}
+
+const ProductsPage = async () => {
+  const products = await getProducts();
+  return (
+    <DataTable
+      variant="items-table"
+      header={{
+        title: 'Products',
+        description: 'Manage your products and view their inventory .',
+      }}
+      data={products}
+      columns={columns}
+      searchOptions={{
+        column: 'title',
+        placeholder: 'Search tasks',
+      }}
+      filterOptions={itemsFilters}
+      globalFilter={globalFilter}
+    />
+  );
+};
+
+export default ProductsPage;
