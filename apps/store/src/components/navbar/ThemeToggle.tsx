@@ -9,17 +9,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@mono/ui';
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun, SunMoon } from 'lucide-react';
 
 const ThemeToggle = () => {
-  const { setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          {document === undefined ? (
+            <SunMoon className="h-[1.2rem] w-[1.2rem] " />
+          ) : resolvedTheme === 'dark' ? (
+            <Moon className="h-[1.2rem] w-[1.2rem] " />
+          ) : (
+            <Sun className="h-[1.2rem] w-[1.2rem] " />
+          )}
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
