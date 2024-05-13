@@ -11,8 +11,8 @@ const ListingHeaderTitle = ({
   return (
     <h2
       className={cn(
-        "before:content-'' relative text-lg font-semibold text-heading before:absolute before:-top-0.5 before:h-8 before:rounded-tr-md before:rounded-br-md before:bg-primary ltr:before:-left-8 rtl:before:-right-8 md:before:w-1",
-        className
+        "before:content-'' text-heading before:bg-primary relative text-lg font-semibold before:absolute before:-top-0.5 before:h-8 before:rounded-br-md before:rounded-tr-md md:before:w-1 ltr:before:-left-8 rtl:before:-right-8",
+        className,
       )}
     >
       {title}

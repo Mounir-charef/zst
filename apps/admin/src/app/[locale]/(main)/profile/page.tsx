@@ -2,17 +2,19 @@ import { memo } from 'react';
 import EmailForm from './_components/EmailForm';
 import PasswordForm from './_components/PasswordForm';
 import SettingsForm from './_components/SettingsForm';
+import BoundedSectionWrapper from '../../../../components/common/BoundedSectionWrapper';
+import PageTitle from '../../../../components/common/PageTitle';
 
 const page = () => {
   return (
-    <div>
-      <div className="border-border border-b border-dashed pb-5">
-        <h1 className="text-heading text-lg font-semibold">Profile Settings</h1>
-      </div>
+    <>
+      <BoundedSectionWrapper noSpacing>
+        <PageTitle>Profile Settings</PageTitle>
+      </BoundedSectionWrapper>
       <EmailForm />
       <SettingsForm />
       <PasswordForm />
-    </div>
+    </>
   );
 };
 

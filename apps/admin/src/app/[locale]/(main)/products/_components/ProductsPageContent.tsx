@@ -9,8 +9,8 @@ import ListingHeaderTitle from '../../../../../components/common/listingHeader/L
 import ListingHeaderFilterButton from '../../../../../components/common/listingHeader/ListingHeaderFilterButton';
 import ListingHeaderBottomFilters from '../../../../../components/common/listingHeader/ListingHeaderBottomFilters';
 import { useDisclosure } from '@mono/util';
-import Input from '../../../../../components/ui/form/input/Input';
 import { MdOutlineSearch } from 'react-icons/md';
+import { Input } from '@mono/ui';
 
 const ProductsPageContent = () => {
   const [page, setPage] = useState(1);

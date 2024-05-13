@@ -3,8 +3,11 @@ import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, InputField } from '@mono/ui';
-import ProfileCell from './ProfileCell';
+import { Form, InputField } from '@mono/ui';
+import BoundedSectionWrapper from '../../../../../components/common/BoundedSectionWrapper';
+import FormSection from '../../../../../components/ui/form/formSection/FormSection';
+import { Card, CardContent } from '../../../../../components/ui/Card';
+import ProfileSubmitButton from './ProfileSubmitButton';
 
 const EmailForm = () => {
   const schema = useMemo(
@@ -12,7 +15,7 @@ const EmailForm = () => {
       z.object({
         email: z.string().email(),
       }),
-    []
+    [],
   );
 
   type FormValues = z.infer<typeof schema>;
@@ -30,25 +33,24 @@ const EmailForm = () => {
 
   return (
     <Form {...form}>
-      <ProfileCell title="Email" description="Change your email from here">
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 w-full sm:w-8/12 md:w-2/3"
-        >
-          <div className="bg-background md:p-8 p-5 shadow rounded">
-            <InputField
-              control={form.control}
-              name="email"
-              label="Email"
-              className="mb-5"
-              placeholder="Enter your email address"
-            />
-          </div>
-          <div className="w-full flex justify-end">
-            <Button type="submit">Save Changes</Button>
-          </div>
-        </form>
-      </ProfileCell>
+      <BoundedSectionWrapper>
+        <FormSection title="Email" description="Change your email from here">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <Card>
+              <CardContent>
+                <InputField
+                  control={form.control}
+                  name="email"
+                  label="Email"
+                  className="mb-5"
+                  placeholder="Enter your email address"
+                />
+              </CardContent>
+            </Card>
+            <ProfileSubmitButton />
+          </form>
+        </FormSection>
+      </BoundedSectionWrapper>
     </Form>
   );
 };

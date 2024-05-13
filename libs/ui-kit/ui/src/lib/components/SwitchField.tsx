@@ -25,6 +25,7 @@ export const SwitchField = <
   descriptionProps,
   labelProps,
   required,
+  labelDirection = 'start',
   ...props
 }: {
   control: Control<TFieldValues>;
@@ -38,6 +39,7 @@ export const SwitchField = <
   className?: string;
   Icon?: LucideIcon;
   labelProps?: LabelProps;
+  labelDirection?: 'start' | 'end';
 }) => {
   return (
     <FormField
@@ -49,15 +51,17 @@ export const SwitchField = <
             className,
           )}
         >
-          <div className="space-y-0.5">
-            {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
-            {description && (
-              <FormDescription {...descriptionProps}>
-                {description}
-              </FormDescription>
-            )}
-            {showErrors && <FormMessage />}
-          </div>
+          {labelDirection === 'start' && (
+            <div className="space-y-0.5">
+              {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
+              {description && (
+                <FormDescription {...descriptionProps}>
+                  {description}
+                </FormDescription>
+              )}
+              {showErrors && <FormMessage />}
+            </div>
+          )}
           <FormControl>
             <Switch
               required={required}
@@ -65,6 +69,17 @@ export const SwitchField = <
               onCheckedChange={field.onChange}
             />
           </FormControl>
+          {labelDirection === 'end' && (
+            <div className="space-y-0.5">
+              {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
+              {description && (
+                <FormDescription {...descriptionProps}>
+                  {description}
+                </FormDescription>
+              )}
+              {showErrors && <FormMessage />}
+            </div>
+          )}
         </FormItem>
       )}
     />

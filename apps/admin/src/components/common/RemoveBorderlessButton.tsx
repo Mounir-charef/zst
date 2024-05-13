@@ -8,7 +8,7 @@ const RemoveBorderlessButton = ({
   return (
     <button
       className={cn(
-        'text-sm text-danger hover:text-danger-dark duration-200 transition-colors inline-block',
+        'text-destructive inline-block text-sm transition-colors duration-200',
         className,
       )}
       {...props}

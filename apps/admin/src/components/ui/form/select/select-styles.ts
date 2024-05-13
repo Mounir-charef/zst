@@ -18,7 +18,7 @@ export const selectStyles = {
     control: (_: any, state: any) => ({
       display: 'flex',
       alignItems: 'center',
-      minHeight: 50,
+      // minHeight: 50,
       backgroundColor: state?.isDisabled ? '#EEF1F4' : '#ffffff',
       borderRadius: 5,
       border: '1px solid #D1D5DB',
@@ -127,7 +127,7 @@ export const selectStyles = {
     control: (_: any, state: any) => ({
       display: 'flex',
       alignItems: 'center',
-      minHeight: 50,
+      // minHeight: 50,
       backgroundColor: state?.isDisabled ? '#EEF1F4' : '#ffffff',
       borderRadius: 5,
       border: '1px solid #D1D5DB',
