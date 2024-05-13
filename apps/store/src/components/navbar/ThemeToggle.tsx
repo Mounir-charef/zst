@@ -1,7 +1,5 @@
 'use client';
 
-import { useTheme } from 'next-themes';
-import { memo } from 'react';
 import {
   Button,
   DropdownMenu,
@@ -9,7 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@mono/ui';
-import { Moon, Sun, SunMoon } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { memo } from 'react';
 
 const ThemeToggle = () => {
   const { setTheme, resolvedTheme } = useTheme();
@@ -18,9 +18,7 @@ const ThemeToggle = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full">
-          {document === undefined ? (
-            <SunMoon className="h-[1.2rem] w-[1.2rem] " />
-          ) : resolvedTheme === 'dark' ? (
+          {resolvedTheme === 'dark' ? (
             <Moon className="h-[1.2rem] w-[1.2rem] " />
           ) : (
             <Sun className="h-[1.2rem] w-[1.2rem] " />

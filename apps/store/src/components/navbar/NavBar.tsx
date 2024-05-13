@@ -4,7 +4,9 @@ import { memo } from 'react';
 import { Link } from '../../navigation';
 import NavMenu from './NavMenu';
 import Notification from './Notification';
-import ThemeToggle from './ThemeToggle';
+// import ThemeToggle from './ThemeToggle';
+import dynamic from 'next/dynamic';
+const ThemeToggle = dynamic(() => import('./ThemeToggle'), { ssr: false });
 
 const NavBar = () => {
   return (
