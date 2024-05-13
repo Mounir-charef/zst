@@ -48,9 +48,7 @@ export const columns: ColumnDef<Product>[] = [
 
       return <Badge variant="secondary">{status.label}</Badge>;
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
+    filterFn: (row, id, value) => value === row.getValue(id),
   },
 
   {
@@ -69,7 +67,6 @@ export const columns: ColumnDef<Product>[] = [
       <DataTableColumnHeader column={column} title="Stock" />
     ),
     cell: ({ row }) => {
-      console.log(row.getValue('stock'));
       return (
         <span
           className={cn({
