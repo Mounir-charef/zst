@@ -27,6 +27,7 @@ import { z } from 'zod';
 import { Link } from '../../../../../navigation';
 import ProductDetails from './_components/ProductDetails';
 import ProductVariants from './_components/ProductVariants';
+import ProductStatus from './_components/ProductStatus';
 
 export type Variant = {
   name: string;
@@ -39,6 +40,7 @@ export type NewProduct = {
     description: string;
   };
   variants: Variant[];
+  status: string;
 };
 
 export default function NewProductPage() {
@@ -55,6 +57,7 @@ export default function NewProductPage() {
             value: z.array(z.string().min(1).max(255)).min(1),
           }),
         ),
+        status: z.string().min(1),
       }),
     [],
   );
@@ -67,6 +70,7 @@ export default function NewProductPage() {
         description: '',
       },
       variants: [],
+      status: '',
     },
   });
 
@@ -128,28 +132,7 @@ export default function NewProductPage() {
             </Card>
           </div>
           <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-            <Card x-chunk="A card with a form to edit the product status">
-              <CardHeader>
-                <CardTitle>Product Status</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-6">
-                  <div className="grid gap-3">
-                    <Label htmlFor="status">Status</Label>
-                    <Select>
-                      <SelectTrigger id="status" aria-label="Select status">
-                        <SelectValue placeholder="Select status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="draft">Draft</SelectItem>
-                        <SelectItem value="published">Active</SelectItem>
-                        <SelectItem value="archived">Archived</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ProductStatus />
             <Card
               className="overflow-hidden"
               x-chunk="A card with a form to upload product images"
