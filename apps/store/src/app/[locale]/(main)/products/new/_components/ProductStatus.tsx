@@ -1,8 +1,5 @@
 'use client';
 
-import { memo } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { NewProduct } from '../page';
 import {
   Card,
   CardContent,
@@ -10,8 +7,24 @@ import {
   CardTitle,
   SelectField,
 } from '@mono/ui';
+import { memo } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { NewProduct } from '../page';
 
-const PRODUCT_POSSIBLE_STATUSES = ['draft', 'published', 'archived'];
+const PRODUCT_POSSIBLE_STATUSES = [
+  {
+    value: 'draft',
+    label: 'Draft',
+  },
+  {
+    value: 'published',
+    label: 'Published',
+  },
+  {
+    value: 'archived',
+    label: 'Archived',
+  },
+];
 
 const ProductStatus = () => {
   const { control } = useFormContext<NewProduct>();
@@ -28,10 +41,7 @@ const ProductStatus = () => {
               label="Status"
               name="status"
               control={control}
-              options={PRODUCT_POSSIBLE_STATUSES.map((status) => ({
-                value: status,
-                label: status,
-              }))}
+              options={PRODUCT_POSSIBLE_STATUSES}
             />
           </div>
         </div>
