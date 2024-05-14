@@ -4,10 +4,11 @@ import { useState } from 'react';
 import ListingHeaderCard from '../../../../../../components/common/listingHeader/ListingHeaderCard';
 import ListingHeaderTitle from '../../../../../../components/common/listingHeader/ListingHeaderTitle';
 import DataTable from '../../../../../../components/ui/DataTable';
-import { useQuery } from '@tanstack/react-query';
-import userClient from '../../../../../../apis/clients/userClient';
-import { Button } from '../../../../../../components/ui/Button';
 import { useGetUsersQuery } from '../../../../../../apis/userApis';
+import { Checkbox } from '@mono/ui';
+import { ID } from '../../../../../../types/common';
+import useSelectRows from '../../../../../../hooks/useSelectRows';
+
 const columns = [
   {
     title: 'Name',
@@ -27,34 +28,44 @@ const columns = [
   },
 ];
 
-// const data = [
-//   { name: 'Jack', age: 28, address: 'some where', key: '1' },
-//   { name: 'Rose', age: 36, address: 'some where', key: '2' },
-// ];
-
-const ListingPageContent = ({}: {}) => {
+const ListingPageContent = () => {
   const [filters, setFilters] = useState({
     page: 1,
+    pageSize: 10,
   });
 
-  const { data, refetch } = useGetUsersQuery();
+  const handleChange = (name: string, value: unknown) => {
+    setFilters((current) => ({
+      ...current,
+      [name]: value,
+    }));
+  };
+
+  // const [selectedRows, setSelectedRows] = useState<ID[]>([]);
+
+  const { selectedRows, setSelectedRows } = useSelectRows();
+
+  const { data } = useGetUsersQuery();
 
   return (
     <>
       <ListingHeaderCard className="flex justify-between">
         <ListingHeaderTitle title="Listing" />
-        <Button onClick={() => refetch()}>Refetch</Button>
       </ListingHeaderCard>
       <DataTable
+        selectableRows
         columns={columns}
         data={data}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
         pagination={{
+          pageSize: filters.pageSize,
+          onPageSizeChange(pageSize) {
+            handleChange('pageSize', pageSize);
+          },
           currentPage: filters.page,
-          onChange(page) {
-            setFilters((current) => ({
-              ...current,
-              page,
-            }));
+          onPageChange(page) {
+            handleChange('page', page);
           },
           totalPages: 1000,
         }}

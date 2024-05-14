@@ -2,14 +2,14 @@ import { useQuery } from "@tanstack/react-query"
 import API_ENDPOINTS from "./_api-endpoints"
 import userClient from "./clients/userClient"
 
-export const getUserQueryOptions = {
+export const getUserQueryOptions = (searchParams?: unknown) => ({
     queryKey: [API_ENDPOINTS.USERS],
-    queryFn: () => userClient.getAll()
-}
+    queryFn: () => userClient.getAll(searchParams)
+})
 
-export const useGetUsersQuery = () => {
+export const useGetUsersQuery = (searchParams?: unknown) => {
     const query = useQuery({
-        ...getUserQueryOptions
+        ...getUserQueryOptions(searchParams)
     })
     return query
 }

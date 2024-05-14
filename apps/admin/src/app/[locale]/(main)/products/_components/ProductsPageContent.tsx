@@ -47,7 +47,9 @@ const ProductsPageContent = () => {
         pagination={{
           currentPage: page,
           totalPages: products.length,
-          onChange: setPage,
+          onPageChange: setPage,
+          onPageSizeChange(pageSize) {},
+          pageSize: 1,
         }}
       />
     </>

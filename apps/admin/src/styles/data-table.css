@@ -1,15 +1,16 @@
 .rc-table {
-  @apply border-separate;
+  @apply border-separate rounded-lg border p-4;
   border-spacing: 0;
 }
 
 .rc-table table {
-  width: 100%;
+  /* width: 100%; */
+  @apply w-full;
 }
 
 /* thead th */
 .rc-table thead.rc-table-thead th {
-  @apply whitespace-nowrap bg-gray-50 px-5 py-3 text-start text-sm font-semibold first:rounded-bl first:rounded-tl last:rounded-br last:rounded-tr;
+  @apply text-muted-foreground whitespace-nowrap px-5 py-3 text-start text-sm font-semibold first:rounded-bl first:rounded-tl last:rounded-br last:rounded-tr;
 }
 
 /* .rc-table tr.rc-table-row:hover {
@@ -18,11 +19,11 @@
 
 /* tbody tr */
 .rc-table .rc-table-tbody .rc-table-row {
-  @apply bg-background hover:bg-gray-100;
+  @apply bg-background hover:bg-muted/50 border-t;
 }
 
 .rc-table tr.rc-table-row td.rc-table-cell {
-  @apply px-5 py-4;
+  @apply px-5 py-4 text-sm;
 }
 
 .rc-table .rc-table-content {
