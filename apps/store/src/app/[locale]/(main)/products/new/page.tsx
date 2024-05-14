@@ -13,12 +13,6 @@ import {
   CardHeader,
   CardTitle,
   Form,
-  Label,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   buttonVariants,
 } from '@mono/ui';
 import { useMemo } from 'react';
@@ -26,8 +20,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Link } from '../../../../../navigation';
 import ProductDetails from './_components/ProductDetails';
-import ProductVariants from './_components/ProductVariants';
 import ProductStatus from './_components/ProductStatus';
+import ProductVariants from './_components/ProductVariants';
+import ProductCategory from './_components/ProductCategory';
 
 export type Variant = {
   name: string;
@@ -41,6 +36,8 @@ export type NewProduct = {
   };
   variants: Variant[];
   status: string;
+  category: string;
+  subcategory?: string;
 };
 
 export default function NewProductPage() {
@@ -58,6 +55,8 @@ export default function NewProductPage() {
           }),
         ),
         status: z.string().min(1),
+        category: z.string().min(1),
+        subcategory: z.string().optional(),
       }),
     [],
   );
@@ -133,6 +132,7 @@ export default function NewProductPage() {
           </div>
           <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
             <ProductStatus />
+            <ProductCategory />
             <Card
               className="overflow-hidden"
               x-chunk="A card with a form to upload product images"
