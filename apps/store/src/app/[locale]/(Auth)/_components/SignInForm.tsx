@@ -4,14 +4,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Form, InputField, PasswordField } from '@mono/ui';
 import { useMutation } from '@tanstack/react-query';
 import { signIn } from 'next-auth/react';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useTransition } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { Link } from '../../../../navigation';
+import { Link, useRouter } from '../../../../navigation';
 import GoogleIcon from '../../../../assets/icons/GoogleIcon';
 
 const LoginForm = () => {
+  const router = useRouter();
+  const [isRedirecting, startTransition] = useTransition();
   const { mutate, isPending } = useMutation({
     mutationKey: ['login'],
     mutationFn: async ({
@@ -26,6 +28,8 @@ const LoginForm = () => {
         password,
         redirect: false,
       });
+
+      console.log(res);
       if (res?.error) {
         throw new Error(res.error);
       }
@@ -33,12 +37,16 @@ const LoginForm = () => {
       return res;
     },
     onError(error) {
+      console.log(error);
       toast.error(error.message);
     },
     onSuccess() {
       toast.success(
         'You have successfully signed in. Redirecting you to the dashboard...',
       );
+      startTransition(() => {
+        router.push('/');
+      });
     },
   });
 
@@ -94,7 +102,7 @@ const LoginForm = () => {
         <div className="space-y-4">
           <Button
             disabled={isPending}
-            isLoading={isPending}
+            isLoading={isPending || isRedirecting}
             type="submit"
             className="w-full gap-2"
           >

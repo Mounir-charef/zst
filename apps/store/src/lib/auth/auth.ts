@@ -31,11 +31,8 @@ async function refreshAccessToken(token: JWT) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken ?? token.refreshToken,
       expires_at: decodedAccessToken['exp'] * 1000,
-      error: '',
     };
   } catch (error) {
-    console.log(error);
-
     // return an error if somethings goes wrong
     return {
       ...token,
@@ -64,7 +61,7 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const res = await fetch(env.NEXT_PUBLIC_BACKEND_API + 'auth/signin', {
+        const res = await fetch(env.NEXT_PUBLIC_BACKEND_API + '/auth/signin', {
           method: 'POST',
           body: JSON.stringify({
             ...credentials,
@@ -104,20 +101,22 @@ export const authOptions = {
     async jwt({ token, user, account }) {
       if (user && account) {
         // If login with Credentials
-        // - user object is what the credential provider returns (from the authorize function)
         // - for instance, you return `accessToken` in the authorize function => bind accessToken to the data
         // and make it available to the client.
-        token.id = user.id;
-        token.email = user.email;
-        token.username = user.username;
-        token.image = user.image;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
 
         // exp date
-        token.expires_at =
-          Date.now() + (jwtDecode(user.accessToken as string).exp as number);
+        const userData = JSON.parse(
+          Buffer.from(user.accessToken.split('.')[1], 'base64').toString(),
+        );
 
+        token.email = userData.email;
+        token.id = userData.id;
+        token.role = userData.role;
+        token.username = userData.username;
+        token.avatar = 'https://robohash.org/Jeanne.png?set=set4';
+        token.expires_at = userData.exp * 1000;
         return token;
       }
 
@@ -132,19 +131,17 @@ export const authOptions = {
 
     async session({ session, token }) {
       return {
+        ...session,
         user: {
+          ...session.user,
           id: token.id,
-          username: token.username,
           email: token.email,
-          image: token.image,
           accessToken: token.accessToken,
+          accessTokenExpires: token.expires_at,
+          role: token.role,
         },
-        expires: session.expires,
-      } as const;
-    },
-
-    redirect() {
-      return '/';
+        error: token.error,
+      };
     },
   },
 } satisfies NextAuthOptions;
