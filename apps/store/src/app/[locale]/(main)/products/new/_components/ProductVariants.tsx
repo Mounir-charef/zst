@@ -20,6 +20,7 @@ import {
 } from 'react-hook-form';
 import { NewProduct, Variant } from '../page';
 import VariantEditCard from './VarientEditCard';
+import AddVarientForm from './AddVarientForm';
 
 export const VARIANT_NAMES_OPTIONS = ['XL', 'L', 'S'];
 
@@ -31,23 +32,27 @@ const Productvariants = () => {
     control,
     name: 'variants',
   });
+  const [adding, setAdding] = useState(false);
   return (
     <Card>
       <CardHeader>
         <CardTitle>variants</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-6">
-        {fields.length > 0 ? (
-          fields.map((variant, index) => (
-            <VariantCard
-              index={index}
-              update={update}
-              remove={remove}
-              variant={variant}
-              key={variant.id}
-              defaultState={variant.name === ''}
-            />
-          ))
+        {fields.length > 0 || adding ? (
+          <>
+            {fields.map((variant, index) => (
+              <VariantCard
+                index={index}
+                update={update}
+                remove={remove}
+                variant={variant}
+                key={variant.id}
+                defaultState={variant.name === ''}
+              />
+            ))}
+            {adding && <AddVarientForm close={() => setAdding(false)} />}
+          </>
         ) : (
           <CardDescription>No variants added yet</CardDescription>
         )}
@@ -57,18 +62,15 @@ const Productvariants = () => {
           disabled={
             VARIANT_NAMES.every((name) =>
               fields.some((field) => field.name === name),
-            ) || fields.length >= VARIANT_NAMES.length
+            ) ||
+            fields.length >= VARIANT_NAMES.length ||
+            adding
           }
           size="sm"
           variant="ghost"
           className="gap-1"
           type="button"
-          onClick={() =>
-            append({
-              name: '',
-              values: [],
-            })
-          }
+          onClick={() => setAdding(true)}
         >
           <PlusCircle className="h-3.5 w-3.5" />
           Add Variant
