@@ -1,10 +1,10 @@
 import { cookies } from 'next/headers';
+import { env } from '../../../../env.mjs';
 
-export async function POST(request: Request) {
+export async function POST() {
   const refreshToken = cookies().get(`xxx.refresh-token` as any)?.value;
-
   // change it with your own endpoint
-  const res = await fetch(`${process.env.API_BASE_URL}/auth/refresh-token`, {
+  const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_API}/auth/refresh-token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -14,6 +14,16 @@ export async function POST(request: Request) {
   });
 
   const data = await res.json();
+
+  if (res.ok) {
+    cookies().set({
+      name: 'xxx.refresh-token',
+      value: data.refreshToken,
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: true,
+    });
+  }
 
   return Response.json({
     success: res.ok,

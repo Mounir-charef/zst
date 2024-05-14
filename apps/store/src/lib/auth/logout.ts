@@ -1,18 +1,11 @@
+'use server';
+
 import { signOut } from 'next-auth/react';
-import { env } from '../../env.mjs';
+import { cookies } from 'next/headers';
+import { redirect } from '../../navigation';
 
 export async function logout() {
-  fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`, {
-    method: 'POST',
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .finally(async () => {
-      await signOut({ callbackUrl: `${window.location.origin}/login` });
-    });
+  cookies().delete('xxx-refresh-token');
+  await signOut({ callbackUrl: `${window.location.origin}/login` });
+  redirect('/sign-in');
 }

@@ -1,5 +1,5 @@
-import { jwtDecode } from 'jwt-decode';
-import { NextAuthOptions, User, getServerSession } from 'next-auth';
+import { jwtDecode } from '../../lib/utils';
+import { NextAuthOptions, Session, User, getServerSession } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { cookies, headers } from 'next/headers';
@@ -7,13 +7,12 @@ import { env } from '../../env.mjs';
 
 async function refreshAccessToken(token: JWT) {
   try {
-    const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_API}/auth/refresh`, {
+    const res = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/auth/refresh`, {
       method: 'POST',
       headers: headers(),
     });
 
     const { success, data } = await res.json();
-
     if (!success) {
       console.log('The token could not be refreshed!');
       throw data;
@@ -22,18 +21,16 @@ async function refreshAccessToken(token: JWT) {
     console.log('The token has been refreshed successfully.');
 
     // get some data from the new access token such as exp (expiration time)
-    const decodedAccessToken = JSON.parse(
-      Buffer.from(data.accessToken.split('.')[1], 'base64').toString(),
-    );
-
+    const decodedAccessToken = jwtDecode(data.accessToken);
     return {
       ...token,
       accessToken: data.accessToken,
       refreshToken: data.refreshToken ?? token.refreshToken,
       expires_at: decodedAccessToken['exp'] * 1000,
     };
-  } catch (error) {
+  } catch (error: any) {
     // return an error if somethings goes wrong
+
     return {
       ...token,
       error: 'RefreshAccessTokenError', // attention!
@@ -85,7 +82,7 @@ export const authOptions = {
             httpOnly: true,
             sameSite: 'strict',
             secure: true,
-          } as any);
+          });
 
           return user;
         }
@@ -107,9 +104,7 @@ export const authOptions = {
         token.refreshToken = user.refreshToken;
 
         // exp date
-        const userData = JSON.parse(
-          Buffer.from(user.accessToken.split('.')[1], 'base64').toString(),
-        );
+        const userData = jwtDecode(user.accessToken);
 
         token.email = userData.email;
         token.id = userData.id;
@@ -129,19 +124,20 @@ export const authOptions = {
       return await refreshAccessToken(token);
     },
 
-    async session({ session, token }) {
-      return {
-        ...session,
+    async session({ token }) {
+      const newSession: Session = {
         user: {
-          ...session.user,
           id: token.id,
           email: token.email,
           accessToken: token.accessToken,
-          accessTokenExpires: token.expires_at,
-          role: token.role,
+          avatar: token.avatar,
+          username: token.username,
+          role: token.role as 'SUPPLIER',
         },
-        error: token.error,
+        error: token.error as string,
+        expires: new Date(token.expires_at).toISOString(),
       };
+      return newSession;
     },
   },
 } satisfies NextAuthOptions;

@@ -29,7 +29,6 @@ const LoginForm = () => {
         redirect: false,
       });
 
-      console.log(res);
       if (res?.error) {
         throw new Error(res.error);
       }
@@ -37,7 +36,6 @@ const LoginForm = () => {
       return res;
     },
     onError(error) {
-      console.log(error);
       toast.error(error.message);
     },
     onSuccess() {

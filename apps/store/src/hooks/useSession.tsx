@@ -1,13 +1,14 @@
 'use client';
 
-import { signOut, useSession as useAuthSession } from 'next-auth/react';
+import { useSession as useAuthSession } from 'next-auth/react';
 import { useEffect } from 'react';
+import { logout } from '../lib/auth/logout';
 
 const useSession = () => {
   const session = useAuthSession();
   useEffect(() => {
     if (session.data?.error === 'RefreshAccessTokenError') {
-      signOut(); // Force sign out for the user
+      logout(); // Force sign out for the user
     }
   }, [session]);
 
