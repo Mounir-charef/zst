@@ -22,7 +22,7 @@ import {
 } from 'react-hook-form';
 import { z } from 'zod';
 import { NewProduct, Variant } from '../page';
-import { VARIANT_NAMES, VARIANT_VALUE_OPTIONS } from './ProductVariants';
+import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
 
 interface VariantEditCardProps {
   variant: Variant;
@@ -43,7 +43,15 @@ const VariantEditCard = ({
     () =>
       z.object({
         name: z.string().min(3),
-        value: z.array(z.string().min(1)).min(1),
+        values: z
+          .array(
+            z.object({
+              name: z.string().min(1).max(255),
+              price: z.number().min(0),
+              quantity: z.number().min(0),
+            }),
+          )
+          .min(1),
       }),
     [],
   );
@@ -55,15 +63,15 @@ const VariantEditCard = ({
     defaultValues: variant,
   });
 
-  const value = form.watch('value');
+  const values = form.watch('values');
 
-  const { watch } = useFormContext<NewProduct>();
+  const { watch, setValue: setProductValue } = useFormContext<NewProduct>();
 
-  const selectedVariants = watch('variants');
+  const { variants: selectedVariants } = watch();
 
   const selectableValues = useMemo(
-    () => VARIANT_VALUE_OPTIONS.filter((option) => !value.includes(option)),
-    [value],
+    () => VARIANT_NAMES_OPTIONS.filter((option) => values),
+    [values],
   );
 
   const selectableVariants = useMemo(() => {
@@ -75,19 +83,22 @@ const VariantEditCard = ({
 
   const addValue = useCallback(
     (newValue: string) => {
-      form.setValue('value', [...value, newValue]);
+      form.setValue('values', [
+        ...values,
+        { name: newValue, price: 0, quantity: 0 },
+      ]);
     },
-    [form, value],
+    [form, values],
   );
 
   const removeValue = useCallback(
     (removedValue: string) => {
       form.setValue(
-        'value',
-        value.filter((option) => removedValue !== option),
+        'values',
+        values.filter((option) => option.name !== removedValue),
       );
     },
-    [form, value],
+    [form, values],
   );
 
   const onSubmit: SubmitHandler<Variant> = (data) => {
@@ -121,25 +132,25 @@ const VariantEditCard = ({
               ))}
             </SelectContent>
           </Select>
-          {form.formState.errors.value && (
+          {form.formState.errors.values && (
             <p className="text-destructive text-sm font-medium">
-              {form.formState.errors.value.message}
+              {form.formState.errors.values.message}
             </p>
           )}
         </div>
 
         <div className="flex flex-wrap gap-4">
-          {value.map((option) => (
+          {values.map((option) => (
             <button
               type="button"
-              key={option}
+              key={option.name}
               className={badgeVariants({
                 variant: 'secondary',
                 className: 'group relative cursor-pointer overflow-clip',
               })}
-              onClick={() => removeValue(option)}
+              onClick={() => removeValue(option.name)}
             >
-              <span>{option}</span>
+              <span>{option.name}</span>
               <div className="bg-destructive text-destructive-foreground invisible absolute inset-0 grid place-items-center group-hover:visible group-focus-visible:visible">
                 <X className="h-3 w-3" />
               </div>

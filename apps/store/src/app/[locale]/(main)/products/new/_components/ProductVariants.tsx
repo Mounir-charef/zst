@@ -21,7 +21,7 @@ import {
 import { NewProduct, Variant } from '../page';
 import VariantEditCard from './VarientEditCard';
 
-export const VARIANT_VALUE_OPTIONS = ['XL', 'L', 'S'];
+export const VARIANT_NAMES_OPTIONS = ['XL', 'L', 'S'];
 
 export const VARIANT_NAMES = ['size', 'color', 'material'];
 
@@ -66,7 +66,7 @@ const Productvariants = () => {
           onClick={() =>
             append({
               name: '',
-              value: [],
+              values: [],
             })
           }
         >
@@ -110,9 +110,9 @@ const VariantCard = ({
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2 px-2">
-              {variant.value.map((value) => (
-                <Badge variant="secondary" key={value}>
-                  {value}
+              {variant.values.map((value) => (
+                <Badge variant="secondary" key={value.name}>
+                  {value.name}
                 </Badge>
               ))}
             </div>

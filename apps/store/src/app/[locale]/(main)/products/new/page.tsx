@@ -23,10 +23,15 @@ import ProductDetails from './_components/ProductDetails';
 import ProductStatus from './_components/ProductStatus';
 import ProductVariants from './_components/ProductVariants';
 import ProductCategory from './_components/ProductCategory';
+import ProductStock from './_components/ProductStock';
 
 export type Variant = {
   name: string;
-  value: string[];
+  values: {
+    name: string;
+    price: number;
+    quantity: number;
+  }[];
 };
 
 export type NewProduct = {
@@ -51,12 +56,21 @@ export default function NewProductPage() {
         variants: z.array(
           z.object({
             name: z.string().min(3).max(255),
-            value: z.array(z.string().min(1).max(255)).min(1),
+            values: z
+              .array(
+                z.object({
+                  name: z.string().min(1).max(255),
+                  price: z.coerce.number().min(0),
+                  quantity: z.coerce.number().min(0).int(),
+                }),
+              )
+              .min(1),
           }),
         ),
         status: z.string().min(1),
         category: z.string().min(1),
         subcategory: z.string().optional(),
+        // stock is a record with key is a variant name and value is an object with key is a variant value and value is an object that contains price and quantity
       }),
     [],
   );
@@ -114,21 +128,7 @@ export default function NewProductPage() {
           <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
             <ProductDetails />
             <ProductVariants />
-            <Card x-chunk="A card with a form to edit the product stock and variants">
-              <CardHeader>
-                <CardTitle>Stock</CardTitle>
-                <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit
-                </CardDescription>
-              </CardHeader>
-              <CardContent></CardContent>
-              <CardFooter className="justify-center border-t p-4">
-                <Button size="sm" variant="ghost" className="gap-1">
-                  <PlusCircle className="h-3.5 w-3.5" />
-                  Add Variant
-                </Button>
-              </CardFooter>
-            </Card>
+            <ProductStock />
           </div>
           <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
             <ProductStatus />
