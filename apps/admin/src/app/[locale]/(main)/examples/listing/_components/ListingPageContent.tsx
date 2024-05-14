@@ -1,13 +1,12 @@
 'use client';
 
-import { useState } from 'react';
 import ListingHeaderCard from '../../../../../../components/common/listingHeader/ListingHeaderCard';
 import ListingHeaderTitle from '../../../../../../components/common/listingHeader/ListingHeaderTitle';
 import DataTable from '../../../../../../components/ui/DataTable';
 import { useGetUsersQuery } from '../../../../../../apis/userApis';
-import { Checkbox } from '@mono/ui';
-import { ID } from '../../../../../../types/common';
 import useSelectRows from '../../../../../../hooks/useSelectRows';
+import useSearch from '../../../../../../hooks/useSearch';
+import Select from '../../../../../../components/ui/form/select/Select';
 
 const columns = [
   {
@@ -29,28 +28,34 @@ const columns = [
 ];
 
 const ListingPageContent = () => {
-  const [filters, setFilters] = useState({
-    page: 1,
-    pageSize: 10,
-  });
-
-  const handleChange = (name: string, value: unknown) => {
-    setFilters((current) => ({
-      ...current,
-      [name]: value,
-    }));
-  };
-
-  // const [selectedRows, setSelectedRows] = useState<ID[]>([]);
-
+  const { handleSearch, search, searchValues } = useSearch();
   const { selectedRows, setSelectedRows } = useSelectRows();
+  const { data, isLoading } = useGetUsersQuery(searchValues);
 
-  const { data } = useGetUsersQuery();
+  // console.log({ data, isLoading });
 
   return (
     <>
-      <ListingHeaderCard className="flex justify-between">
+      <ListingHeaderCard className="">
         <ListingHeaderTitle title="Listing" />
+        <div className="mt-5 grid grid-cols-2">
+          <Select
+            value={search.option1}
+            onChange={(value) => handleSearch('option1', value as string)}
+            options={Array.from({ length: 5 }).map((_, index) => ({
+              label: `Label ${index + 1}`,
+              value: index + '',
+            }))}
+          />
+          <Select
+            value={search.option2}
+            onChange={(value) => handleSearch('option2', value as string)}
+            options={Array.from({ length: 5 }).map((_, index) => ({
+              label: `Label ${index + 1}`,
+              value: index + '',
+            }))}
+          />
+        </div>
       </ListingHeaderCard>
       <DataTable
         selectableRows
@@ -59,13 +64,13 @@ const ListingPageContent = () => {
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
         pagination={{
-          pageSize: filters.pageSize,
+          pageSize: search.pageSize ? parseInt(search.pageSize) : 10,
           onPageSizeChange(pageSize) {
-            handleChange('pageSize', pageSize);
+            handleSearch('pageSize', pageSize + '', false);
           },
-          currentPage: filters.page,
+          currentPage: search.page ? parseInt(search.page) : 1,
           onPageChange(page) {
-            handleChange('page', page);
+            handleSearch('page', page + '', false);
           },
           totalPages: 1000,
         }}

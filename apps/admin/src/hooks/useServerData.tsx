@@ -23,6 +23,7 @@ export default async function useServerData({
 
   return {
     ServerData: ({ children }: { children: React.ReactNode }) => {
+      console.log('server data');
       return (
         <HydrationBoundary state={dehydrate(queryClient)}>
           {children}

@@ -6,10 +6,11 @@ import { Checkbox } from '@mono/ui';
 import { BaseDataItem, ID } from '../../types/common';
 import { Card, CardContent } from './Card';
 
-interface DataTableProps<T extends BaseDataItem> extends TableProps<T> {
+export interface DataTableProps<T extends BaseDataItem> extends TableProps<T> {
   pagination?: PaginationProps | undefined;
   selectableRows?: boolean;
   selectedRows?: ID[];
+  isLoading?: boolean;
   setSelectedRows?: React.Dispatch<React.SetStateAction<ID[]>>;
 }
 

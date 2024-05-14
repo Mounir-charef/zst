@@ -14,7 +14,7 @@ export default function useDebouncedValue({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setValues(values);
+      setValues(value);
     }, delay);
 
     return () => clearTimeout(timeout);

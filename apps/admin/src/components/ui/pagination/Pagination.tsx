@@ -12,8 +12,8 @@ import PaginationRowsPerPage from './PaginationRowsPerPage';
 
 export interface PaginationProps
   extends Omit<UsePaginationArgs, 'siblingCount'> {
-  onPageChange: (page: number) => unknown;
   pageSize: number;
+  onPageChange: (page: number) => unknown;
   onPageSizeChange: (pageSize: number) => unknown;
 }
 
