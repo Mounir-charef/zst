@@ -6,6 +6,7 @@ import NavMenu from './NavMenu';
 import Notification from './Notification';
 // import ThemeToggle from './ThemeToggle';
 import dynamic from 'next/dynamic';
+import UserNav from './UserNav';
 const ThemeToggle = dynamic(() => import('./ThemeToggle'), { ssr: false });
 
 const NavBar = () => {
@@ -35,6 +36,7 @@ const NavBar = () => {
         <div className="flex items-center gap-4">
           <ThemeToggle />
           <Notification />
+          <UserNav />
         </div>
       </div>
     </div>

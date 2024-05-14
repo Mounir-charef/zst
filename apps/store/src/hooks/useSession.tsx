@@ -6,13 +6,14 @@ import { logout } from '../lib/auth/logout';
 
 const useSession = () => {
   const session = useAuthSession();
+
   useEffect(() => {
-    if (session.data?.error === 'RefreshAccessTokenError') {
-      logout(); // Force sign out for the user
+    if (session.data?.error) {
+      logout();
     }
   }, [session]);
 
-  return session;
+  return session.data;
 };
 
 export default useSession;

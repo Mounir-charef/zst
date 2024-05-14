@@ -1,11 +1,15 @@
-'use server';
-
 import { signOut } from 'next-auth/react';
-import { cookies } from 'next/headers';
-import { redirect } from '../../navigation';
+import { toast } from 'sonner';
+import { env } from '../../env.mjs';
 
 export async function logout() {
-  cookies().delete('xxx-refresh-token');
-  await signOut({ callbackUrl: `${window.location.origin}/login` });
-  redirect('/sign-in');
+  try {
+    await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`, {
+      method: 'POST',
+    });
+
+    await signOut({ callbackUrl: `${window.location.origin}/sign-in` });
+  } catch (error) {
+    toast.error('Something went wrong. Please try again.');
+  }
 }
