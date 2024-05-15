@@ -40,7 +40,10 @@ export type NewProduct = {
   category: string;
   subcategory?: string;
   stock: {
-    variantValue: string;
+    mainVariant: {
+      name: string;
+      value: string;
+    };
     subvariants: {
       variants: {
         [key: string]: string;
@@ -70,12 +73,16 @@ export default function NewProductPage() {
         subcategory: z.string().optional(),
         stock: z.array(
           z.object({
-            variantValue: z.string().min(3).max(255),
+            // variantValue: z.string().min(3).max(255),
+            mainVariant: z.object({
+              name: z.string().min(3).max(255),
+              value: z.string().min(1),
+            }),
             subvariants: z.array(
               z.object({
                 variants: z.record(z.string().min(3), z.string().min(1)),
                 price: z.coerce.number().positive(),
-                quantity: z.coerce.number().int().positive(),
+                quantity: z.coerce.number().int().min(0),
               }),
             ),
           }),

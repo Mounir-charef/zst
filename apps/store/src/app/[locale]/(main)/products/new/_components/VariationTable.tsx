@@ -24,14 +24,17 @@ const VariationTable = () => {
   const defaultValues = useMemo(() => {
     if (subVariants.length === 0) return [];
 
-    return mainVariant?.values.map((VariantValue) => {
+    return mainVariant?.values.map((variantValue) => {
       const subVariantsValues = subVariants.map(
         (subVariant) => subVariant.values,
       );
 
       if (subVariantsValues.length === 1) {
         return {
-          variantValue: VariantValue,
+          mainVariant: {
+            name: mainVariant.name,
+            value: variantValue,
+          },
           subvariants: subVariantsValues[0].map((subVariantValue) => ({
             variants: {
               [subVariants[0].name]: subVariantValue,
@@ -51,7 +54,10 @@ const VariationTable = () => {
       );
 
       return {
-        variantValue: VariantValue,
+        mainVariant: {
+          name: mainVariant.name,
+          value: variantValue,
+        },
         subvariants: allSubVariantsPermutations.map((subVariantValues) => ({
           variants: subVariantValues.reduce(
             (acc, value) => ({ ...acc, ...value }),
@@ -79,7 +85,6 @@ const VariationTable = () => {
     });
   }, [defaultValues]);
 
-  console.log(stock);
   return (
     <Table>
       <TableHeader className="rounded-md [&_tr]:border-b-0">
@@ -103,7 +108,10 @@ const VariationTable = () => {
           return (
             <Fragment key={index}>
               <TableRow>
-                <TableCell>{variantStock.variantValue}</TableCell>
+                <TableCell>
+                  {variantStock.mainVariant.name} -{' '}
+                  {variantStock.mainVariant.value}
+                </TableCell>
                 <TableCell>
                   <Input
                     value={pricesString}
@@ -124,7 +132,7 @@ const VariationTable = () => {
                   <TableCell className="py-1 ps-12">
                     {Object.entries(subVariant.variants)
                       .map(([key, value]) => `${key}: ${value}`)
-                      .join(' - ')}
+                      .join(' / ')}
                   </TableCell>
                   <TableCell className="py-1">
                     <InputField
