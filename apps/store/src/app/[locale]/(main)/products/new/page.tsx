@@ -24,6 +24,7 @@ import ProductStatus from './_components/ProductStatus';
 import ProductVariants from './_components/ProductVariants';
 import ProductCategory from './_components/ProductCategory';
 import ProductStock from './_components/ProductStock';
+import ImageUploader from '../../../../../components/ImageUploader';
 
 export type Variant = {
   name: string;
@@ -162,13 +163,7 @@ export default function NewProductPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-2">
-                  <Image
-                    alt="Product image"
-                    className="aspect-square w-full rounded-md object-cover"
-                    height="300"
-                    src="/placeholder.svg"
-                    width="300"
-                  />
+                  <ImageUploader />
                   <div className="grid grid-cols-3 gap-2">
                     <Button variant="ghost" className="h-auto p-0">
                       <Image
