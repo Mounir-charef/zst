@@ -1,29 +1,19 @@
 'use client';
 
-import { ChevronLeft, Upload } from 'lucide-react';
-import Image from 'next/image';
+import { ChevronLeft } from 'lucide-react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Form,
-  buttonVariants,
-} from '@mono/ui';
+import { Button, Form, buttonVariants } from '@mono/ui';
 import { useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { ImageUploaderField } from '../../../../../components/ImageUploaderField';
 import { Link } from '../../../../../navigation';
 import ProductCategory from './_components/ProductCategory';
 import ProductDetails from './_components/ProductDetails';
 import ProductStatus from './_components/ProductStatus';
 import ProductStock from './_components/ProductStock';
 import ProductVariants from './_components/ProductVariants';
+import ProductImages from './_components/ProductImages';
 
 export type Variant = {
   name: string;
@@ -52,6 +42,11 @@ export type NewProduct = {
       quantity: number;
     }[];
   }[];
+  productImages: {
+    id: string | number;
+    url: string;
+  }[];
+  mainImage: string;
 };
 
 export default function NewProductPage() {
@@ -86,6 +81,13 @@ export default function NewProductPage() {
             ),
           }),
         ),
+        productImages: z.array(
+          z.object({
+            id: z.string().min(1, 'required').or(z.number().min(1, 'required')),
+            url: z.string().min(1, 'required').url(),
+          }),
+        ),
+        mainImage: z.string().min(1, 'required').url(),
       }),
     [],
   );
@@ -100,6 +102,9 @@ export default function NewProductPage() {
       variants: [],
       status: '',
       stock: [],
+      mainImage: '',
+      productImages: [],
+      category: '',
     },
   });
 
@@ -149,50 +154,11 @@ export default function NewProductPage() {
           <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
             <ProductStatus />
             <ProductCategory />
-            <Card
-              className="overflow-hidden"
-              x-chunk="A card with a form to upload product images"
-            >
-              <CardHeader>
-                <CardTitle>Product Images</CardTitle>
-                <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-2">
-                  <Image
-                    alt="Product image"
-                    className="aspect-square w-full rounded-md object-cover"
-                    height="400"
-                    src="/placeholder.svg"
-                    width="400"
-                  />
-                  <div className="grid grid-cols-3 gap-2">
-                    <Button variant="ghost" className="h-auto p-0">
-                      <Image
-                        alt="Product image"
-                        className="aspect-square w-full rounded-md object-cover"
-                        height="84"
-                        src="/placeholder.svg"
-                        width="84"
-                      />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      className="flex aspect-square h-auto w-full items-center justify-center rounded-md border border-dashed p-0"
-                    >
-                      <Upload className="text-muted-foreground h-4 w-4" />
-                      <span className="sr-only">Upload</span>
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ProductImages />
           </div>
         </div>
         <div className="flex items-center justify-center gap-2 md:hidden">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" type="button">
             Discard
           </Button>
           <Button size="sm">Save Product</Button>
