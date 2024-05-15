@@ -43,14 +43,13 @@ function NavMenu() {
           if (item.type === 'link')
             return (
               <NavigationMenuItem key={item.title}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={navigationMenuTriggerStyle({
-                      className: 'gap-1',
-                    })}
-                  >
-                    {item.icon} <span>{item.title}</span>
-                  </NavigationMenuLink>
+                <Link
+                  href={item.href}
+                  className={navigationMenuTriggerStyle({
+                    className: 'gap-1',
+                  })}
+                >
+                  {item.icon} <span>{item.title}</span>
                 </Link>
               </NavigationMenuItem>
             );
