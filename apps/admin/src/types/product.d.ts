@@ -1,7 +1,7 @@
 import { ID } from "./common";
 import { FileResponse } from "./file";
 
-export interface ProductListing {
+export interface TypedProductListing {
     id: ID
     name: string
     type: string

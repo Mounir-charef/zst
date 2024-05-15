@@ -1,6 +1,6 @@
-import { Attribute } from "../types/attribute"
+import { TypedAttributeListing } from "../types/attribute"
 
-const attributes: Attribute[] = [
+const attributes: TypedAttributeListing[] = [
     {
         id: 1,
         name: 'Color',
