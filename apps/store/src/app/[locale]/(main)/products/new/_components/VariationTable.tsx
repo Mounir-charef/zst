@@ -22,7 +22,16 @@ const VariationTable = () => {
   const mainVariant = useMemo(() => variants.at(0), [variants]);
   const subVariants = useMemo(() => variants.slice(1), [variants]);
   const defaultValues = useMemo(() => {
-    if (subVariants.length === 0) return [];
+    if (mainVariant && subVariants.length === 0)
+      return [
+        {
+          mainVariant: {
+            name: mainVariant.name,
+            value: '',
+          },
+          subvariants: [],
+        },
+      ];
 
     return mainVariant?.values.map((variantValue) => {
       const subVariantsValues = subVariants.map(
