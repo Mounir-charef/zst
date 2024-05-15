@@ -27,19 +27,20 @@ export const VARIANT_NAMES_OPTIONS = ['XL', 'L', 'S'];
 export const VARIANT_NAMES = ['size', 'color', 'material'];
 
 const Productvariants = () => {
-  const { control } = useFormContext<NewProduct>();
-  const { fields, update, remove, append } = useFieldArray({
+  const { control, watch } = useFormContext<NewProduct>();
+  const { update, remove } = useFieldArray({
     control,
     name: 'variants',
   });
   const [adding, setAdding] = useState(false);
+  const fields = watch('variants');
   return (
     <Card>
       <CardHeader>
         <CardTitle>variants</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-6">
-        {fields.length > 0 || adding ? (
+        {fields.length > 0 && (
           <>
             {fields.map((variant, index) => (
               <VariantCard
@@ -47,14 +48,18 @@ const Productvariants = () => {
                 update={update}
                 remove={remove}
                 variant={variant}
-                key={variant.id}
+                key={variant.name}
                 defaultState={variant.name === ''}
               />
             ))}
-            {adding && <AddVarientForm close={() => setAdding(false)} />}
           </>
-        ) : (
-          <CardDescription>No variants added yet</CardDescription>
+        )}
+        {adding && <AddVarientForm close={() => setAdding(false)} />}
+
+        {fields.length === 0 && !adding && (
+          <CardDescription className="text-center">
+            No variants added
+          </CardDescription>
         )}
       </CardContent>
       <CardFooter className="justify-center border-t p-4">
@@ -113,8 +118,8 @@ const VariantCard = ({
           <CardContent>
             <div className="flex flex-wrap gap-2 px-2">
               {variant.values.map((value) => (
-                <Badge variant="secondary" key={value.name}>
-                  {value.name}
+                <Badge variant="secondary" key={value}>
+                  {value}
                 </Badge>
               ))}
             </div>
@@ -122,10 +127,10 @@ const VariantCard = ({
         </>
       ) : (
         <VariantEditCard
-          remove={remove}
+          remove={() => remove(index)}
           variant={variant}
-          index={index}
-          update={update}
+          update={(data) => update(index, data)}
+          close={() => setEditing(false)}
         />
       )}
     </Card>

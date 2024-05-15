@@ -31,15 +31,7 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
     () =>
       z.object({
         name: z.string().min(3),
-        values: z
-          .array(
-            z.object({
-              name: z.string().min(1).max(255),
-              price: z.number().min(0),
-              quantity: z.number().min(0),
-            }),
-          )
-          .min(1),
+        values: z.array(z.string().min(1, 'Required').max(255)).min(1),
       }),
     [],
   );
@@ -61,12 +53,12 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
 
   const values = form.watch('values');
 
-  const { watch, setValue: setProductValue } = useFormContext<NewProduct>();
+  const { watch } = useFormContext<NewProduct>();
 
-  const { variants: selectedVariants } = watch();
+  const selectedVariants = watch('variants');
 
   const selectableValues = useMemo(
-    () => VARIANT_NAMES_OPTIONS.filter((option) => values),
+    () => VARIANT_NAMES_OPTIONS.filter((option) => !values.includes(option)),
     [values],
   );
 
@@ -80,10 +72,7 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
 
   const addValue = useCallback(
     (newValue: string) => {
-      form.setValue('values', [
-        ...values,
-        { name: newValue, price: 0, quantity: 0 },
-      ]);
+      form.setValue('values', [...values, newValue]);
     },
     [form, values],
   );
@@ -92,13 +81,27 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
     (removedValue: string) => {
       form.setValue(
         'values',
-        values.filter((option) => option.name !== removedValue),
+        values.filter((option) => option !== removedValue),
       );
     },
     [form, values],
   );
 
+  const checkNameNotSelected = useCallback(
+    (name: string) => {
+      return selectedVariants.every((variant) => variant.name !== name);
+    },
+    [selectedVariants],
+  );
+
   const onSubmit: SubmitHandler<Variant> = (data) => {
+    if (!checkNameNotSelected(data.name)) {
+      form.setError('name', {
+        type: 'manual',
+        message: 'Please select a name',
+      });
+      return;
+    }
     append(data);
     close();
   };
@@ -141,14 +144,14 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
           {values.map((option) => (
             <button
               type="button"
-              key={option.name}
+              key={option}
               className={badgeVariants({
                 variant: 'secondary',
                 className: 'group relative cursor-pointer overflow-clip',
               })}
-              onClick={() => removeValue(option.name)}
+              onClick={() => removeValue(option)}
             >
-              <span>{option.name}</span>
+              <span>{option}</span>
               <div className="bg-destructive text-destructive-foreground invisible absolute inset-0 grid place-items-center group-hover:visible group-focus-visible:visible">
                 <X className="h-3 w-3" />
               </div>

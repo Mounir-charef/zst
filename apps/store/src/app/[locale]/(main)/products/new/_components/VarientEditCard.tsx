@@ -14,28 +14,23 @@ import {
 } from '@mono/ui';
 import { X } from 'lucide-react';
 import { memo, useCallback, useId, useMemo } from 'react';
-import {
-  SubmitHandler,
-  UseFieldArrayUpdate,
-  useForm,
-  useFormContext,
-} from 'react-hook-form';
+import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { NewProduct, Variant } from '../page';
 import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
 
 interface VariantEditCardProps {
   variant: Variant;
-  index: number;
-  update: UseFieldArrayUpdate<NewProduct, 'variants'>;
-  remove: (index: number) => void;
+  update: (data: Variant) => void;
+  remove: () => void;
+  close: () => void;
 }
 
 const VariantEditCard = ({
   variant,
-  index,
   update,
   remove,
+  close,
 }: VariantEditCardProps) => {
   const selectId = useId();
 
@@ -43,15 +38,7 @@ const VariantEditCard = ({
     () =>
       z.object({
         name: z.string().min(3),
-        values: z
-          .array(
-            z.object({
-              name: z.string().min(1).max(255),
-              price: z.number().min(0),
-              quantity: z.number().min(0),
-            }),
-          )
-          .min(1),
+        values: z.array(z.string().min(1, 'Required').max(255)),
       }),
     [],
   );
@@ -65,28 +52,26 @@ const VariantEditCard = ({
 
   const values = form.watch('values');
 
-  const { watch, setValue: setProductValue } = useFormContext<NewProduct>();
+  const { watch } = useFormContext<NewProduct>();
 
-  const { variants: selectedVariants } = watch();
+  const selectedVariants = watch('variants');
 
   const selectableValues = useMemo(
-    () => VARIANT_NAMES_OPTIONS.filter((option) => values),
+    () => VARIANT_NAMES_OPTIONS.filter((option) => !values.includes(option)),
     [values],
   );
 
   const selectableVariants = useMemo(() => {
-    const restNames = VARIANT_NAMES.filter((name) => {
-      return !selectedVariants.some((variant) => variant.name === name);
-    });
-    return variant.name ? [variant.name, ...restNames] : restNames;
+    const notSelectedVariants = VARIANT_NAMES.filter(
+      (name) => !selectedVariants.some((variant) => variant.name === name),
+    );
+    const variantsNames = [...notSelectedVariants, variant.name];
+    return variantsNames.map((name) => ({ label: name, value: name }));
   }, [selectedVariants]);
 
   const addValue = useCallback(
     (newValue: string) => {
-      form.setValue('values', [
-        ...values,
-        { name: newValue, price: 0, quantity: 0 },
-      ]);
+      form.setValue('values', [...values, newValue]);
     },
     [form, values],
   );
@@ -95,24 +80,36 @@ const VariantEditCard = ({
     (removedValue: string) => {
       form.setValue(
         'values',
-        values.filter((option) => option.name !== removedValue),
+        values.filter((option) => option !== removedValue),
       );
     },
     [form, values],
   );
 
+  const checkNameNotSelected = useCallback(
+    (name: string) => {
+      return selectedVariants.every((variant) => variant.name !== name);
+    },
+    [selectedVariants],
+  );
+
   const onSubmit: SubmitHandler<Variant> = (data) => {
-    update(index, data);
+    if (!checkNameNotSelected(data.name)) {
+      form.setError('name', {
+        type: 'manual',
+        message: 'Please select a name',
+      });
+      return;
+    }
+    update(data);
+    close();
   };
 
   return (
     <Form {...form}>
       <CardContent className="grid gap-4 pt-6">
         <SelectField
-          options={selectableVariants.map((name) => ({
-            value: name,
-            label: name,
-          }))}
+          options={selectableVariants}
           control={form.control}
           name="name"
           label="Option Name"
@@ -143,14 +140,14 @@ const VariantEditCard = ({
           {values.map((option) => (
             <button
               type="button"
-              key={option.name}
+              key={option}
               className={badgeVariants({
                 variant: 'secondary',
                 className: 'group relative cursor-pointer overflow-clip',
               })}
-              onClick={() => removeValue(option.name)}
+              onClick={() => removeValue(option)}
             >
-              <span>{option.name}</span>
+              <span>{option}</span>
               <div className="bg-destructive text-destructive-foreground invisible absolute inset-0 grid place-items-center group-hover:visible group-focus-visible:visible">
                 <X className="h-3 w-3" />
               </div>
@@ -158,7 +155,7 @@ const VariantEditCard = ({
           ))}
         </div>
         <div className="flex items-center justify-between">
-          <Button variant="destructive" onClick={() => remove(index)}>
+          <Button variant="destructive" onClick={() => remove()}>
             Delete
           </Button>
           <Button variant="reverse" onClick={form.handleSubmit(onSubmit)}>

@@ -1,8 +1,6 @@
 'use client';
 
 import {
-  Input,
-  InputField,
   Table,
   TableBody,
   TableCell,
@@ -11,8 +9,8 @@ import {
   TableRow,
 } from '@mono/ui';
 import { Fragment, memo } from 'react';
-import { NewProduct } from '../page';
 import { useFormContext } from 'react-hook-form';
+import { NewProduct } from '../page';
 
 const VariationTable = () => {
   const { control, watch } = useFormContext<NewProduct>();
@@ -32,44 +30,14 @@ const VariationTable = () => {
             <TableRow>
               <TableCell>{variant.name}</TableCell>
 
-              <TableCell>
-                <Input
-                  value={`${variant.values.map((value) => value.price).join(' - ')}`}
-                  disabled
-                />
-              </TableCell>
-              <TableCell>
-                <Input
-                  value={variant.values.reduce(
-                    (acc, value) => acc + value.quantity,
-                    0,
-                  )}
-                  disabled
-                />
-              </TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
             </TableRow>
-            {variant.values.map((value, valueIndex) => (
-              <TableRow key={value.name + valueIndex}>
-                <TableCell className="p-1 ps-16">{value.name}</TableCell>
-                <TableCell className="p-1">
-                  <InputField
-                    control={control}
-                    name={`variants.${index}.values.${valueIndex}.price`}
-                    placeholder="Enter price"
-                    type="number"
-                  />
-                </TableCell>
-                <TableCell className="p-1">
-                  <InputField
-                    control={control}
-                    name={`variants.${index}.values.${valueIndex}.quantity`}
-                    placeholder="Enter quantity"
-                    type="number"
-                    InputProps={{
-                      inputMode: 'decimal',
-                    }}
-                  />
-                </TableCell>
+            {variant.values.map((value) => (
+              <TableRow key={value}>
+                <TableCell className="p-1 ps-16">{value}</TableCell>
+                <TableCell className="p-1"></TableCell>
+                <TableCell className="p-1"></TableCell>
               </TableRow>
             ))}
           </Fragment>
