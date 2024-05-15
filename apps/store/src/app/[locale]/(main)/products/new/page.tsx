@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronLeft, PlusCircle, Upload } from 'lucide-react';
+import { ChevronLeft, Upload } from 'lucide-react';
 import Image from 'next/image';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +9,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
   Form,
@@ -18,13 +17,13 @@ import {
 import { useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { ImageUploaderField } from '../../../../../components/ImageUploaderField';
 import { Link } from '../../../../../navigation';
+import ProductCategory from './_components/ProductCategory';
 import ProductDetails from './_components/ProductDetails';
 import ProductStatus from './_components/ProductStatus';
-import ProductVariants from './_components/ProductVariants';
-import ProductCategory from './_components/ProductCategory';
 import ProductStock from './_components/ProductStock';
-import ImageUploader from '../../../../../components/ImageUploader';
+import ProductVariants from './_components/ProductVariants';
 
 export type Variant = {
   name: string;
@@ -53,6 +52,7 @@ export type NewProduct = {
       quantity: number;
     }[];
   }[];
+  image?: File;
 };
 
 export default function NewProductPage() {
@@ -88,6 +88,7 @@ export default function NewProductPage() {
             ),
           }),
         ),
+        image: z.number(),
       }),
     [],
   );
@@ -163,9 +164,8 @@ export default function NewProductPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-2">
-                  <ImageUploader />
+                  <ImageUploaderField control={form.control} name="image" />
                   <div className="grid grid-cols-3 gap-2">
-                    <ImageUploader />
                     <Button variant="ghost" className="h-auto p-0">
                       <Image
                         alt="Product image"

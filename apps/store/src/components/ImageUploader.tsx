@@ -4,27 +4,25 @@ import { Button, ButtonProps, Input, Progress } from '@mono/ui';
 import { cn } from '@mono/util';
 import { LucideProps, Trash2, Upload } from 'lucide-react';
 import Image from 'next/image';
-import { forwardRef, memo, useCallback, useRef, useState } from 'react';
+import { forwardRef, useCallback, useRef, useState } from 'react';
 
 interface ImageUploaderProps
-  extends Omit<ButtonProps, 'onClick' | 'className' | 'onChange'> {
+  extends Omit<ButtonProps, 'onClick' | 'className' | 'onChange' | 'value'> {
   imageProps?: Omit<React.ComponentProps<typeof Image>, 'src'>;
   iconProps?: LucideProps;
   className?: string;
-  onChange?: (image?: string) => void;
+  onChange: (image?: string) => void;
+  value: string | undefined;
 }
 
 const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
-  ({ imageProps, iconProps, className, onChange, ...props }, ref) => {
-    const [imageUrl, setImageUrl] = useState<string>();
+  ({ imageProps, iconProps, className, onChange, value, ...props }, ref) => {
     const [uploading, setUploading] = useState(false);
     const [progress, setProgress] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleUpload = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        let progress = 0;
-
         const file = e.target.files?.[0];
         if (file) {
           // Simulate upload progress
@@ -38,10 +36,9 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
             } else {
               clearInterval(interval);
               const url = URL.createObjectURL(file);
-              setImageUrl(url);
               setUploading(false);
               setProgress(0);
-              onChange?.(imageUrl);
+              onChange(url);
             }
           }, 500);
         }
@@ -50,7 +47,7 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
     );
 
     const removeImage = useCallback(() => {
-      setImageUrl(undefined);
+      onChange();
       inputRef.current?.value && (inputRef.current.value = '');
     }, []);
     return (
@@ -62,12 +59,12 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
           className={cn(
             'group relative flex aspect-square h-auto w-full items-center justify-center rounded-md border p-0',
             {
-              'border-dashed': !imageUrl,
+              'border-dashed': !value,
             },
             className,
           )}
           onClick={() => {
-            imageUrl ? removeImage() : inputRef.current?.click();
+            value ? removeImage() : inputRef.current?.click();
           }}
           {...props}
         >
@@ -78,12 +75,12 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
             onChange={handleUpload}
             accept="image/*"
           />
-          {imageUrl ? (
+          {value ? (
             <>
               <Image
                 alt="Product image placeholder"
                 className="aspect-square w-full rounded-md object-cover"
-                src={imageUrl}
+                src={value}
                 height={!imageProps ? '84' : undefined}
                 width={!imageProps ? '84' : undefined}
                 {...imageProps}
@@ -113,4 +110,4 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
 
 ImageUploader.displayName = 'ImageUploader';
 
-export default memo(ImageUploader);
+export { ImageUploader, type ImageUploaderProps };
