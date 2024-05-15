@@ -8,7 +8,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@mono/ui';
-import { LucideIcon } from 'lucide-react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 import { ImageUploader, ImageUploaderProps } from './ImageUploader';
 
@@ -47,7 +46,9 @@ export const ImageUploaderField = <
               <ImageUploader
                 {...imageUploaderProps}
                 {...field}
-                className={fieldState.error && 'focus-visible:ring-destructive'}
+                className={
+                  fieldState.error && 'ring-destructive text-destructive ring-2'
+                }
               />
             </FormControl>
             {description && (

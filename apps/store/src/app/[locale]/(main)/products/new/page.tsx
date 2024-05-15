@@ -52,7 +52,6 @@ export type NewProduct = {
       quantity: number;
     }[];
   }[];
-  image?: File;
 };
 
 export default function NewProductPage() {
@@ -74,7 +73,6 @@ export default function NewProductPage() {
         subcategory: z.string().optional(),
         stock: z.array(
           z.object({
-            // variantValue: z.string().min(3).max(255),
             mainVariant: z.object({
               name: z.string().min(3).max(255),
               value: z.string().min(1),
@@ -88,7 +86,6 @@ export default function NewProductPage() {
             ),
           }),
         ),
-        image: z.number(),
       }),
     [],
   );
@@ -164,7 +161,13 @@ export default function NewProductPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-2">
-                  <ImageUploaderField control={form.control} name="image" />
+                  <Image
+                    alt="Product image"
+                    className="aspect-square w-full rounded-md object-cover"
+                    height="400"
+                    src="/placeholder.svg"
+                    width="400"
+                  />
                   <div className="grid grid-cols-3 gap-2">
                     <Button variant="ghost" className="h-auto p-0">
                       <Image

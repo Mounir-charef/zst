@@ -57,7 +57,7 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
           type="button"
           variant="ghost"
           className={cn(
-            'group relative flex aspect-square h-auto w-full items-center justify-center rounded-md border p-0',
+            'text-muted-foreground group relative flex aspect-square h-auto w-full items-center justify-center rounded-md border p-0',
             {
               'border-dashed': !value,
             },
@@ -92,10 +92,7 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
           ) : (
             <>
               {!uploading ? (
-                <Upload
-                  {...iconProps}
-                  className={cn('text-muted-foreground', iconProps?.className)}
-                />
+                <Upload {...iconProps} />
               ) : (
                 <Progress value={progress} className="w-2/3" />
               )}
