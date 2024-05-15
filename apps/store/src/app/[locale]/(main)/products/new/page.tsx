@@ -42,7 +42,9 @@ export type NewProduct = {
   stock: {
     variantValue: string;
     subvariants: {
-      name: string;
+      variants: {
+        [key: string]: string;
+      };
       price: number;
       quantity: number;
     }[];
@@ -52,58 +54,33 @@ export type NewProduct = {
 export default function NewProductPage() {
   const NewProductSchema = useMemo(
     () =>
-      z
-        .object({
-          details: z.object({
+      z.object({
+        details: z.object({
+          name: z.string().min(3).max(255),
+          description: z.string().min(3).max(500),
+        }),
+        variants: z.array(
+          z.object({
             name: z.string().min(3).max(255),
-            description: z.string().min(3).max(500),
+            values: z.array(z.string().min(1, 'Required')),
           }),
-          variants: z.array(
-            z.object({
-              name: z.string().min(3).max(255),
-              values: z.array(z.string().min(1, 'Required')),
-            }),
-          ),
-          status: z.string().min(1, 'Required'),
-          category: z.string().min(1, 'Required'),
-          subcategory: z.string().optional(),
-          stock: z.array(
-            z.object({
-              variantValue: z.string().min(3).max(255),
-              subvariants: z.array(
-                z.object({
-                  name: z.string().min(3).max(255),
-                  price: z.coerce.number().positive(),
-                  quantity: z.coerce.number().int().positive(),
-                }),
-              ),
-            }),
-          ),
-        })
-        .refine(
-          (data) => {
-            // the table variantValue is the all the possible value of the first defined varient and the subvariant is the combination of the other varients
-            const mainVariant = data.variants[0];
-            const otherVariants = data.variants.slice(1);
-
-            return data.stock.every((stock) => {
-              const variantValue = stock.variantValue;
-              const subvariants = stock.subvariants;
-              return (
-                mainVariant.values.includes(variantValue) &&
-                subvariants.every((subvariant) => {
-                  return otherVariants.every((variant) =>
-                    variant.values.includes(subvariant.name),
-                  );
-                })
-              );
-            });
-          },
-          {
-            message: 'Stock varients must match defined varients',
-            path: ['stock'],
-          },
         ),
+        status: z.string().min(1, 'Required'),
+        category: z.string().min(1, 'Required'),
+        subcategory: z.string().optional(),
+        stock: z.array(
+          z.object({
+            variantValue: z.string().min(3).max(255),
+            subvariants: z.array(
+              z.object({
+                variants: z.record(z.string().min(3), z.string().min(1)),
+                price: z.coerce.number().positive(),
+                quantity: z.coerce.number().int().positive(),
+              }),
+            ),
+          }),
+        ),
+      }),
     [],
   );
 
@@ -116,6 +93,7 @@ export default function NewProductPage() {
       },
       variants: [],
       status: '',
+      stock: [],
     },
   });
 
