@@ -165,15 +165,7 @@ export default function NewProductPage() {
                 <div className="grid gap-2">
                   <ImageUploader />
                   <div className="grid grid-cols-3 gap-2">
-                    <Button variant="ghost" className="h-auto p-0">
-                      <Image
-                        alt="Product image"
-                        className="aspect-square w-full rounded-md object-cover"
-                        height="84"
-                        src="/placeholder.svg"
-                        width="84"
-                      />
-                    </Button>
+                    <ImageUploader />
                     <Button variant="ghost" className="h-auto p-0">
                       <Image
                         alt="Product image"
