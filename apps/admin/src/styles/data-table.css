@@ -1,5 +1,5 @@
 .rc-table {
-  @apply border-separate rounded-lg border p-4;
+  @apply border-separate rounded-lg;
   border-spacing: 0;
 }
 

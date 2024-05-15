@@ -40,7 +40,10 @@ export default async function RootLayout({
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
             <SessionProvider session={session}>
               <AppProvider>
-                <NextTopLoader color={'hsl(var(--primary))'} />
+                <NextTopLoader
+                  color={'hsl(var(--primary))'}
+                  showSpinner={false}
+                />
                 {children}
               </AppProvider>
             </SessionProvider>

@@ -1,8 +1,9 @@
-import API_ENDPOINTS from "../_api-endpoints";
-import crudFactory from "./_crud-factory";
+import attributes from "../../data/attributes"
 
 const attributeClient = {
-    ...crudFactory(API_ENDPOINTS.ATTRIBUTES)
+    getAll() {
+        return new Promise(resolve => setTimeout(() => resolve(attributes), 1000))
+    }
 }
 
 export default attributeClient

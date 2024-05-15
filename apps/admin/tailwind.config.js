@@ -6,9 +6,6 @@ module.exports = {
     ...TailwindConfig.theme,
     extend: {
       ...TailwindConfig.theme.extend,
-      borderColor: {
-        // DEFAULT: 'hsl(var(--color-border-base))'
-      },
       transitionDuration: {
         DEFAULT: '400ms'
       },

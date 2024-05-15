@@ -1,11 +1,15 @@
-import React from 'react';
 import ListingPageContent from './_components/ListingPageContent';
 import useServerData from '../../../../../hooks/useServerData';
-import { getUserQueryOptions } from '../../../../../apis/userApis';
+import { getUsersQueryOptions } from '../../../../../apis/userApis';
+import { SearchParams } from '../../../../../apis/_api-utils';
 
-const ListingPage = async ({ searchParams }: { searchParams: unknown }) => {
+const ListingPage = async ({
+  searchParams,
+}: {
+  searchParams?: SearchParams;
+}) => {
   const { ServerData } = await useServerData({
-    ...getUserQueryOptions(searchParams),
+    ...getUsersQueryOptions(searchParams),
   });
 
   return (

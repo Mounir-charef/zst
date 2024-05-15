@@ -5,7 +5,7 @@ export interface AttributeValue {
     value: string
 }
 
-export interface Attribute {
+export interface TypedAttributeListing {
     id: ID
     name: string
     slug: string

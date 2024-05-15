@@ -40,12 +40,15 @@ const SidebarLinkItem = ({
     });
   };
 
+  const isLink = href && !hasChildren;
+  const Wrapper = isLink ? Link : 'span';
+
   return (
     <li ref={liRef}>
-      <Link
+      <Wrapper
         href={href || '#'}
         className={cn(
-          'flex items-center justify-between rounded-md px-4 py-2 text-sm text-gray-700 transition',
+          'flex cursor-pointer items-center justify-between rounded-md px-4 py-2 text-sm text-gray-700 transition',
           isLinkActive && !hasChildren
             ? 'bg-primary/10 text-primary'
             : `hover:bg-gray-100 ${isSidebarCollapsed && 'lg:hover:text-primary lg:hover:bg-transparent'}`,
@@ -75,7 +78,7 @@ const SidebarLinkItem = ({
             )}
           />
         )}
-      </Link>
+      </Wrapper>
       <SidebarLinkItemSublinks
         children={children}
         liRef={liRef}
