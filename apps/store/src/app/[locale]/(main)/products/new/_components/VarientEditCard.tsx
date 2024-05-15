@@ -88,7 +88,10 @@ const VariantEditCard = ({
 
   const checkNameNotSelected = useCallback(
     (name: string) => {
-      return selectedVariants.every((variant) => variant.name !== name);
+      const isNotSelected = selectedVariants.every(
+        (variant) => variant.name !== name,
+      );
+      return isNotSelected || name === variant.name;
     },
     [selectedVariants],
   );
