@@ -23,13 +23,18 @@ const ProductStock = () => {
         <p className="bg-accent flex-grow rounded-md p-4 text-center text-sm">
           Total stock:{' '}
           {stock.reduce((acc, variant) => {
-            return (
-              acc +
-              variant.subvariants.reduce(
-                (acc, subvariant) => Number(acc) + Number(subvariant.quantity),
-                0,
-              )
-            );
+            if ('mainVariant' in variant) {
+              return (
+                acc +
+                variant.subvariants.reduce(
+                  (acc, subvariant) =>
+                    Number(acc) + Number(subvariant.quantity),
+                  0,
+                )
+              );
+            }
+
+            return acc + Number(variant.stock.quantity);
           }, 0)}
         </p>
       </CardFooter>

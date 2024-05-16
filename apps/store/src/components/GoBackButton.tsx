@@ -13,7 +13,6 @@ export default function GoBackButton() {
       onClick={() => router.back()}
       size="icon"
       className="h-7 w-7"
-      disabled={!window.history?.length && window.history.length <= 1}
     >
       <ChevronLeft className="h-4 w-4" />
       <span className="sr-only">Back to previous page</span>

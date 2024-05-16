@@ -30,19 +30,28 @@ export type NewProduct = {
   status: string;
   category: string;
   subcategory?: string;
-  stock: {
-    mainVariant: {
-      name: string;
-      value: string;
-    };
-    subvariants: {
-      variants: {
-        [key: string]: string;
-      };
-      price: number;
-      quantity: number;
-    }[];
-  }[];
+  stock:
+    | {
+        mainVariant: {
+          name: string;
+          value: string;
+        };
+        subvariants: {
+          variants: {
+            [key: string]: string;
+          };
+          price: number;
+          quantity: number;
+        }[];
+      }[]
+    | {
+        name: string;
+        value: string;
+        stock: {
+          price: number;
+          quantity: number;
+        };
+      }[];
   productImages: {
     id: string | number;
     url: string;
@@ -67,21 +76,34 @@ export default function NewProductPage() {
         status: z.string().min(1, 'Required'),
         category: z.string().min(1, 'Required'),
         subcategory: z.string().optional(),
-        stock: z.array(
-          z.object({
-            mainVariant: z.object({
-              name: z.string().min(3).max(255),
-              value: z.string().min(1),
+        stock: z
+          .array(
+            z.object({
+              mainVariant: z.object({
+                name: z.string().min(3).max(255),
+                value: z.string().min(1),
+              }),
+              subvariants: z.array(
+                z.object({
+                  variants: z.record(z.string().min(3), z.string().min(1)),
+                  price: z.coerce.number().positive(),
+                  quantity: z.coerce.number().int().min(0),
+                }),
+              ),
             }),
-            subvariants: z.array(
+          )
+          .or(
+            z.array(
               z.object({
-                variants: z.record(z.string().min(3), z.string().min(1)),
-                price: z.coerce.number().positive(),
-                quantity: z.coerce.number().int().min(0),
+                name: z.string().min(3).max(255),
+                value: z.string().min(1),
+                stock: z.object({
+                  price: z.coerce.number().positive(),
+                  quantity: z.coerce.number().int().min(0),
+                }),
               }),
             ),
-          }),
-        ),
+          ),
         productImages: z.array(
           z.object({
             id: z.string().min(1, 'required').or(z.number().min(1, 'required')),

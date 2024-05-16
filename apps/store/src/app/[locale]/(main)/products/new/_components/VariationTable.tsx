@@ -23,15 +23,14 @@ const VariationTable = () => {
   const subVariants = useMemo(() => variants.slice(1), [variants]);
   const defaultValues = useMemo(() => {
     if (mainVariant && subVariants.length === 0)
-      return [
-        {
-          mainVariant: {
-            name: mainVariant.name,
-            value: '',
-          },
-          subvariants: [],
+      return mainVariant?.values.map((value) => ({
+        name: mainVariant.name,
+        value,
+        stock: {
+          price: 0,
+          quantity: 0,
         },
-      ];
+      }));
 
     return mainVariant?.values.map((variantValue) => {
       const subVariantsValues = subVariants.map(
@@ -104,8 +103,13 @@ const VariationTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {defaultValues?.map((variantStock, index) => {
+        {stock?.map((variantStock, index) => {
           const realTimeStock = stock.at(index);
+          if (
+            (realTimeStock && !('mainVariant' in realTimeStock)) ||
+            !('mainVariant' in variantStock)
+          )
+            return;
           const pricesString = realTimeStock?.subvariants
             .map((variant) => variant.price)
             .join(' - ');
