@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
 import './global.css';
+import Navbar from '../../components/navbar/Navbar';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -34,7 +35,10 @@ export default async function RootLayout({
       <body className={cn('h-full font-sans antialiased', inter.className)}>
         <Providers>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
-            {children}
+            <main className="flex h-full flex-col px-2 pt-20">
+              <Navbar />
+              {children}
+            </main>
             <Toaster richColors closeButton position="top-right" />
           </NextIntlClientProvider>
         </Providers>
