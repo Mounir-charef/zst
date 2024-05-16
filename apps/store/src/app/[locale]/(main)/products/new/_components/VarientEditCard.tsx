@@ -16,8 +16,8 @@ import { X } from 'lucide-react';
 import { memo, useCallback, useId, useMemo } from 'react';
 import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
-import { NewProduct, Variant } from '../page';
 import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
+import { IProductDetails, Variant } from '../../types';
 
 interface VariantEditCardProps {
   variant: Variant;
@@ -52,7 +52,7 @@ const VariantEditCard = ({
 
   const values = form.watch('values');
 
-  const { watch } = useFormContext<NewProduct>();
+  const { watch } = useFormContext<IProductDetails>();
 
   const selectedVariants = watch('variants');
 

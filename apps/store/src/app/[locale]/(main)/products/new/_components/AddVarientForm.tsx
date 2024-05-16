@@ -21,7 +21,7 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { z } from 'zod';
-import { NewProduct, Variant } from '../page';
+import { IProductDetails } from '../../types';
 import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
 
 const AddVarientForm = ({ close }: { close: () => void }) => {
@@ -45,7 +45,7 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
       values: [],
     },
   });
-  const { control } = useFormContext<NewProduct>();
+  const { control } = useFormContext<IProductDetails>();
   const { append } = useFieldArray({
     control: control,
     name: 'variants',
@@ -53,7 +53,7 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
 
   const values = form.watch('values');
 
-  const { watch } = useFormContext<NewProduct>();
+  const { watch } = useFormContext<IProductDetails>();
 
   const selectedVariants = watch('variants');
 
@@ -94,7 +94,7 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
     [selectedVariants],
   );
 
-  const onSubmit: SubmitHandler<Variant> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (!checkNameNotSelected(data.name)) {
       form.setError('name', {
         type: 'manual',

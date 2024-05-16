@@ -18,16 +18,16 @@ import {
   useFieldArray,
   useFormContext,
 } from 'react-hook-form';
-import { NewProduct, Variant } from '../page';
 import VariantEditCard from './VarientEditCard';
 import AddVarientForm from './AddVarientForm';
+import { IProductDetails, Variant } from '../../types';
 
 export const VARIANT_NAMES_OPTIONS = ['XL', 'L', 'S'];
 
 export const VARIANT_NAMES = ['size', 'color', 'material'];
 
 const Productvariants = () => {
-  const { control, watch } = useFormContext<NewProduct>();
+  const { control, watch } = useFormContext<IProductDetails>();
   const { update, remove } = useFieldArray({
     control,
     name: 'variants',
@@ -94,7 +94,7 @@ const VariantCard = ({
 }: {
   variant: Variant;
   index: number;
-  update: UseFieldArrayUpdate<NewProduct, 'variants'>;
+  update: UseFieldArrayUpdate<IProductDetails, 'variants'>;
   remove: UseFieldArrayRemove;
   defaultState?: boolean;
 }) => {

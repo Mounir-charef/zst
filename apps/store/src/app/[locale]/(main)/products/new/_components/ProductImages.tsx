@@ -11,10 +11,9 @@ import Image from 'next/image';
 import { memo, useCallback, useRef } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
-import { NewProduct } from '../page';
-
+import { IProductDetails } from '../../types';
 const ProductImages = () => {
-  const { control, watch } = useFormContext<NewProduct>();
+  const { control, watch } = useFormContext<IProductDetails>();
   const productImages = watch('productImages');
   const { append, remove } = useFieldArray({
     control,

@@ -1,52 +1,18 @@
 'use client';
 
-import { ChevronLeft } from 'lucide-react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, buttonVariants } from '@mono/ui';
+import { Button, Form } from '@mono/ui';
 import { useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Link } from '../../../../../navigation';
+import GoBackButton from '../../../../../components/GoBackButton';
 import ProductCategory from './_components/ProductCategory';
 import ProductDetails from './_components/ProductDetails';
+import ProductImages from './_components/ProductImages';
 import ProductStatus from './_components/ProductStatus';
 import ProductStock from './_components/ProductStock';
 import ProductVariants from './_components/ProductVariants';
-import ProductImages from './_components/ProductImages';
-import GoBackButton from '../../../../../components/GoBackButton';
-
-export type Variant = {
-  name: string;
-  values: string[];
-};
-
-type VariantValue = {
-  name: string;
-  value: string;
-}[];
-
-export type NewProduct = {
-  details: {
-    name: string;
-    description: string;
-  };
-  variants: Variant[];
-  status: string;
-  category: string;
-  subcategory?: string;
-  stock: {
-    variantValues: VariantValue;
-    price: number;
-    quantity: number;
-    image?: string;
-  }[];
-  productImages: {
-    id: string | number;
-    url: string;
-  }[];
-  mainImage: string;
-};
+import type { IProductDetails } from '../types';
 
 export default function NewProductPage() {
   const NewProductSchema = useMemo(
@@ -89,7 +55,7 @@ export default function NewProductPage() {
     [],
   );
 
-  const form = useForm<NewProduct>({
+  const form = useForm<IProductDetails>({
     resolver: zodResolver(NewProductSchema),
     defaultValues: {
       details: {
@@ -105,7 +71,7 @@ export default function NewProductPage() {
     },
   });
 
-  const onSubmit: SubmitHandler<NewProduct> = (data) => {
+  const onSubmit: SubmitHandler<IProductDetails> = (data) => {
     console.log(data);
   };
   return (

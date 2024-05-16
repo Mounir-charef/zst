@@ -9,7 +9,7 @@ import {
 } from '@mono/ui';
 import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { NewProduct } from '../page';
+import { IProductDetails } from '../../types';
 
 const PRODUCT_POSSIBLE_STATUSES = [
   {
@@ -27,7 +27,7 @@ const PRODUCT_POSSIBLE_STATUSES = [
 ];
 
 const ProductStatus = () => {
-  const { control } = useFormContext<NewProduct>();
+  const { control } = useFormContext<IProductDetails>();
 
   return (
     <Card>

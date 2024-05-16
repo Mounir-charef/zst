@@ -10,18 +10,17 @@ import {
   TableHeader,
   TableRow,
 } from '@mono/ui';
+import { cn } from '@mono/util';
 import { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { getAllPermutations } from '../../../../../../lib/permutations';
-import { NewProduct } from '../page';
 import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
-import { cn } from '@mono/util';
-import { join } from 'path';
+import { getAllPermutations } from '../../../../../../lib/permutations';
+import { IProductDetails } from '../../types';
 
 const VariationTable = () => {
-  const { control, watch, setValue } = useFormContext<NewProduct>();
+  const { control, watch, setValue } = useFormContext<IProductDetails>();
   const { variants, stock } = watch();
-  const { update } = useFieldArray<NewProduct>({
+  const { update } = useFieldArray<IProductDetails>({
     control,
     name: 'stock',
   });

@@ -3,11 +3,11 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@mono/ui';
 import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { NewProduct } from '../page';
 import VariationTable from './VariationTable';
+import { IProductDetails } from '../../types';
 
 const ProductStock = () => {
-  const { watch } = useFormContext<NewProduct>();
+  const { watch } = useFormContext<IProductDetails>();
 
   const stock = watch('stock');
 
