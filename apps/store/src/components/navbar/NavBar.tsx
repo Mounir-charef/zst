@@ -11,7 +11,7 @@ const ThemeToggle = dynamic(() => import('./ThemeToggle'), { ssr: false });
 
 const NavBar = () => {
   return (
-    <div className="bg-background text-foreground border-border dark w-full border-b">
+    <div className="bg-background text-foreground border-border dark fixed top-0 z-50 w-full border-b">
       <div className="mx-auto hidden h-20 w-full max-w-[1700px] items-center justify-between gap-x-6 p-4 sm:flex">
         <nav className="flex items-center gap-6">
           <Link
