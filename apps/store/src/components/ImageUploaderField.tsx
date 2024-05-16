@@ -39,7 +39,6 @@ export const ImageUploaderField = <
     <FormField
       {...props}
       render={({ field, fieldState }) => {
-        console.log(field.name, field.value);
         return (
           <FormItem className={className}>
             {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}

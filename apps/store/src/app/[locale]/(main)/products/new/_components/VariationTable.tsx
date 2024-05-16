@@ -89,17 +89,48 @@ const VariationTable = () => {
         {stock?.map((variantStock, index) => {
           return (
             <Fragment key={index}>
-              <TableRow>
-                <TableCell>
+              {subVariants.length > 0 &&
+              (index < 1 ||
+                variantStock.variantValues[0].value !==
+                  stock[index - 1].variantValues[0].value) ? (
+                // Main variant header
+                <TableRow>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <ImageUploaderField
+                        control={control}
+                        name={`stock.${index}.image`}
+                        className="h-24 w-24"
+                        shouldUnregister
+                      />
+                      <span className="font-medium">
+                        {variantStock.variantValues[0].name} -{' '}
+                        {variantStock.variantValues[0].value}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Input placeholder="Global Price (draft)" disabled />
+                  </TableCell>
+                  <TableCell>
+                    <Input placeholder="Global Quantity (draft)" disabled />
+                  </TableCell>
+                </TableRow>
+              ) : null}
+
+              {/* stock values */}
+              <TableRow className="p-1">
+                <TableCell className="ps-16">
                   <div className="flex items-center gap-2">
                     <ImageUploaderField
                       control={control}
                       name={`stock.${index}.image`}
-                      className="h-24 w-24"
+                      className="h-16 w-16"
                       shouldUnregister
                     />
-                    <span className="font-medium">
+                    <span className="truncate font-medium">
                       {variantStock.variantValues
+                        .slice(1)
                         .map(({ value, name }) => `${name} ${value}`)
                         .join(' - ')}
                     </span>
