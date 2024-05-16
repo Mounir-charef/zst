@@ -15,6 +15,8 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { getAllPermutations } from '../../../../../../lib/permutations';
 import { NewProduct } from '../page';
 import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
+import { cn } from '@mono/util';
+import { join } from 'path';
 
 const VariationTable = () => {
   const { control, watch, setValue } = useFormContext<NewProduct>();
@@ -110,17 +112,44 @@ const VariationTable = () => {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Input placeholder="Global Price (draft)" disabled />
+                    <Input
+                      disabled
+                      value={stock
+                        .filter(
+                          (s) =>
+                            s.variantValues[0].value ===
+                            variantStock.variantValues[0].value,
+                        )
+                        .map(({ price }) => price)
+                        .join(' - ')}
+                    />
                   </TableCell>
                   <TableCell>
-                    <Input placeholder="Global Quantity (draft)" disabled />
+                    <Input
+                      type="number"
+                      disabled
+                      value={stock
+                        .filter(
+                          (s) =>
+                            s.variantValues[0].value ===
+                            variantStock.variantValues[0].value,
+                        )
+                        .reduce(
+                          (acc, { quantity }) => acc + Number(quantity),
+                          0,
+                        )}
+                    />
                   </TableCell>
                 </TableRow>
               ) : null}
 
               {/* stock values */}
-              <TableRow className="p-1">
-                <TableCell className="ps-16">
+              <TableRow className="py-1">
+                <TableCell
+                  className={cn({
+                    'ps-16': subVariants.length > 0,
+                  })}
+                >
                   <div className="flex items-center gap-2">
                     <ImageUploaderField
                       control={control}
@@ -144,6 +173,7 @@ const VariationTable = () => {
                     InputProps={{
                       onKeyDown: handleKeyDown,
                       inputMode: 'decimal',
+                      min: 0,
                     }}
                   />
                 </TableCell>
@@ -155,6 +185,7 @@ const VariationTable = () => {
                     InputProps={{
                       onKeyDown: handleKeyDown,
                       inputMode: 'decimal',
+                      min: 0,
                     }}
                   />
                 </TableCell>
