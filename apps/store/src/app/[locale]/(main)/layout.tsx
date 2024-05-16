@@ -12,9 +12,9 @@ export default async function RootLayout({
     redirect('/sign-in');
   }
   return (
-    <main className="bg-accent flex min-h-full w-full flex-col px-2">
+    <main className="bg-accent flex min-h-full w-full flex-col">
       <NavBar />
-      <div className="mx-auto w-full max-w-7xl flex-grow flex-col py-12 sm:py-6">
+      <div className="mx-auto w-full max-w-7xl flex-grow flex-col px-2 py-12 sm:py-6">
         {children}
       </div>
     </main>

@@ -8,7 +8,7 @@ export default async function RootLayout({
 }) {
   const session = await getAuthSession();
 
-  if (session) {
+  if (session && !session.error) {
     redirect('/');
   }
 
