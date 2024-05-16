@@ -1,10 +1,10 @@
 'use client';
 
-import { Button, ButtonProps, Input, Progress } from '@mono/ui';
+import { Button, ButtonProps, Input, Progress, useFormField } from '@mono/ui';
 import { cn } from '@mono/util';
 import { LucideProps, Trash2, Upload } from 'lucide-react';
 import Image from 'next/image';
-import { forwardRef, useCallback, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 
 interface ImageUploaderProps
   extends Omit<ButtonProps, 'onClick' | 'className' | 'onChange' | 'value'> {
@@ -48,8 +48,11 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
 
     const removeImage = useCallback(() => {
       onChange();
-      inputRef.current?.value && (inputRef.current.value = '');
     }, []);
+
+    useEffect(() => {
+      inputRef.current?.value && (inputRef.current.value = '');
+    }, [value, inputRef]);
     return (
       <div>
         <Button

@@ -39,6 +39,7 @@ export type NewProduct = {
     variantValues: VariantValue;
     price: number;
     quantity: number;
+    image?: string;
   }[];
   productImages: {
     id: string | number;
@@ -74,6 +75,7 @@ export default function NewProductPage() {
             ),
             price: z.coerce.number().min(0, 'required'),
             quantity: z.coerce.number().min(0, 'required'),
+            image: z.string().optional(),
           }),
         ),
         productImages: z.array(

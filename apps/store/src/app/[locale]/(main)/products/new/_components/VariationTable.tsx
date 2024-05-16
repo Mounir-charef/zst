@@ -14,6 +14,7 @@ import { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { getAllPermutations } from '../../../../../../lib/permutations';
 import { NewProduct } from '../page';
+import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
 
 const VariationTable = () => {
   const { control, watch, setValue } = useFormContext<NewProduct>();
@@ -56,6 +57,7 @@ const VariationTable = () => {
       variantValues: permutation,
       price: 0,
       quantity: 0,
+      image: undefined,
     }));
   }, [mainVariant, subVariants]);
 
@@ -69,8 +71,9 @@ const VariationTable = () => {
   );
 
   useEffect(() => {
-    console.log('resetting stock', defaultValue);
-    setValue('stock', defaultValue);
+    setValue('stock', defaultValue, {
+      shouldDirty: true,
+    });
   }, [defaultValue]);
 
   return (
@@ -88,9 +91,19 @@ const VariationTable = () => {
             <Fragment key={index}>
               <TableRow>
                 <TableCell>
-                  {variantStock.variantValues
-                    .map(({ value, name }) => `${name}:${value}`)
-                    .join(' - ')}
+                  <div className="flex items-center gap-2">
+                    <ImageUploaderField
+                      control={control}
+                      name={`stock.${index}.image`}
+                      className="h-24 w-24"
+                      shouldUnregister
+                    />
+                    <span className="font-medium">
+                      {variantStock.variantValues
+                        .map(({ value, name }) => `${name} ${value}`)
+                        .join(' - ')}
+                    </span>
+                  </div>
                 </TableCell>
                 <TableCell>
                   <InputField
