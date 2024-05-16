@@ -14,6 +14,7 @@ import ProductStatus from './_components/ProductStatus';
 import ProductStock from './_components/ProductStock';
 import ProductVariants from './_components/ProductVariants';
 import ProductImages from './_components/ProductImages';
+import GoBackButton from '../../../../../components/GoBackButton';
 
 export type Variant = {
   name: string;
@@ -118,17 +119,7 @@ export default function NewProductPage() {
         className="mx-auto grid flex-1 auto-rows-max gap-4 px-2"
       >
         <div className="flex items-center gap-4">
-          <Link
-            href="/products"
-            className={buttonVariants({
-              size: 'icon',
-              variant: 'outline',
-              className: 'h-7 w-7',
-            })}
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Back to products</span>
-          </Link>
+          <GoBackButton />
           <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
             Add Product
           </h1>
