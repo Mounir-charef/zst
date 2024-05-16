@@ -1,8 +1,4 @@
-import { ChevronLeft, PlusCircle, Upload } from 'lucide-react';
-import Image from 'next/image';
-
 import {
-  Badge,
   Button,
   Card,
   CardContent,
@@ -10,315 +6,252 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  Input,
-  Label,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  Textarea,
-  ToggleGroup,
-  ToggleGroupItem,
+  DataTable,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  Progress,
+  Separator,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from '@mono/ui';
+import { promises as fs } from 'fs';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  CreditCard,
+  File,
+  ListFilter,
+  MoreVertical,
+  Truck,
+} from 'lucide-react';
+import path from 'path';
+import { z } from 'zod';
+import { productSchema } from './products/_data/schema';
+import { columns } from './products/_components/Columns';
+import { globalFilter, itemsFilters } from './products/_components/filters';
+import { globalAction } from './products/_components/Actions';
+import DashboardActionCard from '../../../components/dashboard/DashboardActionCard';
+import DashboardProgressCard from '../../../components/dashboard/DashboardProgressCard';
 
-export default function Dashboard() {
+async function getProducts() {
+  const data = await fs.readFile(
+    path.join(
+      process.cwd(),
+      'src/app/[locale]/(main)/products/_data/products.json',
+    ),
+  );
+
+  const products = JSON.parse(data.toString());
+
+  return z.array(productSchema).parse(products);
+}
+
+export default async function Dashboard() {
+  const products = await getProducts();
   return (
-    <div className="mx-auto grid flex-1 auto-rows-max gap-4">
-      <div className="flex items-center gap-4">
-        <Button variant="outline" size="icon" className="h-7 w-7">
-          <ChevronLeft className="h-4 w-4" />
-          <span className="sr-only">Back</span>
-        </Button>
-        <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-          Pro Controller
-        </h1>
-        <Badge variant="outline" className="ml-auto sm:ml-0">
-          In stock
-        </Badge>
-        <div className="hidden items-center gap-2 md:ml-auto md:flex">
-          <Button variant="outline" size="sm">
-            Discard
-          </Button>
-          <Button size="sm">Save Product</Button>
+    <div className="mx-auto grid gap-4 md:grid-cols-[2fr_1fr] lg:grid-cols-3 lg:gap-8">
+      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
+          <DashboardActionCard
+            action={<Button>Create New Order</Button>}
+            title="Your Orders"
+            description="Introducing Our Dynamic Orders Dashboard for Seamless Management
+                and Insightful Analysis."
+          />
+
+          <DashboardProgressCard
+            content="+25% from last week"
+            description="This Week"
+            title="$1,329"
+            progress={25}
+          />
+          <DashboardProgressCard
+            content="+10% from last month"
+            description="This Month"
+            title="$5,329"
+            progress={10}
+          />
+        </div>
+        <div className="w-full overflow-x-auto">
+          <DataTable
+            variant="items-table"
+            header={{
+              title: 'Products',
+              description: 'Manage your products and view their inventory .',
+            }}
+            data={products}
+            columns={columns}
+            searchOptions={{
+              column: 'name',
+              placeholder: 'Search for products',
+            }}
+            filterOptions={itemsFilters}
+            globalFilter={globalFilter}
+          />
         </div>
       </div>
-      <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
-        <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
-          <Card x-chunk="A card with a form to edit the product details">
-            <CardHeader>
-              <CardTitle>Product Details</CardTitle>
-              <CardDescription>
-                Lipsum dolor sit amet, consectetur adipiscing elit
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6">
-                <div className="grid gap-3">
-                  <Label htmlFor="name">Name</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    className="w-full"
-                    defaultValue="Gamer Gear Pro Controller"
-                  />
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc."
-                    className="min-h-32"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card x-chunk="A card with a form to edit the product stock and variants">
-            <CardHeader>
-              <CardTitle>Stock</CardTitle>
-              <CardDescription>
-                Lipsum dolor sit amet, consectetur adipiscing elit
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[100px]">SKU</TableHead>
-                    <TableHead>Stock</TableHead>
-                    <TableHead>Price</TableHead>
-                    <TableHead className="w-[100px]">Size</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-semibold">GGPC-001</TableCell>
-                    <TableCell>
-                      <Label htmlFor="stock-1" className="sr-only">
-                        Stock
-                      </Label>
-                      <Input id="stock-1" type="number" defaultValue="100" />
-                    </TableCell>
-                    <TableCell>
-                      <Label htmlFor="price-1" className="sr-only">
-                        Price
-                      </Label>
-                      <Input id="price-1" type="number" defaultValue="99.99" />
-                    </TableCell>
-                    <TableCell>
-                      <ToggleGroup
-                        type="single"
-                        defaultValue="s"
-                        variant="outline"
-                      >
-                        <ToggleGroupItem value="s">S</ToggleGroupItem>
-                        <ToggleGroupItem value="m">M</ToggleGroupItem>
-                        <ToggleGroupItem value="l">L</ToggleGroupItem>
-                      </ToggleGroup>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-semibold">GGPC-002</TableCell>
-                    <TableCell>
-                      <Label htmlFor="stock-2" className="sr-only">
-                        Stock
-                      </Label>
-                      <Input id="stock-2" type="number" defaultValue="143" />
-                    </TableCell>
-                    <TableCell>
-                      <Label htmlFor="price-2" className="sr-only">
-                        Price
-                      </Label>
-                      <Input id="price-2" type="number" defaultValue="99.99" />
-                    </TableCell>
-                    <TableCell>
-                      <ToggleGroup
-                        type="single"
-                        defaultValue="m"
-                        variant="outline"
-                      >
-                        <ToggleGroupItem value="s">S</ToggleGroupItem>
-                        <ToggleGroupItem value="m">M</ToggleGroupItem>
-                        <ToggleGroupItem value="l">L</ToggleGroupItem>
-                      </ToggleGroup>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-semibold">GGPC-003</TableCell>
-                    <TableCell>
-                      <Label htmlFor="stock-3" className="sr-only">
-                        Stock
-                      </Label>
-                      <Input id="stock-3" type="number" defaultValue="32" />
-                    </TableCell>
-                    <TableCell>
-                      <Label htmlFor="price-3" className="sr-only">
-                        Stock
-                      </Label>
-                      <Input id="price-3" type="number" defaultValue="99.99" />
-                    </TableCell>
-                    <TableCell>
-                      <ToggleGroup
-                        type="single"
-                        defaultValue="s"
-                        variant="outline"
-                      >
-                        <ToggleGroupItem value="s">S</ToggleGroupItem>
-                        <ToggleGroupItem value="m">M</ToggleGroupItem>
-                        <ToggleGroupItem value="l">L</ToggleGroupItem>
-                      </ToggleGroup>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-            <CardFooter className="justify-center border-t p-4">
-              <Button size="sm" variant="ghost" className="gap-1">
-                <PlusCircle className="h-3.5 w-3.5" />
-                Add Variant
+      <Card className="h-fit">
+        <CardHeader className="bg-muted/50 flex flex-row items-start">
+          <div className="grid gap-0.5">
+            <CardTitle className="group flex items-center gap-2 text-lg">
+              Order Oe31b70H
+              <Button
+                size="icon"
+                variant="outline"
+                className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+              >
+                <Copy className="h-3 w-3" />
+                <span className="sr-only">Copy Order ID</span>
               </Button>
-            </CardFooter>
-          </Card>
-          <Card x-chunk="A card with a form to edit the product category and subcategory">
-            <CardHeader>
-              <CardTitle>Product Category</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6 sm:grid-cols-3">
-                <div className="grid gap-3">
-                  <Label htmlFor="category">Category</Label>
-                  <Select>
-                    <SelectTrigger id="category" aria-label="Select category">
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="clothing">Clothing</SelectItem>
-                      <SelectItem value="electronics">Electronics</SelectItem>
-                      <SelectItem value="accessories">Accessories</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="subcategory">Subcategory (optional)</Label>
-                  <Select>
-                    <SelectTrigger
-                      id="subcategory"
-                      aria-label="Select subcategory"
-                    >
-                      <SelectValue placeholder="Select subcategory" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="t-shirts">T-Shirts</SelectItem>
-                      <SelectItem value="hoodies">Hoodies</SelectItem>
-                      <SelectItem value="sweatshirts">Sweatshirts</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+            </CardTitle>
+            <CardDescription>Date: November 23, 2023</CardDescription>
+          </div>
+          <div className="ml-auto flex items-center gap-1">
+            <Button size="sm" variant="outline" className="h-8 gap-1">
+              <Truck className="h-3.5 w-3.5" />
+              <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
+                Track Order
+              </span>
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="outline" className="h-8 w-8">
+                  <MoreVertical className="h-3.5 w-3.5" />
+                  <span className="sr-only">More</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+                <DropdownMenuItem>Export</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Trash</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </CardHeader>
+        <CardContent className="p-6 text-sm">
+          <div className="grid gap-3">
+            <div className="font-semibold">Order Details</div>
+            <ul className="grid gap-3">
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">
+                  Glimmer Lamps x <span>2</span>
+                </span>
+                <span>$250.00</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">
+                  Aqua Filters x <span>1</span>
+                </span>
+                <span>$49.00</span>
+              </li>
+            </ul>
+            <Separator className="my-2" />
+            <ul className="grid gap-3">
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span>$299.00</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">Shipping</span>
+                <span>$5.00</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">Tax</span>
+                <span>$25.00</span>
+              </li>
+              <li className="flex items-center justify-between font-semibold">
+                <span className="text-muted-foreground">Total</span>
+                <span>$329.00</span>
+              </li>
+            </ul>
+          </div>
+          <Separator className="my-4" />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-3">
+              <div className="font-semibold">Shipping Information</div>
+              <address className="text-muted-foreground grid gap-0.5 not-italic">
+                <span>Liam Johnson</span>
+                <span>1234 Main St.</span>
+                <span>Anytown, CA 12345</span>
+              </address>
+            </div>
+            <div className="grid auto-rows-max gap-3">
+              <div className="font-semibold">Billing Information</div>
+              <div className="text-muted-foreground">
+                Same as shipping address
               </div>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-          <Card x-chunk="A card with a form to edit the product status">
-            <CardHeader>
-              <CardTitle>Product Status</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6">
-                <div className="grid gap-3">
-                  <Label htmlFor="status">Status</Label>
-                  <Select>
-                    <SelectTrigger id="status" aria-label="Select status">
-                      <SelectValue placeholder="Select status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="draft">Draft</SelectItem>
-                      <SelectItem value="published">Active</SelectItem>
-                      <SelectItem value="archived">Archived</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+            </div>
+          </div>
+          <Separator className="my-4" />
+          <div className="grid gap-3">
+            <div className="font-semibold">Customer Information</div>
+            <dl className="grid gap-3">
+              <div className="flex items-center justify-between">
+                <dt className="text-muted-foreground">Customer</dt>
+                <dd>Liam Johnson</dd>
               </div>
-            </CardContent>
-          </Card>
-          <Card
-            className="overflow-hidden"
-            x-chunk="A card with a form to upload product images"
-          >
-            <CardHeader>
-              <CardTitle>Product Images</CardTitle>
-              <CardDescription>
-                Lipsum dolor sit amet, consectetur adipiscing elit
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-2">
-                <Image
-                  alt="Product image"
-                  className="aspect-square w-full rounded-md object-cover"
-                  height="300"
-                  src="/placeholder.svg"
-                  width="300"
-                />
-                <div className="grid grid-cols-3 gap-2">
-                  <Button variant="ghost" className="h-auto p-0">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square w-full rounded-md object-cover"
-                      height="84"
-                      src="/placeholder.svg"
-                      width="84"
-                    />
-                  </Button>
-                  <Button variant="ghost" className="h-auto p-0">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square w-full rounded-md object-cover"
-                      height="84"
-                      src="/placeholder.svg"
-                      width="84"
-                    />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="flex aspect-square h-auto w-full items-center justify-center rounded-md border border-dashed p-0"
-                  >
-                    <Upload className="text-muted-foreground h-4 w-4" />
-                    <span className="sr-only">Upload</span>
-                  </Button>
-                </div>
+              <div className="flex items-center justify-between">
+                <dt className="text-muted-foreground">Email</dt>
+                <dd>
+                  <a href="mailto:">liam@acme.com</a>
+                </dd>
               </div>
-            </CardContent>
-          </Card>
-          <Card x-chunk="A card with a call to action to archive the product">
-            <CardHeader>
-              <CardTitle>Archive Product</CardTitle>
-              <CardDescription>
-                Lipsum dolor sit amet, consectetur adipiscing elit.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div></div>
-              <Button size="sm" variant="secondary">
-                Archive Product
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-      <div className="flex items-center justify-center gap-2 md:hidden">
-        <Button variant="outline" size="sm">
-          Discard
-        </Button>
-        <Button size="sm">Save Product</Button>
-      </div>
+              <div className="flex items-center justify-between">
+                <dt className="text-muted-foreground">Phone</dt>
+                <dd>
+                  <a href="tel:">+1 234 567 890</a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <Separator className="my-4" />
+          <div className="grid gap-3">
+            <div className="font-semibold">Payment Information</div>
+            <dl className="grid gap-3">
+              <div className="flex items-center justify-between">
+                <dt className="text-muted-foreground flex items-center gap-1">
+                  <CreditCard className="h-4 w-4" />
+                  Visa
+                </dt>
+                <dd>**** **** **** 4532</dd>
+              </div>
+            </dl>
+          </div>
+        </CardContent>
+        <CardFooter className="bg-muted/50 flex flex-row items-center border-t px-6 py-3">
+          <div className="text-muted-foreground text-xs">
+            Updated <time dateTime="2023-11-23">November 23, 2023</time>
+          </div>
+          <Pagination className="ml-auto mr-0 w-auto">
+            <PaginationContent>
+              <PaginationItem>
+                <Button size="icon" variant="outline" className="h-6 w-6">
+                  <ChevronLeft className="h-3.5 w-3.5" />
+                  <span className="sr-only">Previous Order</span>
+                </Button>
+              </PaginationItem>
+              <PaginationItem>
+                <Button size="icon" variant="outline" className="h-6 w-6">
+                  <ChevronRight className="h-3.5 w-3.5" />
+                  <span className="sr-only">Next Order</span>
+                </Button>
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

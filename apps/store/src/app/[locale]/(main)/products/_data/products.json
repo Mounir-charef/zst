@@ -1,42 +1,402 @@
 [
   {
     "id": 1,
-    "name": "Laser Lemonade Machine 1",
-    "status": "active",
+    "name": "Nike Air Max 90",
+    "status": "inactive",
     "price": 100,
     "stock": 10,
     "created_at": "2021-01-01"
   },
   {
     "id": 2,
-    "name": "Laser Lemonade Machine 2",
+    "name": "Adidas Superstar",
     "status": "active",
-    "price": 200,
-    "stock": 20,
+    "price": 90,
+    "stock": 15,
     "created_at": "2021-01-02"
   },
   {
     "id": 3,
-    "name": "Laser Lemonade Machine 3",
+    "name": "Converse Chuck Taylor",
     "status": "inactive",
-    "price": 300,
-    "stock": 0,
+    "price": 80,
+    "stock": 20,
     "created_at": "2021-01-03"
   },
   {
     "id": 4,
-    "name": "Laser Lemonade Machine 4",
+    "name": "Puma Suede Classic",
     "status": "inactive",
-    "price": 400,
-    "stock": 40,
+    "price": 85,
+    "stock": 12,
     "created_at": "2021-01-04"
   },
   {
     "id": 5,
-    "name": "Laser Lemonade Machine 5",
+    "name": "Vans Old Skool",
     "status": "active",
-    "price": 500,
-    "stock": 50,
+    "price": 75,
+    "stock": 18,
     "created_at": "2021-01-05"
+  },
+  {
+    "id": 6,
+    "name": "New Balance 574",
+    "status": "active",
+    "price": 95,
+    "stock": 22,
+    "created_at": "2021-01-06"
+  },
+  {
+    "id": 7,
+    "name": "Reebok Classic Leather",
+    "status": "active",
+    "price": 88,
+    "stock": 14,
+    "created_at": "2021-01-07"
+  },
+  {
+    "id": 8,
+    "name": "ASICS Gel-Lyte III",
+    "status": "active",
+    "price": 92,
+    "stock": 16,
+    "created_at": "2021-01-08"
+  },
+  {
+    "id": 9,
+    "name": "Under Armour HOVR Phantom",
+    "status": "inactive",
+    "price": 105,
+    "stock": 25,
+    "created_at": "2021-01-09"
+  },
+  {
+    "id": 10,
+    "name": "Saucony Jazz Original",
+    "status": "active",
+    "price": 78,
+    "stock": 19,
+    "created_at": "2021-01-10"
+  },
+  {
+    "id": 11,
+    "name": "Mizuno Wave Rider",
+    "status": "inactive",
+    "price": 98,
+    "stock": 21,
+    "created_at": "2021-01-11"
+  },
+  {
+    "id": 12,
+    "name": "Brooks Adrenaline GTS",
+    "status": "inactive",
+    "price": 110,
+    "stock": 17,
+    "created_at": "2021-01-12"
+  },
+  {
+    "id": 13,
+    "name": "Hoka One One Clifton",
+    "status": "active",
+    "price": 120,
+    "stock": 23,
+    "created_at": "2021-01-13"
+  },
+  {
+    "id": 14,
+    "name": "Salomon Speedcross",
+    "status": "active",
+    "price": 130,
+    "stock": 13,
+    "created_at": "2021-01-14"
+  },
+  {
+    "id": 15,
+    "name": "Merrell Moab",
+    "status": "active",
+    "price": 115,
+    "stock": 24,
+    "created_at": "2021-01-15"
+  },
+  {
+    "id": 16,
+    "name": "Keen Targhee",
+    "status": "active",
+    "price": 125,
+    "stock": 11,
+    "created_at": "2021-01-16"
+  },
+  {
+    "id": 17,
+    "name": "Timberland White Ledge",
+    "status": "active",
+    "price": 140,
+    "stock": 26,
+    "created_at": "2021-01-17"
+  },
+  {
+    "id": 18,
+    "name": "Columbia Newton Ridge Plus",
+    "status": "active",
+    "price": 145,
+    "stock": 28,
+    "created_at": "2021-01-18"
+  },
+  {
+    "id": 19,
+    "name": "La Sportiva Bushido",
+    "status": "active",
+    "price": 150,
+    "stock": 30,
+    "created_at": "2021-01-19"
+  },
+  {
+    "id": 20,
+    "name": "Arc'teryx Norvan LD",
+    "status": "active",
+    "price": 155,
+    "stock": 32,
+    "created_at": "2021-01-20"
+  },
+  {
+    "id": 21,
+    "name": "Altra Lone Peak",
+    "status": "active",
+    "price": 160,
+    "stock": 34,
+    "created_at": "2021-01-21"
+  },
+  {
+    "id": 22,
+    "name": "Inov-8 Mudclaw",
+    "status": "active",
+    "price": 165,
+    "stock": 36,
+    "created_at": "2021-01-22"
+  },
+  {
+    "id": 23,
+    "name": "Merrell Trail Glove",
+    "status": "active",
+    "price": 170,
+    "stock": 38,
+    "created_at": "2021-01-23"
+  },
+  {
+    "id": 24,
+    "name": "Salomon XA Pro 3D",
+    "status": "active",
+    "price": 175,
+    "stock": 40,
+    "created_at": "2021-01-24"
+  },
+  {
+    "id": 25,
+    "name": "Brooks Cascadia",
+    "status": "active",
+    "price": 180,
+    "stock": 42,
+    "created_at": "2021-01-25"
+  },
+  {
+    "id": 26,
+    "name": "Hoka One One Speedgoat",
+    "status": "active",
+    "price": 185,
+    "stock": 44,
+    "created_at": "2021-01-26"
+  },
+  {
+    "id": 27,
+    "name": "New Balance Fresh Foam Hierro",
+    "status": "active",
+    "price": 190,
+    "stock": 46,
+    "created_at": "2021-01-27"
+  },
+  {
+    "id": 28,
+    "name": "Saucony Peregrine",
+    "status": "active",
+    "price": 195,
+    "stock": 48,
+    "created_at": "2021-01-28"
+  },
+  {
+    "id": 29,
+    "name": "Nike Zoom Terra Kiger",
+    "status": "active",
+    "price": 200,
+    "stock": 50,
+    "created_at": "2021-01-29"
+  },
+  {
+    "id": 30,
+    "name": "Adidas Terrex",
+    "status": "active",
+    "price": 205,
+    "stock": 52,
+    "created_at": "2021-01-30"
+  },
+  {
+    "id": 31,
+    "name": "Under Armour Fat Tire",
+    "status": "active",
+    "price": 210,
+    "stock": 54,
+    "created_at": "2021-01-31"
+  },
+  {
+    "id": 32,
+    "name": "Merrell All Out Crush",
+    "status": "active",
+    "price": 215,
+    "stock": 56,
+    "created_at": "2021-02-01"
+  },
+  {
+    "id": 33,
+    "name": "Salomon Sense Ride",
+    "status": "active",
+    "price": 220,
+    "stock": 58,
+    "created_at": "2021-02-02"
+  },
+  {
+    "id": 34,
+    "name": "Brooks Ghost",
+    "status": "active",
+    "price": 225,
+    "stock": 60,
+    "created_at": "2021-02-03"
+  },
+  {
+    "id": 35,
+    "name": "Hoka One One Bondi",
+    "status": "active",
+    "price": 230,
+    "stock": 62,
+    "created_at": "2021-02-04"
+  },
+  {
+    "id": 36,
+    "name": "New Balance FuelCell",
+    "status": "active",
+    "price": 235,
+    "stock": 64,
+    "created_at": "2021-02-05"
+  },
+  {
+    "id": 37,
+    "name": "Saucony Triumph",
+    "status": "active",
+    "price": 240,
+    "stock": 66,
+    "created_at": "2021-02-06"
+  },
+  {
+    "id": 38,
+    "name": "Nike Joyride",
+    "status": "active",
+    "price": 245,
+    "stock": 68,
+    "created_at": "2021-02-07"
+  },
+  {
+    "id": 39,
+    "name": "Adidas UltraBoost",
+    "status": "active",
+    "price": 250,
+    "stock": 70,
+    "created_at": "2021-02-08"
+  },
+  {
+    "id": 40,
+    "name": "Under Armour HOVR Sonic",
+    "status": "active",
+    "price": 255,
+    "stock": 72,
+    "created_at": "2021-02-09"
+  },
+  {
+    "id": 41,
+    "name": "Merrell Bare Access",
+    "status": "active",
+    "price": 260,
+    "stock": 74,
+    "created_at": "2021-02-10"
+  },
+  {
+    "id": 42,
+    "name": "Salomon Speedcross Pro",
+    "status": "active",
+    "price": 265,
+    "stock": 76,
+    "created_at": "2021-02-11"
+  },
+  {
+    "id": 43,
+    "name": "Brooks Launch",
+    "status": "active",
+    "price": 270,
+    "stock": 78,
+    "created_at": "2021-02-12"
+  },
+  {
+    "id": 44,
+    "name": "Hoka One One Challenger",
+    "status": "active",
+    "price": 275,
+    "stock": 80,
+    "created_at": "2021-02-13"
+  },
+  {
+    "id": 45,
+    "name": "New Balance Fresh Foam 1080",
+    "status": "active",
+    "price": 280,
+    "stock": 82,
+    "created_at": "2021-02-14"
+  },
+  {
+    "id": 46,
+    "name": "Saucony Kinvara",
+    "status": "active",
+    "price": 285,
+    "stock": 84,
+    "created_at": "2021-02-15"
+  },
+  {
+    "id": 47,
+    "name": "Nike Free",
+    "status": "active",
+    "price": 290,
+    "stock": 86,
+    "created_at": "2021-02-16"
+  },
+  {
+    "id": 48,
+    "name": "Adidas Adizero",
+    "status": "active",
+    "price": 295,
+    "stock": 88,
+    "created_at": "2021-02-17"
+  },
+  {
+    "id": 49,
+    "name": "Under Armour Charged Bandit",
+    "status": "active",
+    "price": 300,
+    "stock": 90,
+    "created_at": "2021-02-18"
+  },
+  {
+    "id": 50,
+    "name": "Merrell MQM Flex",
+    "status": "active",
+    "price": 305,
+    "stock": 92,
+    "created_at": "2021-02-19"
   }
 ]

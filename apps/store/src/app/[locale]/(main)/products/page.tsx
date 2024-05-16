@@ -40,7 +40,7 @@ const ProductsPage = async () => {
       columns={columns}
       searchOptions={{
         column: 'name',
-        placeholder: 'Search tasks',
+        placeholder: 'Search for products',
       }}
       filterOptions={itemsFilters}
       globalFilter={globalFilter}

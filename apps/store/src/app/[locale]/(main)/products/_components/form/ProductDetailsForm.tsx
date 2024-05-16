@@ -92,7 +92,7 @@ const ProductDetailsForm = ({ defaultValues }: ProductDetailsFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto grid flex-1 auto-rows-max gap-4 px-2"
+        className="mx-auto grid flex-1 auto-rows-max gap-4"
       >
         <div className="flex items-center gap-4">
           <GoBackButton />
