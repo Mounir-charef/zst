@@ -1,21 +1,40 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form } from '@mono/ui';
+import { Badge, Button, Form } from '@mono/ui';
 import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import GoBackButton from '../../../../../../components/GoBackButton';
+import type { IProductDetails } from '../../types';
 import ProductCategory from './ProductCategory';
 import ProductDetails from './ProductDetails';
 import ProductImages from './ProductImages';
 import ProductStatus from './ProductStatus';
 import ProductStock from './ProductStock';
 import ProductVariants from './ProductVariants';
-import type { IProductDetails } from '../../types';
+import { toast } from 'sonner';
 
-function ProductDetailsForm() {
-  const NewProductSchema = useMemo(
+const DEFAULTS: IProductDetails = {
+  details: {
+    name: '',
+    description: '',
+  },
+  variants: [],
+  status: '',
+  stock: [],
+  mainImage: '',
+  productImages: [],
+  category: '',
+};
+
+interface ProductDetailsFormProps {
+  defaultValues?: IProductDetails;
+}
+
+const ProductDetailsForm = ({ defaultValues }: ProductDetailsFormProps) => {
+  const isNew = useMemo(() => !defaultValues, [defaultValues]);
+  const ProductDetailsSchema = useMemo(
     () =>
       z.object({
         details: z.object({
@@ -56,23 +75,18 @@ function ProductDetailsForm() {
   );
 
   const form = useForm<IProductDetails>({
-    resolver: zodResolver(NewProductSchema),
-    defaultValues: {
-      details: {
-        name: '',
-        description: '',
-      },
-      variants: [],
-      status: '',
-      stock: [],
-      mainImage: '',
-      productImages: [],
-      category: '',
-    },
+    resolver: zodResolver(ProductDetailsSchema),
+    defaultValues: defaultValues ?? DEFAULTS,
   });
 
   const onSubmit: SubmitHandler<IProductDetails> = (data) => {
-    console.log(data);
+    if (isNew) {
+      // Create new product
+      toast.info(JSON.stringify(data));
+    } else {
+      // Update existing product
+      toast.info(JSON.stringify(data));
+    }
   };
   return (
     <Form {...form}>
@@ -82,9 +96,20 @@ function ProductDetailsForm() {
       >
         <div className="flex items-center gap-4">
           <GoBackButton />
-          <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-            Add Product
-          </h1>
+          {isNew ? (
+            <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
+              Add Product
+            </h1>
+          ) : (
+            <>
+              <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
+                {defaultValues?.details.name}
+              </h1>
+              <Badge variant="outline" className="ml-auto sm:ml-0">
+                {defaultValues?.status}
+              </Badge>
+            </>
+          )}
 
           <div className="hidden items-center gap-2 md:ml-auto md:flex">
             <Button variant="outline" size="sm" type="button">
@@ -119,6 +144,6 @@ function ProductDetailsForm() {
       </form>
     </Form>
   );
-}
+};
 
 export default memo(ProductDetailsForm);

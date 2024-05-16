@@ -50,7 +50,11 @@ const ProductImages = () => {
       </CardHeader>
       <CardContent>
         <div className="grid gap-2">
-          <ImageUploaderField control={control} name="mainImage" />
+          <ImageUploaderField
+            control={control}
+            name="mainImage"
+            shouldUnregister
+          />
           <div className="grid grid-cols-3 gap-2">
             {productImages?.map((image, index) => (
               <Button

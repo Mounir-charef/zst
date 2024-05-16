@@ -12,7 +12,7 @@ import {
 } from '@mono/ui';
 import { cn } from '@mono/util';
 import { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
 import { getAllPermutations } from '../../../../../../lib/permutations';
 import { IProductDetails } from '../../types';
@@ -20,10 +20,6 @@ import { IProductDetails } from '../../types';
 const VariationTable = () => {
   const { control, watch, setValue } = useFormContext<IProductDetails>();
   const { variants, stock } = watch();
-  const { update } = useFieldArray<IProductDetails>({
-    control,
-    name: 'stock',
-  });
 
   const mainVariant = useMemo(() => variants.at(0), [variants]);
   const subVariants = useMemo(() => variants.slice(1), [variants]);
@@ -102,7 +98,6 @@ const VariationTable = () => {
                         control={control}
                         name={`stock.${index}.image`}
                         className="h-24 w-24"
-                        shouldUnregister
                       />
                       <span className="font-medium">
                         {variantStock.variantValues[0].name} -{' '}

@@ -1,10 +1,11 @@
 'use client';
 
-import { Button, ButtonProps, Input, Progress, useFormField } from '@mono/ui';
+import { Button, ButtonProps, Input, Progress } from '@mono/ui';
 import { cn } from '@mono/util';
 import { LucideProps, Trash2, Upload } from 'lucide-react';
 import Image from 'next/image';
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 interface ImageUploaderProps
   extends Omit<ButtonProps, 'onClick' | 'className' | 'onChange' | 'value'> {
@@ -12,14 +13,18 @@ interface ImageUploaderProps
   iconProps?: LucideProps;
   className?: string;
   onChange: (image?: string) => void;
-  value: string | undefined;
+  name: string;
 }
 
 const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
-  ({ imageProps, iconProps, className, onChange, value, ...props }, ref) => {
+  ({ imageProps, iconProps, className, onChange, name, ...props }, ref) => {
     const [uploading, setUploading] = useState(false);
     const [progress, setProgress] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const { watch } = useFormContext();
+
+    const value = watch(name) as string | undefined;
 
     const handleUpload = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +58,7 @@ const ImageUploader = forwardRef<HTMLButtonElement, ImageUploaderProps>(
     useEffect(() => {
       inputRef.current?.value && (inputRef.current.value = '');
     }, [value, inputRef]);
+
     return (
       <div>
         <Button

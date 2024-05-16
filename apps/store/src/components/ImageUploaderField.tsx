@@ -22,6 +22,7 @@ export const ImageUploaderField = <
   descriptionProps,
   labelProps,
   imageUploaderProps,
+  shouldUnregister = true,
   ...props
 }: {
   control: Control<TFieldValues>;
@@ -37,6 +38,7 @@ export const ImageUploaderField = <
 }) => {
   return (
     <FormField
+      shouldUnregister
       {...props}
       render={({ field, fieldState }) => {
         return (
@@ -46,6 +48,7 @@ export const ImageUploaderField = <
               <ImageUploader
                 {...imageUploaderProps}
                 {...field}
+                onChange={(image) => field.onChange(image)}
                 className={
                   fieldState.error && 'ring-destructive text-destructive ring-2'
                 }

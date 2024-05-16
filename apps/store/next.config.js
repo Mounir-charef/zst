@@ -31,6 +31,10 @@ const nextConfig = {
         hostname: 'picsum.photos',
         pathname: '**',
       },
+      {
+        hostname: 'cdn.dummyjson.com',
+        pathname: '**',
+      },
     ],
   },
 };
