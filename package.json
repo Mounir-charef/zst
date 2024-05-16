@@ -91,6 +91,7 @@
     "next-auth": "^4.24.7",
     "next-intl": "^3.12.0",
     "next-themes": "^0.3.0",
+    "nextjs-toploader": "^1.6.12",
     "quill-color-picker-enhance": "^1.1.5",
     "rc-table": "^7.45.5",
     "react": "18.2.0",

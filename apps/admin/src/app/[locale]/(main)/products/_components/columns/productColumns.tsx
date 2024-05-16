@@ -1,5 +1,5 @@
 import { ColumnType } from 'rc-table';
-import { ProductListing } from '../../../../../../types/product';
+import { TypedProductListing } from '../../../../../../types/product';
 import ColumnID from '../../../../../../components/common/columns/ColumnID';
 import ProductColumnInfo from './ProductColumnInfo';
 import ColumnText from '../../../../../../components/common/columns/ColumnText';
@@ -7,8 +7,9 @@ import Badge from '../../../../../../components/ui/Badge';
 import { Link } from '../../../../../../navigation';
 import { FiEdit, FiEye } from 'react-icons/fi';
 import AttributeColumnDelete from '../../../attributes/_components/columns/AttributeColumnDelete';
+import { BaseDataItem } from '../../../../../../types/common';
 
-const productColumns: ColumnType<ProductListing>[] = [
+const productColumns: ColumnType<TypedProductListing & BaseDataItem>[] = [
   {
     title: 'ID',
     render(_, record) {

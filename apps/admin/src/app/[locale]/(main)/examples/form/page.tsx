@@ -1,20 +1,25 @@
 'use client';
 
-import { Form, TexteditorField } from '@mono/ui';
+import {
+  CheckBoxField,
+  Form,
+  InputField,
+  PhoneInputField,
+  SwitchField,
+  TextAreaField,
+  TexteditorField,
+} from '@mono/ui';
 import { useForm } from 'react-hook-form';
 import BoundedSectionWrapper from '../../../../../components/common/BoundedSectionWrapper';
 import FormSection from '../../../../../components/ui/form/formSection/FormSection';
 import { Card, CardContent } from '../../../../../components/ui/Card';
 import FormFieldsWrapper from '../../../../../components/ui/form/FormFieldsWrapper';
-import InputField from '../../../../../components/ui/form/input/InputField';
-import SelectField from '../../../../../components/ui/form/select/SelectField';
-import CheckboxField from '../../../../../components/ui/form/checbox/CheckboxField';
 import RadioField from '../../../../../components/ui/form/radio/RadioField';
 import PageTitle from '../../../../../components/common/PageTitle';
 import FileUploaderField from '../../../../../components/ui/form/fileUploader/FileUploaderField';
-import TextareaField from '../../../../../components/ui/form/textarea/TextareaField';
 import FormFooter from '../../../../../components/ui/form/FormFooter';
 import { Button } from '../../../../../components/ui/Button';
+import SelectField from '../../../../../components/ui/form/select/SelectField';
 
 const FormPage = () => {
   const form = useForm({});
@@ -31,16 +36,33 @@ const FormPage = () => {
                 <InputField control={form.control} label="Name" name="name" />
 
                 <InputField
-                  formItemClassName="!col-span-6"
+                  className="!col-span-6"
                   control={form.control}
                   label="Col 1"
                   name="col1"
                 />
+                <PhoneInputField
+                  className="!col-span-6"
+                  control={form.control}
+                  label="Phone Input"
+                  name="phone"
+                />
+
                 <InputField
+                  className="!col-span-6"
+                  control={form.control}
+                  label="Col 1"
+                  name="col1"
+                />
+                <SelectField
                   formItemClassName="!col-span-6"
                   control={form.control}
-                  label="Col 2"
-                  name="col2"
+                  label="Options"
+                  name="options1"
+                  options={Array.from({ length: 10 }).map((_, index) => ({
+                    label: `Label ${index + 1}`,
+                    value: index,
+                  }))}
                 />
 
                 <FileUploaderField
@@ -49,15 +71,28 @@ const FormPage = () => {
                   label="Gallery"
                   multiple
                 />
-                <TextareaField
+                <TextAreaField
                   name="shortDescription"
                   control={form.control}
                   label="Short Description"
+                  TextAreaProps={{
+                    rows: 3,
+                  }}
                 />
                 <TexteditorField
                   control={form.control}
                   name="description"
                   label="Description"
+                />
+                <SelectField
+                  control={form.control}
+                  label="Multi Select"
+                  name="multiOptions"
+                  options={Array.from({ length: 10 }).map((_, index) => ({
+                    label: `Label ${index + 1}`,
+                    value: index,
+                  }))}
+                  isMulti
                 />
                 <SelectField
                   control={form.control}
@@ -68,7 +103,21 @@ const FormPage = () => {
                     value: index,
                   }))}
                 />
-                <CheckboxField
+
+                <SwitchField
+                  control={form.control}
+                  label={'Enable'}
+                  name="enabled"
+                />
+
+                <SwitchField
+                  control={form.control}
+                  label={'Enable Label End'}
+                  name="enabledEnd"
+                  labelDirection="end"
+                />
+
+                <CheckBoxField
                   control={form.control}
                   name="isAvailable"
                   label="Is Available"

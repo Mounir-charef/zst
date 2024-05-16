@@ -10,7 +10,7 @@ interface HeadingLargeLogoProps {
 const HeadingLargeLogo = ({ className }: HeadingLargeLogoProps) => {
   return (
     <Link href={'/'} className={cn(className)}>
-      <Image src={'/images/logo.webp'} alt="" width={138} height={34} />
+      <Image src={'/images/logo.png'} alt="" width={138} height={34} />
     </Link>
   );
 };

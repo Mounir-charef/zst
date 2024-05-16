@@ -1,5 +1,5 @@
 import { ColumnType } from 'rc-table';
-import { Attribute } from '../../../../../../types/attribute';
+import { TypedAttributeListing } from '../../../../../../types/attribute';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
@@ -8,8 +8,9 @@ import routesConfig from '../../../../../../config/routesConfig';
 import AttributeColumnDelete from './AttributeColumnDelete';
 import ColumnID from '../../../../../../components/common/columns/ColumnID';
 import Badge from '../../../../../../components/ui/Badge';
+import { BaseDataItem } from '../../../../../../types/common';
 
-const attributeColumns: ColumnType<Attribute>[] = [
+const attributeColumns: ColumnType<TypedAttributeListing & BaseDataItem>[] = [
   {
     title: 'ID',
     render(_, record) {
@@ -27,11 +28,7 @@ const attributeColumns: ColumnType<Attribute>[] = [
         <div className="flex flex-wrap gap-1.5">
           {record.values.map((value) => {
             return (
-              <Badge
-                key={value.id}
-                variant="simple"
-                // className="rounded bg-gray-200/50 px-2.5 py-1"
-              >
+              <Badge key={value.id} variant="simple">
                 {value.value}
               </Badge>
             );
@@ -45,7 +42,7 @@ const attributeColumns: ColumnType<Attribute>[] = [
     dataIndex: 'slug',
   },
   {
-    title: 'Slug',
+    title: 'Actions',
     render(_, record) {
       return (
         <div className="flex items-center gap-2">

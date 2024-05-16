@@ -8,6 +8,7 @@ import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
 import { Toaster } from 'sonner';
 import { getAuthSession } from '../../config/auth/auth';
 import { getMessages, getTimeZone } from 'next-intl/server';
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -41,7 +42,13 @@ export default async function RootLayout({
         <Providers>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
             <SessionProvider session={session}>
-              <AppProvider>{children}</AppProvider>
+              <AppProvider>
+                <NextTopLoader
+                  color={'hsl(var(--primary))'}
+                  showSpinner={false}
+                />
+                {children}
+              </AppProvider>
             </SessionProvider>
             <Toaster richColors closeButton position="top-right" />
           </NextIntlClientProvider>

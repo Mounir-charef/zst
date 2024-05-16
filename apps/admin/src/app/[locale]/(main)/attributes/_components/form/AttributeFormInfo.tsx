@@ -2,11 +2,12 @@ import React from 'react';
 import BoundedSectionWrapper from '../../../../../../components/common/BoundedSectionWrapper';
 import FormSection from '../../../../../../components/ui/form/formSection/FormSection';
 import { Card, CardContent } from '../../../../../../components/ui/Card';
-import InputField from '../../../../../../components/ui/form/input/InputField';
 import { Control } from 'react-hook-form';
+import { InputField } from '@mono/ui';
+import { AttributeValues } from '../../../../../../schemas/attribute-schema';
 
 interface AttributeFormInfoProps {
-  control: Control;
+  control: Control<AttributeValues>;
 }
 
 const AttributeFormInfo = ({ control }: AttributeFormInfoProps) => {
