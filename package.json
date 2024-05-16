@@ -10,7 +10,8 @@
     "admin:dev": "nx dev admin",
     "admin:build": "nx build admin",
     "store:dev": "nx dev store",
-    "store:build": "nx build store"
+    "store:build": "nx build store",
+    "supplier:dev": "nx dev supplier"
   },
   "private": true,
   "devDependencies": {
