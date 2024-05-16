@@ -10,7 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
   GlobalAction,
   buttonVariants,
@@ -46,11 +45,10 @@ export function DataTableRowActions<TData>({
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+        <DropdownMenuItem asChild className="w-full">
+          <Link href={`/products/${product.id}`}>Edit</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

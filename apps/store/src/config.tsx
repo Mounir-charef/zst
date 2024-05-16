@@ -10,21 +10,10 @@ export const NavItems: NavigationItem[] = [
     icon: <DashboardIcon className="h-4 w-4" />,
   },
   {
-    type: 'menu',
+    type: 'link',
     title: 'Products',
     icon: <Package className="h-4 w-4" />,
-    children: [
-      {
-        title: 'All Products',
-        href: '/products',
-        description: 'View all products',
-      },
-      {
-        title: 'Add Product',
-        href: '/products/new',
-        description: 'Add a new product',
-      },
-    ],
+    href: '/products',
   },
   {
     type: 'menu',
