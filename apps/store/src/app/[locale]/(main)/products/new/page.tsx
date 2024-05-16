@@ -21,6 +21,11 @@ export type Variant = {
   values: string[];
 };
 
+type VariantValue = {
+  name: string;
+  value: string;
+}[];
+
 export type NewProduct = {
   details: {
     name: string;
@@ -30,28 +35,11 @@ export type NewProduct = {
   status: string;
   category: string;
   subcategory?: string;
-  stock:
-    | {
-        mainVariant: {
-          name: string;
-          value: string;
-        };
-        subvariants: {
-          variants: {
-            [key: string]: string;
-          };
-          price: number;
-          quantity: number;
-        }[];
-      }[]
-    | {
-        name: string;
-        value: string;
-        stock: {
-          price: number;
-          quantity: number;
-        };
-      }[];
+  stock: {
+    variantValues: VariantValue;
+    price: number;
+    quantity: number;
+  }[];
   productImages: {
     id: string | number;
     url: string;
@@ -76,34 +64,18 @@ export default function NewProductPage() {
         status: z.string().min(1, 'Required'),
         category: z.string().min(1, 'Required'),
         subcategory: z.string().optional(),
-        stock: z
-          .array(
-            z.object({
-              mainVariant: z.object({
-                name: z.string().min(3).max(255),
-                value: z.string().min(1),
-              }),
-              subvariants: z.array(
-                z.object({
-                  variants: z.record(z.string().min(3), z.string().min(1)),
-                  price: z.coerce.number().positive(),
-                  quantity: z.coerce.number().int().min(0),
-                }),
-              ),
-            }),
-          )
-          .or(
-            z.array(
+        stock: z.array(
+          z.object({
+            variantValues: z.array(
               z.object({
-                name: z.string().min(3).max(255),
-                value: z.string().min(1),
-                stock: z.object({
-                  price: z.coerce.number().positive(),
-                  quantity: z.coerce.number().int().min(0),
-                }),
+                name: z.string(),
+                value: z.string(),
               }),
             ),
-          ),
+            price: z.coerce.number().min(0, 'required'),
+            quantity: z.coerce.number().min(0, 'required'),
+          }),
+        ),
         productImages: z.array(
           z.object({
             id: z.string().min(1, 'required').or(z.number().min(1, 'required')),

@@ -11,71 +11,52 @@ import {
   TableRow,
 } from '@mono/ui';
 import { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import { getAllPermutations } from '../../../../../../lib/permutations';
 import { NewProduct } from '../page';
 
 const VariationTable = () => {
-  const { control, watch, resetField } = useFormContext<NewProduct>();
+  const { control, watch, setValue } = useFormContext<NewProduct>();
   const { variants, stock } = watch();
+  const { update } = useFieldArray<NewProduct>({
+    control,
+    name: 'stock',
+  });
 
   const mainVariant = useMemo(() => variants.at(0), [variants]);
   const subVariants = useMemo(() => variants.slice(1), [variants]);
-  const defaultValues = useMemo(() => {
-    if (mainVariant && subVariants.length === 0)
-      return mainVariant?.values.map((value) => ({
-        name: mainVariant.name,
-        value,
-        stock: {
-          price: 0,
-          quantity: 0,
-        },
-      }));
 
-    return mainVariant?.values.map((variantValue) => {
-      const subVariantsValues = subVariants.map(
-        (subVariant) => subVariant.values,
-      );
-
-      if (subVariantsValues.length === 1) {
-        return {
-          mainVariant: {
-            name: mainVariant.name,
-            value: variantValue,
-          },
-          subvariants: subVariantsValues[0].map((subVariantValue) => ({
-            variants: {
-              [subVariants[0].name]: subVariantValue,
-            },
-            price: 0,
-            quantity: 0,
-          })),
-        };
-      }
-
-      const subVariantsValuesWithNames = subVariantsValues.map(
-        (values, index) =>
-          values.map((value) => ({ [subVariants[index].name]: value })),
-      );
-      const allSubVariantsPermutations = getAllPermutations(
-        subVariantsValuesWithNames,
-      );
-
-      return {
-        mainVariant: {
-          name: mainVariant.name,
-          value: variantValue,
-        },
-        subvariants: allSubVariantsPermutations.map((subVariantValues) => ({
-          variants: subVariantValues.reduce(
-            (acc, value) => ({ ...acc, ...value }),
-            {},
-          ),
-          price: 0,
-          quantity: 0,
+  const defaultValue = useMemo(() => {
+    if (!mainVariant) return [];
+    let permutations;
+    if (subVariants.length > 0) {
+      const subVariantsValues = subVariants.map((subVariant) =>
+        subVariant.values.map((value) => ({
+          name: subVariant.name,
+          value,
         })),
-      };
-    });
+      );
+
+      const permutationsWithoutMainVariant =
+        getAllPermutations(subVariantsValues);
+
+      permutations = mainVariant.values.flatMap((value) => {
+        return permutationsWithoutMainVariant.map((permutation) => [
+          { name: mainVariant.name, value },
+          ...permutation,
+        ]);
+      });
+    } else {
+      permutations = mainVariant.values.map((value) => [
+        { name: mainVariant.name, value },
+      ]);
+    }
+
+    return permutations.map((permutation) => ({
+      variantValues: permutation,
+      price: 0,
+      quantity: 0,
+    }));
   }, [mainVariant, subVariants]);
 
   const handleKeyDown = useCallback(
@@ -88,10 +69,9 @@ const VariationTable = () => {
   );
 
   useEffect(() => {
-    resetField('stock', {
-      defaultValue: defaultValues,
-    });
-  }, [defaultValues]);
+    console.log('resetting stock', defaultValue);
+    setValue('stock', defaultValue);
+  }, [defaultValue]);
 
   return (
     <Table>
@@ -104,75 +84,37 @@ const VariationTable = () => {
       </TableHeader>
       <TableBody>
         {stock?.map((variantStock, index) => {
-          const realTimeStock = stock.at(index);
-          if (
-            (realTimeStock && !('mainVariant' in realTimeStock)) ||
-            !('mainVariant' in variantStock)
-          )
-            return;
-          const pricesString = realTimeStock?.subvariants
-            .map((variant) => variant.price)
-            .join(' - ');
-
-          const fullQuantity = realTimeStock?.subvariants.reduce(
-            (acc, variant) => Number(acc) + Number(variant.quantity),
-            0,
-          );
           return (
             <Fragment key={index}>
               <TableRow>
                 <TableCell>
-                  {variantStock.mainVariant.name} -{' '}
-                  {variantStock.mainVariant.value}
+                  {variantStock.variantValues
+                    .map(({ value, name }) => `${name}:${value}`)
+                    .join(' - ')}
                 </TableCell>
                 <TableCell>
-                  <Input
-                    value={pricesString}
-                    disabled
-                    className="disabled:opacity-70"
+                  <InputField
+                    control={control}
+                    name={`stock.${index}.price`}
+                    type="number"
+                    InputProps={{
+                      onKeyDown: handleKeyDown,
+                      inputMode: 'decimal',
+                    }}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    value={fullQuantity}
-                    disabled
-                    className="disabled:opacity-70"
+                  <InputField
+                    control={control}
+                    name={`stock.${index}.quantity`}
+                    type="number"
+                    InputProps={{
+                      onKeyDown: handleKeyDown,
+                      inputMode: 'decimal',
+                    }}
                   />
                 </TableCell>
               </TableRow>
-              {variantStock.subvariants.map((subVariant, subIndex) => (
-                <TableRow key={subIndex}>
-                  <TableCell className="py-1 ps-12">
-                    {Object.entries(subVariant.variants)
-                      .map(([key, value]) => `${key}: ${value}`)
-                      .join(' / ')}
-                  </TableCell>
-                  <TableCell className="py-1">
-                    <InputField
-                      control={control}
-                      name={`stock.${index}.subvariants.${subIndex}.price`}
-                      type="number"
-                      InputProps={{
-                        inputMode: 'decimal',
-                        onKeyDown: handleKeyDown,
-                        min: 0,
-                      }}
-                    />
-                  </TableCell>
-                  <TableCell className="py-1">
-                    <InputField
-                      control={control}
-                      name={`stock.${index}.subvariants.${subIndex}.quantity`}
-                      type="number"
-                      InputProps={{
-                        inputMode: 'decimal',
-                        onKeyDown: handleKeyDown,
-                        min: 0,
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
             </Fragment>
           );
         })}
