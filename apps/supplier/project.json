@@ -3,6 +3,10 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/supplier",
   "projectType": "application",
-  "targets": {},
+  "targets": {
+    "dev": {
+      "command": "next dev --port 3003"
+    }
+  },
   "tags": []
 }
