@@ -46,7 +46,14 @@ export function DataTableRowActions<TData>({
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild className="w-full">
-          <Link href={`/products/${product.id}`}>Edit</Link>
+          <Link
+            href={{
+              pathname: 'products/create',
+              query: { id: product.id },
+            }}
+          >
+            Edit
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>Delete</DropdownMenuItem>
       </DropdownMenuContent>
@@ -61,7 +68,7 @@ export const globalAction: GlobalAction<Product> = () => {
         <FileIcon className="me-2 h-4 w-4" /> Export
       </Button>
       <Link
-        href={'/products/new'}
+        href={'/products/create'}
         className={buttonVariants({
           variant: 'reverse',
           className: 'h-8',
