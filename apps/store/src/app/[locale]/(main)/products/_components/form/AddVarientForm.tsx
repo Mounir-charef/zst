@@ -159,8 +159,8 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
           ))}
         </div>
         <div className="flex items-center justify-between">
-          <Button type="button" variant="destructive" onClick={() => close()}>
-            Delete
+          <Button type="button" variant="outline" onClick={() => close()}>
+            Cancel
           </Button>
           <Button
             type="button"

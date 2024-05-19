@@ -16,8 +16,8 @@ import { X } from 'lucide-react';
 import { memo, useCallback, useId, useMemo } from 'react';
 import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
-import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
 import { IProductDetails, Variant } from '../../types';
+import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
 
 interface VariantEditCardProps {
   variant: Variant;
@@ -108,9 +108,31 @@ const VariantEditCard = ({
     close();
   };
 
+  const HandleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        form.handleSubmit(onSubmit)();
+      }
+      // cancel on esq
+      if (e.key === 'Escape') {
+        close();
+      }
+    },
+    [form, onSubmit],
+  );
+
   return (
     <Form {...form}>
-      <CardContent className="grid gap-4 pt-6">
+      <CardContent className="relative grid gap-4 pt-6">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={close}
+          className="absolute right-2 top-2"
+        >
+          <X className="h-5 w-5" />
+        </Button>
         <SelectField
           options={selectableVariants}
           control={form.control}
@@ -158,9 +180,11 @@ const VariantEditCard = ({
           ))}
         </div>
         <div className="flex items-center justify-between">
-          <Button variant="destructive" onClick={() => remove()}>
-            Delete
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="destructive" onClick={() => remove()}>
+              Delete
+            </Button>
+          </div>
           <Button variant="reverse" onClick={form.handleSubmit(onSubmit)}>
             Save
           </Button>
