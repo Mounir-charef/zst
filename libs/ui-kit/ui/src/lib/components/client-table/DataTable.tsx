@@ -5,6 +5,7 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
+  type Table as TableType,
   VisibilityState,
   flexRender,
   getCoreRowModel,
@@ -55,6 +56,8 @@ export type GlobalFilterOption<TData> = {
   }[];
 };
 
+export type GlobalAction<TData> = (table: TableType<TData>) => React.ReactNode;
+
 interface DefaultTableProps<TData, TValue> {
   header?: {
     title: string;
@@ -62,12 +65,13 @@ interface DefaultTableProps<TData, TValue> {
   };
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  globalAction?: GlobalAction<TData>;
   searchOptions?: {
     column: keyof TData;
     placeholder?: string;
   };
   filterOptions?: FilterOption<TValue>[];
-  globalFilter?: undefined;
+  globalFilter?: never;
   variant?: 'default';
 }
 
@@ -78,6 +82,7 @@ interface ItemsTableProps<TData, TValue> {
   };
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  globalAction?: GlobalAction<TData>;
   searchOptions?: {
     column: keyof TData;
     placeholder?: string;
@@ -104,6 +109,7 @@ export function DataTable<TData, TValue>({
   searchOptions,
   filterOptions,
   globalFilter,
+  globalAction,
   variant = 'default',
 }: DataTableProps<TData, TValue>) {
   // if global filter's column is in filterOptions's columns throw an error
@@ -214,6 +220,7 @@ export function DataTable<TData, TValue>({
             table={table}
             filterOptions={filters}
             globalFilter={globalFilterOption}
+            globalAction={globalAction}
           />
         )}
         <div className="bg-background rounded-md border p-4">

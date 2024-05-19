@@ -8,15 +8,18 @@ import {
   DataTableFacetedFilterProps,
 } from './FacetedFilter';
 import { DataTableViewOptions } from './ViewOptions';
+import { GlobalAction } from './DataTable';
 
 interface DefaultTableToolbarProps<TData, TValue> {
   table: Table<TData>;
   filterOptions?: DataTableFacetedFilterProps<TData, TValue>[];
+  globalAction?: GlobalAction<TData>;
 }
 
 export function DefaultTableToolbar<TData, TValue>({
   table,
   filterOptions,
+  globalAction,
 }: DefaultTableToolbarProps<TData, TValue>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   return (
@@ -43,18 +46,8 @@ export function DefaultTableToolbar<TData, TValue>({
           </Button>
         )}
       </div>
-      <div className="itece flex flex-col items-end gap-1 md:flex-row-reverse md:items-center">
-        <Button
-          size="sm"
-          className="h-8"
-          onClick={() =>
-            console.log(
-              table.getSelectedRowModel().rows.map((row) => row.original),
-            )
-          }
-        >
-          Action
-        </Button>
+      <div className="flex flex-col items-end gap-1 md:flex-row-reverse md:items-center">
+        {globalAction ? <>{globalAction(table)}</> : null}
         <DataTableViewOptions table={table} />
       </div>
     </div>

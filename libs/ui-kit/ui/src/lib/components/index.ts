@@ -14,5 +14,7 @@ export * from './Texteditor';
 export * from './TexteditorField';
 export * from './SwitchField';
 export * from './PhoneInputField';
+export * from './SelectField';
 export * from './client-table/DataTable';
 export * from './client-table/ColumnHeader';
+export * from './CheckBoxField';

@@ -1,0 +1,33 @@
+[
+  {
+    "code": "en",
+    "localName": "English",
+    "name": "English",
+    "langDir": "ltr",
+    "dateFormat": "MM.DD.YYYY",
+    "hrefLang": "en-GB",
+    "enabled": true,
+    "default": true
+  },
+  {
+    "code": "ar",
+    "localName": "العربية",
+    "name": "Arabic",
+    "langDir": "rtl",
+    "dateFormat": "YYYY.MM.DD",
+    "hrefLang": "ar",
+    "enabled": false,
+    "default": false
+  },
+
+  {
+    "code": "fr",
+    "localName": "Français",
+    "name": "French",
+    "langDir": "ltr",
+    "dateFormat": "DD.MM.YYYY",
+    "hrefLang": "fr",
+    "enabled": false,
+    "default": false
+  }
+]

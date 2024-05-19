@@ -1,24 +1,19 @@
 import createMiddleware from 'next-intl/middleware';
-import { type NextRequest } from 'next/server';
-import { localePrefix, locales } from './navigation';
+import { availableLocaleCodes, defaultLocale } from '../i18n/locales';
 
-const nextIntlMiddleware = createMiddleware({
-  defaultLocale: 'en',
-  locales,
-  localePrefix,
+export default createMiddleware({
+  // A list of all locales that are supported
+  locales: availableLocaleCodes,
+
+  // Used when no locale matches
+  defaultLocale: defaultLocale.code,
+
+  // Always use a Locale as a prefix for routing
+  localePrefix: 'always',
 });
 
-const middleware = (request: NextRequest) => {
-  const res = nextIntlMiddleware(request);
-
-  // if no currency cookie is set, set it to default
-  if (!request.cookies.has('currency')) {
-    res.cookies.set('currency', 'DZD', { httpOnly: true });
-  }
-  return res;
-};
-
-export default middleware;
+// We only want the middleware to run on the `/` route
+// to redirect users to their preferred locale
 
 export const config = {
   matcher: [
@@ -27,7 +22,7 @@ export const config = {
 
     // Set a cookie to remember the previous locale for
     // all requests that have a locale prefix
-    '/(de|en)/:path*',
+    '/(en|fr|ar)/:path*',
 
     // Enable redirects that add missing locales
     // (e.g. `/pathnames` -> `/en/pathnames`)

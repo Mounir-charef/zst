@@ -6,10 +6,11 @@ import { DataTableFacetedFilterProps } from './FacetedFilter';
 import { GlobalFilter } from './GlobalFilter';
 import { DataTableViewOptions } from './ViewOptions';
 import { ItemsTableFiltersMenu } from './ItemsTableFiltersMenu';
+import { GlobalAction } from './DataTable';
 
 interface ItemsTableToolbarProps<TData, TValue> {
   table: Table<TData>;
-
+  globalAction?: GlobalAction<TData>;
   filterOptions?: DataTableFacetedFilterProps<TData, TValue>[];
   globalFilter?: {
     column: Column<TData, TValue>;
@@ -24,6 +25,7 @@ export function ItemsTableToolbar<TData, TValue>({
   table,
   filterOptions,
   globalFilter,
+  globalAction,
 }: ItemsTableToolbarProps<TData, TValue>) {
   return (
     <div className="flex items-start justify-between gap-x-4">
@@ -37,17 +39,7 @@ export function ItemsTableToolbar<TData, TValue>({
           <ItemsTableFiltersMenu filterOptions={filterOptions} />
         ) : null}
         <DataTableViewOptions table={table} />
-        <Button
-          size="sm"
-          className="h-8"
-          onClick={() =>
-            console.log(
-              table.getSelectedRowModel().rows.map((row) => row.original),
-            )
-          }
-        >
-          Action
-        </Button>
+        {globalAction ? <>{globalAction(table)}</> : null}
       </div>
     </div>
   );
