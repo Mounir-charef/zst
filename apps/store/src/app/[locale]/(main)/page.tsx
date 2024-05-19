@@ -8,21 +8,14 @@ import {
   CardTitle,
   DataTable,
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Pagination,
   PaginationContent,
   PaginationItem,
-  Progress,
   Separator,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
 } from '@mono/ui';
 import { promises as fs } from 'fs';
 import {
@@ -30,19 +23,16 @@ import {
   ChevronRight,
   Copy,
   CreditCard,
-  File,
-  ListFilter,
   MoreVertical,
   Truck,
 } from 'lucide-react';
 import path from 'path';
 import { z } from 'zod';
-import { productSchema } from './products/_data/schema';
-import { columns } from './products/_components/Columns';
-import { globalFilter, itemsFilters } from './products/_components/filters';
-import { globalAction } from './products/_components/Actions';
 import DashboardActionCard from '../../../components/dashboard/DashboardActionCard';
 import DashboardProgressCard from '../../../components/dashboard/DashboardProgressCard';
+import { columns } from './products/_components/Columns';
+import { globalFilter, itemsFilters } from './products/_components/filters';
+import { productSchema } from './products/_data/schema';
 
 async function getProducts() {
   const data = await fs.readFile(
