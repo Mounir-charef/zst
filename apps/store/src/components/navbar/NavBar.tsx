@@ -39,7 +39,7 @@ const NavBar = () => {
       </div>
 
       {/* mobile navbar */}
-      <div className="flex items-center justify-between p-4 md:hidden">
+      <div className="flex h-20 items-center justify-between p-4 md:hidden">
         <Link
           href="/"
           aria-label="home"

@@ -16,11 +16,11 @@ const ProductStock = ({
   const stock = watch('stock');
 
   return (
-    <Card>
+    <Card className="w-full overflow-x-auto">
       <CardHeader>
         <CardTitle>Stock</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="w-full">
         <VariationTable defaultStock={defaultStock} />
       </CardContent>
       <CardFooter className="border-t p-6">

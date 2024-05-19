@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Input,
   InputField,
@@ -93,14 +92,14 @@ const VariationTable = ({
 
   return (
     <Table>
-      <TableHeader className="rounded-md [&_tr]:border-b-0">
+      <TableHeader className="w-full rounded-md [&_tr]:border-b-0">
         <TableRow className="bg-accent rounded-md">
           <TableHead className="text-foreground">Variant</TableHead>
           <TableHead className="text-foreground">Price</TableHead>
           <TableHead className="text-foreground">Quantity</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody className="w-full">
         {stock?.map((variantStock, index) => {
           return (
             <Fragment key={index}>
@@ -125,6 +124,7 @@ const VariationTable = ({
                   </TableCell>
                   <TableCell>
                     <Input
+                      className="min-w-24"
                       disabled
                       value={stock
                         .filter(
@@ -138,6 +138,7 @@ const VariationTable = ({
                   </TableCell>
                   <TableCell>
                     <Input
+                      className="min-w-24"
                       type="number"
                       disabled
                       value={stock
@@ -179,6 +180,7 @@ const VariationTable = ({
                 </TableCell>
                 <TableCell>
                   <InputField
+                    className="min-w-24"
                     control={control}
                     name={`stock.${index}.price`}
                     type="number"
@@ -191,6 +193,7 @@ const VariationTable = ({
                 </TableCell>
                 <TableCell>
                   <InputField
+                    className="min-w-24"
                     control={control}
                     name={`stock.${index}.quantity`}
                     type="number"

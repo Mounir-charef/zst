@@ -62,7 +62,7 @@ export default async function Dashboard() {
   return (
     <div className="mx-auto grid gap-4 md:grid-cols-[2fr_1fr] lg:grid-cols-3 lg:gap-8">
       <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <DashboardActionCard
             action={<Button>Create New Order</Button>}
             title="Your Orders"

@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Badge, Button, Form } from '@mono/ui';
 import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 import GoBackButton from '../../../../../../components/GoBackButton';
 import type { IProductDetails } from '../../types';
@@ -13,7 +14,6 @@ import ProductImages from './ProductImages';
 import ProductStatus from './ProductStatus';
 import ProductStock from './ProductStock';
 import ProductVariants from './ProductVariants';
-import { toast } from 'sonner';
 
 const DEFAULTS: IProductDetails = {
   details: {
@@ -90,10 +90,7 @@ const ProductDetailsForm = ({ defaultValues }: ProductDetailsFormProps) => {
   };
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto grid flex-1 auto-rows-max gap-4"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex items-center gap-4">
           <GoBackButton />
           {isNew ? (
@@ -123,8 +120,8 @@ const ProductDetailsForm = ({ defaultValues }: ProductDetailsFormProps) => {
             </Button>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-[2fr_1fr] lg:grid-cols-3 lg:gap-8">
-          <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
+        <div className="grid w-full gap-4 md:grid-cols-[2fr_1fr] lg:grid-cols-3 lg:gap-8">
+          <div className="grid w-full auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
             <ProductDetails />
             <ProductVariants />
             <ProductStock
