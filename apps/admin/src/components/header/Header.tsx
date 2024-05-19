@@ -10,6 +10,9 @@ import { cn } from '@mono/util';
 import HeadingLargeLogo from '../common/HeadingLargeLogo';
 import HeaderSearch from './HeaderSearch';
 import UserMenu from '../UserMenu';
+import Link from 'next/link';
+import Image from 'next/image';
+import routesConfig from '../../config/routesConfig';
 
 const HeaderMenuIcon = ({
   onClick,

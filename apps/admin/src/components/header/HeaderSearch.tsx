@@ -22,13 +22,13 @@ const MobileSearchField = () => {
     <>
       <div
         onClick={onOpen}
-        className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border bg-gray-50 lg:hidden"
+        className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border bg-gray-50 lg:hidden "
       >
         <IoIosSearch />
       </div>
       <div
         className={cn(
-          'fixed left-0 top-0 w-full transition-all lg:hidden',
+          'fixed left-0 top-0 z-10 w-full transition-all lg:hidden',
           isOpen ? 'visible opacity-100' : 'invisible opacity-0',
         )}
       >

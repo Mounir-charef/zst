@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import productColumns from './columns/productColumns';
+import productColumns from './columns/product-columns';
 import useTable from '../../../../../hooks/useTable';
 import { useGetProductsQuery } from '../../../../../apis/productApis';
 import ProductsPageHeader from './ProductsPageHeader';

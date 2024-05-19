@@ -1,6 +1,6 @@
 'use client';
 
-import attributeColumns from './columns/attributeColumns';
+import attributeColumns from './columns/attribute-columns';
 import ListingHeaderCard from '../../../../../components/common/listingHeader/ListingHeaderCard';
 import ListingHeaderTitle from '../../../../../components/common/listingHeader/ListingHeaderTitle';
 import useTable from '../../../../../hooks/useTable';

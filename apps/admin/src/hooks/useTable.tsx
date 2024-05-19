@@ -5,10 +5,12 @@ import { BaseDataItem } from '../types/common';
 import { TypedUseQueryListing } from '../types/react-query';
 import useSearch from './useSearch';
 import useSelectRows from './useSelectRows';
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 interface UseTableArgs<T extends BaseDataItem>
-  extends Omit<DataTableProps<T>, 'selectedRows' | 'setSelectedRows' | 'data'> {
+  extends Omit<
+    DataTableProps<T>,
+    'selectedRows' | 'setSelectedRows' | 'data' | 'pagination'
+  > {
   useQuery: TypedUseQueryListing;
 }
 

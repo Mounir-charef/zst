@@ -25,7 +25,7 @@ export default function useSearch() {
     )
     const searchValues = useDebouncedValue({value: search, delay: delay.current}) as TypedSearch
 
-    const handleSearch = (name: string, value: string, isDebounced: boolean = true,) => {
+    const handleSearch = (name: string, value: string, isDebounced: boolean = true) => {
         if (!isDebounced) {
             delay.current = 0
         } else {
