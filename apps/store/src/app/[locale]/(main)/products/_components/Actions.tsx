@@ -44,6 +44,9 @@ export function DataTableRowActions<TData>({
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild className="w-full">
+          <Link href={`/products/${product.id}`}>View</Link>
+        </DropdownMenuItem>
 
         <DropdownMenuItem asChild className="w-full">
           <Link
