@@ -1,12 +1,12 @@
 'use client';
 
-import { ID } from '../../../../../../types/common';
 import { FaRegTrashAlt } from 'react-icons/fa';
-import { Modal, ModalBody } from '../../../../../../components/ui/Modal';
 import { useDisclosure } from '@mono/util';
-import { Button } from '../../../../../../components/ui/Button';
+import { ID } from '../../types/common';
+import { Modal, ModalBody } from '../ui/Modal';
+import { Button } from '../ui/Button';
 
-const AttributeColumnDelete = ({ id }: { id: ID }) => {
+const ColumnDelete = ({ id }: { id: ID }) => {
   const { isOpen, setIsOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -36,4 +36,4 @@ const AttributeColumnDelete = ({ id }: { id: ID }) => {
   );
 };
 
-export default AttributeColumnDelete;
+export default ColumnDelete;

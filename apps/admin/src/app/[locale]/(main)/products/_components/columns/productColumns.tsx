@@ -4,10 +4,12 @@ import ColumnID from '../../../../../../components/common/columns/ColumnID';
 import ProductColumnInfo from './ProductColumnInfo';
 import ColumnText from '../../../../../../components/common/columns/ColumnText';
 import Badge from '../../../../../../components/ui/Badge';
-import { Link } from '../../../../../../navigation';
-import { FiEdit, FiEye } from 'react-icons/fi';
-import AttributeColumnDelete from '../../../attributes/_components/columns/AttributeColumnDelete';
 import { BaseDataItem } from '../../../../../../types/common';
+import ColumnView from '../../../../../../components/table-columns/ColumnView';
+import routesConfig from '../../../../../../config/routesConfig';
+import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
+import ColumnActionWrapper from '../../../../../../components/table-columns/ColumnActionWrapper';
+import ColumnDelete from '../../../../../../components/table-columns/ColumnDelete';
 
 const productColumns: ColumnType<TypedProductListing & BaseDataItem>[] = [
   {
@@ -53,15 +55,11 @@ const productColumns: ColumnType<TypedProductListing & BaseDataItem>[] = [
     title: 'Actions',
     render(_, record) {
       return (
-        <div className="flex items-center gap-2">
-          <Link href={'#'}>
-            <FiEdit />
-          </Link>
-          <Link href={'#'}>
-            <FiEye />
-          </Link>
-          <AttributeColumnDelete id={record.id} />
-        </div>
+        <ColumnActionWrapper>
+          <ColumnEdit href={routesConfig.editAttribute(record.id)} />
+          <ColumnView href={routesConfig.editAttribute(record.id)} />
+          <ColumnDelete id={record.id} />
+        </ColumnActionWrapper>
       );
     },
   },

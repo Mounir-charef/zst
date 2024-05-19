@@ -1,14 +1,12 @@
 import { ColumnType } from 'rc-table';
 import { TypedAttributeListing } from '../../../../../../types/attribute';
-import { FiEdit, FiTrash2 } from 'react-icons/fi';
-import { FaRegTrashAlt } from 'react-icons/fa';
-
-import { Link } from '../../../../../../navigation';
 import routesConfig from '../../../../../../config/routesConfig';
-import AttributeColumnDelete from './AttributeColumnDelete';
 import ColumnID from '../../../../../../components/common/columns/ColumnID';
 import Badge from '../../../../../../components/ui/Badge';
 import { BaseDataItem } from '../../../../../../types/common';
+import ColumnActionWrapper from '../../../../../../components/table-columns/ColumnActionWrapper';
+import ColumnDelete from '../../../../../../components/table-columns/ColumnDelete';
+import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
 
 const attributeColumns: ColumnType<TypedAttributeListing & BaseDataItem>[] = [
   {
@@ -45,12 +43,10 @@ const attributeColumns: ColumnType<TypedAttributeListing & BaseDataItem>[] = [
     title: 'Actions',
     render(_, record) {
       return (
-        <div className="flex items-center gap-2">
-          <Link href={routesConfig.editAttribute(record.id)}>
-            <FiEdit className="text-base-color" />
-          </Link>
-          <AttributeColumnDelete id={record.id} />
-        </div>
+        <ColumnActionWrapper>
+          <ColumnEdit href={routesConfig.editAttribute(record.id)} />
+          <ColumnDelete id={record.id} />
+        </ColumnActionWrapper>
       );
     },
   },

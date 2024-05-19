@@ -9,7 +9,19 @@ const routesConfig = {
 
     attributes: '/attributes',
     addNewAttribute: '/attributes/create',
-    editAttribute: (id: ID) => `/attributes/${id}/edit`
+    editAttribute: (id: ID) => `/attributes/${id}/edit`,
+
+    admins: '/admins',
+    addNewAdmin: '/admins/create',
+
+    sellers: '/sellers',
+    addNewSeller: '/sellers/create',
+
+    suppliers: '/suppliers',
+    addNewSupplier: '/suppliers/create',
+    
+    clients: '/clients',
+    addNewClient: '/clients/create'
 }
 
 export default routesConfig
