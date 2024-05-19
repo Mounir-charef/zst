@@ -95,9 +95,9 @@ const VariationTable = ({
     <Table>
       <TableHeader className="rounded-md [&_tr]:border-b-0">
         <TableRow className="bg-accent rounded-md">
-          <TableHead>Variant</TableHead>
-          <TableHead>Price</TableHead>
-          <TableHead>Quantity</TableHead>
+          <TableHead className="text-foreground">Variant</TableHead>
+          <TableHead className="text-foreground">Price</TableHead>
+          <TableHead className="text-foreground">Quantity</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

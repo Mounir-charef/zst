@@ -38,6 +38,12 @@ const ProductStatus = () => {
         <div className="grid gap-6">
           <div className="grid gap-3">
             <SelectField
+              selectProps={{
+                selectTrigger: {
+                  title: 'product status',
+                  'aria-label': 'select product status',
+                },
+              }}
               label="Status"
               name="status"
               control={control}

@@ -57,6 +57,12 @@ const ProductCategory = () => {
       <CardContent>
         <div className="grid gap-6">
           <SelectField
+            selectProps={{
+              selectTrigger: {
+                title: 'product category',
+                'aria-label': 'select product category',
+              },
+            }}
             label="Category"
             name="category"
             control={control}
@@ -64,6 +70,12 @@ const ProductCategory = () => {
           />
 
           <SelectField
+            selectProps={{
+              selectTrigger: {
+                title: 'product sub-catgory',
+                'aria-label': 'select product sub-catgory',
+              },
+            }}
             label="Sub-category (optional)"
             name="subcategory"
             control={control}

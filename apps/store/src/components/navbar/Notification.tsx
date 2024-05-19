@@ -8,7 +8,11 @@ import { memo } from 'react';
 const Notification = () => {
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger
+        title="notifications"
+        aria-label="open notification"
+        asChild
+      >
         <Button variant="ghost" size="icon" className="rounded-full">
           <BellIcon />
         </Button>
