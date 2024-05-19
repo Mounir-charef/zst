@@ -40,8 +40,8 @@ const ProductDetails = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <h5 className="text-lg font-semibold">Description</h5>
+        <div className="space-y-1">
+          <h5 className="text-sm font-semibold">Description</h5>
           <CardDescription>{description}</CardDescription>
         </div>
         <Separator />
@@ -87,9 +87,9 @@ const ProductDetails = ({
           </div>
         </div>
 
-        <div className="text-muted-foreground text-sm">
+        <div className="text-sm">
           <span>Still deciding? Get samples first!</span>
-          <Link href="#" className="text-foreground ms-2 font-medium">
+          <Link href="#" className="ms-2 font-medium">
             Order sample
           </Link>
         </div>

@@ -23,6 +23,7 @@ const ProductImagesCard = ({ images, mainImage }: ProductImagesCardProps) => {
         <div className="flex flex-wrap items-center justify-start gap-6 py-2">
           {images.map((image, index) => (
             <Image
+              key={image + index}
               src={image}
               alt={`Product image ${index}`}
               className="h-20 w-20 rounded object-cover object-center"
