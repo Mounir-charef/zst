@@ -31,21 +31,11 @@ const nextConfig = {
         hostname: 'picsum.photos',
         pathname: '**',
       },
-    ],
-  },
-  async redirects() {
-    return [
       {
-        source: '/',
-        destination: '/marketplace',
-        permanent: true,
+        hostname: 'cdn.dummyjson.com',
+        pathname: '**',
       },
-      {
-        source: '/en',
-        destination: '/marketplace',
-        permanent: true,
-      }
-    ];
+    ],
   },
 };
 

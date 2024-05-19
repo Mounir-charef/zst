@@ -11,15 +11,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "types": [
-      "jest",
-      "node"
-    ]
+    "types": ["jest", "node"]
   },
   "include": [
     "**/*.ts",
@@ -29,12 +29,8 @@
     "../../apps/store/.next/types/**/*.ts",
     "../../dist/apps/store/.next/types/**/*.ts",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/env.mjs"
   ],
-  "exclude": [
-    "node_modules",
-    "jest.config.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
 }

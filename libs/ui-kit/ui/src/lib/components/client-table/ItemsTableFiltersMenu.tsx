@@ -10,6 +10,7 @@ import {
 } from '../../ui/dropdown-menu';
 import { DataTableFacetedFilterProps } from './FacetedFilter';
 import { MenuFilter } from './MenuFilter';
+import { Fragment } from 'react';
 
 export function ItemsTableFiltersMenu<TData, TValue>({
   filterOptions,
@@ -28,10 +29,10 @@ export function ItemsTableFiltersMenu<TData, TValue>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {filterOptions.map((filterOption, index) => (
-          <>
+          <Fragment key={filterOption.title}>
             <MenuFilter {...filterOption} />
             {index < filterOptions.length - 1 && <DropdownMenuSeparator />}
-          </>
+          </Fragment>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>

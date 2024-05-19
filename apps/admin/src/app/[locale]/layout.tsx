@@ -24,10 +24,13 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const messages = await getMessages();
-  const timezone = await getTimeZone();
+  const [messages, timezone, session] = await Promise.all([
+    getMessages(),
+    getTimeZone(),
+    getAuthSession(),
+  ]);
+
   const { langDir, hrefLang } = availableLocalesMap[locale] || defaultLocale;
-  const session = await getAuthSession();
   return (
     <html
       lang={hrefLang}
