@@ -73,16 +73,18 @@ const ProductDetails = ({
         <Separator />
       </CardContent>
       <CardFooter className="block space-y-6">
-        <div className="flex flex-grow justify-end gap-4">
+        <div className="flex min-w-fit flex-grow flex-wrap justify-end gap-4 whitespace-nowrap">
           <Button size="lg" className="flex-1">
             Create Auction request
           </Button>
-          <Button size="lg" className="flex-1" variant="outline">
-            Create Auction request
-          </Button>
-          <Button size="icon" className="h-11 w-11" variant="outline">
-            <MessageCircle className="h-5 w-5" />
-          </Button>
+          <div className="flex flex-1 gap-4">
+            <Button size="lg" className="flex-1" variant="outline">
+              Create Auction request
+            </Button>
+            <Button size="icon" className="h-11 w-11" variant="outline">
+              <MessageCircle className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
 
         <div className="text-muted-foreground text-sm">
