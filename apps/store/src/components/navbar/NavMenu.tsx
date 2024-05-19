@@ -37,7 +37,7 @@ export type NavigationItem = NavigationLink | NavigationMenu;
 
 function NavMenu() {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="hidden lg:flex">
       <NavigationMenuList>
         {NavItems.map((item) => {
           if (item.type === 'link')

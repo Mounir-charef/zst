@@ -17,7 +17,7 @@ const Notification = () => {
           <BellIcon />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent>
         <div className="grid gap-4">
           {[...Array(5)].map((_, index) => (
             <div key={index} className="flex items-center justify-between">
