@@ -127,7 +127,9 @@ const ProductDetailsForm = ({ defaultValues }: ProductDetailsFormProps) => {
           <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
             <ProductDetails />
             <ProductVariants />
-            <ProductStock />
+            <ProductStock
+              defaultStock={defaultValues ? defaultValues.stock : undefined}
+            />
           </div>
           <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
             <ProductStatus />

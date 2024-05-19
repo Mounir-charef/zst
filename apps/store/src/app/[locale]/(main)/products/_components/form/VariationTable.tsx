@@ -17,12 +17,15 @@ import { ImageUploaderField } from '../../../../../../components/ImageUploaderFi
 import { getAllPermutations } from '../../../../../../lib/permutations';
 import { IProductDetails } from '../../types';
 
-const VariationTable = () => {
-  const { control, watch, setValue, formState, resetField } =
+const VariationTable = ({
+  defaultStock,
+}: {
+  defaultStock?: IProductDetails['stock'];
+}) => {
+  const { control, watch, setValue, formState } =
     useFormContext<IProductDetails>();
   const { variants, stock } = watch();
   const { variants: dirtyVariants } = formState.dirtyFields;
-  // const { variants: defaultFormVariants } = formState.defaultValues as IProductDetails;
 
   const isVariantsDirty = useMemo(() => {
     return dirtyVariants?.some(({ name, values }) => {
@@ -77,14 +80,16 @@ const VariationTable = () => {
   );
 
   useEffect(() => {
-    if (isVariantsDirty) {
+    if (isVariantsDirty || !defaultStock) {
       setValue('stock', defaultValue, {
         shouldDirty: true,
       });
     } else {
-      resetField('stock');
+      setValue('stock', defaultStock, {
+        shouldDirty: false,
+      });
     }
-  }, [defaultValue, isVariantsDirty]);
+  }, [defaultValue, isVariantsDirty, defaultStock]);
 
   return (
     <Table>

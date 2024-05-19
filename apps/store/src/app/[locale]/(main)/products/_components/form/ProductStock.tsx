@@ -6,7 +6,11 @@ import { useFormContext } from 'react-hook-form';
 import VariationTable from './VariationTable';
 import { IProductDetails } from '../../types';
 
-const ProductStock = () => {
+const ProductStock = ({
+  defaultStock,
+}: {
+  defaultStock?: IProductDetails['stock'];
+}) => {
   const { watch } = useFormContext<IProductDetails>();
 
   const stock = watch('stock');
@@ -17,7 +21,7 @@ const ProductStock = () => {
         <CardTitle>Stock</CardTitle>
       </CardHeader>
       <CardContent>
-        <VariationTable />
+        <VariationTable defaultStock={defaultStock} />
       </CardContent>
       <CardFooter className="border-t p-6">
         <p className="bg-accent flex-grow rounded-md p-4 text-center text-sm">
