@@ -28,13 +28,13 @@ export function ItemsTableToolbar<TData, TValue>({
   globalAction,
 }: ItemsTableToolbarProps<TData, TValue>) {
   return (
-    <div className="flex items-start justify-between gap-x-4">
+    <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
       <div className="flex flex-1 flex-wrap items-center gap-1 gap-x-2">
         {globalFilter && globalFilter.options.length > 0 ? (
           <GlobalFilter {...globalFilter} />
         ) : null}
       </div>
-      <div className="itece flex flex-col-reverse items-end gap-1 md:flex-row md:items-center md:gap-2">
+      <div className="flex flex-wrap justify-end gap-2">
         {filterOptions && filterOptions.length > 0 ? (
           <ItemsTableFiltersMenu filterOptions={filterOptions} />
         ) : null}

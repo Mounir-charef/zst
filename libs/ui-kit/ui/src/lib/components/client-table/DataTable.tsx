@@ -184,7 +184,7 @@ export function DataTable<TData, TValue>({
   return (
     <Card>
       {header ? (
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-row flex-wrap items-end justify-between gap-2">
           <div className="flex flex-col justify-center gap-1.5">
             <CardTitle>{header.title}</CardTitle>
             {header.description ? (
@@ -192,7 +192,7 @@ export function DataTable<TData, TValue>({
             ) : null}
           </div>
           {searchOptions && (
-            <div className="relative ms-auto flex-1 md:grow-0">
+            <div className="relative flex-1 md:grow-0">
               <Search className="text-muted-foreground absolute start-2.5 top-2.5 h-4 w-4" />
               <Input
                 placeholder={searchOptions.placeholder ?? 'Search...'}
@@ -206,7 +206,7 @@ export function DataTable<TData, TValue>({
                     .getColumn(searchOptions.column.toString())
                     ?.setFilterValue(event.target.value)
                 }
-                className="bg-background w-full rounded-lg ps-8 md:w-[200px] lg:w-[336px]"
+                className="bg-background min-w-64 rounded-lg ps-8"
               />
             </div>
           )}
