@@ -18,8 +18,17 @@ import { getAllPermutations } from '../../../../../../lib/permutations';
 import { IProductDetails } from '../../types';
 
 const VariationTable = () => {
-  const { control, watch, setValue } = useFormContext<IProductDetails>();
+  const { control, watch, setValue, formState, resetField } =
+    useFormContext<IProductDetails>();
   const { variants, stock } = watch();
+  const { variants: dirtyVariants } = formState.dirtyFields;
+  // const { variants: defaultFormVariants } = formState.defaultValues as IProductDetails;
+
+  const isVariantsDirty = useMemo(() => {
+    return dirtyVariants?.some(({ name, values }) => {
+      return name || values?.some((value) => value);
+    });
+  }, [dirtyVariants]);
 
   const mainVariant = useMemo(() => variants.at(0), [variants]);
   const subVariants = useMemo(() => variants.slice(1), [variants]);
@@ -68,10 +77,14 @@ const VariationTable = () => {
   );
 
   useEffect(() => {
-    setValue('stock', defaultValue, {
-      shouldDirty: true,
-    });
-  }, [defaultValue]);
+    if (isVariantsDirty) {
+      setValue('stock', defaultValue, {
+        shouldDirty: true,
+      });
+    } else {
+      resetField('stock');
+    }
+  }, [defaultValue, isVariantsDirty]);
 
   return (
     <Table>
