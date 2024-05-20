@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@mono/ui';
+import { Button, buttonVariants } from '@mono/ui';
 import { cn } from '@mono/util';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, DotIcon } from 'lucide-react';
 import { memo, useState } from 'react';
 import { Link } from '../../navigation';
 import { NavigationMenu } from './NavMenu';
@@ -25,10 +25,18 @@ const MobileMenuLink = (item: NavigationMenu) => {
         <span>{item.title}</span>
       </Button>
       {isOpen && (
-        <div className="flex flex-col gap-2">
+        <div className="animate-in slide-in-from-top-5 fade-in-20 flex flex-col gap-2 ps-4">
           {item.children.map((child) => (
-            <Link key={child.title} href={child.href} className="p-0.5 ps-12">
-              {child.title}
+            <Link
+              href={child.href}
+              className={cn(
+                buttonVariants({
+                  variant: 'link',
+                }),
+                'text-foreground justify-start gap-2',
+              )}
+            >
+              <DotIcon className="h-4 w-4" /> <span>{child.title}</span>
             </Link>
           ))}
         </div>

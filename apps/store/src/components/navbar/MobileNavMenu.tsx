@@ -16,9 +16,12 @@ import {
   buttonVariants,
 } from '@mono/ui';
 import { cn } from '@mono/util';
+import { Link2 } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import { NavItems } from '../../config';
+import { useTransition } from 'react';
+import { NavItems, useMenuLinks } from '../../config';
 import useSession from '../../hooks/useSession';
+import { logout } from '../../lib/auth/logout';
 import { nameToSlug } from '../../lib/utils';
 import { Link } from '../../navigation';
 import MobileMenuLink from './MobileMenuLink';
@@ -26,6 +29,7 @@ import MobileMenuLink from './MobileMenuLink';
 const MobileNavMenu = () => {
   const locale = useLocale();
   const session = useSession();
+  const [isPending, startTransition] = useTransition();
 
   if (!session) {
     return null;
@@ -62,6 +66,21 @@ const MobileNavMenu = () => {
         </SheetHeader>
         <Separator />
         <div className="flex flex-col gap-2 divide-y py-6">
+          {useMenuLinks.map((item) => (
+            <Link
+              className={cn(
+                buttonVariants({
+                  variant: 'link',
+                }),
+                'text-foreground justify-start gap-2',
+              )}
+              key={item.label}
+              href={item.href}
+            >
+              <Link2 className="h-4 w-4" />
+              <span>{item.label}</span>
+            </Link>
+          ))}
           {NavItems.map((item) => {
             if (item.type === 'link') {
               return (
@@ -80,6 +99,15 @@ const MobileNavMenu = () => {
             }
             return <MobileMenuLink key={item.title} {...item} />;
           })}
+
+          <Button
+            variant="link"
+            isLoading={isPending}
+            onClick={() => startTransition(logout)}
+            className="text-foreground justify-start"
+          >
+            Sign out
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
