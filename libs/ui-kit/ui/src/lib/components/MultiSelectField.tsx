@@ -120,10 +120,12 @@ export const MultiSelectField = <
               </Command>
             </PopoverContent>
           </Popover>
-          <FormDescription>
-            This is the language that will be used in the dashboard.
-          </FormDescription>
-          <FormMessage />
+          {!!description && (
+            <FormDescription {...descriptionProps}>
+              {description}
+            </FormDescription>
+          )}
+          {showErrors && <FormMessage />}
         </FormItem>
       )}
     />
