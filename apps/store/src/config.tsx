@@ -61,9 +61,13 @@ export const useMenuLinks = [
   {
     label: 'Dashboard',
     href: '/',
+    icon: <DashboardIcon className="h-4 w-4" />,
+    desktopOnly: true,
   },
   {
     label: 'Settings',
     href: '#',
+    icon: <SettingsIcon className="h-4 w-4" />,
+    desktopOnly: false,
   },
 ] as const;
