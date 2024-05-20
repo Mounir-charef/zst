@@ -4,20 +4,16 @@ import {
   Button,
   CardContent,
   Form,
-  Label,
-  Select,
-  SelectContent,
+  MultiSelectField,
   SelectField,
-  SelectItem,
-  SelectTrigger,
   badgeVariants,
 } from '@mono/ui';
 import { X } from 'lucide-react';
-import { memo, useCallback, useId, useMemo } from 'react';
+import { memo, useCallback, useEffect, useId, useMemo } from 'react';
 import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { IProductDetails, Variant } from '../../types';
-import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
+import { VARIANT_NAMES, VARIANT_VALUES_BY_NAME } from './ProductVariants';
 
 interface VariantEditCardProps {
   variant: Variant;
@@ -37,7 +33,7 @@ const VariantEditCard = ({
   const VariantSchema = useMemo(
     () =>
       z.object({
-        name: z.string().min(3),
+        name: z.enum(VARIANT_NAMES),
         values: z.array(z.string().min(1, 'Required').max(255)),
       }),
     [],
@@ -47,17 +43,17 @@ const VariantEditCard = ({
 
   const form = useForm<FormValues>({
     resolver: zodResolver(VariantSchema),
-    defaultValues: variant,
+    defaultValues: variant as FormValues,
   });
 
-  const values = form.watch('values');
+  const { values, name } = form.watch();
 
   const { watch } = useFormContext<IProductDetails>();
 
   const selectedVariants = watch('variants');
 
   const selectableValues = useMemo(
-    () => VARIANT_NAMES_OPTIONS.filter((option) => !values.includes(option)),
+    () => (name ? VARIANT_VALUES_BY_NAME[name] : []),
     [values],
   );
 
@@ -85,6 +81,14 @@ const VariantEditCard = ({
     },
     [form, values],
   );
+
+  useEffect(() => {
+    if (name === variant.name) {
+      form.setValue('values', variant.values);
+    } else {
+      form.setValue('values', []);
+    }
+  }, [name]);
 
   const checkNameNotSelected = useCallback(
     (name: string) => {
@@ -142,24 +146,16 @@ const VariantEditCard = ({
 
         {/* TODO: make this a component (select multiple) */}
 
-        <div className="space-y-2">
-          <Label htmlFor="selectId">Option Values</Label>
-          <Select onValueChange={addValue} disabled={!selectableValues.length}>
-            <SelectTrigger id={selectId}>Add Value</SelectTrigger>
-            <SelectContent>
-              {selectableValues.map((value) => (
-                <SelectItem key={value} value={value}>
-                  {value}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {form.formState.errors.values && (
-            <p className="text-destructive text-sm font-medium">
-              {form.formState.errors.values.message}
-            </p>
-          )}
-        </div>
+        <MultiSelectField
+          control={form.control}
+          options={selectableValues.map((value) => ({
+            label: value,
+            value: value,
+          }))}
+          label="Option Values"
+          name="values"
+          placeholder="Select option values"
+        />
 
         <div className="flex flex-wrap gap-4">
           {values.map((option) => (

@@ -4,11 +4,13 @@ import { buttonVariants } from '@mono/ui';
 import Image from 'next/image';
 import { memo } from 'react';
 import { Link } from '../../navigation';
-import MobileNavMenu from './MobileNavMenu';
 import NavMenu from './NavMenu';
 import Notification from './Notification';
 import ThemeToggle from './ThemeToggle';
 import UserNav from './UserNav';
+import dynamic from 'next/dynamic';
+
+const MobileNavMenu = dynamic(() => import('./MobileNavMenu'));
 
 const NavBar = () => {
   return (
