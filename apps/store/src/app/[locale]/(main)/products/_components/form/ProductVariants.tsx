@@ -22,9 +22,13 @@ import VariantEditCard from './VarientEditCard';
 import AddVarientForm from './AddVarientForm';
 import { IProductDetails, Variant } from '../../types';
 
-export const VARIANT_NAMES_OPTIONS = ['XL', 'L', 'S'];
+export const VARIANT_NAMES = ['size', 'color', 'material'] as const;
 
-export const VARIANT_NAMES = ['size', 'color', 'material'];
+export const VARIANT_VALUES_BY_NAME = {
+  size: ['S', 'M', 'L', 'XL', 'XXL'],
+  color: ['Red', 'Blue', 'Green', 'Yellow', 'Black'],
+  material: ['Cotton', 'Polyester', 'Silk', 'Wool'],
+} as const;
 
 const Productvariants = () => {
   const { control, watch } = useFormContext<IProductDetails>();

@@ -13,7 +13,7 @@ import {
   badgeVariants,
 } from '@mono/ui';
 import { X } from 'lucide-react';
-import { memo, useCallback, useId, useMemo } from 'react';
+import { memo, useCallback, useEffect, useId, useMemo } from 'react';
 import {
   SubmitHandler,
   useFieldArray,
@@ -22,7 +22,7 @@ import {
 } from 'react-hook-form';
 import { z } from 'zod';
 import { IProductDetails } from '../../types';
-import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
+import { VARIANT_NAMES, VARIANT_VALUES_BY_NAME } from './ProductVariants';
 
 const AddVarientForm = ({ close }: { close: () => void }) => {
   const selectId = useId();
@@ -30,7 +30,7 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
   const VariantSchema = useMemo(
     () =>
       z.object({
-        name: z.string().min(3),
+        name: z.enum(VARIANT_NAMES),
         values: z.array(z.string().min(1, 'Required').max(255)).min(1),
       }),
     [],
@@ -41,7 +41,7 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(VariantSchema),
     defaultValues: {
-      name: '',
+      name: VARIANT_NAMES[0],
       values: [],
     },
   });
@@ -51,15 +51,20 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
     name: 'variants',
   });
 
-  const values = form.watch('values');
+  const { values, name } = form.watch();
 
   const { watch } = useFormContext<IProductDetails>();
 
   const selectedVariants = watch('variants');
 
   const selectableValues = useMemo(
-    () => VARIANT_NAMES_OPTIONS.filter((option) => !values.includes(option)),
-    [values],
+    () =>
+      name
+        ? VARIANT_VALUES_BY_NAME[name].filter(
+            (option) => !values.includes(option),
+          )
+        : [],
+    [values, name],
   );
 
   const selectableVariants = useMemo(
@@ -105,6 +110,10 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
     append(data);
     close();
   };
+
+  useEffect(() => {
+    form.setValue('values', []);
+  }, [name]);
 
   return (
     <Form {...form}>

@@ -13,11 +13,11 @@ import {
   badgeVariants,
 } from '@mono/ui';
 import { X } from 'lucide-react';
-import { memo, useCallback, useId, useMemo } from 'react';
+import { memo, useCallback, useEffect, useId, useMemo } from 'react';
 import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { IProductDetails, Variant } from '../../types';
-import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
+import { VARIANT_NAMES, VARIANT_VALUES_BY_NAME } from './ProductVariants';
 
 interface VariantEditCardProps {
   variant: Variant;
@@ -37,7 +37,7 @@ const VariantEditCard = ({
   const VariantSchema = useMemo(
     () =>
       z.object({
-        name: z.string().min(3),
+        name: z.enum(VARIANT_NAMES),
         values: z.array(z.string().min(1, 'Required').max(255)),
       }),
     [],
@@ -47,17 +47,22 @@ const VariantEditCard = ({
 
   const form = useForm<FormValues>({
     resolver: zodResolver(VariantSchema),
-    defaultValues: variant,
+    defaultValues: variant as FormValues,
   });
 
-  const values = form.watch('values');
+  const { values, name } = form.watch();
 
   const { watch } = useFormContext<IProductDetails>();
 
   const selectedVariants = watch('variants');
 
   const selectableValues = useMemo(
-    () => VARIANT_NAMES_OPTIONS.filter((option) => !values.includes(option)),
+    () =>
+      name
+        ? VARIANT_VALUES_BY_NAME[name].filter(
+            (option) => !values.includes(option),
+          )
+        : [],
     [values],
   );
 
@@ -85,6 +90,14 @@ const VariantEditCard = ({
     },
     [form, values],
   );
+
+  useEffect(() => {
+    if (name === variant.name) {
+      form.setValue('values', variant.values);
+    } else {
+      form.setValue('values', []);
+    }
+  }, [name]);
 
   const checkNameNotSelected = useCallback(
     (name: string) => {

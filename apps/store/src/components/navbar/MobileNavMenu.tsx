@@ -67,7 +67,7 @@ const MobileNavMenu = () => {
         <Separator />
         <div className="flex flex-col gap-2 divide-y py-6">
           {useMenuLinks
-            .filter((item) => !item.desktopOnly)
+            .filter((item) => !item)
             .map((item) => (
               <Link
                 className={cn(
@@ -87,6 +87,7 @@ const MobileNavMenu = () => {
             if (item.type === 'link') {
               return (
                 <Link
+                  key={item.title}
                   href={item.href}
                   className={cn(
                     buttonVariants({
