@@ -4,12 +4,8 @@ import {
   Button,
   CardContent,
   Form,
-  Label,
-  Select,
-  SelectContent,
+  MultiSelectField,
   SelectField,
-  SelectItem,
-  SelectTrigger,
   badgeVariants,
 } from '@mono/ui';
 import { X } from 'lucide-react';
@@ -57,12 +53,7 @@ const VariantEditCard = ({
   const selectedVariants = watch('variants');
 
   const selectableValues = useMemo(
-    () =>
-      name
-        ? VARIANT_VALUES_BY_NAME[name].filter(
-            (option) => !values.includes(option),
-          )
-        : [],
+    () => (name ? VARIANT_VALUES_BY_NAME[name] : []),
     [values],
   );
 
@@ -155,24 +146,16 @@ const VariantEditCard = ({
 
         {/* TODO: make this a component (select multiple) */}
 
-        <div className="space-y-2">
-          <Label htmlFor="selectId">Option Values</Label>
-          <Select onValueChange={addValue} disabled={!selectableValues.length}>
-            <SelectTrigger id={selectId}>Add Value</SelectTrigger>
-            <SelectContent>
-              {selectableValues.map((value) => (
-                <SelectItem key={value} value={value}>
-                  {value}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {form.formState.errors.values && (
-            <p className="text-destructive text-sm font-medium">
-              {form.formState.errors.values.message}
-            </p>
-          )}
-        </div>
+        <MultiSelectField
+          control={form.control}
+          options={selectableValues.map((value) => ({
+            label: value,
+            value: value,
+          }))}
+          label="Option Values"
+          name="values"
+          placeholder="Select option values"
+        />
 
         <div className="flex flex-wrap gap-4">
           {values.map((option) => (
