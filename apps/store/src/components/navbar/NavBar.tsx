@@ -1,7 +1,10 @@
+'use client';
+
 import { buttonVariants } from '@mono/ui';
 import Image from 'next/image';
 import { memo } from 'react';
 import { Link } from '../../navigation';
+import MobileNavMenu from './MobileNavMenu';
 import NavMenu from './NavMenu';
 import Notification from './Notification';
 import ThemeToggle from './ThemeToggle';
@@ -31,11 +34,13 @@ const NavBar = () => {
           <NavMenu />
         </nav>
 
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="hidden items-center gap-4 lg:flex">
           <ThemeToggle />
           <Notification />
           <UserNav />
         </div>
+
+        <MobileNavMenu />
       </div>
     </div>
   );

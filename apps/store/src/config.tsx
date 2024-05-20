@@ -56,3 +56,14 @@ export const NavItems: NavigationItem[] = [
     icon: <SettingsIcon className="h-4 w-4" />,
   },
 ];
+
+export const useMenuLinks = [
+  {
+    label: 'Dashboard',
+    href: '/',
+  },
+  {
+    label: 'Settings',
+    href: '#',
+  },
+] as const;
