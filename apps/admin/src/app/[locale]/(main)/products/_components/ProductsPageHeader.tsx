@@ -21,7 +21,7 @@ const ProductsPageHeader = ({
 }: ProductsPageHeaderProps) => {
   const { isOpen, toggle } = useDisclosure(true);
   return (
-    <ListingHeaderCard className="">
+    <ListingHeaderCard>
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <ListingHeaderTitle title="Products" />
         <div className="flex w-full flex-col items-center gap-x-5 gap-y-4 md:w-2/4 md:flex-row">

@@ -1,10 +1,12 @@
 'use client';
 
+import { useMemo } from 'react';
 import DataTable, { DataTableProps } from '../components/ui/DataTable';
 import { BaseDataItem } from '../types/common';
 import { TypedUseQueryListing } from '../types/react-query';
 import useSearch from './useSearch';
 import useSelectRows from './useSelectRows';
+import { PaginationProps } from '../components/ui/pagination/Pagination';
 
 interface UseTableArgs<T extends BaseDataItem>
   extends Omit<
@@ -24,25 +26,41 @@ export default function useTable<T extends BaseDataItem>({
 
   const { data, isLoading } = useQuery(searchValues);
 
+  // useSta
+
+  const paginationProps = useMemo<PaginationProps | undefined>(() => {
+    const totalPages = data?.total;
+    if (totalPages) {
+      const skip = search.skip ? parseInt(search.skip) : 0;
+      const limit = search.limit ? parseInt(search.limit) : 10;
+      const currentPage = !skip ? 1 : Math.floor(skip / limit + 1);
+      return {
+        pageSize: limit,
+        onPageSizeChange(limit) {
+          const skip = (currentPage - 1) * limit;
+          handleSearch('limit', limit + '', false);
+          handleSearch('skip', skip + '', false);
+        },
+        currentPage,
+        onPageChange(page) {
+          const skip = (page - 1) * limit;
+          handleSearch('skip', skip + '', false);
+        },
+        totalPages,
+      };
+    }
+    return undefined;
+  }, [data, search]);
+
   return {
     Table: (
       <DataTable<T>
-        data={data as T[]}
+        data={(data as { data: T[] })?.data || (data as T[])}
         selectableRows={selectableRows}
         isLoading={isLoading}
         {...(selectableRows ? { selectedRows, setSelectedRows } : {})}
         {...args}
-        pagination={{
-          pageSize: search.pageSize ? parseInt(search.pageSize) : 10,
-          onPageSizeChange(pageSize) {
-            handleSearch('pageSize', pageSize + '', false);
-          },
-          currentPage: search.page ? parseInt(search.page) : 1,
-          onPageChange(page) {
-            handleSearch('page', page + '', false);
-          },
-          totalPages: 1000,
-        }}
+        pagination={paginationProps}
       />
     ),
     data,

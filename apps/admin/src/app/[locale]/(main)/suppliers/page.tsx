@@ -1,8 +1,8 @@
 import React from 'react';
 import SuppliersPageContent from './_components/SuppliersPageContent';
 import useServerData from '../../../../hooks/useServerData';
-import { getUsersQueryOptions } from '../../../../apis/userApis';
 import { SearchParams } from '../../../../apis/_api-utils';
+import { getSuppliersQueryOptions } from '../../../../apis/supplierApis';
 
 const SuppliersPage = async ({
   searchParams,
@@ -10,7 +10,7 @@ const SuppliersPage = async ({
   searchParams: SearchParams;
 }) => {
   const { ServerData } = await useServerData({
-    ...getUsersQueryOptions(searchParams),
+    ...getSuppliersQueryOptions(searchParams),
   });
 
   return (

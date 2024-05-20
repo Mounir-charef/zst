@@ -1,13 +1,14 @@
 import React from 'react';
 import AdminsPageContent from './_components/AdminsPageContent';
 import useServerData from '../../../../hooks/useServerData';
-import { getUsersQueryOptions } from '../../../../apis/userApis';
 import { SearchParams } from '../../../../apis/_api-utils';
+import { getAdminsQueryOptions } from '../../../../apis/adminApis';
 
 const AdminsPage = async ({ searchParams }: { searchParams: SearchParams }) => {
   const { ServerData } = await useServerData({
-    ...getUsersQueryOptions(searchParams),
+    ...getAdminsQueryOptions(searchParams),
   });
+
   return (
     <ServerData>
       <AdminsPageContent />

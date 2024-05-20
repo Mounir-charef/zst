@@ -3,23 +3,26 @@ import { TypedAdmin } from '../../../../../../types/user';
 import ColumnActionWrapper from '../../../../../../components/table-columns/ColumnActionWrapper';
 import ColumnView from '../../../../../../components/table-columns/ColumnView';
 import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
+import ColumnText from '../../../../../../components/common/columns/ColumnText';
 
 const adminColumns: ColumnsType<TypedAdmin> = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-  {
     title: 'Username',
-    dataIndex: 'username',
+    render(_, record) {
+      return <ColumnText text={record.username} />;
+    },
   },
   {
     title: 'Email',
-    dataIndex: 'email',
+    render(_, record) {
+      return <ColumnText text={record.email} />;
+    },
   },
   {
     title: 'Phone',
-    dataIndex: 'phone',
+    render(_, record) {
+      return <ColumnText text={record.phoneNumber} />;
+    },
   },
   {
     title: 'Actions',

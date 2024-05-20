@@ -1,8 +1,8 @@
 import React from 'react';
 import ClientsPageContent from './_components/ClientsPageContent';
 import useServerData from '../../../../hooks/useServerData';
-import { getUsersQueryOptions } from '../../../../apis/userApis';
 import { SearchParams } from '../../../../apis/_api-utils';
+import { getClientsQueryOptions } from '../../../../apis/clientApis';
 
 const ClientsPage = async ({
   searchParams,
@@ -10,8 +10,9 @@ const ClientsPage = async ({
   searchParams: SearchParams;
 }) => {
   const { ServerData } = await useServerData({
-    ...getUsersQueryOptions(searchParams),
+    ...getClientsQueryOptions(searchParams),
   });
+
   return (
     <ServerData>
       <ClientsPageContent />

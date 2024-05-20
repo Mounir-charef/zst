@@ -56,8 +56,8 @@ const productColumns: ColumnType<TypedProductListing & BaseDataItem>[] = [
     render(_, record) {
       return (
         <ColumnActionWrapper>
-          <ColumnEdit href={routesConfig.editAttribute(record.id)} />
-          <ColumnView href={routesConfig.editAttribute(record.id)} />
+          <ColumnEdit href={routesConfig.editProduct(record.id)} />
+          <ColumnView href={routesConfig.editProduct(record.id)} />
           <ColumnDelete id={record.id} />
         </ColumnActionWrapper>
       );

@@ -6,7 +6,7 @@ import { usePathname } from "../navigation";
 import useDebouncedValue from "./useDebouncedValue";
 import cleanObject from "../utils/cleanObject";
 
-const debouncedDelay = 400
+const debouncedDelay = 300
 
 export interface TypedSearch {
     [prop: string]: string

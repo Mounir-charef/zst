@@ -7,3 +7,9 @@ export interface TypedUser extends BaseDataItem {
 }
 
 export interface TypedAdmin extends TypedUser {}
+
+export interface TypedSeller extends TypedUser {}
+
+export interface TypedSupplier extends TypedUser {}
+
+export interface TypedClient extends TypedUser {}

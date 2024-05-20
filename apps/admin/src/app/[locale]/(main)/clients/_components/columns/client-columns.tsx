@@ -1,25 +1,28 @@
 import { ColumnsType } from 'rc-table';
-import { BaseDataItem } from '../../../../../../types/common';
 import ColumnActionWrapper from '../../../../../../components/table-columns/ColumnActionWrapper';
 import ColumnView from '../../../../../../components/table-columns/ColumnView';
 import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
+import ColumnText from '../../../../../../components/common/columns/ColumnText';
+import { TypedClient } from '../../../../../../types/user';
 
-const clientColumns: ColumnsType<BaseDataItem> = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-  },
+const clientColumns: ColumnsType<TypedClient> = [
   {
     title: 'Username',
-    dataIndex: 'username',
+    render(_, record) {
+      return <ColumnText text={record.username} />;
+    },
   },
   {
     title: 'Email',
-    dataIndex: 'email',
+    render(_, record) {
+      return <ColumnText text={record.email} />;
+    },
   },
   {
     title: 'Phone',
-    dataIndex: 'phone',
+    render(_, record) {
+      return <ColumnText text={record.phoneNumber} />;
+    },
   },
   {
     title: 'Actions',
