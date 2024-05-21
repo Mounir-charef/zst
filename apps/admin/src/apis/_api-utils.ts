@@ -1,12 +1,12 @@
 export type SearchParams = unknown
 
-interface GetListQueryOptionsArgs {
-    endpoint: string, request: (searchParams?: SearchParams) => Promise<unknown>, searchParams?: SearchParams
+interface GetListQueryOptionsArgs<T> {
+    endpoint: string, request: (searchParams?: SearchParams) => Promise<T>, searchParams?: SearchParams
 }
 
-export const getListQueryOptions = ({
+export const getListQueryOptions = <T,>({
     endpoint, request, searchParams
-}: GetListQueryOptionsArgs) => {
+}: GetListQueryOptionsArgs<T>) => {
     return {
         queryKey: [endpoint, searchParams],
         queryFn: () => request(searchParams),

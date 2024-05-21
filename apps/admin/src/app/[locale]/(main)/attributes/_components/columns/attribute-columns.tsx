@@ -8,7 +8,7 @@ import ColumnActionWrapper from '../../../../../../components/table-columns/Colu
 import ColumnDelete from '../../../../../../components/table-columns/ColumnDelete';
 import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
 
-const attributeColumns: ColumnType<TypedAttributeListing & BaseDataItem>[] = [
+const attributeColumns: ColumnType<TypedAttributeListing>[] = [
   {
     title: 'ID',
     render(_, record) {

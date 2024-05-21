@@ -3,7 +3,11 @@
 import { useMemo } from 'react';
 import DataTable, { DataTableProps } from '../components/ui/DataTable';
 import { BaseDataItem } from '../types/common';
-import { TypedUseQueryListing } from '../types/react-query';
+import {
+  TypedListResponse,
+  TypedPaginationResponse,
+  TypedUseQueryListing,
+} from '../types/react-query';
 import useSearch from './useSearch';
 import useSelectRows from './useSelectRows';
 import { PaginationProps } from '../components/ui/pagination/Pagination';
@@ -13,7 +17,9 @@ interface UseTableArgs<T extends BaseDataItem>
     DataTableProps<T>,
     'selectedRows' | 'setSelectedRows' | 'data' | 'pagination'
   > {
-  useQuery: TypedUseQueryListing;
+  useQuery: TypedUseQueryListing<
+    TypedPaginationResponse<T> | TypedListResponse<T>
+  >;
 }
 
 export default function useTable<T extends BaseDataItem>({
@@ -26,24 +32,23 @@ export default function useTable<T extends BaseDataItem>({
 
   const { data, isLoading } = useQuery(searchValues);
 
-  // useSta
-
   const paginationProps = useMemo<PaginationProps | undefined>(() => {
-    const totalPages = data?.total;
-    if (totalPages) {
+    const total = (data as TypedPaginationResponse<T>)?.total;
+    if (total) {
       const skip = search.skip ? parseInt(search.skip) : 0;
       const limit = search.limit ? parseInt(search.limit) : 10;
       const currentPage = !skip ? 1 : Math.floor(skip / limit + 1);
+      const totalPages = Math.ceil(total / limit);
+
       return {
         pageSize: limit,
         onPageSizeChange(limit) {
-          const skip = (currentPage - 1) * limit;
           handleSearch('limit', limit + '', false);
-          handleSearch('skip', skip + '', false);
+          handleSearch('skip', 0 + '', false);
         },
         currentPage,
         onPageChange(page) {
-          const skip = (page - 1) * limit;
+          const skip = calculateSkipValue(page, limit);
           handleSearch('skip', skip + '', false);
         },
         totalPages,
@@ -55,7 +60,7 @@ export default function useTable<T extends BaseDataItem>({
   return {
     Table: (
       <DataTable<T>
-        data={(data as { data: T[] })?.data || (data as T[])}
+        data={data?.data}
         selectableRows={selectableRows}
         isLoading={isLoading}
         {...(selectableRows ? { selectedRows, setSelectedRows } : {})}
@@ -68,4 +73,8 @@ export default function useTable<T extends BaseDataItem>({
     search,
     handleSearch,
   };
+}
+
+function calculateSkipValue(page: number | string, limit: number | string) {
+  return (parseInt(page as string) - 1) * parseInt(limit as string);
 }

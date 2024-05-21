@@ -4,7 +4,10 @@ const userClient = {
     getAll(params?: unknown) {
         return axiosHttpClient.get(
             'https://jsonplaceholder.typicode.com/users', {params}
-          ).then(res => res.data)
+          ).then(res => ({
+            data: res.data,
+            total: 120
+          }))
     },
 }
 

@@ -9,9 +9,7 @@ import { TypedProductListing } from '../../../../../types/product';
 import { BaseDataItem } from '../../../../../types/common';
 
 const ProductsPageContent = () => {
-  const { Table, search, handleSearch } = useTable<
-    TypedProductListing & BaseDataItem
-  >({
+  const { Table, search, handleSearch } = useTable({
     useQuery: useGetProductsQuery,
     columns: productColumns,
   });

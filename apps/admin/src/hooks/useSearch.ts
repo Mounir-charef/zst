@@ -32,11 +32,22 @@ export default function useSearch() {
             delay.current = debouncedDelay
         }
         setSearch((current) => {
-            return {
+            const newValues = {
                 ...current,
                 [name]: value
             }
+
+            if (name !== 'skip' && name !== 'limit' && newValues.hasOwnProperty('skip')) {
+                newValues.skip = '0'
+            }
+
+            return newValues
         })
+    }
+
+    const clearSearch = () => {
+        delay.current = 0
+        setSearch({})
     }
 
     useEffect(() => {
@@ -51,6 +62,7 @@ export default function useSearch() {
         searchValues,
         search,
         handleSearch,
+        clearSearch,
     }
     
 }

@@ -9,7 +9,7 @@ import { BaseDataItem } from '../../../../../types/common';
 import { useGetAttributesQuery } from '../../../../../apis/attributeApis';
 
 const AttributesPageContent = () => {
-  const { Table } = useTable<TypedAttributeListing & BaseDataItem>({
+  const { Table } = useTable({
     columns: attributeColumns,
     useQuery: useGetAttributesQuery,
   });
