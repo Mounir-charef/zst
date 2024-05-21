@@ -4,6 +4,7 @@ import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { cookies, headers } from 'next/headers';
 import { env } from '../../env.mjs';
+import { cache } from 'react';
 
 async function refreshAccessToken(token: JWT) {
   try {
@@ -47,6 +48,7 @@ export const authOptions = {
 
   session: {
     strategy: 'jwt',
+    maxAge: 60 * 60 * 24, // one day
   },
 
   providers: [
@@ -142,4 +144,4 @@ export const authOptions = {
   },
 } satisfies NextAuthOptions;
 
-export const getAuthSession = () => getServerSession(authOptions);
+export const getAuthSession = cache(() => getServerSession(authOptions));
