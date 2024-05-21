@@ -19,7 +19,7 @@ import { cn } from '@mono/util';
 import { LogOutIcon } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { useTransition } from 'react';
-import { NavItems, useMenuLinks } from '../../config';
+import { NavItems, userMenuLinks } from '../../config';
 import useSession from '../../hooks/useSession';
 import { logout } from '../../lib/auth/logout';
 import { nameToSlug } from '../../lib/utils';
@@ -66,7 +66,7 @@ const MobileNavMenu = () => {
         </SheetHeader>
         <Separator />
         <div className="flex flex-col gap-2 divide-y py-6">
-          {useMenuLinks
+          {userMenuLinks
             .filter((item) => !item)
             .map((item) => (
               <Link

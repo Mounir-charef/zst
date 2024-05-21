@@ -57,7 +57,7 @@ export const NavItems: NavigationItem[] = [
   },
 ];
 
-export const useMenuLinks = [
+export const userMenuLinks = [
   {
     label: 'Dashboard',
     href: '/',
