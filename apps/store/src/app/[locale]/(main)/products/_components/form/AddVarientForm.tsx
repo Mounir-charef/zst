@@ -9,7 +9,7 @@ import {
   badgeVariants,
 } from '@mono/ui';
 import { X } from 'lucide-react';
-import { memo, useCallback, useEffect, useId, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import {
   SubmitHandler,
   useFieldArray,
@@ -21,8 +21,6 @@ import { IProductDetails } from '../../types';
 import { VARIANT_NAMES, VARIANT_VALUES_BY_NAME } from './ProductVariants';
 
 const AddVarientForm = ({ close }: { close: () => void }) => {
-  const selectId = useId();
-
   const VariantSchema = useMemo(
     () =>
       z.object({
@@ -34,10 +32,14 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
 
   type FormValues = z.infer<typeof VariantSchema>;
 
+  const { watch } = useFormContext<IProductDetails>();
+
+  const selectedVariants = watch('variants');
+
   const form = useForm<FormValues>({
     resolver: zodResolver(VariantSchema),
     defaultValues: {
-      name: VARIANT_NAMES[0],
+      name: VARIANT_NAMES[selectedVariants.length],
       values: [],
     },
   });
@@ -48,10 +50,6 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
   });
 
   const { values, name } = form.watch();
-
-  const { watch } = useFormContext<IProductDetails>();
-
-  const selectedVariants = watch('variants');
 
   const selectableValues = useMemo(
     () => (name ? VARIANT_VALUES_BY_NAME[name] : []),

@@ -9,7 +9,7 @@ import {
   badgeVariants,
 } from '@mono/ui';
 import { X } from 'lucide-react';
-import { memo, useCallback, useEffect, useId, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { IProductDetails, Variant } from '../../types';
@@ -28,8 +28,6 @@ const VariantEditCard = ({
   remove,
   close,
 }: VariantEditCardProps) => {
-  const selectId = useId();
-
   const VariantSchema = useMemo(
     () =>
       z.object({
@@ -112,20 +110,6 @@ const VariantEditCard = ({
     close();
   };
 
-  const HandleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        form.handleSubmit(onSubmit)();
-      }
-      // cancel on esq
-      if (e.key === 'Escape') {
-        close();
-      }
-    },
-    [form, onSubmit],
-  );
-
   return (
     <Form {...form}>
       <CardContent className="relative grid gap-4 pt-6">
@@ -143,8 +127,6 @@ const VariantEditCard = ({
           name="name"
           label="Option Name"
         />
-
-        {/* TODO: make this a component (select multiple) */}
 
         <MultiSelectField
           control={form.control}
