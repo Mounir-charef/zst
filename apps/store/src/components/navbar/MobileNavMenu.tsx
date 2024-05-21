@@ -31,7 +31,7 @@ const MobileNavMenu = () => {
   const session = useSession();
   const [isPending, startTransition] = useTransition();
 
-  if (!session) {
+  if (!session.user) {
     return null;
   }
   return (
