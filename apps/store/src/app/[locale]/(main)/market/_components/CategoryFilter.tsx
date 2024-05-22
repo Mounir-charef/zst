@@ -33,7 +33,7 @@ const CategoryFilter = ({ filterName, options }: CategoryFilterProps) => {
   const handleFilter = useCallback(
     (value: string) => {
       const params = new URLSearchParams(searchParams);
-      if (value === 'all') {
+      if (!value || value === 'all') {
         params.delete(filterName);
       } else {
         params.set(filterName, value);
