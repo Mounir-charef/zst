@@ -64,7 +64,7 @@ export const authOptions = {
           method: 'POST',
           body: JSON.stringify({
             ...credentials,
-            role: 'SUPPLIER',
+            role: 'VENDOR',
           }),
           headers: { 'Content-Type': 'application/json' },
         });
@@ -134,7 +134,7 @@ export const authOptions = {
           accessToken: token.accessToken,
           avatar: token.avatar,
           username: token.username,
-          role: token.role as 'SUPPLIER',
+          role: token.role as 'VENDOR',
         },
         error: token.error as string,
         expires: new Date(token.expires_at).toISOString(),
