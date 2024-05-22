@@ -7,17 +7,13 @@ import {
 } from '@mono/ui';
 import { ReactNode, memo } from 'react';
 
-interface DashboardActionCardProps {
+interface ActionCardProps {
   title: string;
   description: string;
   action: ReactNode;
 }
 
-const DashboardActionCard = ({
-  action,
-  description,
-  title,
-}: DashboardActionCardProps) => {
+const ActionCard = ({ action, description, title }: ActionCardProps) => {
   return (
     <Card className="sm:col-span-2">
       <CardHeader className="pb-3">
@@ -31,4 +27,4 @@ const DashboardActionCard = ({
   );
 };
 
-export default memo(DashboardActionCard);
+export default memo(ActionCard);
