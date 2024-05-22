@@ -27,3 +27,4 @@ export * from './lib/ui/navigation-menu';
 export * from './lib/ui/command';
 export * from './lib/ui/tabs';
 export * from './lib/ui/pagination';
+export * from './lib/ui/radio-group';

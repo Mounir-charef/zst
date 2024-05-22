@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { getOffers } from '../_data/getOffers';
+import { getOffers } from '../_data/getData';
 import { MarketSearchParams } from '../_types';
 import Offers from './Offers';
 

@@ -1,6 +1,5 @@
 import { MarketSearchParams, OffersParamsValidator } from '../_types';
 import { offers } from './offers';
-import 'server-only';
 
 export async function getOffers(searchParams: MarketSearchParams) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -13,4 +12,9 @@ export async function getOffers(searchParams: MarketSearchParams) {
     }
     return true;
   });
+}
+
+export async function getOffer(id: string) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return offers.find((offer) => offer.id === id);
 }

@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@mono/ui';
-import OfferSearchBar from '../../../../components/SearchBar';
+import SearchBar from '../../../../components/SearchBar';
 import CardFilters from './_components/CardFilters';
 
 const MarketPage = async ({
@@ -21,7 +21,7 @@ const MarketPage = async ({
       <CardHeader>
         <div className="flex flex-wrap justify-between gap-4">
           <CardTitle>Market place</CardTitle>
-          <OfferSearchBar />
+          <SearchBar />
         </div>
         <CardDescription>
           Discover our last offers and get best deals

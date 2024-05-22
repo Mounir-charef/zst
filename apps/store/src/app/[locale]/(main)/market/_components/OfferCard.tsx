@@ -1,16 +1,17 @@
-import { Badge, Button, buttonVariants } from '@mono/ui';
+import { Button } from '@mono/ui';
 import { cn } from '@mono/util';
 import Image from 'next/image';
-import Link from 'next/link';
 import { HTMLAttributes, memo } from 'react';
 import { priceFormatter } from '../../../../../lib/utils';
 import { Offer } from '../_types';
+import OfferOrderSheet from './OfferOrderSheet';
 
 interface OfferCardProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'id'>,
     Offer {}
 
 const OfferCard = ({
+  id,
   description,
   image,
   price,
@@ -50,9 +51,7 @@ const OfferCard = ({
       <span className="text-muted-foreground">
         Min {min} - Max {max}
       </span>
-      <Button className="w-full" size="lg" variant="success">
-        Place Order
-      </Button>
+      <OfferOrderSheet id={id} />
     </div>
   );
 };
