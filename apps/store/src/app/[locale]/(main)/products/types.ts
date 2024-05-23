@@ -3,10 +3,10 @@ export type Variant = {
   values: string[];
 };
 
-type VariantValue = {
+export type VariantValue = {
   name: string;
   value: string;
-}[];
+};
 
 export type IProductDetails = {
   details: {
@@ -17,12 +17,23 @@ export type IProductDetails = {
   status: string;
   category: string;
   subcategory?: string;
-  stock: {
-    variantValues: VariantValue;
-    price: number;
-    quantity: number;
-    image?: string;
-  }[];
+  stock:
+    | {
+        mainVariant: VariantValue;
+        image?: string;
+        values: {
+          variants: VariantValue[];
+          price: number;
+          quantity: number;
+          image?: string;
+        }[];
+      }[]
+    | {
+        mainVariant: VariantValue;
+        image?: string;
+        price: number;
+        quantity: number;
+      }[];
   productImages: {
     id: string | number;
     url: string;

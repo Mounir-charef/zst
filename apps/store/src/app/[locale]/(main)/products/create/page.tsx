@@ -12,11 +12,11 @@ async function getProductDetails(id: string): Promise<IProductDetails> {
     },
     variants: [
       {
-        name: 'Color',
+        name: 'color',
         values: ['Red', 'Blue', 'Green'],
       },
       {
-        name: 'Size',
+        name: 'size',
         values: ['S', 'M', 'L'],
       },
     ],

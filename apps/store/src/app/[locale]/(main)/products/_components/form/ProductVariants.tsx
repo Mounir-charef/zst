@@ -41,7 +41,7 @@ const Productvariants = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>variants</CardTitle>
+        <CardTitle>Variants</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-6">
         {fields.length > 0 && (
@@ -109,7 +109,7 @@ const VariantCard = ({
       {!editing ? (
         <>
           <CardHeader className="flex-row items-center justify-between pb-3">
-            <CardTitle className="text-lg">{variant.name}</CardTitle>
+            <CardTitle className="text-lg capitalize">{variant.name}</CardTitle>
             <Button
               variant="secondary"
               size="sm"

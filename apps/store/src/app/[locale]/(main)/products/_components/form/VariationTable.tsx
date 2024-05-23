@@ -14,7 +14,7 @@ import { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
 import { getAllPermutations } from '../../../../../../lib/permutations';
-import { IProductDetails } from '../../types';
+import { IProductDetails, Variant, VariantValue } from '../../types';
 
 const VariationTable = ({
   defaultStock,
@@ -35,39 +35,31 @@ const VariationTable = ({
   const mainVariant = useMemo(() => variants.at(0), [variants]);
   const subVariants = useMemo(() => variants.slice(1), [variants]);
 
-  const defaultValue = useMemo(() => {
+  const defaultValue: IProductDetails['stock'] = useMemo(() => {
     if (!mainVariant) return [];
-    let permutations;
-    if (subVariants.length > 0) {
-      const subVariantsValues = subVariants.map((subVariant) =>
-        subVariant.values.map((value) => ({
-          name: subVariant.name,
-          value,
-        })),
-      );
-
-      const permutationsWithoutMainVariant =
-        getAllPermutations(subVariantsValues);
-
-      permutations = mainVariant.values.flatMap((value) => {
-        return permutationsWithoutMainVariant.map((permutation) => [
-          { name: mainVariant.name, value },
-          ...permutation,
-        ]);
-      });
-    } else {
-      permutations = mainVariant.values.map((value) => [
-        { name: mainVariant.name, value },
-      ]);
+    if (!subVariants.length) {
+      return mainVariant.values.map((value) => ({
+        mainVariant: { name: mainVariant.name, value },
+        price: 0,
+        quantity: 0,
+      }));
     }
 
-    return permutations.map((permutation) => ({
-      variantValues: permutation,
-      price: 0,
-      quantity: 0,
-      image: undefined,
+    const permutations = getAllPermutations(
+      subVariants.map((variant) =>
+        variant.values.map((value) => ({ name: variant.name, value })),
+      ),
+    );
+
+    return mainVariant.values.map((value) => ({
+      mainVariant: { name: mainVariant.name, value },
+      values: permutations.map((variants) => ({
+        variants,
+        price: 0,
+        quantity: 0,
+      })),
     }));
-  }, [mainVariant, subVariants]);
+  }, [mainVariant, subVariants]) satisfies IProductDetails['stock'];
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -100,90 +92,27 @@ const VariationTable = ({
         </TableRow>
       </TableHeader>
       <TableBody className="w-full">
-        {stock?.map((variantStock, index) => {
-          return (
-            <Fragment key={index}>
-              {subVariants.length > 0 &&
-              (index < 1 ||
-                variantStock.variantValues[0].value !==
-                  stock[index - 1].variantValues[0].value) ? (
-                // Main variant header
-                <TableRow>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <ImageUploaderField
-                        control={control}
-                        name={`stock.${index}.image`}
-                        className="h-24 w-24"
-                      />
-                      <span className="font-medium">
-                        {variantStock.variantValues[0].name} -{' '}
-                        {variantStock.variantValues[0].value}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Input
-                      className="min-w-24"
-                      disabled
-                      value={stock
-                        .filter(
-                          (s) =>
-                            s.variantValues[0].value ===
-                            variantStock.variantValues[0].value,
-                        )
-                        .map(({ price }) => price)
-                        .join(' - ')}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Input
-                      className="min-w-24"
-                      type="number"
-                      disabled
-                      value={stock
-                        .filter(
-                          (s) =>
-                            s.variantValues[0].value ===
-                            variantStock.variantValues[0].value,
-                        )
-                        .reduce(
-                          (acc, { quantity }) => acc + Number(quantity),
-                          0,
-                        )}
-                    />
-                  </TableCell>
-                </TableRow>
-              ) : null}
-
-              {/* stock values */}
-              <TableRow className="py-1">
-                <TableCell
-                  className={cn({
-                    'ps-16': subVariants.length > 0,
-                  })}
-                >
+        {stock?.map((mainRow, index) => {
+          if ('price' in mainRow) {
+            return (
+              <TableRow key={mainRow.mainVariant.value}>
+                <TableCell>
                   <div className="flex items-center gap-2">
                     <ImageUploaderField
                       control={control}
                       name={`stock.${index}.image`}
-                      className="h-16 w-16"
-                      shouldUnregister
+                      className="h-24 w-24"
                     />
-                    <span className="truncate font-medium">
-                      {variantStock.variantValues
-                        .slice(1)
-                        .map(({ value, name }) => `${name} ${value}`)
-                        .join(' - ')}
+                    <span className="font-medium">
+                      {mainRow.mainVariant.name} - {mainRow.mainVariant.value}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell>
                   <InputField
-                    className="min-w-24"
                     control={control}
-                    name={`stock.${index}.price`}
                     type="number"
+                    name={`stock.${index}.price`}
                     InputProps={{
                       onKeyDown: handleKeyDown,
                       inputMode: 'decimal',
@@ -193,10 +122,9 @@ const VariationTable = ({
                 </TableCell>
                 <TableCell>
                   <InputField
-                    className="min-w-24"
                     control={control}
-                    name={`stock.${index}.quantity`}
                     type="number"
+                    name={`stock.${index}.quantity`}
                     InputProps={{
                       onKeyDown: handleKeyDown,
                       inputMode: 'decimal',
@@ -205,6 +133,94 @@ const VariationTable = ({
                   />
                 </TableCell>
               </TableRow>
+            );
+          }
+
+          const priceString = mainRow.values
+            .map(({ price }) => price)
+            .join(' - ');
+          const quantity = mainRow.values.reduce(
+            (acc, { quantity }) => acc + Number(quantity),
+            0,
+          );
+          return (
+            <Fragment key={mainRow.mainVariant.value}>
+              <TableRow>
+                <TableCell>
+                  <div className="flex items-center gap-2">
+                    <ImageUploaderField
+                      control={control}
+                      name={`stock.${index}.image`}
+                      className="h-24 w-24"
+                    />
+                    <span className="font-medium">
+                      {mainRow.mainVariant.name} - {mainRow.mainVariant.value}
+                    </span>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <Input className="min-w-24" disabled value={priceString} />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    className="min-w-24"
+                    type="number"
+                    disabled
+                    value={quantity}
+                  />
+                </TableCell>
+              </TableRow>
+              {mainRow.values.map((variantStock, subIndex) => {
+                const variation = variantStock.variants
+                  .map((v) => `${v.name} ${v.value}`)
+                  .join(' - ');
+                const key = `${mainRow.mainVariant.value}-${variantStock.variants.map((v) => v.value)}`;
+                return (
+                  <TableRow key={key}>
+                    <TableCell
+                      className={cn({ 'ps-16': subVariants.length > 0 })}
+                    >
+                      <div className="flex items-center gap-2">
+                        <ImageUploaderField
+                          control={control}
+                          name={`stock.${index}.values.${subIndex}.image`}
+                          className="h-16 w-16"
+                          shouldUnregister
+                        />
+                        <span className="truncate font-medium">
+                          {variation}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <InputField
+                        className="min-w-24"
+                        control={control}
+                        name={`stock.${index}.values.${subIndex}.price`}
+                        type="number"
+                        InputProps={{
+                          onKeyDown: handleKeyDown,
+                          inputMode: 'decimal',
+                          min: 0,
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <InputField
+                        className="min-w-24"
+                        control={control}
+                        name={`stock.${index}.values.${subIndex}.quantity`}
+                        type="number"
+                        InputProps={{
+                          onKeyDown: handleKeyDown,
+                          inputMode: 'decimal',
+                          min: 0,
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </Fragment>
           );
         })}
