@@ -1,3 +1,5 @@
+import { ID } from "../types/common"
+
 export type SearchParams = unknown
 
 interface GetListQueryOptionsArgs<T> {
@@ -5,10 +7,21 @@ interface GetListQueryOptionsArgs<T> {
 }
 
 export const getListQueryOptions = <T,>({
-    endpoint, request, searchParams
+    request, endpoint, searchParams
 }: GetListQueryOptionsArgs<T>) => {
     return {
         queryKey: [endpoint, searchParams],
         queryFn: () => request(searchParams),
+    }
+}
+
+interface GetDetailsQueryOptionsArgs<T> {
+    endpoint: string, request: (id: ID) => Promise<T>, id: ID
+}
+
+export const getDetailsQueryOptions = <T,>({ request, endpoint, id }: GetDetailsQueryOptionsArgs<T>) => {
+    return {
+        queryKey: [endpoint, { id }],
+        queryFn: () => request(id),
     }
 }
