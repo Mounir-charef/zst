@@ -8,16 +8,41 @@ import { Link } from '../../../../../../navigation';
 import routesConfig from '../../../../../../config/routesConfig';
 import ProductFormInfo from './ProductFormInfo';
 import ProductFormVariation from './ProductFormVariation';
+import BoundedSectionWrapper from '../../../../../../components/common/BoundedSectionWrapper';
+import PageTitle from '../../../../../../components/common/PageTitle';
+import { CREATE_VARIANT } from '../../../../../../constants';
+import useFormActions from '../../../../../../hooks/useFormActions';
 
-const ProductForm = ({ variant, defaultValues }: FormProps) => {
+const ProductForm = ({
+  variant,
+  defaultValues,
+  pageTitle,
+}: FormProps & { pageTitle: string }) => {
   const form = useForm({
     defaultValues,
   });
 
-  const { control, watch } = form;
+  const { control, watch, handleSubmit } = form;
+
+  // const mutation = useFormActions({
+  //   variant,
+  //   createArgs: {},
+  //   updateArgs: {},
+  // })
+
+  const onSubmit = (values: unknown) => {
+    const body = {
+      // ...values,
+    };
+
+    // mutation.mutate(body)
+  };
 
   return (
     <>
+      <BoundedSectionWrapper noSpacing>
+        <PageTitle>{pageTitle}</PageTitle>
+      </BoundedSectionWrapper>
       <Form {...form}>
         <ProductFormInfo control={control} />
         <ProductFormVariation control={control} watch={watch} />
@@ -25,7 +50,7 @@ const ProductForm = ({ variant, defaultValues }: FormProps) => {
           <Link href={routesConfig.products}>
             <Button variant="outline">Back</Button>
           </Link>
-          <Button>Create New Product</Button>
+          <Button onClick={handleSubmit(onSubmit)}>{pageTitle}</Button>
         </FormFooter>
       </Form>
     </>

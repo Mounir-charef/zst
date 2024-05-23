@@ -5,6 +5,8 @@ const attributes: TypedAttributeListing[] = [
         id: 1,
         name: 'Color',
         slug: 'color',
+        createdAt: '',
+        updatedAt: '',
         values: [
             {
                 id: 1,
@@ -25,6 +27,8 @@ const attributes: TypedAttributeListing[] = [
         id: 2,
         name: 'Size',
         slug: 'size',
+        createdAt: '',
+        updatedAt: '',
         values: [
             {
                 id: 4,

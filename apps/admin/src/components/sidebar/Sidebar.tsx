@@ -24,7 +24,12 @@ const Sidebar = () => {
         <div className="flex h-[76px] items-center border-b px-8">
           {isCollapsed ? (
             <Link href={routesConfig.dashboard}>
-              <Image width={32} height={32} src={'/images/logo.png'} alt="" />
+              <Image
+                width={32}
+                height={32}
+                src={'/images/logo-sm.png'}
+                alt=""
+              />
             </Link>
           ) : (
             <HeadingLargeLogo />

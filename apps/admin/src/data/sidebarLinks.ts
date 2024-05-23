@@ -1,14 +1,12 @@
 import { IconType } from "react-icons";
-import { RxDashboard } from "react-icons/rx";
-import { PiPackageDuotone } from "react-icons/pi";
-import { PiShootingStarDuotone } from "react-icons/pi";
 import routesConfig from "../config/routesConfig";
+import { RxDashboard, RxBadge } from "react-icons/rx";
+import { PiPackageDuotone, PiShootingStarDuotone } from "react-icons/pi";
+import { MdOutlineAdminPanelSettings, MdOutlineSell, MdOutlineWarehouse, MdOutlineFormatOverline, MdAdsClick } from "react-icons/md";
+import { HiOutlineUsers } from "react-icons/hi2";
 import { FaWpforms, FaTable } from "react-icons/fa";
 import { CiViewTable } from "react-icons/ci";
 import { SiDialogflow } from "react-icons/si";
-import { RxBadge } from "react-icons/rx";
-import { MdOutlineFormatOverline } from "react-icons/md";
-import { MdAdsClick } from "react-icons/md";
 
 
 export interface SidebarLink {
@@ -65,7 +63,7 @@ const sidebarLinks: SidebarLinks = {
                 id: 5,
                 title: 'Attributes',
                 Icon: PiShootingStarDuotone,
-                href: routesConfig.attributes,
+                href: '#',
                 children: [
                     {
                         id: 6,
@@ -82,50 +80,128 @@ const sidebarLinks: SidebarLinks = {
         ]
     },
 
+    userManagement: {
+        title: 'User Management',
+        links: [
+            {
+                id: 8,
+                title: 'Admins',
+                Icon: MdOutlineAdminPanelSettings,
+                href: '#',
+                children: [
+                    {
+                        id: 9,
+                        title: 'All Admins',
+                        href: routesConfig.admins
+                    },
+                    {
+                        id: 10,
+                        title: 'Add New Admin',
+                        href: routesConfig.addNewAdmin
+                    },
+                ],
+            },
+            {
+                id: 11,
+                title: 'Sellers',
+                Icon: MdOutlineSell,
+                href: '#',
+                children: [
+                    {
+                        id: 12,
+                        title: 'All Sellers',
+                        href: routesConfig.sellers
+                    },
+                    {
+                        id: 13,
+                        title: 'Add New Seller',
+                        href: routesConfig.addNewSeller
+                    },
+                ]
+            },
+            {
+                id: 14,
+                title: 'Suppliers',
+                Icon: MdOutlineWarehouse,
+                href: '#',
+                children: [
+                    {
+                        id: 15,
+                        title: 'All Suppliers',
+                        href: routesConfig.suppliers
+                    },
+                    {
+                        id: 16,
+                        title: 'Add New Supplier',
+                        href: routesConfig.addNewSupplier
+                    },
+                ]
+            },
+            {
+                id: 17,
+                title: 'Clients',
+                Icon: HiOutlineUsers,
+                href: '#',
+                children: [
+                    {
+                        id: 18,
+                        title: 'All Clients',
+                        href: routesConfig.clients
+                    },
+                    {
+                        id: 19,
+                        title: 'Add New Client',
+                        href: routesConfig.addNewClient
+                    },
+                ]
+            },
+        ]
+    },
+
     examples: {
         title: 'Examples',
         links: [
             {
-                id: 8,
+                id: 20,
                 title: 'Form',
                 Icon: FaWpforms,
                 href: '/examples/form',
             },
             {
-                id: 9,
+                id: 21,
                 title: 'Listing',
                 Icon: CiViewTable,
                 href: '/examples/listing',
             },
             {
-                id: 10,
+                id: 22,
                 title: 'Modal',
                 Icon: SiDialogflow,
                 href: '/examples/modal',
             },
             {
-                id: 11,
+                id: 23,
                 title: 'Badge',
                 Icon: RxBadge,
                 href: '/examples/badge',
             },
             {
-                id: 12,
+                id: 24,
                 title: 'Popover',
                 Icon: MdOutlineFormatOverline,
                 href: '/examples/popover',
             },
             {
-                id: 13,
+                id: 25,
                 title: 'Button',
                 Icon: MdAdsClick,
                 href: '/examples/button',
             },
             {
-              id: 14,
-              title: 'Client/Store Table',
-              Icon: FaTable,
-              href: '/examples/table',
+                id: 26,
+                title: 'Client/Store Table',
+                Icon: FaTable,
+                href: '/examples/table',
             },
         ]
     },

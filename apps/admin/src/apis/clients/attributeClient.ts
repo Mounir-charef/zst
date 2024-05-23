@@ -1,8 +1,13 @@
 import attributes from "../../data/attributes"
+import { TypedAttributeListing } from "../../types/attribute"
+import { TypedPaginationResponse } from "../../types/react-query"
 
 const attributeClient = {
     getAll() {
-        return new Promise(resolve => setTimeout(() => resolve(attributes), 1000))
+        return new Promise<TypedPaginationResponse<TypedAttributeListing>>(resolve => setTimeout(() => resolve({
+            data: attributes,
+            total: 100
+        }), 1000))
     }
 }
 

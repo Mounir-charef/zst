@@ -6,6 +6,9 @@ function crudFactory(endpoint: string) {
         getAll() {
             return axiosHttpClient.get(`/${endpoint}`).then(res => res.data)
         },
+        getById(id: ID) {
+            return axiosHttpClient.get(`/${endpoint}/${id}`).then(res => res.data)
+        },
         create(data: unknown) {
             return axiosHttpClient.post(`/${endpoint}`, data)
         },
