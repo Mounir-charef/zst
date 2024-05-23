@@ -1,10 +1,10 @@
-import { jwtDecode } from '../../lib/utils';
 import { NextAuthOptions, Session, User, getServerSession } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { cookies, headers } from 'next/headers';
 import { env } from '../../env.mjs';
 import { cache } from 'react';
+import { jwtDecode } from '@mono/util';
 
 async function refreshAccessToken(token: JWT) {
   try {

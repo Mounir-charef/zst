@@ -1,4 +1,4 @@
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from '@mono/util';
 import { NextAuthOptions, User, getServerSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
