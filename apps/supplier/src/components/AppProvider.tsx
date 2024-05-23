@@ -1,11 +1,18 @@
 'use client';
 
-import { createContext, useCallback, useContext, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 export type SidebarStatus = 'open' | 'collapsed';
 
 interface AppContextValue {
   sidebarStatus: SidebarStatus;
+  isOpen: boolean;
   openSidebar: () => void;
   closeSidebar: () => void;
   toggleSidebar: () => void;
@@ -15,13 +22,15 @@ const appContext = createContext<AppContextValue>({} as AppContextValue);
 
 const AppProvider = ({
   children,
-  defaultOpen = 'collapsed',
+  defaultStatus = 'collapsed',
 }: {
   children: React.ReactNode;
-  defaultOpen?: SidebarStatus;
+  defaultStatus?: SidebarStatus;
 }) => {
   const [sidebarStatus, setSidebarStatus] =
-    useState<SidebarStatus>(defaultOpen);
+    useState<SidebarStatus>(defaultStatus);
+
+  const isOpen = useMemo(() => sidebarStatus === 'open', [sidebarStatus]);
 
   const openSidebar = useCallback(() => {
     setSidebarStatus('open');
@@ -42,6 +51,7 @@ const AppProvider = ({
         openSidebar,
         closeSidebar,
         toggleSidebar,
+        isOpen,
       }}
     >
       {children}

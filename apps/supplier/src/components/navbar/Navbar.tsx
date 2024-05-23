@@ -1,13 +1,25 @@
+'use client';
+
 import { buttonVariants } from '@mono/ui';
-import { ShoppingBagIcon } from 'lucide-react';
+import { cn } from '@mono/util';
+import Image from 'next/image';
 import { memo } from 'react';
 import { Link } from '../../navigation';
+import { useAppContext } from '../AppProvider';
 import ThemeToggler from './ThemeToggler';
 
 const NavBar = () => {
+  const { isOpen } = useAppContext();
   return (
-    <div className="bg-background text-foreground border-border fixed top-0 z-50 w-full border-b">
-      <div className="mx-auto hidden h-20 w-full max-w-[1700px] items-center justify-between gap-x-6 p-4 sm:flex">
+    <div
+      className={cn(
+        'bg-background sticky top-0 z-50 border-b transition-[margin] md:ms-14',
+        {
+          'md:ms-64': isOpen,
+        },
+      )}
+    >
+      <div className="mx-auto flex h-14 w-full max-w-[1700px] items-center justify-between gap-x-6 p-2 md:p-4">
         <nav className="flex items-center gap-6">
           <Link
             href="/"
@@ -16,7 +28,24 @@ const NavBar = () => {
               variant: 'ghost',
             })}
           >
-            <ShoppingBagIcon className="h-8 w-8" />
+            <Image
+              src="/Brand.png"
+              width={80}
+              height={80}
+              alt="Brand"
+              priority
+              quality={100}
+              className="hidden dark:block"
+            />
+            <Image
+              src="/Brand.png"
+              width={80}
+              height={80}
+              alt="Brand"
+              priority
+              quality={100}
+              className="dark:hidden"
+            />
           </Link>
         </nav>
 
