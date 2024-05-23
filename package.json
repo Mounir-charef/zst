@@ -91,6 +91,7 @@
     "next": "14.0.4",
     "next-auth": "^4.24.7",
     "next-intl": "^3.12.0",
+    "next-nprogress-bar": "^2.3.12",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.12",
     "quill-color-picker-enhance": "^1.1.5",
