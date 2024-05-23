@@ -1,0 +1,62 @@
+{
+  "auth": {
+    "sign-in": {
+      "title": "Sign In",
+      "email": "Email",
+      "password": "Password",
+      "remember-me": "Remember me",
+      "forgot-password": "Forgot Password?",
+      "dont-have-account": "Don't have an account?",
+      "sign-up": "Sign Up",
+      "sign-in": "Sign In",
+      "errors": {
+        "email": {
+          "required_error": "Email is required",
+          "invalid_type_error": "Invalid email"
+        },
+        "password": {
+          "required_error": "Password is required",
+          "min_length": "minimum 6 characters"
+        }
+      }
+    },
+    "sign-up": {
+      "title": "Sign Up",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "password": "Password",
+      "confirm-password": "Confirm Password",
+      "sign-up": "Sign Up",
+      "already-have-account": "Already have an account?",
+      "sign-in": "Sign In",
+      "acceptTerms": "I have read and accept the <link>terms and conditions</link>.",
+      "errors": {
+        "name": {
+          "required_error": "Name is required",
+          "invalid_type_error": "Invalid name",
+          "min_length": "minimum 2 characters",
+          "max_length": "max 100 characters"
+        },
+        "phone": {
+          "required_error": "Phone number is required",
+          "invalid_type_error": "Invalid phone number",
+          "min_length": "minimum 6 characters"
+        },
+        "email": {
+          "required_error": "Email is required",
+          "invalid_type_error": "Invalid email"
+        },
+        "password": {
+          "required_error": "Password is required",
+          "min_length": "minimum 6 characters"
+        },
+        "acceptTerms": {
+          "required_error": "You must accept the terms and conditions"
+        }
+      }
+    }
+  },
+  "hello-world": "Hello World"
+}
