@@ -24,7 +24,7 @@ const OfferCard = ({
     <div
       {...props}
       className={cn(
-        'bg-muted flex w-full flex-col gap-4 rounded-md p-2 text-sm ',
+        'bg-muted flex w-full flex-col gap-1 rounded-md p-2 text-sm ',
         props.className,
       )}
     >
