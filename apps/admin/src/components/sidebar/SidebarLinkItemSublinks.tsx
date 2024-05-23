@@ -6,7 +6,6 @@ import { useAppContext } from '../../contexts/appContext';
 import { Collapse } from '@mono/ui';
 import { cn, useDisclosure } from '@mono/util';
 import { Link, usePathname } from '../../navigation';
-import { ID } from '../../types/common';
 
 const SublinksCollapse = ({
   isOpen,

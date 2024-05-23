@@ -6,7 +6,7 @@ import { usePathname } from "../navigation";
 import useDebouncedValue from "./useDebouncedValue";
 import cleanObject from "../utils/cleanObject";
 
-const debouncedDelay = 400
+const debouncedDelay = 300
 
 export interface TypedSearch {
     [prop: string]: string
@@ -25,18 +25,29 @@ export default function useSearch() {
     )
     const searchValues = useDebouncedValue({value: search, delay: delay.current}) as TypedSearch
 
-    const handleSearch = (name: string, value: string, isDebounced: boolean = true,) => {
+    const handleSearch = (name: string, value: string, isDebounced: boolean = true) => {
         if (!isDebounced) {
             delay.current = 0
         } else {
             delay.current = debouncedDelay
         }
         setSearch((current) => {
-            return {
+            const newValues = {
                 ...current,
                 [name]: value
             }
+
+            if (name !== 'skip' && name !== 'limit' && newValues.hasOwnProperty('skip')) {
+                newValues.skip = '0'
+            }
+
+            return newValues
         })
+    }
+
+    const clearSearch = () => {
+        delay.current = 0
+        setSearch({})
     }
 
     useEffect(() => {
@@ -51,6 +62,7 @@ export default function useSearch() {
         searchValues,
         search,
         handleSearch,
+        clearSearch,
     }
     
 }

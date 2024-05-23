@@ -1,6 +1,6 @@
-import { ProductListing } from "../types/product"
+import { TypedProductListing } from "../types/product"
 
-const products: ProductListing[] = [
+const products: TypedProductListing[] = [
     {
         id: 1,
         name: 'Apple',
@@ -10,7 +10,9 @@ const products: ProductListing[] = [
         image: {
             id: 1,
             url: '/images/products/apple.webp'
-        }
+        },
+        createdAt: '',
+        updatedAt: ''
     }
 ]
 

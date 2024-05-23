@@ -1,8 +1,7 @@
-import { ID } from "./common";
+import { BaseDataItem, ID } from "./common";
 import { FileResponse } from "./file";
 
-export interface TypedProductListing {
-    id: ID
+export interface TypedProductListing extends BaseDataItem {
     name: string
     type: string
     price: number
