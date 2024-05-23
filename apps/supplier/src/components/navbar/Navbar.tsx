@@ -7,6 +7,7 @@ import { memo } from 'react';
 import { Link } from '../../navigation';
 import { useAppContext } from '../AppProvider';
 import ThemeToggler from './ThemeToggler';
+import UserNav from './UserNav';
 
 const NavBar = () => {
   const { isOpen } = useAppContext();
@@ -31,26 +32,27 @@ const NavBar = () => {
             <Image
               src="/Brand.png"
               width={80}
-              height={80}
+              height={40}
               alt="Brand"
               priority
               quality={100}
-              className="hidden dark:block"
+              className="hidden h-10 w-20 dark:block"
             />
             <Image
-              src="/Brand.png"
+              src="/Brand-light.png"
               width={80}
-              height={80}
+              height={40}
               alt="Brand"
               priority
               quality={100}
-              className="dark:hidden"
+              className="h-10 w-20 dark:hidden"
             />
           </Link>
         </nav>
 
         <div className="flex items-center gap-4">
           <ThemeToggler />
+          <UserNav />
         </div>
       </div>
     </div>
