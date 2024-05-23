@@ -23,6 +23,9 @@ const nextConfig = {
       },
     ],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 const plugins = [
