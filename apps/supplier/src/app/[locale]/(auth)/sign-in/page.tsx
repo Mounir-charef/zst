@@ -5,8 +5,8 @@ import SignInForm from '../_components/SignInForm';
 
 const page = () => {
   return (
-    <div className="bg-background text-foreground dark grid h-full w-full px-2 max-lg:place-items-center lg:grid-cols-2">
-      <div className="flex items-center justify-center py-12">
+    <div className="bg-background text-foreground dark grid h-full w-full max-lg:place-items-center lg:grid-cols-2">
+      <div className="bg-background text-foreground flex items-center justify-center px-2 py-12">
         <div className="mx-auto grid gap-6">
           <div className="grid gap-6 text-center">
             <h1 className="text-3xl font-bold md:text-4xl">Log In</h1>
@@ -23,7 +23,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="bg-muted hidden lg:block">
+      <div className="bg-muted hidden min-h-screen lg:block">
         <Image
           src="/placeholder.svg"
           alt="Image"
