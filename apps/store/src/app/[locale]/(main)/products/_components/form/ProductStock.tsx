@@ -27,7 +27,15 @@ const ProductStock = ({
         <p className="bg-accent flex-grow rounded-md p-4 text-center text-sm">
           Total stock:{' '}
           <span className="font-semibold">
-            {stock.reduce((acc, { quantity }) => acc + Number(quantity), 0)}
+            {stock.reduce((acc, curr) => {
+              if ('values' in curr) {
+                return (
+                  acc +
+                  curr.values.reduce((acc, curr) => acc + curr.quantity, 0)
+                );
+              }
+              return acc + curr.quantity;
+            }, 0)}
           </span>
         </p>
       </CardFooter>

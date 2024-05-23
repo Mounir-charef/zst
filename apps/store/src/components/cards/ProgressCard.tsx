@@ -9,19 +9,19 @@ import {
 } from '@mono/ui';
 import { memo } from 'react';
 
-interface DashboardProgressCardProps {
+interface ProgressCardProps {
   title: string;
   description: string;
   content: string;
   progress: number;
 }
 
-const DashboardProgressCard = ({
+const ProgressCard = ({
   content,
   description,
   progress,
   title,
-}: DashboardProgressCardProps) => {
+}: ProgressCardProps) => {
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -38,4 +38,4 @@ const DashboardProgressCard = ({
   );
 };
 
-export default memo(DashboardProgressCard);
+export default memo(ProgressCard);

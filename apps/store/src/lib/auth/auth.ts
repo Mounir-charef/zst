@@ -1,9 +1,10 @@
-import { jwtDecode } from '../../lib/utils';
 import { NextAuthOptions, Session, User, getServerSession } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { cookies, headers } from 'next/headers';
 import { env } from '../../env.mjs';
+import { cache } from 'react';
+import { jwtDecode } from '@mono/util';
 
 async function refreshAccessToken(token: JWT) {
   try {
@@ -47,6 +48,7 @@ export const authOptions = {
 
   session: {
     strategy: 'jwt',
+    maxAge: 60 * 60 * 24, // one day
   },
 
   providers: [
@@ -62,7 +64,7 @@ export const authOptions = {
           method: 'POST',
           body: JSON.stringify({
             ...credentials,
-            role: 'SUPPLIER',
+            role: 'VENDOR',
           }),
           headers: { 'Content-Type': 'application/json' },
         });
@@ -132,7 +134,7 @@ export const authOptions = {
           accessToken: token.accessToken,
           avatar: token.avatar,
           username: token.username,
-          role: token.role as 'SUPPLIER',
+          role: token.role as 'VENDOR',
         },
         error: token.error as string,
         expires: new Date(token.expires_at).toISOString(),
@@ -142,4 +144,4 @@ export const authOptions = {
   },
 } satisfies NextAuthOptions;
 
-export const getAuthSession = () => getServerSession(authOptions);
+export const getAuthSession = cache(() => getServerSession(authOptions));

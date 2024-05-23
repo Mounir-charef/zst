@@ -15,9 +15,10 @@ import {
 } from '@mono/ui';
 import { Loader2Icon, LogOutIcon } from 'lucide-react';
 import { memo, useTransition } from 'react';
+import { userMenuLinks } from '../../config';
 import useSession from '../../hooks/useSession';
-import { nameToSlug } from '../../lib/utils';
 import { logout } from '../../lib/auth/logout';
+import { nameToSlug } from '../../lib/utils';
 import { Link } from '../../navigation';
 
 const UserNav = () => {
@@ -48,16 +49,13 @@ const UserNav = () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
-            <Link href="/" className="w-full cursor-pointer">
-              Dashboard
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href="/#" className="w-full cursor-pointer">
-              Settings
-            </Link>
-          </DropdownMenuItem>
+          {userMenuLinks.map((item) => (
+            <DropdownMenuItem key={item.label} asChild>
+              <Link href={item.href} className="w-full cursor-pointer">
+                {item.label}
+              </Link>
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem

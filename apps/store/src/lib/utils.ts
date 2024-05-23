@@ -15,6 +15,9 @@ export function convertObjectToStringRecord(object: object) {
   return stringParams;
 }
 
-export function jwtDecode(token: string) {
-  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+export function priceFormatter(price: number) {
+  return price.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
 }

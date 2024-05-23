@@ -4,16 +4,12 @@ import {
   Button,
   CardContent,
   Form,
-  Label,
-  Select,
-  SelectContent,
+  MultiSelectField,
   SelectField,
-  SelectItem,
-  SelectTrigger,
   badgeVariants,
 } from '@mono/ui';
 import { X } from 'lucide-react';
-import { memo, useCallback, useId, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import {
   SubmitHandler,
   useFieldArray,
@@ -22,15 +18,13 @@ import {
 } from 'react-hook-form';
 import { z } from 'zod';
 import { IProductDetails } from '../../types';
-import { VARIANT_NAMES, VARIANT_NAMES_OPTIONS } from './ProductVariants';
+import { VARIANT_NAMES, VARIANT_VALUES_BY_NAME } from './ProductVariants';
 
 const AddVarientForm = ({ close }: { close: () => void }) => {
-  const selectId = useId();
-
   const VariantSchema = useMemo(
     () =>
       z.object({
-        name: z.string().min(3),
+        name: z.enum(VARIANT_NAMES),
         values: z.array(z.string().min(1, 'Required').max(255)).min(1),
       }),
     [],
@@ -38,10 +32,14 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
 
   type FormValues = z.infer<typeof VariantSchema>;
 
+  const { watch } = useFormContext<IProductDetails>();
+
+  const selectedVariants = watch('variants');
+
   const form = useForm<FormValues>({
     resolver: zodResolver(VariantSchema),
     defaultValues: {
-      name: '',
+      name: VARIANT_NAMES[selectedVariants.length],
       values: [],
     },
   });
@@ -51,15 +49,11 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
     name: 'variants',
   });
 
-  const values = form.watch('values');
-
-  const { watch } = useFormContext<IProductDetails>();
-
-  const selectedVariants = watch('variants');
+  const { values, name } = form.watch();
 
   const selectableValues = useMemo(
-    () => VARIANT_NAMES_OPTIONS.filter((option) => !values.includes(option)),
-    [values],
+    () => (name ? VARIANT_VALUES_BY_NAME[name] : []),
+    [values, name],
   );
 
   const selectableVariants = useMemo(
@@ -68,13 +62,6 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
         (name) => !selectedVariants.some((variant) => variant.name === name),
       ),
     [selectedVariants],
-  );
-
-  const addValue = useCallback(
-    (newValue: string) => {
-      form.setValue('values', [...values, newValue]);
-    },
-    [form, values],
   );
 
   const removeValue = useCallback(
@@ -106,6 +93,10 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
     close();
   };
 
+  useEffect(() => {
+    form.setValue('values', []);
+  }, [name]);
+
   return (
     <Form {...form}>
       <CardContent className="grid gap-4 pt-6">
@@ -120,25 +111,16 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
         />
 
         {/* TODO: make this a component (select multiple) */}
-
-        <div className="space-y-2">
-          <Label htmlFor="selectId">Option Values</Label>
-          <Select onValueChange={addValue} disabled={!selectableValues.length}>
-            <SelectTrigger id={selectId}>Add Value</SelectTrigger>
-            <SelectContent>
-              {selectableValues.map((value) => (
-                <SelectItem key={value} value={value}>
-                  {value}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {form.formState.errors.values && (
-            <p className="text-destructive text-sm font-medium">
-              {form.formState.errors.values.message}
-            </p>
-          )}
-        </div>
+        <MultiSelectField
+          control={form.control}
+          options={selectableValues.map((value) => ({
+            label: value,
+            value: value,
+          }))}
+          label="Option Values"
+          name="values"
+          placeholder="Select option values"
+        />
 
         <div className="flex flex-wrap gap-4">
           {values.map((option) => (

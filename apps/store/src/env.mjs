@@ -1,6 +1,5 @@
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
-
 export const env = createEnv({
   /**
    * Specify your server-side environment variables schema here. This way you can ensure the app
@@ -11,7 +10,7 @@ export const env = createEnv({
       .enum(['development', 'test', 'production'])
       .default('development'),
     NEXTAUTH_SECRET: z.string().default('secret'),
-    NEXTAUTH_URL: z.string().default('http://localhost:3002'),
+    NEXTAUTH_URL: z.string().optional(),
   },
 
   /**
@@ -33,7 +32,10 @@ export const env = createEnv({
     NEXT_PUBLIC_BACKEND_API: process.env.NEXT_PUBLIC_BACKEND_API,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    NEXT_PUBLIC_BASE_URL:
+      process.env.NODE_ENV === 'development'
+        ? process.env.NEXT_PUBLIC_BASE_URL
+        : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
   },
 
   /**

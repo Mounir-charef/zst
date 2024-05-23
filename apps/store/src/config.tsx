@@ -1,5 +1,11 @@
 import { DashboardIcon } from '@radix-ui/react-icons';
-import { Package, Package2, PieChart, SettingsIcon } from 'lucide-react';
+import {
+  BoxIcon,
+  Package,
+  Package2,
+  PieChart,
+  SettingsIcon,
+} from 'lucide-react';
 import { NavigationItem } from './components/navbar/NavMenu';
 
 export const NavItems: NavigationItem[] = [
@@ -10,44 +16,39 @@ export const NavItems: NavigationItem[] = [
     icon: <DashboardIcon className="h-4 w-4" />,
   },
   {
+    type: 'menu',
+    title: 'Market',
+    icon: <BoxIcon className="h-4 w-4" />,
+    children: [
+      {
+        title: 'Marketplace',
+        href: '/market',
+        description: 'Discover our latest offers and get best deals',
+      },
+      {
+        title: 'Auctions',
+        href: '#',
+        description: 'View all auctions',
+      },
+    ],
+  },
+  {
     type: 'link',
     title: 'Products',
     icon: <Package className="h-4 w-4" />,
     href: '/products',
   },
   {
-    type: 'menu',
+    type: 'link',
     title: 'Auctions',
     icon: <PieChart className="h-4 w-4" />,
-    children: [
-      {
-        title: 'All Auctions',
-        href: '#',
-        description: 'View all auctions',
-      },
-      {
-        title: 'Add Auction',
-        href: '#',
-        description: 'Add a new auction',
-      },
-    ],
+    href: '#',
   },
   {
-    type: 'menu',
+    type: 'link',
     title: 'Orders',
     icon: <Package2 className="h-4 w-4" />,
-    children: [
-      {
-        title: 'All Orders',
-        href: '#',
-        description: 'View all orders',
-      },
-      {
-        title: 'Add Order',
-        href: '#',
-        description: 'Add a new order',
-      },
-    ],
+    href: '/orders',
   },
   {
     type: 'link',
@@ -56,3 +57,18 @@ export const NavItems: NavigationItem[] = [
     icon: <SettingsIcon className="h-4 w-4" />,
   },
 ];
+
+export const userMenuLinks = [
+  {
+    label: 'Dashboard',
+    href: '/',
+    icon: <DashboardIcon className="h-4 w-4" />,
+    desktopOnly: true,
+  },
+  {
+    label: 'Settings',
+    href: '#',
+    icon: <SettingsIcon className="h-4 w-4" />,
+    desktopOnly: false,
+  },
+] as const;

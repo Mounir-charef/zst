@@ -22,10 +22,10 @@ const DEFAULTS: IProductDetails = {
   },
   variants: [],
   status: '',
-  stock: [],
   mainImage: '',
   productImages: [],
   category: '',
+  stock: []
 };
 
 interface ProductDetailsFormProps {
@@ -51,17 +51,48 @@ const ProductDetailsForm = ({ defaultValues }: ProductDetailsFormProps) => {
         category: z.string().min(1, 'Required'),
         subcategory: z.string().optional(),
         stock: z.array(
-          z.object({
-            variantValues: z.array(
-              z.object({
-                name: z.string(),
-                value: z.string(),
+          z
+            .object({
+              mainVariant: z.object({
+                name: z.string().min(3).max(255),
+                value: z.string().min(1, 'Required'),
               }),
+              image: z.string().min(1, 'required').url(),
+              variations: z.array(
+                z.object({
+                  variants: z.array(
+                    z.object({
+                      name: z.string().min(3).max(255),
+                      value: z.string().min(1, 'Required'),
+                    }),
+                  ),
+                  image: z.string().min(1, 'required').url(),
+                  price: z.coerce
+                    .number()
+                    .min(0, { message: 'Price must be greater than 0' }),
+                  quantity: z.coerce
+                    .number()
+                    .min(0, { message: 'Quantity must be greater than 0' }),
+                }),
+              ),
+            })
+            .or(
+              z.array(
+                z.object({
+                  mainVariant: z.object({
+                    name: z.string().min(3).max(255),
+                    value: z.string().min(1, 'Required'),
+                  }),
+                  image: z.string().min(1, 'required').url(),
+                  price: z.coerce
+                    .number()
+                    .min(0, { message: 'Price must be greater than 0' }),
+                  quantity: z.coerce
+                    .number()
+                    .min(0, { message: 'Quantity must be greater than 0' }),
+                }),
+              ),
             ),
-            price: z.coerce.number().min(0, 'required'),
-            quantity: z.coerce.number().min(0, 'required'),
-            image: z.string().optional(),
-          }),
         ),
         productImages: z.array(
           z.object({

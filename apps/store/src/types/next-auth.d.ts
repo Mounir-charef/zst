@@ -9,7 +9,7 @@ declare module 'next-auth' {
     username: string;
     email: string;
     avatar: string;
-    role: 'SUPPLIER';
+    role: 'VENDOR';
     accessToken: string;
     refreshToken: string;
   }
@@ -20,7 +20,7 @@ declare module 'next-auth' {
     email: string;
     avatar: string;
     accessToken: string;
-    role: 'SUPPLIER';
+    role: 'VENDOR';
   }
 
   interface Session {

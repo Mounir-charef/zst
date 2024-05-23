@@ -2,7 +2,7 @@
 
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@mono/ui';
 import { BellIcon } from '@radix-ui/react-icons';
-import { CheckCheckIcon, CheckIcon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { memo } from 'react';
 
 const Notification = () => {
@@ -17,7 +17,7 @@ const Notification = () => {
           <BellIcon />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent>
         <div className="grid gap-4">
           {[...Array(5)].map((_, index) => (
             <div key={index} className="flex items-center justify-between">

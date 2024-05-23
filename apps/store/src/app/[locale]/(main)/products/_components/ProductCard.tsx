@@ -1,4 +1,4 @@
-import { buttonVariants } from '@mono/ui';
+import { Badge, buttonVariants } from '@mono/ui';
 import { cn } from '@mono/util';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -44,7 +44,7 @@ const ProductCard = ({
         />
       </Link>
 
-      <span className="ms-auto font-semibold">{variations} variations</span>
+      <Badge className="w-fit">{variations} variations</Badge>
       <div>{description}</div>
 
       <span className="text-lg font-semibold">

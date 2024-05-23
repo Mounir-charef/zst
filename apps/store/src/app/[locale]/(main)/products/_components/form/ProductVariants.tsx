@@ -22,9 +22,13 @@ import VariantEditCard from './VarientEditCard';
 import AddVarientForm from './AddVarientForm';
 import { IProductDetails, Variant } from '../../types';
 
-export const VARIANT_NAMES_OPTIONS = ['XL', 'L', 'S'];
+export const VARIANT_NAMES = ['size', 'color', 'material'] as const;
 
-export const VARIANT_NAMES = ['size', 'color', 'material'];
+export const VARIANT_VALUES_BY_NAME = {
+  size: ['S', 'M', 'L', 'XL', 'XXL'],
+  color: ['Red', 'Blue', 'Green', 'Yellow', 'Black'],
+  material: ['Cotton', 'Polyester', 'Silk', 'Wool'],
+} as const;
 
 const Productvariants = () => {
   const { control, watch } = useFormContext<IProductDetails>();
@@ -37,7 +41,7 @@ const Productvariants = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>variants</CardTitle>
+        <CardTitle>Variants</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-6">
         {fields.length > 0 && (
@@ -105,7 +109,7 @@ const VariantCard = ({
       {!editing ? (
         <>
           <CardHeader className="flex-row items-center justify-between pb-3">
-            <CardTitle className="text-lg">{variant.name}</CardTitle>
+            <CardTitle className="text-lg capitalize">{variant.name}</CardTitle>
             <Button
               variant="secondary"
               size="sm"

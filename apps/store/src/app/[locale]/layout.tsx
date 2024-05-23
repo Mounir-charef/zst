@@ -60,14 +60,14 @@ export default async function RootLayout({
           poppins.className,
         )}
       >
-        <Providers>
+        <SessionProvider session={session} refetchInterval={60 * 60 * 24}>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
-            <SessionProvider session={session}>
+            <Providers>
               {children}
               <Toaster richColors closeButton position="top-right" />
-            </SessionProvider>
+            </Providers>
           </NextIntlClientProvider>
-        </Providers>
+        </SessionProvider>
       </body>
     </html>
   );

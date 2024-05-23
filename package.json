@@ -92,6 +92,7 @@
     "next": "14.0.4",
     "next-auth": "^4.24.7",
     "next-intl": "^3.12.0",
+    "next-nprogress-bar": "^2.3.12",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.12",
     "quill-color-picker-enhance": "^1.1.5",
@@ -106,12 +107,11 @@
     "react-quill": "^2.0.0",
     "react-quill-emoji": "^0.1.9",
     "react-select": "^5.8.0",
-    "sharp": "^0.33.4",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "tslib": "^2.3.0",
-    "usehooks-ts": "^3.0.1",
+    "usehooks-ts": "^3.1.0",
     "vaul": "^0.9.0",
     "zod": "^3.23.8"
   }
