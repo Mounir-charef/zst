@@ -16,6 +16,7 @@ const NavBar = () => {
   const { isOpen } = useAppContext();
   return (
     <div
+      suppressHydrationWarning
       className={cn(
         'bg-background sticky top-0 z-50 border-b transition-[margin] md:ms-14',
         {
@@ -33,7 +34,7 @@ const NavBar = () => {
             })}
           >
             <Image
-              src="/Brand.png"
+              src="/Brand-dark.png"
               width={80}
               height={40}
               alt="Brand"
@@ -42,7 +43,7 @@ const NavBar = () => {
               className="hidden h-10 w-20 dark:block"
             />
             <Image
-              src="/Brand-light.png"
+              src="/Brand.png"
               width={80}
               height={40}
               alt="Brand"

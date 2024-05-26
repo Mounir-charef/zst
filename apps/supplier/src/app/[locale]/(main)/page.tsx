@@ -1,5 +1,11 @@
-import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '@mono/ui';
-import DateRangePicker from '@mono/ui/lib/components/DateRangePicker';
+import {
+  Button,
+  DateRangePicker,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@mono/ui';
 import { Activity, CreditCard, DollarSignIcon, Users } from 'lucide-react';
 import InfoCard from '../../../components/cards/InfoCard';
 import { Overview } from './_component/Overview';
