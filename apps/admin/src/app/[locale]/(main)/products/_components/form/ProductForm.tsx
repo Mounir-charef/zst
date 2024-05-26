@@ -12,6 +12,9 @@ import BoundedSectionWrapper from '../../../../../../components/common/BoundedSe
 import PageTitle from '../../../../../../components/common/PageTitle';
 import { CREATE_VARIANT } from '../../../../../../constants';
 import useFormActions from '../../../../../../hooks/useFormActions';
+import ProductFormStatus from './ProductFormStatus';
+import ProductFormImages from './ProductFormImages';
+import ProductFormCategory from './ProductFormCategory';
 
 const ProductForm = ({
   variant,
@@ -44,7 +47,10 @@ const ProductForm = ({
         <PageTitle>{pageTitle}</PageTitle>
       </BoundedSectionWrapper>
       <Form {...form}>
+        <ProductFormStatus control={control} />
         <ProductFormInfo control={control} />
+        <ProductFormCategory control={control} />
+        <ProductFormImages control={control} />
         <ProductFormVariation control={control} watch={watch} />
         <FormFooter>
           <Link href={routesConfig.products}>

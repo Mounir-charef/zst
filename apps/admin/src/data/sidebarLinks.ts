@@ -7,6 +7,7 @@ import { HiOutlineUsers } from "react-icons/hi2";
 import { FaWpforms, FaTable } from "react-icons/fa";
 import { CiViewTable } from "react-icons/ci";
 import { SiDialogflow } from "react-icons/si";
+import { BiCategory } from "react-icons/bi";
 
 
 export interface SidebarLink {
@@ -60,6 +61,24 @@ const sidebarLinks: SidebarLinks = {
                 ],
             },
             {
+                id: 27,
+                title: 'Categories',
+                Icon: BiCategory,
+                href: '#',
+                children: [
+                    {
+                        id: 28,
+                        title: 'All Categories',
+                        href: routesConfig.categories
+                    },
+                    {
+                        id: 29,
+                        title: 'Add New Category',
+                        href: routesConfig.addNewCategory
+                    },
+                ]
+            },
+            {
                 id: 5,
                 title: 'Attributes',
                 Icon: PiShootingStarDuotone,
@@ -76,7 +95,7 @@ const sidebarLinks: SidebarLinks = {
                         href: routesConfig.addNewAttribute
                     },
                 ]
-            }
+            },
         ]
     },
 

@@ -5,6 +5,7 @@ import generateVariations from '../../../../../../utils/generateVariations';
 import attributes from '../../../../../../data/attributes';
 import FormFieldsWrapper from '../../../../../../components/ui/form/FormFieldsWrapper';
 import { InputField } from '@mono/ui';
+import FileUploaderField from '../../../../../../components/ui/form/fileUploader/FileUploaderField';
 
 const ProductFormVariationGenerated = ({
   control,
@@ -47,6 +48,12 @@ const ProductFormVariationGenerated = ({
                 control={control}
                 label="Quantity"
                 name={``}
+              />
+              <FileUploaderField
+                control={control}
+                name="gallery"
+                label="Gallery"
+                multiple
               />
             </FormFieldsWrapper>
           </div>
