@@ -12,8 +12,8 @@ import { cn } from '@mono/util';
 import { ChevronRight, DotIcon } from 'lucide-react';
 import { memo, useMemo, useState } from 'react';
 import { Link, usePathname } from '../../navigation';
-import { useAppContext } from '../AppProvider';
 import { NavigationMenu } from '../../types/navigation';
+import { useAppContext } from '../AppProvider';
 
 type SidebarMenuProps = Omit<NavigationMenu, 'type'>;
 
@@ -27,7 +27,7 @@ const OpenedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
   return (
     <div className="flex flex-col gap-2 text-sm">
       <Button
-        variant="ghost"
+        variant={isSelected ? 'reverse' : 'ghost'}
         onClick={() => setIsOpen(!isOpen)}
         className="justify-between"
       >
@@ -68,22 +68,18 @@ const OpenedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
 
 const ClosedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
   const pathname = usePathname();
-
-  const { isOpen } = useAppContext();
+  const isSelected = useMemo(
+    () => children.some((child) => child.href === pathname),
+    [children, pathname],
+  );
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
           key={title}
-          size={isOpen ? 'default' : 'icon'}
-          variant="ghost"
-          className={cn(
-            buttonVariants({
-              variant: 'ghost',
-              size: isOpen ? 'default' : 'icon',
-            }),
-            'justify-center gap-2 transition-all',
-          )}
+          size="icon"
+          variant={isSelected ? 'reverse' : 'ghost'}
+          className="justify-center gap-2 transition-all"
         >
           {icon}
           <span className="sr-only">{title}</span>

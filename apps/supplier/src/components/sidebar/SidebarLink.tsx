@@ -25,12 +25,9 @@ const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
         href={href}
         className={cn(
           buttonVariants({
-            variant: 'ghost',
+            variant: pathname === href ? 'reverse' : 'ghost',
           }),
           'justify-start',
-          {
-            'bg-muted': pathname === href,
-          },
         )}
       >
         <div className="flex items-center gap-2">
@@ -48,13 +45,10 @@ const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
           href={href}
           className={cn(
             buttonVariants({
-              variant: 'ghost',
+              variant: pathname === href ? 'reverse' : 'ghost',
               size: 'icon',
             }),
             'justify-center',
-            {
-              'bg-muted': pathname === href,
-            },
           )}
         >
           <div className="flex items-center gap-2">
