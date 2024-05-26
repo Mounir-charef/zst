@@ -7,18 +7,32 @@ import { cn } from '@mono/util';
 import { Button } from '../ui/button';
 import { Calendar } from '../ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
+
+interface DateRangePickerProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultDate?: DateRange;
+  onDateChange?: (date: DateRange | undefined) => void;
+}
 
 const DateRangePicker = ({
+  defaultDate,
   className,
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
-  });
+  onDateChange,
+  ...props
+}: DateRangePickerProps) => {
+  const [date, setDate] = useState<DateRange | undefined>(
+    defaultDate || {
+      from: new Date(2022, 0, 20),
+      to: addDays(new Date(2022, 0, 20), 20),
+    },
+  );
+
+  useEffect(() => {
+    onDateChange?.(date);
+  }, [date, onDateChange]);
 
   return (
-    <div className={cn('grid gap-2', className)}>
+    <div className={cn('grid gap-2', className)} {...props}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
