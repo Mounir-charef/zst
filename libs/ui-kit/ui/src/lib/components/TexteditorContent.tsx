@@ -5,8 +5,8 @@ import { SnowTheme } from 'quill-color-picker-enhance';
 import { useMemo, useRef } from 'react';
 import ReactQuill, { ReactQuillProps } from 'react-quill';
 // @ts-ignore
-import quillEmoji from 'react-quill-emoji';
-import 'react-quill-emoji/dist/quill-emoji.css';
+// import quillEmoji from 'react-quill-emoji';
+// import 'react-quill-emoji/dist/quill-emoji.css';
 import { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -23,10 +23,10 @@ const TexteditorContent = ({
 
   Quill.register(
     {
-      'formats/emoji': quillEmoji.EmojiBlot,
-      'modules/emoji-toolbar': quillEmoji.ToolbarEmoji,
-      'modules/emoji-textarea': quillEmoji.TextAreaEmoji,
-      'modules/emoji-shortname': quillEmoji.ShortNameEmoji,
+      // 'formats/emoji': quillEmoji.EmojiBlot,
+      // 'modules/emoji-toolbar': quillEmoji.ToolbarEmoji,
+      // 'modules/emoji-textarea': quillEmoji.TextAreaEmoji,
+      // 'modules/emoji-shortname': quillEmoji.ShortNameEmoji,
       //   Font,
       'themes/snow-quill-color-picker-enhance': SnowTheme,
     },
@@ -101,7 +101,7 @@ const TexteditorContent = ({
           [{ align: [] }],
           ['code-block'],
           ['link', 'image', 'video'],
-          ['emoji'],
+          // ['emoji'],
           [{ script: 'sub' }, { script: 'super' }],
           ['clean'],
         ],
@@ -109,9 +109,9 @@ const TexteditorContent = ({
           image: ImageHandler,
         },
       },
-      'emoji-toolbar': true,
-      'emoji-textarea': true,
-      'emoji-shortname': true,
+      // 'emoji-toolbar': true,
+      // 'emoji-textarea': true,
+      // 'emoji-shortname': true,
     }),
     [],
   );
