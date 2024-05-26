@@ -10,8 +10,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
-import { Switch } from '../ui/switch';
+} from '../../ui/form';
+import { Switch } from '../../ui/switch';
 
 export const SwitchField = <
   TFieldValues extends FieldValues = FieldValues,

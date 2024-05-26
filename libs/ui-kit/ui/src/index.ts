@@ -29,3 +29,4 @@ export * from './lib/ui/tabs';
 export * from './lib/ui/pagination';
 export * from './lib/ui/radio-group';
 export * from './lib/ui/scroll-area';
+export * from './lib/ui/calendar';

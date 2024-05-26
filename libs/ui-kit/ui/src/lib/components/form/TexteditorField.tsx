@@ -7,8 +7,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
-import { Texteditor } from './Texteditor';
+} from '../../ui/form';
+import { Texteditor } from '../Texteditor';
 
 type TexteditorFieldProps = FormFieldProps<unknown>;
 

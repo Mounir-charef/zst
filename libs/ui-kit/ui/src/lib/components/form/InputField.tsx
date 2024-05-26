@@ -1,5 +1,4 @@
-'use client';
-
+import { InputHTMLAttributes } from 'react';
 import { LabelProps } from '@radix-ui/react-label';
 
 import { LucideIcon } from 'lucide-react';
@@ -11,13 +10,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
-import { PhoneInput, type PhoneInputProps } from '../ui/phone-input';
+} from '../../ui/form';
+import { Input, InputProps } from '../../ui/input';
+import { cn } from '@mono/util';
 
-export const PhoneInputField = <
+export const InputField = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
+  InputProps,
   label,
   className,
   showErrors = true,
@@ -27,7 +28,6 @@ export const PhoneInputField = <
   descriptionProps,
   labelProps,
   required,
-  PhoneInputProps,
   ...props
 }: {
   control: Control<TFieldValues>;
@@ -40,24 +40,37 @@ export const PhoneInputField = <
   description?: string;
   descriptionProps?: React.HTMLAttributes<HTMLParagraphElement>;
   className?: string;
+  type?: InputHTMLAttributes<HTMLInputElement>['type'];
   Icon?: LucideIcon;
+  InputProps?: Omit<InputProps, 'name' | 'type' | 'placeholder' | 'required'>;
   labelProps?: LabelProps;
-  PhoneInputProps?: PhoneInputProps;
 }) => {
+  const { className: inputClassName, ...restInputProps } = InputProps || {};
   return (
     <FormField
       {...props}
-      render={({ field }) => {
+      render={({ field, fieldState }) => {
         return (
           <FormItem className={className}>
             {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
             <div className="relative flex w-full items-center">
               <FormControl>
-                <PhoneInput
+                <Input
                   {...field}
+                  type={props?.type ?? 'text'}
+                  {...restInputProps}
                   placeholder={placeholder}
+                  className={cn(
+                    {
+                      'focus-visible:ring-destructive': fieldState.error,
+                    },
+                    inputClassName,
+                  )}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    restInputProps?.onChange?.(e);
+                  }}
                   required={required}
-                  {...PhoneInputProps}
                 />
               </FormControl>
 

@@ -4,14 +4,14 @@ import { CheckIcon, ChevronDown } from 'lucide-react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 
 import { cn } from '@mono/util';
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandItem,
   CommandList,
-} from '../ui/command';
+} from '../../ui/command';
 import {
   FormControl,
   FormDescription,
@@ -19,8 +19,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+} from '../../ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
 
 export const MultiSelectField = <
   TFieldValues extends FieldValues = FieldValues,

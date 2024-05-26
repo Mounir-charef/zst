@@ -1,11 +1,16 @@
-
 'use client';
 
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '../../ui/form';
 import { cn } from '@mono/util';
-import { Checkbox } from '../ui/checkbox';
+import { Checkbox } from '../../ui/checkbox';
 
 export const CheckBoxField = <
   TFieldValues extends FieldValues = FieldValues,

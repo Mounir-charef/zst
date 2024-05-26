@@ -5,12 +5,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
+} from '../../ui/form';
 
 import { Eye, EyeOff, LucideIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
-import { Input, InputProps } from '../ui/input';
+import { Input, InputProps } from '../../ui/input';
 import { cn } from '@mono/util';
 
 export const PasswordField = <

@@ -8,9 +8,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
+} from '../../ui/form';
 import { cn } from '@mono/util';
-import { Textarea, TextareaProps } from '../ui/textarea';
+import { Textarea, TextareaProps } from '../../ui/textarea';
 
 export const TextAreaField = <
   TFieldValues extends FieldValues = FieldValues,
