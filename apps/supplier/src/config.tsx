@@ -68,7 +68,7 @@ export const NavItems = [
   {
     type: 'link',
     title: 'Settings',
-    href: '#',
+    href: '/settings',
     icon: <SettingsIcon className="size-4" />,
   },
 ] satisfies NavigationItem[];

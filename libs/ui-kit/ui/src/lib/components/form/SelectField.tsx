@@ -48,7 +48,7 @@ export const SelectField = <
   name: TName;
   placeholder?: string;
   label?: string | JSX.Element;
-  description?: string;
+  description?: string | React.ReactNode;
   descriptionProps?: React.HTMLAttributes<HTMLParagraphElement>;
   className?: string;
   onChange?: (value: string) => void;

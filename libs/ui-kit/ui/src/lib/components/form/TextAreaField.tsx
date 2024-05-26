@@ -31,7 +31,7 @@ export const TextAreaField = <
   name: TName;
   label?: string;
   labelProps?: React.HTMLAttributes<HTMLLabelElement>;
-  description?: string;
+  description?: string | React.ReactNode;
   descriptionProps?: React.HTMLAttributes<HTMLParagraphElement>;
   className?: string;
   placeholder?: string;
