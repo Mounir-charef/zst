@@ -16,7 +16,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
       <main
         className={cn(
-          'max-w-6xl flex-1 p-2 transition-[margin] will-change-auto md:ms-14 md:p-8',
+          'flex-1 p-2 transition-[margin] will-change-auto md:ms-14 md:p-8',
           {
             'md:ms-64': isOpen,
           },
