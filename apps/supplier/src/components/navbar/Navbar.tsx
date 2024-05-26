@@ -38,7 +38,6 @@ const NavBar = () => {
               width={80}
               height={40}
               alt="Brand"
-              priority
               quality={100}
               className="hidden h-10 w-20 dark:block"
             />
@@ -47,7 +46,6 @@ const NavBar = () => {
               width={80}
               height={40}
               alt="Brand"
-              priority
               quality={100}
               className="h-10 w-20 dark:hidden"
             />
