@@ -6,13 +6,7 @@ import {
   PieChart,
   SettingsIcon,
 } from 'lucide-react';
-import { SidebarLinkProps } from './components/sidebar/SidebarLink';
-import { SidebarMenuProps } from './components/sidebar/SidebarMenu';
-
-type SidebarLink = SidebarLinkProps & { type: 'link' };
-type SidebarMenu = SidebarMenuProps & { type: 'menu' };
-
-type SidebarItem = SidebarLink | SidebarMenu;
+import { NavigationItem } from './types/navigation';
 
 export const userMenuLinks = [
   {
@@ -77,4 +71,4 @@ export const NavItems = [
     href: '#',
     icon: <SettingsIcon className="size-4" />,
   },
-] satisfies SidebarItem[];
+] satisfies NavigationItem[];

@@ -8,6 +8,9 @@ import { Link } from '../../navigation';
 import { useAppContext } from '../AppProvider';
 import UserNav from './UserNav';
 import Notifications from './Notifications';
+import dynamic from 'next/dynamic';
+
+const MobileNavMenu = dynamic(() => import('./MobileNavMenu'));
 
 const NavBar = () => {
   const { isOpen } = useAppContext();
@@ -50,10 +53,12 @@ const NavBar = () => {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="hidden items-center gap-4 lg:flex">
           <Notifications />
           <UserNav />
         </div>
+
+        <MobileNavMenu />
       </div>
     </div>
   );

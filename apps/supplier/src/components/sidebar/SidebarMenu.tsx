@@ -10,22 +10,20 @@ import {
 } from '@mono/ui';
 import { cn } from '@mono/util';
 import { ChevronRight, DotIcon } from 'lucide-react';
-import { memo, useState } from 'react';
-import { Link } from '../../navigation';
+import { memo, useMemo, useState } from 'react';
+import { Link, usePathname } from '../../navigation';
 import { useAppContext } from '../AppProvider';
+import { NavigationMenu } from '../../types/navigation';
 
-export interface SidebarMenuProps {
-  title: string;
-  icon: React.ReactNode;
-  children: {
-    title: string;
-    href: string;
-    description: string;
-  }[];
-}
+type SidebarMenuProps = Omit<NavigationMenu, 'type'>;
 
 const OpenedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const isSelected = useMemo(
+    () => children.some((child) => child.href === pathname),
+    [children, pathname],
+  );
+  const [isOpen, setIsOpen] = useState(isSelected);
   return (
     <div className="flex flex-col gap-2 text-sm">
       <Button
@@ -54,6 +52,9 @@ const OpenedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
                   variant: 'link',
                 }),
                 'text-foreground justify-start gap-2',
+                {
+                  'bg-muted': child.href === pathname,
+                },
               )}
             >
               <DotIcon className="h-4 w-4" /> <span>{child.title}</span>
@@ -66,6 +67,8 @@ const OpenedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
 };
 
 const ClosedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
+  const pathname = usePathname();
+
   const { isOpen } = useAppContext();
   return (
     <Tooltip>
@@ -95,10 +98,15 @@ const ClosedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
               key={child.title}
               href={child.href}
               title={child.description}
-              className={buttonVariants({
-                variant: 'ghost',
-                className: 'mx-1',
-              })}
+              className={cn(
+                buttonVariants({
+                  variant: 'ghost',
+                }),
+                'mx-1',
+                {
+                  'bg-muted': child.href === pathname,
+                },
+              )}
             >
               {child.title}
             </Link>

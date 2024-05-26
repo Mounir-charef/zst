@@ -10,12 +10,9 @@ import { cn } from '@mono/util';
 import { memo } from 'react';
 import { Link, usePathname } from '../../navigation';
 import { useAppContext } from '../AppProvider';
+import { NavigationLink } from '../../types/navigation';
 
-export interface SidebarLinkProps {
-  title: string;
-  href: string;
-  icon: React.ReactNode;
-}
+type SidebarLinkProps = Omit<NavigationLink, 'type'>;
 
 const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
   const { isOpen } = useAppContext();
