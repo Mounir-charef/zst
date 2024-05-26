@@ -86,9 +86,9 @@ const ClosedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
           <span className="sr-only">{title}</span>
         </Button>
       </TooltipTrigger>
-      <TooltipContent side="right" className="p-0">
+      <TooltipContent side="right" className="px-0">
         <div className="flex flex-col gap-2">
-          <h5 className="pt-2 text-center">{title}</h5>
+          <h5 className="text-center">{title}</h5>
           <Separator />
           {children.map((child) => (
             <Link
@@ -97,6 +97,7 @@ const ClosedSidebarMenu = ({ title, icon, children }: SidebarMenuProps) => {
               title={child.description}
               className={buttonVariants({
                 variant: 'ghost',
+                className: 'mx-1',
               })}
             >
               {child.title}

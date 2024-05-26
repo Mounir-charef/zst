@@ -8,7 +8,7 @@ import {
 } from '@mono/ui';
 import { cn } from '@mono/util';
 import { memo } from 'react';
-import { Link } from '../../navigation';
+import { Link, usePathname } from '../../navigation';
 import { useAppContext } from '../AppProvider';
 
 export interface SidebarLinkProps {
@@ -19,6 +19,7 @@ export interface SidebarLinkProps {
 
 const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
   const { isOpen } = useAppContext();
+  const pathname = usePathname();
 
   if (isOpen) {
     return (
@@ -30,6 +31,9 @@ const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
             variant: 'ghost',
           }),
           'justify-start',
+          {
+            'bg-muted': pathname === href,
+          },
         )}
       >
         <div className="flex items-center gap-2">
@@ -51,6 +55,9 @@ const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
               size: 'icon',
             }),
             'justify-center',
+            {
+              'bg-muted': pathname === href,
+            },
           )}
         >
           <div className="flex items-center gap-2">

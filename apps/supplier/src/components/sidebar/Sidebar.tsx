@@ -3,10 +3,14 @@
 import { Button, TooltipProvider } from '@mono/ui';
 import { cn } from '@mono/util';
 import { Menu } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import { memo } from 'react';
 import { useAppContext } from '../AppProvider';
-import ThemeToggler from './ThemeToggler';
 import SidebarNavigation from './SidebarNavigation';
+
+const ThemeToggler = dynamic(() => import('./ThemeToggler'), {
+  ssr: false,
+});
 
 const Sidebar = () => {
   const { isOpen, toggleSidebar } = useAppContext();
@@ -28,9 +32,7 @@ const Sidebar = () => {
           <Menu className="size-5" />
         </Button>
         <SidebarNavigation />
-        <div className="justify-self-end">
-          <ThemeToggler />
-        </div>
+        <ThemeToggler />
       </TooltipProvider>
     </aside>
   );
