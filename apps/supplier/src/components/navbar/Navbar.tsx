@@ -7,6 +7,7 @@ import { memo } from 'react';
 import { Link } from '../../navigation';
 import { useAppContext } from '../AppProvider';
 import UserNav from './UserNav';
+import Notifications from './Notifications';
 
 const NavBar = () => {
   const { isOpen } = useAppContext();
@@ -50,6 +51,7 @@ const NavBar = () => {
         </nav>
 
         <div className="flex items-center gap-4">
+          <Notifications />
           <UserNav />
         </div>
       </div>
