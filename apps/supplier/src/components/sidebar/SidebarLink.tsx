@@ -29,11 +29,13 @@ const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
           buttonVariants({
             variant: 'ghost',
           }),
-          'justify-start gap-2 truncate transition-all',
+          'justify-start',
         )}
       >
-        {icon}
-        <span className="truncate text-sm">{title}</span>
+        <div className="flex items-center gap-2">
+          {icon}
+          <span className="truncate text-sm">{title}</span>
+        </div>
       </Link>
     );
   }
@@ -48,11 +50,13 @@ const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
               variant: 'ghost',
               size: 'icon',
             }),
-            'justify-center gap-2 transition-all',
+            'justify-center',
           )}
         >
-          {icon}
-          <span className="sr-only">{title}</span>
+          <div className="flex items-center gap-2">
+            {icon}
+            <span className="sr-only">{title}</span>
+          </div>
         </Link>
       </TooltipTrigger>
       <TooltipContent side="right">

@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { memo } from 'react';
 import { Link } from '../../navigation';
 import { useAppContext } from '../AppProvider';
-import ThemeToggler from './ThemeToggler';
 import UserNav from './UserNav';
 
 const NavBar = () => {
@@ -51,7 +50,6 @@ const NavBar = () => {
         </nav>
 
         <div className="flex items-center gap-4">
-          <ThemeToggler />
           <UserNav />
         </div>
       </div>
