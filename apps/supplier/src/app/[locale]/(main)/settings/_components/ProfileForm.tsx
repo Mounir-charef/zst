@@ -37,10 +37,10 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 const defaultValues: Partial<ProfileFormValues> = {
-  bio: 'I own a computer.',
+  bio: 'I am a new supplier with products from china...',
   urls: [
-    { value: 'https://shadcn.com' },
-    { value: 'http://twitter.com/shadcn' },
+    { value: 'https://zst-demo.vercel.app/' },
+    { value: 'https://zst-supplier-demo.vercel.app/' },
   ],
 };
 
@@ -82,7 +82,7 @@ function ProfileForm() {
           control={form.control}
           name="username"
           label="Username"
-          placeholder="shadcn"
+          placeholder="zst-username"
           description="This is your public display name. It can be your real name or a
                 pseudonym. You can only change this once every 30 days."
         />
@@ -122,6 +122,10 @@ function ProfileForm() {
               descriptionProps={{
                 className: cn(index !== 0 && 'sr-only'),
               }}
+              labelProps={{
+                className: cn(index !== 0 && 'sr-only'),
+              }}
+              descreptionPlacement="before"
             />
           ))}
           <Button

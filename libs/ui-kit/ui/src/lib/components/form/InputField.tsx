@@ -1,6 +1,7 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
 import { LabelProps } from '@radix-ui/react-label';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
+import { cn } from '@mono/util';
 import { LucideIcon } from 'lucide-react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 import {
@@ -12,7 +13,6 @@ import {
   FormMessage,
 } from '../../ui/form';
 import { Input, InputProps } from '../../ui/input';
-import { cn } from '@mono/util';
 
 export const InputField = <
   TFieldValues extends FieldValues = FieldValues,
@@ -28,6 +28,7 @@ export const InputField = <
   descriptionProps,
   labelProps,
   required,
+  descreptionPlacement = 'after',
   ...props
 }: {
   control: Control<TFieldValues>;
@@ -44,6 +45,7 @@ export const InputField = <
   Icon?: LucideIcon;
   InputProps?: Omit<InputProps, 'name' | 'type' | 'placeholder' | 'required'>;
   labelProps?: LabelProps;
+  descreptionPlacement?: 'before' | 'after';
 }) => {
   const { className: inputClassName, ...restInputProps } = InputProps || {};
   return (
@@ -53,6 +55,11 @@ export const InputField = <
         return (
           <FormItem className={className}>
             {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
+            {description && descreptionPlacement === 'before' && (
+              <FormDescription {...descriptionProps}>
+                {description}
+              </FormDescription>
+            )}
             <div className="relative flex w-full items-center">
               <FormControl>
                 <Input
@@ -78,11 +85,11 @@ export const InputField = <
                 <Icon className="absolute end-4 flex h-5 w-5 items-center text-gray-500" />
               )}
             </div>
-            {description && (
+            {description && descreptionPlacement === 'after' ? (
               <FormDescription {...descriptionProps}>
                 {description}
               </FormDescription>
-            )}
+            ) : null}
             {showErrors && <FormMessage />}
           </FormItem>
         );
