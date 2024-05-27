@@ -9,6 +9,7 @@ const products: TypedProductListing[] = [
         qty: 89,
         image: {
             id: 1,
+            path: '/images/products/apple.webp',
             url: '/images/products/apple.webp'
         },
         createdAt: '',

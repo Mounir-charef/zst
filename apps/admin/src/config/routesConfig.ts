@@ -7,6 +7,10 @@ const routesConfig = {
     addNewProduct: '/products/create',
     editProduct: (id: ID) => `/products/${id}/edit`,
 
+    categories: '/categories',
+    addNewCategory: '/categories/create',
+    editCategory: (id: ID) => `/categories/${id}/edit`,
+
     attributes: '/attributes',
     addNewAttribute: '/attributes/create',
     editAttribute: (id: ID) => `/attributes/${id}/edit`,
