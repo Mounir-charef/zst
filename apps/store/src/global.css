@@ -50,8 +50,15 @@
     --input: 12 6.5% 15.1%;
     --ring: 35.5 91.7% 32.9%;
 
-    --success: 142 76% 36%;
-    --success-foreground: 60 9.1% 97.8%;
+    /* Custom Colors */
+    --info: 221 83% 53%;
+    --info-foreground: 214 95% 93%;
+    --warning: 53 98% 77%;
+    --warning-foreground: 35 92% 33%;
+    --elivated: 240 5% 96%;
+    --elivated-foreground: 240 4% 46%;
+    --success: 47.9 95.8% 53.1%;
+    --success-foreground: 163 94% 24%;
   }
 }
 
