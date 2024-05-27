@@ -58,9 +58,9 @@ module.exports = {
           DEFAULT: 'hsl(var(--warning))',
           foreground: 'hsl(var(--warning-foreground))',
         },
-        elivated: {
-          DEFAULT: 'hsl(var(--elivated))',
-          foreground: 'hsl(var(--elivated-foreground))',
+        elevated: {
+          DEFAULT: 'hsl(var(--elevated))',
+          foreground: 'hsl(var(--elevated-foreground))',
         },
       },
       borderRadius: {

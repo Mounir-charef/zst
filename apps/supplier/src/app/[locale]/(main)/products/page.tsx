@@ -1,12 +1,12 @@
-import { Button, DataTable } from '@mono/ui';
+import { DataTable } from '@mono/ui';
 import { promises as fs } from 'fs';
 import { Metadata } from 'next';
 import path from 'path';
 import { z } from 'zod';
+import { globalAction } from './_components/Actions';
 import { columns } from './_components/Columns';
 import { globalFilter, itemsFilters } from './_components/filters';
 import { productSchema } from './_data/schema';
-import { globalAction } from './_components/Actions';
 
 export const metadata: Metadata = {
   title: 'Products',

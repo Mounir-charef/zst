@@ -30,8 +30,8 @@
     --info-foreground: 214 95% 93%;
     --warning: 53 98% 77%;
     --warning-foreground: 35 92% 33%;
-    --elivated: 240 5% 96%;
-    --elivated-foreground: 240 4% 46%;
+    --elevated: 240 5% 96%;
+    --elevated-foreground: 240 4% 46%;
     --success: 141 84% 93%;
     --success-foreground: 163 94% 24%;
   }
@@ -61,8 +61,8 @@
     --info-foreground: 214 95% 93%;
     --warning: 53 98% 77%;
     --warning-foreground: 35 92% 33%;
-    --elivated: 240 5% 96%;
-    --elivated-foreground: 240 4% 46%;
+    --elevated: 240 5% 96%;
+    --elevated-foreground: 240 4% 46%;
     --success: 141 84% 93%;
     --success-foreground: 163 94% 24%;
   }
