@@ -1,5 +1,5 @@
 import { Separator } from '@mono/ui';
-import { ProfileForm } from './_components/ProfileForm';
+import ProfileForm from './_components/ProfileForm';
 
 export default function SettingsProfilePage() {
   return (

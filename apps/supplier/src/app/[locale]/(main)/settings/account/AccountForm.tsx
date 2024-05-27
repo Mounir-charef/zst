@@ -6,6 +6,7 @@ import { z } from 'zod';
 
 import { Button, ComboBoxField, DateField, Form, InputField } from '@mono/ui';
 import { toast } from 'sonner';
+import { memo } from 'react';
 
 const languages = [
   { label: 'English', value: 'en' },
@@ -45,7 +46,7 @@ const defaultValues: Partial<AccountFormValues> = {
   dob: new Date('2023-01-23'),
 };
 
-export function AccountForm() {
+function AccountForm() {
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues,
@@ -87,3 +88,5 @@ export function AccountForm() {
     </Form>
   );
 }
+
+export default memo(AccountForm);

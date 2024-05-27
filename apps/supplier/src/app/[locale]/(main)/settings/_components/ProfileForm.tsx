@@ -4,22 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import {
-  Button,
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  InputField,
-  SelectField,
-  TextAreaField,
-} from '@mono/ui';
+import { Button, Form, InputField, SelectField, TextAreaField } from '@mono/ui';
+import { cn } from '@mono/util';
 import { toast } from 'sonner';
 import { Link } from '../../../../../navigation';
-import { cn } from '@mono/util';
+import { memo } from 'react';
 
 const profileFormSchema = z.object({
   username: z
@@ -70,7 +59,7 @@ const emailOptions = [
   },
 ];
 
-export function ProfileForm() {
+function ProfileForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -150,3 +139,5 @@ export function ProfileForm() {
     </Form>
   );
 }
+
+export default memo(ProfileForm);

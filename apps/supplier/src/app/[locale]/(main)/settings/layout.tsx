@@ -25,16 +25,12 @@ const sidebarNavItems = [
     href: '/settings/account',
   },
   {
-    title: 'Appearance',
-    href: '/settings/appearance',
+    title: 'Password Management',
+    href: '/settings/password',
   },
   {
     title: 'Notifications',
     href: '/settings/notifications',
-  },
-  {
-    title: 'Display',
-    href: '/settings/display',
   },
 ];
 

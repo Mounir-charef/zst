@@ -1,28 +1,19 @@
 'use client';
 
-import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import {
   Button,
   CheckBoxField,
-  Checkbox,
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  RadioGroup,
   RadioGroupField,
-  RadioGroupItem,
-  Switch,
   SwitchField,
 } from '@mono/ui';
 import { toast } from 'sonner';
+import { memo } from 'react';
 
 const notificationsFormSchema = z.object({
   type: z.enum(['all', 'mentions', 'none'], {
@@ -51,7 +42,7 @@ const defaultValues: Partial<NotificationsFormValues> = {
   security_emails: true,
 };
 
-export function NotificationsForm() {
+function NotificationsForm() {
   const form = useForm<NotificationsFormValues>({
     resolver: zodResolver(notificationsFormSchema),
     defaultValues,
@@ -122,3 +113,5 @@ export function NotificationsForm() {
     </Form>
   );
 }
+
+export default memo(NotificationsForm);

@@ -1,5 +1,5 @@
 import { Separator } from '@mono/ui';
-import { AccountForm } from './AccountForm';
+import AccountForm from './AccountForm';
 
 export default function SettingsAccountPage() {
   return (
