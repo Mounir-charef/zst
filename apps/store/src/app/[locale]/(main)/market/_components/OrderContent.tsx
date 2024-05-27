@@ -1,6 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, Label } from '@mono/ui';
+import { Form, Label } from '@mono/ui';
 import { memo, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -8,10 +8,11 @@ import { useSuspenseAuthQuery } from '../../../../../hooks/useAuthQuery';
 import { ColorVariant } from '../../products/types';
 import { getOffer } from '../_data/getData';
 import { ColorVariants as DEFAULTS } from '../_data/offers';
+import HoverDetails from './HoverDetails';
 import OrderDetailCard from './OrderDetailCard';
+import OrderSheetFooter from './OrderSheetFooter';
 import { QuantityInputField } from './QuantityInputField';
 import VariationSelect from './VariationSelect';
-import HoverDetails from './HoverDetails';
 
 interface OrderContentProps {
   id: string;
@@ -20,59 +21,76 @@ const OrderContent = ({ id }: OrderContentProps) => {
   const { data } = useSuspenseAuthQuery(['offer', id], () => {
     return getOffer(id);
   });
-  const [selectedVariant, setSelectedVariant] = useState<number>(0);
-  const orderDetailsSchema = useMemo(
+  const SizeSchema = z.object({
+    size: z.string(),
+    quantity: z.string(),
+    price: z.string(),
+  });
+  const variationSchema = useMemo(
     () =>
-      z.array(
-        z.object({
-          color: z.string(),
-          name: z.string(),
-          sizes: z.array(
-            z.object({
-              size: z.string(),
-              price: z.string(),
-              quantity: z.string(),
-            }),
-          ),
-        }),
-      ),
+      z.object({
+        color: z.string(),
+        name: z.string(),
+        sizes: z.array(SizeSchema),
+      }),
     [],
   );
-  const form = useForm<ColorVariant[]>({
-    resolver: zodResolver(orderDetailsSchema),
+  const orderDetailsSchema = z.array(variationSchema).default(DEFAULTS);
+  type formType = z.infer<typeof orderDetailsSchema>;
+  const form = useForm<formType>({
     defaultValues: { ...DEFAULTS },
+    // resolver: zodResolver(orderDetailsSchema),
   });
   const variants = Object.values(form.watch());
-  console.log(variants);
-  const onSubmit: SubmitHandler<ColorVariant[]> = async (data) => {
-    console.log(data);
+  const [selectedVariant, setSelectedVariant] = useState<ColorVariant>(
+    variants[0],
+  );
+  const onSubmit: SubmitHandler<formType> = async (data) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log(data);
+      throw new Error();
+    } catch (error) {
+      console.log(error);
+      form.setError('root', { message: 'An error occurred' });
+    }
   };
+
   return (
-    <div className="px-6">
-      <div className="space-y-2">
-        <Label>1. Product details</Label>
-        {data && <OrderDetailCard data={data} />}
-        <div className="mt-4 flex flex-col gap-4">
-          <Label>Color : {variants.length}</Label>
-          <div className="flex gap-2">
-            {variants.map((variant, i) => (
-              <VariationSelect
-                key={i}
-                selected={selectedVariant === i}
-                color={variant.color}
-                props={{
-                  onClick: () => setSelectedVariant(i),
-                }}
-              />
-            ))}
-          </div>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+    <Form {...form}>
+      <form
+        className="flex h-full flex-col "
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <div className="space-y-2 px-6">
+          <Label>1. Product details</Label>
+          {data && <OrderDetailCard data={data} />}
+          <div className="mt-4 flex flex-col gap-4">
+            <Label>
+              2. Color : ({variants.length}) {selectedVariant?.name}
+            </Label>
+            <div className="flex gap-2">
+              {variants.map((variant, i) => (
+                <VariationSelect
+                  quantity={variant.sizes.reduce(
+                    (acc, curr) => acc + parseInt(curr.quantity),
+                    0,
+                  )}
+                  key={i}
+                  selected={selectedVariant === variant}
+                  color={variant?.color ?? '#000000'}
+                  props={{
+                    onClick: () => setSelectedVariant(variant),
+                  }}
+                />
+              ))}
+            </div>
+            <div>
               <div className=" flex w-full flex-col gap-4">
-                <Label>2. Size</Label>
+                <Label>3. Size </Label>
                 {variants.map(
                   (variant, index) =>
-                    index === selectedVariant && (
+                    variant.name === selectedVariant?.name && (
                       <div key={index}>
                         <ul className="flex w-full flex-col gap-3">
                           {variant.sizes.map((size, i) => (
@@ -80,8 +98,8 @@ const OrderContent = ({ id }: OrderContentProps) => {
                               <span className="text-muted-foreground flex items-center gap-1">
                                 Size {size.size}
                               </span>
-                              <span className="text-muted-foreground flex items-center gap-1">
-                                {size.price}
+                              <span className="text-muted-foreground flex items-center gap-1 ">
+                                {size.price}$
                                 <HoverDetails>
                                   <span></span>
                                 </HoverDetails>
@@ -90,12 +108,10 @@ const OrderContent = ({ id }: OrderContentProps) => {
                                 <QuantityInputField
                                   InputProps={{
                                     min: 0,
-                                    max: 100,
-                                    disabled: true,
                                     className:
-                                      'text-center p-0 flex w-32 justify-center items-center rounded-none border border-foreground',
+                                      'hide-arrow text-center p-0 flex justify-center items-center border-none disabled:border-none rounded-none focus-visible:ring-0 appearance-none',
                                   }}
-                                  showErrors
+                                  showErrors={false}
                                   type="number"
                                   control={form.control}
                                   name={`${index}.sizes.${i}.quantity`}
@@ -104,46 +120,41 @@ const OrderContent = ({ id }: OrderContentProps) => {
                             </li>
                           ))}
                         </ul>
-                        <div>
-                          {Object.keys(form.formState.errors).some(
-                            (err) => err,
-                          ) && (
-                            <ul className="mt-2 rounded-md bg-red-300 p-2 md:p-5 lg:w-fit">
-                              {Object.entries(form.formState.errors).map(
-                                ([key, error]) => {
-                                  return (
-                                    error && (
-                                      <li key={key} className="text-red-500">
-                                        -{' '}
-                                        {error.message
-                                          ? error.message
-                                          : (
-                                              error as Record<
-                                                string,
-                                                Partial<{
-                                                  type: string | number;
-                                                  message: string;
-                                                }>
-                                              >
-                                            )[Object.keys(error)[0]].message}
-                                      </li>
-                                    )
-                                  );
-                                },
-                              )}
-                            </ul>
-                          )}
-                        </div>
                       </div>
                     ),
                 )}
               </div>
-              {/* <Button type="submit">Submit</Button> */}
-            </form>
-          </Form>
+            </div>
+          </div>
+          <div></div>
         </div>
-      </div>
-    </div>
+        <OrderSheetFooter
+          isLoading={form.formState.isSubmitting}
+          id={id}
+          orderDetails={{
+            items: {
+              variations: variants.length,
+              quantity: variants.reduce((total, entry) => {
+                entry.sizes.forEach((size) => {
+                  total += parseInt(size.quantity);
+                });
+                return total;
+              }, 0),
+            },
+            fees: {
+              subtotal: variants.reduce((total, entry) => {
+                entry.sizes.forEach((size) => {
+                  total += parseFloat(size.quantity) * parseFloat(size.price);
+                });
+                return total;
+              }, 0),
+              taxes: 0,
+              payment: 0,
+            },
+          }}
+        />
+      </form>
+    </Form>
   );
 };
 

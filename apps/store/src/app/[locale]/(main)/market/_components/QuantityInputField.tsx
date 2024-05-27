@@ -54,15 +54,22 @@ export const QuantityInputField = <
       {...props}
       render={({ field, fieldState }) => {
         return (
-          <FormItem className={className}>
+          <FormItem className={cn('', className)}>
             {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
             <div className="relative flex w-full items-center">
               <FormControl>
-                <div className="text-foreground flex text-center">
+                <div className="text-foreground border-y-muted flex w-40 overflow-hidden rounded-full border-y text-center shadow-md">
                   <Button
-                    className="bg-background text-foreground hover:bg-background  border-muted-foreground  z-10  flex aspect-square translate-x-1/2 items-center justify-center rounded-full border p-0"
-                    onClick={() =>
-                      field.onChange((parseInt(field.value) - 1).toString())
+                    className="bg-background text-foreground hover:bg-background border-muted disabled:text-foreground/50 focus:text-primary flex aspect-square items-center justify-center rounded-full border p-0 focus:border-none focus-visible:ring-0"
+                    type="button"
+                    disabled={parseInt(field.value) <= 0}
+                    onClick={(e) =>
+                      field.onChange(
+                        (parseInt(field.value) - (!e.shiftKey ? 1 : 10) > 0
+                          ? parseInt(field.value) - (!e.shiftKey ? 1 : 10)
+                          : 0
+                        ).toString(),
+                      )
                     }
                   >
                     <Minus className="h-5 w-5 " />
@@ -74,7 +81,8 @@ export const QuantityInputField = <
                     placeholder={placeholder}
                     className={cn(
                       {
-                        'focus-visible:ring-destructive': fieldState.error,
+                        'focus-visible:ring-destructive remove-dft':
+                          fieldState.error,
                       },
                       inputClassName,
                     )}
@@ -85,9 +93,14 @@ export const QuantityInputField = <
                     required={required}
                   />
                   <Button
-                    className="bg-background text-foreground hover:bg-background  border-muted-foreground  flex  aspect-square -translate-x-1/2 items-center justify-center rounded-full border p-0"
-                    onClick={() =>
-                      field.onChange((parseInt(field.value) + 1).toString())
+                    className="bg-background text-foreground hover:bg-background border-muted disabled:text-foreground/50 focus:text-primary flex aspect-square items-center justify-center rounded-full border p-0 focus:border-none focus-visible:ring-0"
+                    type="button"
+                    onClick={(e) =>
+                      field.onChange(
+                        (
+                          parseInt(field.value) + (!e.shiftKey ? 1 : 10)
+                        ).toString(),
+                      )
                     }
                   >
                     <Plus className="h-5 w-5 " />

@@ -5,7 +5,7 @@ import { DollarSign, Store } from 'lucide-react';
 
 const OrderDetailCard = ({ data }: { data: Offer }) => {
   return (
-    <div className="bg- w-full rounded-md bg-gray-100 p-2">
+    <div className="bg-foreground/5 bg-fore w-full rounded-md p-2">
       <div className="flex ">
         <Image
           src={data?.image}
