@@ -10,7 +10,7 @@ import { cn } from '@mono/util';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import { LucideProps } from 'lucide-react';
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 import { Button } from '../../ui/button';
 import { Calendar, CalendarProps } from '../../ui/calendar';
@@ -54,7 +54,7 @@ export const DateField = <
   calendarProps?: Omit<CalendarProps, 'mode' | 'selected' | 'onSelect'>;
   label?: string;
   labelProps?: HTMLAttributes<HTMLLabelElement>;
-  description?: string;
+  description?: string | ReactNode;
   descriptionProps?: HTMLAttributes<HTMLParagraphElement>;
   IconProps?: LucideProps;
 }) => {
@@ -103,7 +103,9 @@ export const DateField = <
             </PopoverContent>
           </Popover>
           {description ? (
-            <FormDescription>{description}</FormDescription>
+            <FormDescription {...descriptionProps}>
+              {description}
+            </FormDescription>
           ) : null}
           {showErrors ? <FormMessage /> : null}
         </FormItem>

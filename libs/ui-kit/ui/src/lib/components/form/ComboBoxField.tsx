@@ -10,7 +10,7 @@ import { cn } from '@mono/util';
 import { CaretSortIcon } from '@radix-ui/react-icons';
 import { CommandList } from 'cmdk';
 import { CheckIcon, LucideProps } from 'lucide-react';
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 import { Button } from '../../ui/button';
 import {
@@ -63,7 +63,7 @@ export const ComboBoxField = <
   };
   label?: string;
   labelProps?: HTMLAttributes<HTMLLabelElement>;
-  description?: string;
+  description?: string | ReactNode;
   descriptionProps?: HTMLAttributes<HTMLParagraphElement>;
   IconProps?: LucideProps;
 }) => {
@@ -130,7 +130,9 @@ export const ComboBoxField = <
             </PopoverContent>
           </Popover>
           {description ? (
-            <FormDescription>{description}</FormDescription>
+            <FormDescription {...descriptionProps}>
+              {description}
+            </FormDescription>
           ) : null}
           {showErrors ? <FormMessage /> : null}
         </FormItem>

@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 import { LabelProps } from '@radix-ui/react-label';
 
 import { LucideIcon } from 'lucide-react';
@@ -37,7 +37,7 @@ export const InputField = <
   name: TName;
   placeholder?: string;
   label?: string | JSX.Element;
-  description?: string;
+  description?: string | ReactNode;
   descriptionProps?: React.HTMLAttributes<HTMLParagraphElement>;
   className?: string;
   type?: InputHTMLAttributes<HTMLInputElement>['type'];

@@ -37,7 +37,7 @@ export const PhoneInputField = <
   name: TName;
   placeholder?: string;
   label?: string | JSX.Element;
-  description?: string;
+  description?: string | ReactNode;
   descriptionProps?: React.HTMLAttributes<HTMLParagraphElement>;
   className?: string;
   Icon?: LucideIcon;

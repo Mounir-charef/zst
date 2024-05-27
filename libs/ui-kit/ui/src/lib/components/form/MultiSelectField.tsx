@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from '../../ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
+import { ReactNode } from 'react';
 
 export const MultiSelectField = <
   TFieldValues extends FieldValues = FieldValues,
@@ -41,7 +42,7 @@ export const MultiSelectField = <
   name: TName;
   placeholder?: string;
   label?: string | JSX.Element;
-  description?: string;
+  description?: string | ReactNode;
   descriptionProps?: React.HTMLAttributes<HTMLParagraphElement>;
   className?: string;
   onChange?: (value: string) => void;
