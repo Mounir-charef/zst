@@ -20,7 +20,7 @@ const MobileNavMenu = (item: NavigationMenu) => {
       <Button
         variant="ghost"
         onClick={() => setIsOpen(!isOpen)}
-        className={cn('justify-start gap-2', {
+        className={cn('justify-start gap-2 rounded-none', {
           'bg-muted': isOpen,
         })}
       >
