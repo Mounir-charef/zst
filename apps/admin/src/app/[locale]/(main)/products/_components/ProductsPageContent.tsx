@@ -2,20 +2,26 @@
 
 import React from 'react';
 import productColumns from './columns/product-columns';
-import useTable from '../../../../../hooks/useTable';
 import { useGetProductsQuery } from '../../../../../apis/productApis';
-import ProductsPageHeader from './ProductsPageHeader';
+import { DataTable } from '@mono/ui';
 
 const ProductsPageContent = () => {
-  const { Table, search, handleSearch } = useTable({
-    useQuery: useGetProductsQuery,
-    columns: productColumns,
-  });
+  const { data } = useGetProductsQuery({});
 
   return (
     <>
-      <ProductsPageHeader search={search} handleSearch={handleSearch} />
-      {Table}
+      <DataTable
+        header={{
+          title: 'Products',
+          description: 'Manage your products and stock.',
+        }}
+        data={data?.data || []}
+        columns={productColumns}
+        searchOptions={{
+          column: 'name',
+          placeholder: 'Search for products',
+        }}
+      />
     </>
   );
 };

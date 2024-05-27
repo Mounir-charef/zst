@@ -1,23 +1,26 @@
 'use client';
 
 import React from 'react';
-import useTable from '../../../../../hooks/useTable';
-import ListingHeaderCard from '../../../../../components/common/listingHeader/ListingHeaderCard';
-import ListingHeaderTitle from '../../../../../components/common/listingHeader/ListingHeaderTitle';
 import clientColumns from './columns/client-columns';
 import { useGetClientsQuery } from '../../../../../apis/clientApis';
+import { DataTable } from '@mono/ui';
 
 const ClientsPageContent = () => {
-  const { Table } = useTable({
-    useQuery: useGetClientsQuery,
-    columns: clientColumns,
-  });
+  const { data } = useGetClientsQuery({});
   return (
     <>
-      <ListingHeaderCard>
-        <ListingHeaderTitle title="Clients" />
-      </ListingHeaderCard>
-      {Table}
+      <DataTable
+        header={{
+          title: 'Clients',
+          description: 'Manage your clients',
+        }}
+        columns={clientColumns}
+        data={data?.data || []}
+        searchOptions={{
+          column: 'username',
+          placeholder: 'Search for clients',
+        }}
+      />
     </>
   );
 };

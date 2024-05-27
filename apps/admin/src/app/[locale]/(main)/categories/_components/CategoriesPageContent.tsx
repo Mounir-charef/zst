@@ -1,22 +1,26 @@
 'use client';
 
-import useTable from '../../../../../hooks/useTable';
 import { useGetCategoriesQuery } from '../../../../../apis/categoryApis';
 import categoryColumns from './columns/category-columns';
-import ListingHeaderCard from '../../../../../components/common/listingHeader/ListingHeaderCard';
-import ListingHeaderTitle from '../../../../../components/common/listingHeader/ListingHeaderTitle';
+import { DataTable } from '@mono/ui';
 
 const CategoriesPageContent = () => {
-  const { Table } = useTable({
-    useQuery: useGetCategoriesQuery,
-    columns: categoryColumns,
-  });
+  const { data } = useGetCategoriesQuery({});
   return (
     <>
-      <ListingHeaderCard>
-        <ListingHeaderTitle title="Categories" />
-      </ListingHeaderCard>
-      {Table}
+      <DataTable
+        header={{
+          title: 'Categories',
+          description: 'Manage your categories',
+        }}
+        data={data?.data || []}
+        columns={categoryColumns}
+        searchOptions={{
+          column: 'name',
+          placeholder: 'Search for categories',
+        }}
+        // filterOptions={filterOptions}
+      />
     </>
   );
 };

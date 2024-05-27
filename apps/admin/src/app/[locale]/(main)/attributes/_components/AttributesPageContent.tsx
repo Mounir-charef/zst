@@ -1,24 +1,25 @@
 'use client';
 
 import attributeColumns from './columns/attribute-columns';
-import ListingHeaderCard from '../../../../../components/common/listingHeader/ListingHeaderCard';
-import ListingHeaderTitle from '../../../../../components/common/listingHeader/ListingHeaderTitle';
-import useTable from '../../../../../hooks/useTable';
-import { TypedAttributeListing } from '../../../../../types/attribute';
-import { BaseDataItem } from '../../../../../types/common';
 import { useGetAttributesQuery } from '../../../../../apis/attributeApis';
+import { DataTable } from '@mono/ui';
 
 const AttributesPageContent = () => {
-  const { Table } = useTable({
-    columns: attributeColumns,
-    useQuery: useGetAttributesQuery,
-  });
+  const { data } = useGetAttributesQuery({});
   return (
     <>
-      <ListingHeaderCard>
-        <ListingHeaderTitle title="Attributes" />
-      </ListingHeaderCard>
-      {Table}
+      <DataTable
+        header={{
+          title: 'Attributes',
+          description: 'Manage your attributes',
+        }}
+        columns={attributeColumns}
+        data={data?.data || []}
+        searchOptions={{
+          column: 'name',
+          placeholder: 'Search for attributes',
+        }}
+      />
     </>
   );
 };

@@ -190,7 +190,7 @@ const sidebarLinks: SidebarLinks = {
                 id: 21,
                 title: 'Listing',
                 Icon: CiViewTable,
-                href: '/examples/listing',
+                href: '/examples/table',
             },
             {
                 id: 22,
@@ -218,7 +218,7 @@ const sidebarLinks: SidebarLinks = {
             },
             {
                 id: 26,
-                title: 'Client/Store Table',
+                title: 'Table',
                 Icon: FaTable,
                 href: '/examples/table',
             },

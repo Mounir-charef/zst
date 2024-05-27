@@ -1,5 +1,4 @@
 import React from 'react';
-import { CardContent } from '../../../../../../components/ui/Card';
 import RemoveBorderlessButton from '../../../../../../components/common/RemoveBorderlessButton';
 import FormFieldsWrapper from '../../../../../../components/ui/form/FormFieldsWrapper';
 import SelectField from '../../../../../../components/ui/form/select/SelectField';
@@ -12,6 +11,7 @@ import {
 } from 'react-hook-form';
 import attributes from '../../../../../../data/attributes';
 import { cn } from '@mono/util';
+import { CardContent } from '@mono/ui';
 
 const ProductFormVariationOptions = ({
   control,
@@ -39,8 +39,8 @@ const ProductFormVariationOptions = ({
             : [];
           return (
             <div key={field.id}>
-              <div className="flex justify-between items-center mb-4">
-                <span className="font-semibold text-sm">
+              <div className="mb-4 flex items-center justify-between">
+                <span className="text-sm font-semibold">
                   Options {index + 1}
                 </span>
                 <RemoveBorderlessButton onClick={() => remove(index)} />

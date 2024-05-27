@@ -4,17 +4,15 @@ import PasswordForm from './_components/PasswordForm';
 import SettingsForm from './_components/SettingsForm';
 import BoundedSectionWrapper from '../../../../components/common/BoundedSectionWrapper';
 import PageTitle from '../../../../components/common/PageTitle';
+import { FormCardsWrapper } from '@mono/ui';
 
 const page = () => {
   return (
-    <>
-      <BoundedSectionWrapper noSpacing>
-        <PageTitle>Profile Settings</PageTitle>
-      </BoundedSectionWrapper>
+    <FormCardsWrapper>
       <EmailForm />
       <SettingsForm />
       <PasswordForm />
-    </>
+    </FormCardsWrapper>
   );
 };
 

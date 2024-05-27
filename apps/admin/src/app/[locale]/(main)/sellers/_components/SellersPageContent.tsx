@@ -1,23 +1,26 @@
 'use client';
 
 import React from 'react';
-import useTable from '../../../../../hooks/useTable';
-import ListingHeaderCard from '../../../../../components/common/listingHeader/ListingHeaderCard';
-import ListingHeaderTitle from '../../../../../components/common/listingHeader/ListingHeaderTitle';
 import sellerColumns from './columns/seller-columns';
 import { useGetSellersQuery } from '../../../../../apis/sellerApis';
+import { DataTable } from '@mono/ui';
 
 const SellersPageContent = () => {
-  const { Table } = useTable({
-    columns: sellerColumns,
-    useQuery: useGetSellersQuery,
-  });
+  const { data } = useGetSellersQuery({});
   return (
     <>
-      <ListingHeaderCard>
-        <ListingHeaderTitle title="Sellers" />
-      </ListingHeaderCard>
-      {Table}
+      <DataTable
+        header={{
+          title: 'Sellers',
+          description: 'Manage your sellers',
+        }}
+        columns={sellerColumns}
+        data={data?.data || []}
+        searchOptions={{
+          column: 'username',
+          placeholder: 'Search for sellers',
+        }}
+      />
     </>
   );
 };
