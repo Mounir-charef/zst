@@ -4,14 +4,13 @@ import ColumnID from '../../../../../../components/common/columns/ColumnID';
 import ProductColumnInfo from './ProductColumnInfo';
 import ColumnText from '../../../../../../components/common/columns/ColumnText';
 import Badge from '../../../../../../components/ui/Badge';
-import { BaseDataItem } from '../../../../../../types/common';
 import ColumnView from '../../../../../../components/table-columns/ColumnView';
 import routesConfig from '../../../../../../config/routesConfig';
 import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
 import ColumnActionWrapper from '../../../../../../components/table-columns/ColumnActionWrapper';
 import ColumnDelete from '../../../../../../components/table-columns/ColumnDelete';
 
-const productColumns: ColumnType<TypedProductListing & BaseDataItem>[] = [
+const productColumns: ColumnType<TypedProductListing>[] = [
   {
     title: 'ID',
     render(_, record) {
