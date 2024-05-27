@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { NavItems, userMenuLinks } from '../../config';
-import MobileMenuLink from './MobileMenuLink';
+import MobileNavMenu from './MobileNavMenu';
 import MobileNavLink from './MobileNavLink';
 
 const MobileMenuNavigation = () => {
@@ -15,7 +15,7 @@ const MobileMenuNavigation = () => {
         if (item.type === 'link') {
           return <MobileNavLink key={item.title} {...item} />;
         }
-        return <MobileMenuLink key={item.title} {...item} />;
+        return <MobileNavMenu key={item.title} {...item} />;
       })}
     </>
   );

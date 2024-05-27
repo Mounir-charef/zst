@@ -10,7 +10,7 @@ import UserNav from './UserNav';
 import Notifications from './Notifications';
 import dynamic from 'next/dynamic';
 
-const MobileNavMenu = dynamic(() => import('./MobileNavMenu'));
+const MobileMenu = dynamic(() => import('./MobileMenu'));
 
 const NavBar = () => {
   const { isOpen } = useAppContext();
@@ -57,7 +57,7 @@ const NavBar = () => {
           <UserNav />
         </div>
 
-        <MobileNavMenu />
+        <MobileMenu />
       </div>
     </div>
   );

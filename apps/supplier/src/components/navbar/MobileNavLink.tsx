@@ -1,5 +1,5 @@
 'use client';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Link, usePathname } from '../../navigation';
 import { cn } from '@mono/util';
 import { buttonVariants } from '@mono/ui';
@@ -10,24 +10,28 @@ interface MobileNavLinkProps {
   icon: React.ReactNode;
 }
 
-const MobileNavLink = (item: MobileNavLinkProps) => {
+const MobileNavLink = ({ href, title, icon }: MobileNavLinkProps) => {
   const pathname = usePathname();
+  const isSelected = useMemo(
+    () => (href === '/' ? pathname === href : pathname.startsWith(href)),
+    [pathname, href],
+  );
   return (
     <Link
       className={cn(
         buttonVariants({
-          variant: 'link',
+          variant: isSelected ? 'reverse' : 'link',
         }),
-        'text-foreground justify-start gap-2',
+        'justify-start gap-2 rounded-none',
         {
-          'bg-muted': pathname === item.href,
+          'text-foreground': !isSelected,
         },
       )}
-      key={item.title}
-      href={item.href}
+      key={title}
+      href={href}
     >
-      {item.icon}
-      <span>{item.title}</span>
+      {icon}
+      <span>{title}</span>
     </Link>
   );
 };

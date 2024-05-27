@@ -7,7 +7,7 @@ import {
   buttonVariants,
 } from '@mono/ui';
 import { cn } from '@mono/util';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Link, usePathname } from '../../navigation';
 import { useAppContext } from '../AppProvider';
 import { NavigationLink } from '../../types/navigation';
@@ -17,6 +17,10 @@ type SidebarLinkProps = Omit<NavigationLink, 'type'>;
 const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
   const { isOpen } = useAppContext();
   const pathname = usePathname();
+  const isSelected = useMemo(
+    () => (href === '/' ? pathname === href : pathname.startsWith(href)),
+    [pathname, href],
+  );
 
   if (isOpen) {
     return (
@@ -25,7 +29,7 @@ const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
         href={href}
         className={cn(
           buttonVariants({
-            variant: pathname === href ? 'reverse' : 'ghost',
+            variant: isSelected ? 'reverse' : 'ghost',
           }),
           'justify-start',
         )}
@@ -45,7 +49,7 @@ const SidebarLink = ({ href, icon, title }: SidebarLinkProps) => {
           href={href}
           className={cn(
             buttonVariants({
-              variant: pathname === href ? 'reverse' : 'ghost',
+              variant: isSelected ? 'reverse' : 'ghost',
               size: 'icon',
             }),
             'justify-center',

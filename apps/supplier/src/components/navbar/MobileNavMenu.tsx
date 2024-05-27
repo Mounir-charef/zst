@@ -1,97 +1,58 @@
 'use client';
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Badge,
-  Button,
-  Separator,
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@mono/ui';
+import { Button, buttonVariants } from '@mono/ui';
 import { cn } from '@mono/util';
-import { LogOutIcon } from 'lucide-react';
-import { useLocale } from 'next-intl';
-import { useEffect, useState, useTransition } from 'react';
-import useSession from '../../hooks/useSession';
-import { logout } from '../../lib/auth/logout';
-import { nameToSlug } from '../../lib/utils';
-import MobileMenuNavigation from './MobileMenuNavigation';
-import { usePathname } from '../../navigation';
-import MobileThemeToggler from './MobileThemeToggler';
+import { ChevronRight, DotIcon } from 'lucide-react';
+import { memo, useMemo, useState } from 'react';
+import { Link, usePathname } from '../../navigation';
+import { NavigationMenu } from '../../types/navigation';
 
-const MobileNavMenu = () => {
-  const session = useSession();
-  const [isPending, startTransition] = useTransition();
+const MobileNavMenu = (item: NavigationMenu) => {
   const pathname = usePathname();
+  const isSelected = useMemo(
+    () => item.children.some((child) => child.href === pathname),
+    [item.children, pathname],
+  );
+  const [isOpen, setIsOpen] = useState(isSelected);
 
-  const [open, setOpen] = useState(false);
-
-  // close the sidebar when the route changes
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  if (!session.user) {
-    return null;
-  }
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger aria-label="mobile-navbar" asChild>
-        <Button variant="ghost" size="icon" className="rounded-full lg:hidden">
-          <Avatar>
-            <AvatarImage
-              src={session.user.avatar}
-              alt={session.user.username}
-            />
-            <AvatarFallback>{nameToSlug(session.user.username)}</AvatarFallback>
-          </Avatar>
-        </Button>
-      </SheetTrigger>
-      <SheetContent className="flex flex-col overflow-y-auto px-2" side="left">
-        <SheetHeader className="items-center py-6">
-          <div className="flex items-center gap-2">
-            <Avatar>
-              <AvatarImage
-                src={session.user.avatar}
-                alt={session.user.username}
-              />
-              <AvatarFallback>
-                {nameToSlug(session.user.username)}
-              </AvatarFallback>
-            </Avatar>
-            <SheetTitle>{session.user.username}</SheetTitle>
-            <Badge>{session.user.role}</Badge>
-          </div>
-          <SheetDescription>{session.user.email}</SheetDescription>
-        </SheetHeader>
-        <Separator />
-        <div className="flex flex-grow flex-col gap-2 divide-y">
-          <MobileMenuNavigation />
-
-          <Button
-            variant="link"
-            isLoading={isPending}
-            onClick={() => startTransition(logout)}
-            className="text-foreground justify-start gap-2"
-          >
-            <LogOutIcon
-              className={cn('h-4 w-4', {
-                hidden: isPending,
-              })}
-            />{' '}
-            Sign out
-          </Button>
+    <div className="flex flex-col gap-2 text-sm">
+      <Button
+        variant="ghost"
+        onClick={() => setIsOpen(!isOpen)}
+        className={cn('justify-start gap-2', {
+          'bg-muted': isOpen,
+        })}
+      >
+        <ChevronRight
+          className={cn('h-4 w-4 transition-transform', {
+            'rotate-90': isOpen,
+          })}
+        />
+        <span>{item.title}</span>
+      </Button>
+      {isOpen && (
+        <div className="animate-in slide-in-from-top-5 fade-in-20 flex flex-col gap-2 ps-4">
+          {item.children.map((child) => (
+            <Link
+              href={child.href}
+              className={cn(
+                buttonVariants({
+                  variant: pathname === child.href ? 'reverse' : 'link',
+                }),
+                'justify-start gap-2',
+                {
+                  'text-foreground': pathname !== child.href,
+                },
+              )}
+            >
+              <DotIcon className="h-4 w-4" /> <span>{child.title}</span>
+            </Link>
+          ))}
         </div>
-        <MobileThemeToggler />
-      </SheetContent>
-    </Sheet>
+      )}
+    </div>
   );
 };
 
-export default MobileNavMenu;
+export default memo(MobileNavMenu);
