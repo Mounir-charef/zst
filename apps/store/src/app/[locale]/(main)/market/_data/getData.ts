@@ -1,5 +1,5 @@
 import { MarketSearchParams, OffersParamsValidator } from '../_types';
-import { offers } from './offers';
+import { ColorVariants, offers } from './offers';
 
 export async function getOffers(searchParams: MarketSearchParams) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -17,4 +17,16 @@ export async function getOffers(searchParams: MarketSearchParams) {
 export async function getOffer(id: string) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return offers.find((offer) => offer.id === id);
+}
+
+export async function getOfferVariants(id: string) {
+  try {
+    const response = await ColorVariants;
+    if (!response) {
+      throw new Error('Error fetching data');
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
 }
