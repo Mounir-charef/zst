@@ -45,7 +45,7 @@ const AcceptOrderButton = ({ orderId, children }: AcceptOrderButtonProps) => {
           <AlertDialogAction
             asChild
             onClick={handleReject}
-            className="bg-destructive hover:bg-destructive/90"
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
             <Button variant="destructive">Delete</Button>
           </AlertDialogAction>

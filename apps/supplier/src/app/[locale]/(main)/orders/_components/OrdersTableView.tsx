@@ -4,10 +4,12 @@ import { DataTable } from '@mono/ui';
 import { memo } from 'react';
 import { useGetOrders } from '../../../../../hooks/orders/useGetOrders';
 import { columns } from './Columns';
+import { useOrderContext } from './OrderProvider';
 import { globalFilter } from './filters';
 
 const OrdersTableView = () => {
   const { data: orders } = useGetOrders();
+  const { selectedOrderId, selectOrderId } = useOrderContext();
   return (
     <DataTable
       variant="items-table"
@@ -22,6 +24,11 @@ const OrdersTableView = () => {
         placeholder: 'Search for orders',
       }}
       globalFilter={globalFilter}
+      rowProps={(row) => ({
+        onClick: () => selectOrderId(row.original.id),
+        className: 'cursor-pointer',
+        'data-state': selectedOrderId == row.original.id && 'selected',
+      })}
     />
   );
 };

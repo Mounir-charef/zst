@@ -4,8 +4,8 @@ import {
   Column,
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
-  type Table as TableType,
   VisibilityState,
   flexRender,
   getCoreRowModel,
@@ -15,6 +15,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  type Table as TableType,
 } from '@tanstack/react-table';
 import { Search } from 'lucide-react';
 import * as React from 'react';
@@ -35,8 +36,8 @@ import {
   TableRow,
 } from '../../ui/table';
 import { DefaultTableToolbar } from './DefaultToolBar';
-import { DataTablePagination } from './TablePagination';
 import { ItemsTableToolbar } from './ItemsTableToolbar';
+import { DataTablePagination } from './TablePagination';
 
 export type FilterOption<TData> = {
   column: keyof TData;
@@ -58,24 +59,7 @@ export type GlobalFilterOption<TData> = {
 
 export type GlobalAction<TData> = (table: TableType<TData>) => React.ReactNode;
 
-interface DefaultTableProps<TData, TValue> {
-  header?: {
-    title: string;
-    description?: string;
-  };
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  globalAction?: GlobalAction<TData>;
-  searchOptions?: {
-    column: keyof TData;
-    placeholder?: string;
-  };
-  filterOptions?: FilterOption<TValue>[];
-  globalFilter?: never;
-  variant?: 'default';
-}
-
-interface ItemsTableProps<TData, TValue> {
+interface TableProps<TData, TValue> {
   header?: {
     title: string;
     description?: string;
@@ -88,6 +72,15 @@ interface ItemsTableProps<TData, TValue> {
     placeholder?: string;
   };
   filterOptions?: FilterOption<TData>[];
+  rowProps?: (row: Row<TData>) => React.HTMLAttributes<HTMLTableRowElement>;
+}
+
+interface DefaultTableProps<TData, TValue> extends TableProps<TData, TValue> {
+  globalFilter?: never;
+  variant?: 'default';
+}
+
+interface ItemsTableProps<TData, TValue> extends TableProps<TData, TValue> {
   globalFilter?: {
     column: keyof TData;
     options: {
@@ -110,6 +103,7 @@ export function DataTable<TData, TValue>({
   filterOptions,
   globalFilter,
   globalAction,
+  rowProps,
   variant = 'default',
 }: DataTableProps<TData, TValue>) {
   // if global filter's column is in filterOptions's columns throw an error
@@ -249,6 +243,7 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
+                    {...rowProps?.(row)}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
