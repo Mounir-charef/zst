@@ -51,7 +51,6 @@ const OrderContent = ({ id }: OrderContentProps) => {
       console.log(data);
       throw new Error();
     } catch (error) {
-      console.log(error);
       form.setError('root', { message: 'An error occurred' });
     }
   };

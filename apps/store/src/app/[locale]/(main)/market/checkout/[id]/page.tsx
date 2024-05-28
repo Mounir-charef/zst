@@ -1,7 +1,8 @@
 import React from 'react';
+import OrderCheckout from '../../_components/OrderCheckout';
 
 const page = () => {
-  return <div>page</div>;
+  return <OrderCheckout />;
 };
 
 export default page;

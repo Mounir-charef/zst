@@ -8,8 +8,8 @@ const VariationSelect = ({
   props,
 }: {
   color: string;
-  selected: boolean;
-  quantity: number;
+  selected?: boolean;
+  quantity?: number;
   props: ButtonProps;
 }) => {
   return (

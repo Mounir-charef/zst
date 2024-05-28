@@ -58,7 +58,7 @@ export const QuantityInputField = <
             {!!label && <FormLabel {...labelProps}>{label}</FormLabel>}
             <div className="relative flex w-full items-center">
               <FormControl>
-                <div className="text-foreground border-y-muted flex w-40 overflow-hidden rounded-full border-y text-center shadow-md">
+                <div className="bg-background text-foreground border-y-muted flex w-40 overflow-hidden rounded-full border-y text-center shadow-md">
                   <Button
                     className="bg-background text-foreground hover:bg-background border-muted disabled:text-foreground/50 focus:text-primary flex aspect-square items-center justify-center rounded-full border p-0 focus:border-none focus-visible:ring-0"
                     type="button"
