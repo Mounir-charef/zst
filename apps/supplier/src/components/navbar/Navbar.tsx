@@ -1,13 +1,30 @@
+'use client';
+
 import { buttonVariants } from '@mono/ui';
-import { ShoppingBagIcon } from 'lucide-react';
+import { cn } from '@mono/util';
+import Image from 'next/image';
 import { memo } from 'react';
 import { Link } from '../../navigation';
-import ThemeToggler from './ThemeToggler';
+import { useAppContext } from '../AppProvider';
+import UserNav from './UserNav';
+import Notifications from './Notifications';
+import dynamic from 'next/dynamic';
+
+const MobileMenu = dynamic(() => import('./MobileMenu'));
 
 const NavBar = () => {
+  const { isOpen } = useAppContext();
   return (
-    <div className="bg-background text-foreground border-border fixed top-0 z-50 w-full border-b">
-      <div className="mx-auto hidden h-20 w-full max-w-[1700px] items-center justify-between gap-x-6 p-4 sm:flex">
+    <div
+      suppressHydrationWarning
+      className={cn(
+        'bg-background sticky top-0 z-50 border-b transition-[margin] md:ms-14',
+        {
+          'md:ms-64': isOpen,
+        },
+      )}
+    >
+      <div className="mx-auto flex h-14 w-full max-w-[1700px] items-center justify-between gap-x-6 p-2 md:p-4">
         <nav className="flex items-center gap-6">
           <Link
             href="/"
@@ -16,13 +33,31 @@ const NavBar = () => {
               variant: 'ghost',
             })}
           >
-            <ShoppingBagIcon className="h-8 w-8" />
+            <Image
+              src="/Brand-dark.png"
+              width={80}
+              height={40}
+              alt="Brand"
+              quality={100}
+              className="hidden h-10 w-20 dark:block"
+            />
+            <Image
+              src="/Brand.png"
+              width={80}
+              height={40}
+              alt="Brand"
+              quality={100}
+              className="h-10 w-20 dark:hidden"
+            />
           </Link>
         </nav>
 
-        <div className="flex items-center gap-4">
-          <ThemeToggler />
+        <div className="hidden items-center gap-4 lg:flex">
+          <Notifications />
+          <UserNav />
         </div>
+
+        <MobileMenu />
       </div>
     </div>
   );
