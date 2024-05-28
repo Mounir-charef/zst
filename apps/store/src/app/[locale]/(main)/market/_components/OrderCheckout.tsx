@@ -1,30 +1,26 @@
 'use client';
-import { Button, Form, InputField, Label, PhoneInputField } from '@mono/ui';
-import { ArrowRight, ArrowRightCircle, ChevronLeft, XIcon } from 'lucide-react';
-import CheckoutDetails from './ContentCard';
-import GoBackButton from '../../../../../components/GoBackButton';
-import ReturnToMarket from './ReturnToMarket';
-import { title } from 'process';
-import { offers } from '../_data/offers';
-import OrderDetailCard from './OrderDetailCard';
-import ContentCard from './ContentCard';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import VariationSelect from './VariationSelect';
-import HoverDetails from './HoverDetails';
-import { QuantityInputField } from './QuantityInputField';
-import { z } from 'zod';
-import { PhoneNumber } from 'react-phone-number-input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Form, InputField, Label, PhoneInputField } from '@mono/ui';
+import { ArrowRightCircle, XIcon } from 'lucide-react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { offers } from '../_data/offers';
+import ContentCard from './ContentCard';
+import HoverDetails from './HoverDetails';
+import OrderDetailCard from './OrderDetailCard';
+import { QuantityInputField } from './QuantityInputField';
+import ReturnToMarket from './ReturnToMarket';
+import VariationSelect from './VariationSelect';
 interface OrderCheckoutProps {
   id: string;
 }
 
 const OrderCheckout = ({ id }: OrderCheckoutProps) => {
   const personalInfoSchema = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    phoneNumber: z.string(),
-    address: z.string(),
+    firstName: z.string().min(4).max(255),
+    lastName: z.string().min(4).max(255),
+    phoneNumber: z.string().min(8).max(255),
+    address: z.string().min(8).max(255),
   });
   const orderDetailsSchema = z.object({
     quantity: z.string().refine((val) => parseFloat(val) >= 0, {
@@ -131,11 +127,9 @@ const OrderCheckout = ({ id }: OrderCheckoutProps) => {
                   <span className="flexCenter w-full">
                     <QuantityInputField
                       control={form.control}
-                      name={
-                        `orderDetails[${i}].quantity` as keyof OrderType['orderDetails']
-                      }
+                      name={`orderDetails.${i}.quantity`}
                       InputProps={{
-                        min: 0,
+                        min: 1,
                         className:
                           'hide-arrow text-center p-0 flex justify-center items-center border-none disabled:border-none rounded-none focus-visible:ring-0 appearance-none',
                       }}
@@ -181,17 +175,23 @@ const OrderCheckout = ({ id }: OrderCheckoutProps) => {
             <div className="flex flex-col gap-2">
               <Label>First Name</Label>
               <InputField
+                placeholder={'First name'}
                 control={form.control}
                 name="personalInfo.firstName"
               />
             </div>
             <div className="flex flex-col gap-2">
               <Label>Last Name</Label>
-              <InputField control={form.control} name="personalInfo.lastName" />
+              <InputField
+                placeholder={'Last name'}
+                control={form.control}
+                name="personalInfo.lastName"
+              />
             </div>
             <div className="col-span-2 flex flex-col gap-2">
               <Label>Phone Number</Label>
               <PhoneInputField
+                placeholder={'Phone number'}
                 PhoneInputProps={{ className: 'w-full' }}
                 control={form.control}
                 name="personalInfo.phoneNumber"
@@ -199,7 +199,11 @@ const OrderCheckout = ({ id }: OrderCheckoutProps) => {
             </div>
             <div className="col-span-2 flex flex-col gap-2">
               <Label>Address</Label>
-              <InputField control={form.control} name="personalInfo.address" />
+              <InputField
+                placeholder={'Phone number'}
+                control={form.control}
+                name="personalInfo.address"
+              />
             </div>
           </div>
         </ContentCard>

@@ -1,6 +1,6 @@
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@mono/ui';
 import { AlertCircle } from 'lucide-react';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 const HoverDetails = ({ children }: { children: ReactNode }) => {
   return (

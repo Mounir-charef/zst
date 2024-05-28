@@ -24,7 +24,7 @@ const OfferOrderSheet = ({ id }: OfferOrderSheetProps) => {
           Place Order
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex h-auto w-full flex-col gap-4 p-0 sm:w-full sm:max-w-full md:w-3/4 lg:w-[644px]">
+      <SheetContent className="flex h-auto w-full flex-col gap-4 overflow-auto p-0 sm:w-full sm:max-w-full md:w-3/4 lg:w-[644px]">
         <SheetHeader className="p-6">
           <SheetTitle>Place order</SheetTitle>
           <SheetDescription>Fill order information</SheetDescription>

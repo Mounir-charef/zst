@@ -1,6 +1,6 @@
-import { Button, SheetClose } from '@mono/ui';
+import { Button } from '@mono/ui';
 import { Loader2 } from 'lucide-react';
-import { MutableRefObject, memo } from 'react';
+import { memo } from 'react';
 
 interface OrderSheetFooterProps {
   id: string;
@@ -16,12 +16,17 @@ interface OrderSheetFooterProps {
     };
   };
   isLoading?: boolean;
+  error?: {
+    isError: boolean;
+    message: string;
+  };
 }
 
 const OrderSheetFooter = ({
   id,
   orderDetails,
   isLoading = false,
+  error,
 }: OrderSheetFooterProps) => {
   return (
     <div className="mt-auto flex flex-col gap-2 border-t p-6 shadow-2xl shadow-black">
@@ -41,11 +46,10 @@ const OrderSheetFooter = ({
         <span>{} ($6.80/piece)</span>
       </div>
       <Button type="submit">
-        {' '}
-        {!isLoading ? (
-          'Complete order process'
-        ) : (
+        {isLoading ? (
           <Loader2 className="animate-spin" />
+        ) : (
+          'Complete order process'
         )}
       </Button>
       {/* <SheetClose asChild>
