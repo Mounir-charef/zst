@@ -10,9 +10,6 @@ import {
   CardHeader,
   CardTitle,
   Form,
-  Pagination,
-  PaginationContent,
-  PaginationItem,
   Separator,
   TextAreaField,
   Textarea,
@@ -21,8 +18,6 @@ import { format } from 'date-fns';
 import {
   CheckCheckIcon,
   CheckIcon,
-  ChevronLeft,
-  ChevronRight,
   Copy,
   Loader2,
   ShoppingBag,
@@ -30,6 +25,7 @@ import {
 } from 'lucide-react';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 import { useGetOrder } from '../../../../../hooks/orders/useGetOrder';
 import { Order } from '../../../../../validation/order-schema';
@@ -37,7 +33,6 @@ import AcceptOrderButton from './AcceptOrderButton';
 import { renderStatus } from './Columns';
 import { useOrderContext } from './OrderProvider';
 import RejectOrderButton from './RejectOrderButton';
-import { toast } from 'sonner';
 
 const deliverFormSchema = z.object({
   Id: z.string().or(z.number()),
@@ -134,7 +129,7 @@ function renderActionByStatus(order: Order) {
 }
 
 const OrderCard = () => {
-  const { selectedOrderId } = useOrderContext();
+  const { selectedOrderId, selectOrderId } = useOrderContext();
   const { data: order, isLoading } = useGetOrder(selectedOrderId);
 
   if (isLoading) {
@@ -233,10 +228,10 @@ const OrderCard = () => {
         </div>
       </CardContent>
       <CardFooter className="bg-muted/50 flex flex-row items-center border-t px-6 py-3">
-        <div className="text-muted-foreground text-xs">
+        <div className="text-muted-foreground flex-1 text-center text-xs">
           Updated <time dateTime="2023-11-23">November 23, 2023</time>
         </div>
-        <Pagination className="ml-auto mr-0 w-auto">
+        {/* <Pagination className="ml-auto mr-0 w-auto">
           <PaginationContent>
             <PaginationItem>
               <Button size="icon" variant="outline" className="h-6 w-6">
@@ -251,7 +246,7 @@ const OrderCard = () => {
               </Button>
             </PaginationItem>
           </PaginationContent>
-        </Pagination>
+        </Pagination> */}
       </CardFooter>
     </Card>
   );

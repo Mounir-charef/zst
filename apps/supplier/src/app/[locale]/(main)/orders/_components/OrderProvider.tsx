@@ -5,7 +5,7 @@ import type { Order } from '../../../../../validation/order-schema';
 
 interface OrderContextValue {
   selectedOrderId: Order['id'] | null;
-  selectOrderId: (orderId: Order['id']) => void;
+  selectOrderId: (orderId: Order['id'] | null) => void;
 }
 
 const OrderContext = createContext<OrderContextValue | undefined>(undefined);
@@ -16,8 +16,8 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const selectOrderId = useCallback(
-    (orderId: Order['id']) => {
-      if (selectedOrderId === orderId) {
+    (orderId: Order['id'] | null) => {
+      if (selectedOrderId === orderId || orderId === null) {
         setSelectedOrder(null);
       } else {
         setSelectedOrder(orderId);
@@ -27,7 +27,12 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <OrderContext.Provider value={{ selectedOrderId, selectOrderId }}>
+    <OrderContext.Provider
+      value={{
+        selectedOrderId,
+        selectOrderId,
+      }}
+    >
       {children}
     </OrderContext.Provider>
   );

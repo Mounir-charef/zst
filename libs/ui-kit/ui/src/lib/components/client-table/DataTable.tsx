@@ -72,7 +72,10 @@ interface TableProps<TData, TValue> {
     placeholder?: string;
   };
   filterOptions?: FilterOption<TData>[];
-  rowProps?: (row: Row<TData>) => React.HTMLAttributes<HTMLTableRowElement>;
+  rowProps?: (
+    row: Row<TData>,
+    table: TableType<TData>,
+  ) => React.HTMLAttributes<HTMLTableRowElement>;
 }
 
 interface DefaultTableProps<TData, TValue> extends TableProps<TData, TValue> {
@@ -243,7 +246,7 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
-                    {...rowProps?.(row)}
+                    {...rowProps?.(row, table)}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

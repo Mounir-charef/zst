@@ -24,8 +24,10 @@ const OrdersTableView = () => {
         placeholder: 'Search for orders',
       }}
       globalFilter={globalFilter}
-      rowProps={(row) => ({
-        onClick: () => selectOrderId(row.original.id),
+      rowProps={(row, table) => ({
+        onClick: () => {
+          selectOrderId(row.original.id);
+        },
         className: 'cursor-pointer',
         'data-state': selectedOrderId == row.original.id && 'selected',
       })}
