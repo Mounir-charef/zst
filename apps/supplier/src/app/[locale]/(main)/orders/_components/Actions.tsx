@@ -15,7 +15,7 @@ interface OrderRowActionsProps {
 export function OrderRowActions({ row }: OrderRowActionsProps) {
   const { id, status } = orderSchema.parse(row.original);
 
-  if (status !== 'in_review') return;
+  if (status !== 'pending') return;
 
   return (
     <div

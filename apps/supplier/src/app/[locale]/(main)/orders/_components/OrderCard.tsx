@@ -25,15 +25,14 @@ import {
 } from 'lucide-react';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { z } from 'zod';
+import { useDeliverOrder } from '../../../../../hooks/orders/useDeliverOrder';
 import { useGetOrder } from '../../../../../hooks/orders/useGetOrder';
 import { Order } from '../../../../../validation/order-schema';
 import AcceptOrderButton from './AcceptOrderButton';
 import { renderStatus } from './Columns';
 import { useOrderContext } from './OrderProvider';
 import RejectOrderButton from './RejectOrderButton';
-import { useDeliverOrder } from '../../../../../hooks/orders/useDeliverOrder';
 
 const deliverFormSchema = z.object({
   Id: z.string().or(z.number()),
@@ -43,7 +42,7 @@ const deliverFormSchema = z.object({
 type DeliverFormValues = z.infer<typeof deliverFormSchema>;
 
 const DeliverForm = memo(({ orderId }: { orderId: string | number }) => {
-  const { mutate } = useDeliverOrder(orderId);
+  const { mutate, isPending } = useDeliverOrder(orderId);
   const form = useForm<DeliverFormValues>({
     resolver: zodResolver(deliverFormSchema),
     defaultValues: {
@@ -53,7 +52,7 @@ const DeliverForm = memo(({ orderId }: { orderId: string | number }) => {
   });
 
   const onSubmit = form.handleSubmit((data) => {
-    mutate();
+    mutate(data.adminNote);
   });
   return (
     <Form {...form}>
@@ -71,6 +70,7 @@ const DeliverForm = memo(({ orderId }: { orderId: string | number }) => {
           className="w-full items-center gap-2"
           type="submit"
           variant="success"
+          disabled={isPending}
         >
           <CheckCheckIcon className="size-6" /> Mark as delivered
         </Button>
@@ -81,7 +81,7 @@ const DeliverForm = memo(({ orderId }: { orderId: string | number }) => {
 
 function renderActionByStatus(order: Order) {
   switch (order.status) {
-    case 'pending':
+    case 'in_review':
       return null;
     case 'delivered':
       return (
@@ -94,7 +94,7 @@ function renderActionByStatus(order: Order) {
           />
         </>
       );
-    case 'in_review':
+    case 'pending':
       return (
         <>
           <Separator />
