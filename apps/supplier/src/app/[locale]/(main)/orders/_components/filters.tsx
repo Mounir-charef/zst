@@ -1,7 +1,7 @@
 'use client';
 
 import { GlobalFilterOption } from '@mono/ui';
-import { Order } from '../_data/schema';
+import { Order } from '../../../../../validation/order-schema';
 import { statuses } from '../_data/Data';
 
 export const globalFilter: GlobalFilterOption<Order> = {

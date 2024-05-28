@@ -1,7 +1,7 @@
 import { CircleIcon } from '@radix-ui/react-icons';
 import orders from './orders.json';
 import { z } from 'zod';
-import { Order, orderSchema } from './schema';
+import { Order, orderSchema } from '../../../../../validation/order-schema';
 
 export const statuses = [
   {
