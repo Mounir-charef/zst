@@ -1,9 +1,7 @@
 'use client';
 import {
-  UseMutationOptions,
   UseQueryOptions,
   UseSuspenseQueryOptions,
-  useMutation,
   useQuery,
   useSuspenseQuery,
 } from '@tanstack/react-query';
@@ -32,33 +30,6 @@ export function useAuthQuery<
     queryKey,
     queryFn: async () => {
       return fetcher(queryKey, session.axiosInstance);
-    },
-    ...options,
-  });
-}
-
-export function useAuthMutation<
-  TMutationKey extends readonly unknown[],
-  TMutationFnData,
-  TError,
-  TData = TMutationFnData,
->(
-  mutationKey: TMutationKey,
-  fetcher: (
-    params: TMutationKey,
-    axiosInstance: AxiosInstance,
-  ) => Promise<TMutationFnData>,
-  options?: Omit<
-    UseMutationOptions<TMutationFnData, TError, TData, TMutationKey>,
-    'mutationKey' | 'mutationFn'
-  >,
-) {
-  const session = useSession();
-
-  return useMutation({
-    mutationKey,
-    mutationFn: async () => {
-      return fetcher(mutationKey, session.axiosInstance);
     },
     ...options,
   });

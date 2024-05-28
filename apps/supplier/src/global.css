@@ -24,6 +24,16 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
+
+    /* Custom Colors */
+    --info: 214 95% 93%;
+    --info-foreground: 221 83% 53%;
+    --warning: 53 98% 77%;
+    --warning-foreground: 35 92% 33%;
+    --elevated: 240 5% 96%;
+    --elevated-foreground: 240 4% 46%;
+    --success: 141 84% 93%;
+    --success-foreground: 163 94% 24%;
   }
 
   .dark {
@@ -46,6 +56,15 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
+
+    --info: 214 95% 93%;
+    --info-foreground: 221 83% 53%;
+    --warning: 53 98% 77%;
+    --warning-foreground: 35 92% 33%;
+    --elevated: 240 5% 96%;
+    --elevated-foreground: 240 4% 46%;
+    --success: 141 84% 93%;
+    --success-foreground: 163 94% 24%;
   }
 }
 

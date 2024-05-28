@@ -25,8 +25,15 @@
     --ring: 20 14.3% 4.1%;
     --radius: 0.5rem;
 
-    --success: 142 76% 36%;
-    --success-foreground: 60 9.1% 97.8%;
+    /* Custom Colors */
+    --info: 214 95% 93%;
+    --info-foreground: 214 95% 93%;
+    --warning: 53 98% 77%;
+    --warning-foreground: 35 92% 33%;
+    --elevated: 240 5% 96%;
+    --elevated-foreground: 240 4% 46%;
+    --success: 47.9 95.8% 53.1%;
+    --success-foreground: 163 94% 24%;
   }
 
   .dark {
@@ -50,8 +57,15 @@
     --input: 12 6.5% 15.1%;
     --ring: 35.5 91.7% 32.9%;
 
-    --success: 142 76% 36%;
-    --success-foreground: 60 9.1% 97.8%;
+    /* Custom Colors */
+    --info: 221 83% 53%;
+    --info-foreground: 221 83% 53%;
+    --warning: 53 98% 77%;
+    --warning-foreground: 35 92% 33%;
+    --elevated: 12 6.5% 15.1%;
+    --elevated-foreground: 24 9.8% 10%;
+    --success: 47.9 95.8% 53.1%;
+    --success-foreground: 163 94% 24%;
   }
 }
 
