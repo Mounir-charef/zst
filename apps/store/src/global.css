@@ -26,7 +26,7 @@
     --radius: 0.5rem;
 
     /* Custom Colors */
-    --info: 221 83% 53%;
+    --info: 214 95% 93%;
     --info-foreground: 214 95% 93%;
     --warning: 53 98% 77%;
     --warning-foreground: 35 92% 33%;
@@ -59,7 +59,7 @@
 
     /* Custom Colors */
     --info: 221 83% 53%;
-    --info-foreground: 214 95% 93%;
+    --info-foreground: 221 83% 53%;
     --warning: 53 98% 77%;
     --warning-foreground: 35 92% 33%;
     --elevated: 12 6.5% 15.1%;

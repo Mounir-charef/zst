@@ -84,7 +84,11 @@ export const columns: ColumnDef<Order>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
     ),
-    cell: ({ row }) => renderStatus(row.getValue('status')),
+    cell: ({ row }) => (
+      <div className="flex justify-center">
+        {renderStatus(row.getValue('status'))}
+      </div>
+    ),
     filterFn: (row, id, value) => value === row.getValue(id),
   },
 
