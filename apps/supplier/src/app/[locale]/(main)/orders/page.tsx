@@ -2,7 +2,7 @@ import { Button } from '@mono/ui';
 import { Loader2 } from 'lucide-react';
 import { Suspense } from 'react';
 import ActionCard from '../../../../components/cards/ActionCard';
-import OrderCard from '../../../../components/cards/OrderCard';
+import OrderCard from './_components/OrderCard';
 import ProgressCard from '../../../../components/cards/ProgressCard';
 import { OrderProvider } from './_components/OrderProvider';
 import OrdersTable from './_components/OrdersTable';

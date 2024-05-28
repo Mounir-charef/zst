@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { Order } from '../../../../../validation/order-schema';
 import { OrderRowActions } from './Actions';
 
-function renderStatus(status: Order['status']) {
+export function renderStatus(status: Order['status']) {
   switch (status) {
     case 'active':
       return <Badge variant="success">Active</Badge>;
