@@ -18,7 +18,12 @@ export function OrderRowActions({ row }: OrderRowActionsProps) {
   if (status !== 'in_review') return;
 
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className="flex items-center gap-2"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <AcceptOrderButton orderId={id}>
         <Button className="h-7 gap-2" variant="success">
           <CheckIcon className="h-4 w-4" /> Accept

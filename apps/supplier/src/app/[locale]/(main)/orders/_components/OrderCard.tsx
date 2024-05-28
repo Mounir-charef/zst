@@ -129,7 +129,7 @@ function renderActionByStatus(order: Order) {
 }
 
 const OrderCard = () => {
-  const { selectedOrderId, selectOrderId } = useOrderContext();
+  const { selectedOrderId } = useOrderContext();
   const { data: order, isLoading } = useGetOrder(selectedOrderId);
 
   if (isLoading) {

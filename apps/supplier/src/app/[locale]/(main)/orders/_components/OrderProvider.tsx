@@ -1,11 +1,11 @@
 'use client';
 
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import type { Order } from '../../../../../validation/order-schema';
 
 interface OrderContextValue {
   selectedOrderId: Order['id'] | null;
-  selectOrderId: (orderId: Order['id'] | null) => void;
+  setSelectedOrder: (orderId: Order['id'] | null) => void;
 }
 
 const OrderContext = createContext<OrderContextValue | undefined>(undefined);
@@ -15,22 +15,11 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
     null,
   );
 
-  const selectOrderId = useCallback(
-    (orderId: Order['id'] | null) => {
-      if (selectedOrderId === orderId || orderId === null) {
-        setSelectedOrder(null);
-      } else {
-        setSelectedOrder(orderId);
-      }
-    },
-    [selectedOrderId],
-  );
-
   return (
     <OrderContext.Provider
       value={{
         selectedOrderId,
-        selectOrderId,
+        setSelectedOrder,
       }}
     >
       {children}

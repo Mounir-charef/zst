@@ -9,7 +9,7 @@ import { globalFilter } from './filters';
 
 const OrdersTableView = () => {
   const { data: orders } = useGetOrders();
-  const { selectedOrderId, selectOrderId } = useOrderContext();
+  const { selectedOrderId, setSelectedOrder } = useOrderContext();
   return (
     <DataTable
       variant="items-table"
@@ -26,7 +26,7 @@ const OrdersTableView = () => {
       globalFilter={globalFilter}
       rowProps={(row, table) => ({
         onClick: () => {
-          selectOrderId(row.original.id);
+          setSelectedOrder(row.original.id);
         },
         className: 'cursor-pointer',
         'data-state': selectedOrderId == row.original.id && 'selected',

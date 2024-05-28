@@ -12,8 +12,9 @@ import {
   AlertDialogTrigger,
   Button,
 } from '@mono/ui';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useRejectOrder } from '../../../../../hooks/orders/useRejectOrder';
+import { useOrderContext } from './OrderProvider';
 
 interface AcceptOrderButtonProps {
   orderId: string | number;
@@ -21,11 +22,18 @@ interface AcceptOrderButtonProps {
 }
 
 const AcceptOrderButton = ({ orderId, children }: AcceptOrderButtonProps) => {
-  const { mutate: reject, isPending } = useRejectOrder(orderId);
+  const { mutate: reject, isPending, status } = useRejectOrder(orderId);
+  const { setSelectedOrder } = useOrderContext();
 
   const handleReject = useCallback(() => {
     reject();
   }, [reject]);
+
+  useEffect(() => {
+    if (status === 'success') {
+      setSelectedOrder(null);
+    }
+  }, [status]);
 
   return (
     <AlertDialog>

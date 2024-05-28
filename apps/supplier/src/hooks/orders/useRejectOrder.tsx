@@ -23,13 +23,15 @@ export function useRejectOrder(orderId: string | number) {
         const previousOrders = queryClient.getQueryData<Order[]>(['orders']);
         queryClient.setQueryData<Order[]>(
           ['orders'],
-          previousOrders?.map((o) => {
-            if (o.id === orderId) {
-              return { ...o, status: 'delivered' };
-            }
-            return o;
-          }),
+          previousOrders?.filter((o) => o.id !== orderId),
         );
+
+        // update the order
+        const previousOrder = queryClient.getQueryData<Order>([
+          'order',
+          orderId,
+        ]);
+        queryClient.setQueryData<Order>(['order', orderId], undefined);
       },
     },
   );
