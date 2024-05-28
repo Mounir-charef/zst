@@ -33,6 +33,7 @@ import AcceptOrderButton from './AcceptOrderButton';
 import { renderStatus } from './Columns';
 import { useOrderContext } from './OrderProvider';
 import RejectOrderButton from './RejectOrderButton';
+import { useDeliverOrder } from '../../../../../hooks/orders/useDeliverOrder';
 
 const deliverFormSchema = z.object({
   Id: z.string().or(z.number()),
@@ -42,6 +43,7 @@ const deliverFormSchema = z.object({
 type DeliverFormValues = z.infer<typeof deliverFormSchema>;
 
 const DeliverForm = memo(({ orderId }: { orderId: string | number }) => {
+  const { mutate } = useDeliverOrder(orderId);
   const form = useForm<DeliverFormValues>({
     resolver: zodResolver(deliverFormSchema),
     defaultValues: {
@@ -51,7 +53,7 @@ const DeliverForm = memo(({ orderId }: { orderId: string | number }) => {
   });
 
   const onSubmit = form.handleSubmit((data) => {
-    toast.success(JSON.stringify(data, null, 2));
+    mutate();
   });
   return (
     <Form {...form}>

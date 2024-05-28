@@ -4,22 +4,24 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Order } from '../../validation/order-schema';
 
-export function useAcceptOrder(orderId: string | number) {
+export function useDeliverOrder(orderId: string | number) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationKey: ['acceptOrder', orderId],
-    mutationFn: async () => {
+    mutationKey: ['deliverOrder', orderId],
+    mutationFn: async (adminNote: string) => {
       // Accept the order
       await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      return adminNote;
     },
-    onSuccess: () => {
+    onSuccess: (adminNote) => {
       // update the order status
       const previousOrders = queryClient.getQueryData<Order[]>(['orders']);
       queryClient.setQueryData<Order[]>(
         ['orders'],
         previousOrders?.map((o) => {
           if (o.id === orderId) {
-            return { ...o, status: 'active' };
+            return { ...o, status: 'delivered' };
           }
           return o;
         }),
@@ -29,10 +31,10 @@ export function useAcceptOrder(orderId: string | number) {
       const previousOrder = queryClient.getQueryData<Order>(['order', orderId]);
       queryClient.setQueryData<Order>(['order', orderId], {
         ...previousOrder!,
-        status: 'active',
+        status: 'delivered',
       });
 
-      toast.success('Order accepted successfully');
+      toast.success('Order delivered successfully:' + adminNote);
     },
   });
 }
