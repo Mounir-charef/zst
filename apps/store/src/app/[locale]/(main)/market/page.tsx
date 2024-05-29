@@ -10,6 +10,7 @@ import {
 } from '@mono/ui';
 import SearchBar from '../../../../components/SearchBar';
 import CardFilters from './_components/CardFilters';
+import { Loader2 } from 'lucide-react';
 
 const MarketPage = async ({
   searchParams,
@@ -30,7 +31,13 @@ const MarketPage = async ({
       <CardContent className="space-y-4">
         <CardFilters />
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className="grid h-80 w-full place-items-center">
+              <Loader2 className="text-primary size-7 animate-spin" />
+            </div>
+          }
+        >
           <Market searchParams={searchParams} />
         </Suspense>
       </CardContent>

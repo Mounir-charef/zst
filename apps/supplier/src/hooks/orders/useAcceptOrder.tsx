@@ -27,10 +27,12 @@ export function useAcceptOrder(orderId: string | number) {
 
       // update the order
       const previousOrder = queryClient.getQueryData<Order>(['order', orderId]);
-      queryClient.setQueryData<Order>(['order', orderId], {
-        ...previousOrder!,
-        status: 'active',
-      });
+      if (previousOrder) {
+        queryClient.setQueryData<Order>(['order', orderId], {
+          ...previousOrder,
+          status: 'active',
+        });
+      }
 
       toast.success('Order accepted successfully');
     },
