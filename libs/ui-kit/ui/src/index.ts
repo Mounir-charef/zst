@@ -28,3 +28,7 @@ export * from './lib/ui/command';
 export * from './lib/ui/tabs';
 export * from './lib/ui/pagination';
 export * from './lib/ui/radio-group';
+export * from './lib/ui/scroll-area';
+export * from './lib/ui/calendar';
+export * from './lib/ui/switch';
+export * from './lib/ui/alert-dialog';

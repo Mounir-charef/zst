@@ -53,7 +53,7 @@ export const NavItems: NavigationItem[] = [
   {
     type: 'link',
     title: 'Settings',
-    href: '#',
+    href: '/settings',
     icon: <SettingsIcon className="h-4 w-4" />,
   },
 ];
