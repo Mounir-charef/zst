@@ -55,7 +55,7 @@ const SidebarContent = () => {
               {title && (
                 <h2
                   className={cn(
-                    'text-body/60 mb-5 px-4 text-xs font-semibold uppercase',
+                    'text-foreground/60 mb-5 px-4 text-xs font-semibold uppercase',
                     isCollapsed && 'lg:hidden',
                   )}
                 >

@@ -238,53 +238,53 @@ const sidebarLinks: SidebarLinks = {
         ]
     },
 
-    examples: {
-        title: 'Examples',
-        links: [
-            {
-                id: 20,
-                title: 'Form (Old Implementation)',
-                Icon: FaWpforms,
-                href: '/examples/form',
-            },
-            {
-                id: 21,
-                title: 'Listing',
-                Icon: CiViewTable,
-                href: '/examples/table',
-            },
-            {
-                id: 22,
-                title: 'Modal',
-                Icon: SiDialogflow,
-                href: '/examples/modal',
-            },
-            {
-                id: 23,
-                title: 'Badge',
-                Icon: RxBadge,
-                href: '/examples/badge',
-            },
-            {
-                id: 24,
-                title: 'Popover',
-                Icon: MdOutlineFormatOverline,
-                href: '/examples/popover',
-            },
-            {
-                id: 25,
-                title: 'Button',
-                Icon: MdAdsClick,
-                href: '/examples/button',
-            },
-            {
-                id: 26,
-                title: 'Table',
-                Icon: FaTable,
-                href: '/examples/table',
-            },
-        ]
-    },
+    // examples: {
+    //     title: 'Examples',
+    //     links: [
+    //         {
+    //             id: 20,
+    //             title: 'Form (Old Implementation)',
+    //             Icon: FaWpforms,
+    //             href: '/examples/form',
+    //         },
+    //         {
+    //             id: 21,
+    //             title: 'Listing',
+    //             Icon: CiViewTable,
+    //             href: '/examples/table',
+    //         },
+    //         {
+    //             id: 22,
+    //             title: 'Modal',
+    //             Icon: SiDialogflow,
+    //             href: '/examples/modal',
+    //         },
+    //         {
+    //             id: 23,
+    //             title: 'Badge',
+    //             Icon: RxBadge,
+    //             href: '/examples/badge',
+    //         },
+    //         {
+    //             id: 24,
+    //             title: 'Popover',
+    //             Icon: MdOutlineFormatOverline,
+    //             href: '/examples/popover',
+    //         },
+    //         {
+    //             id: 25,
+    //             title: 'Button',
+    //             Icon: MdAdsClick,
+    //             href: '/examples/button',
+    //         },
+    //         {
+    //             id: 26,
+    //             title: 'Table',
+    //             Icon: FaTable,
+    //             href: '/examples/table',
+    //         },
+    //     ]
+    // },
 }
 
 

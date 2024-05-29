@@ -2,6 +2,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from '@mono/ui';
 import ProductInfoCell from '../../../../../../components/products/ProductInfoCell';
 import { TypedAuctionListing } from '../../../../../../types/auction';
+import AuctionColumnActions from './AuctionColumnActions';
 
 const auctionColumns: ColumnDef<TypedAuctionListing>[] = [
   {
@@ -49,6 +50,16 @@ const auctionColumns: ColumnDef<TypedAuctionListing>[] = [
     ),
     cell: ({ row: { original } }) => {
       return <span>{original.maxQuantity}</span>;
+    },
+  },
+
+  {
+    id: 'actions',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Actions" />
+    ),
+    cell: ({ row: { original } }) => {
+      return <AuctionColumnActions id={original.id} />;
     },
   },
 ];
