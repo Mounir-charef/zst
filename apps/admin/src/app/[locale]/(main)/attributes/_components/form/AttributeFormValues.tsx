@@ -1,11 +1,16 @@
 import React from 'react';
 import BoundedSectionWrapper from '../../../../../../components/common/BoundedSectionWrapper';
-import FormSection from '../../../../../../components/ui/form/formSection/FormSection';
-import { Button } from '../../../../../../components/ui/Button';
 import { Control, useFieldArray } from 'react-hook-form';
 import FormFieldsWrapper from '../../../../../../components/ui/form/FormFieldsWrapper';
 import RemoveBorderlessButton from '../../../../../../components/common/RemoveBorderlessButton';
-import { Card, CardContent, CardHeader, CardTitle, InputField } from '@mono/ui';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  InputField,
+} from '@mono/ui';
 import { AttributeValues } from '../../../../../../schemas/attribute-schema';
 
 interface AttributeFormValuesProps {

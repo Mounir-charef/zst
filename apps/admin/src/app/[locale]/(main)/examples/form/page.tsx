@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Button,
   CheckBoxField,
   Form,
   InputField,
@@ -18,7 +19,6 @@ import RadioField from '../../../../../components/ui/form/radio/RadioField';
 import PageTitle from '../../../../../components/common/PageTitle';
 import FileUploaderField from '../../../../../components/ui/form/fileUploader/FileUploaderField';
 import FormFooter from '../../../../../components/ui/form/FormFooter';
-import { Button } from '../../../../../components/ui/Button';
 import SelectField from '../../../../../components/ui/form/select/SelectField';
 
 const FormPage = () => {

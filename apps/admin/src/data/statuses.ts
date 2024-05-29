@@ -1,12 +1,17 @@
+export const statusesKeys = {
+    ACTIVE: 'ACTIVE',
+    INACTIVE: 'INACTIVE',
+}
+
 
 const statuses = [
     {
         label: 'Active',
-        value: 'ACTIVE',
+        value: statusesKeys.ACTIVE,
     },
     {
-        label: 'Draft',
-        value: 'DRAFT'
+        label: 'Inactive',
+        value: statusesKeys.INACTIVE
     }
 ]
 

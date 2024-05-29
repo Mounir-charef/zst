@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalTitle,
 } from '../../../../../components/ui/Modal';
-import { Button } from '../../../../../components/ui/Button';
+import { Button } from '@mono/ui';
 
 const ModalExamplePage = () => {
   const { isOpen, onOpen, onClose, setIsOpen } = useDisclosure();

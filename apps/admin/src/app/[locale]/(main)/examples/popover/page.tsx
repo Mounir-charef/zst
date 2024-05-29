@@ -1,8 +1,7 @@
 'use client';
 
-import { CustomisablePopover } from '@mono/ui';
+import { Button, CustomisablePopover } from '@mono/ui';
 import { useDisclosure } from '@mono/util';
-import { Button } from '../../../../../components/ui/Button';
 
 const PopoverExamplePage = () => {
   const { isOpen, onOpen, setIsOpen } = useDisclosure();

@@ -1,13 +1,11 @@
-import { ColumnType } from 'rc-table';
 import { TypedAttributeListing } from '../../../../../../types/attribute';
 import routesConfig from '../../../../../../config/routesConfig';
-import ColumnID from '../../../../../../components/common/columns/ColumnID';
-import { BaseDataItem } from '../../../../../../types/common';
 import ColumnActionWrapper from '../../../../../../components/table-columns/ColumnActionWrapper';
 import ColumnDelete from '../../../../../../components/table-columns/ColumnDelete';
 import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
 import { ColumnDef } from '@tanstack/react-table';
 import { Badge, DataTableColumnHeader } from '@mono/ui';
+import AttributeColumnActions from './AttributeColumnActions';
 
 // const attributeColumns: ColumnType<TypedAttributeListing>[] = [
 //   {
@@ -90,12 +88,7 @@ const attributeColumns: ColumnDef<TypedAttributeListing>[] = [
       <DataTableColumnHeader column={column} title="Actions" />
     ),
     cell: ({ row: { original } }) => {
-      return (
-        <ColumnActionWrapper>
-          <ColumnEdit href={routesConfig.editCategory(original.id)} />
-          <ColumnDelete id={original.id} />
-        </ColumnActionWrapper>
-      );
+      return <AttributeColumnActions id={original.id} />;
     },
   },
 ];

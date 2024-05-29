@@ -6,6 +6,7 @@ import ColumnText from '../../../../../../components/common/columns/ColumnText';
 import { TypedClient } from '../../../../../../types/user';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from '@mono/ui';
+import ClientColumnActions from './ClientColumnActions';
 
 // const clientColumns: ColumnsType<TypedClient> = [
 //   {
@@ -76,12 +77,7 @@ const clientColumns: ColumnDef<TypedClient>[] = [
       <DataTableColumnHeader column={column} title="Actions" />
     ),
     cell: ({ row: { original } }) => {
-      return (
-        <ColumnActionWrapper>
-          <ColumnView href="#" />
-          <ColumnEdit href="#" />
-        </ColumnActionWrapper>
-      );
+      return <ClientColumnActions id={original.id} />;
     },
   },
 ];

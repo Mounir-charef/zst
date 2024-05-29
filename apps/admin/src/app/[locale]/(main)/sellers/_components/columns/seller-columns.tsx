@@ -7,6 +7,7 @@ import { TypedSeller } from '../../../../../../types/user';
 import ColumnText from '../../../../../../components/common/columns/ColumnText';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from '@mono/ui';
+import SellerColumnActions from './SellerColumnActions';
 
 // const sellerColumns: ColumnsType<TypedSeller> = [
 //   {
@@ -77,12 +78,7 @@ const sellerColumns: ColumnDef<TypedSeller>[] = [
       <DataTableColumnHeader column={column} title="Actions" />
     ),
     cell: ({ row: { original } }) => {
-      return (
-        <ColumnActionWrapper>
-          <ColumnView href="#" />
-          <ColumnEdit href="#" />
-        </ColumnActionWrapper>
-      );
+      return <SellerColumnActions id={original.id} />;
     },
   },
 ];

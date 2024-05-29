@@ -18,7 +18,12 @@ const ProductFormCategory = ({ control }: { control: Control }) => {
             name="category"
             options={[]}
           />
-          {/* <SelectField options={[]} /> */}
+          <SelectField
+            name="subCategory"
+            control={control}
+            label="Subcategory (optional)"
+            options={[]}
+          />
         </FormFieldsWrapper>
       </CardContent>
     </Card>

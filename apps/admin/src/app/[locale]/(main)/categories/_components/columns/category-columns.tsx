@@ -10,6 +10,7 @@ import CategoryColumnInfo from './CategoryColumnInfo';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from '@mono/ui';
 import Image from 'next/image';
+import CategoryColumnActions from './CategoryColumnActions';
 
 // const categoryColumns: ColumnsType<TypedCategoryListing> = [
 //   {
@@ -81,12 +82,7 @@ const categoryColumns: ColumnDef<TypedCategoryListing>[] = [
       <DataTableColumnHeader column={column} title="Actions" />
     ),
     cell: ({ row: { original } }) => {
-      return (
-        <ColumnActionWrapper>
-          <ColumnEdit href={routesConfig.editCategory(original.id)} />
-          <ColumnDelete id={original.id} />
-        </ColumnActionWrapper>
-      );
+      return <CategoryColumnActions id={original.id} />;
     },
   },
 ];

@@ -2,7 +2,6 @@ import React from 'react';
 import RemoveBorderlessButton from '../../../../../../components/common/RemoveBorderlessButton';
 import FormFieldsWrapper from '../../../../../../components/ui/form/FormFieldsWrapper';
 import SelectField from '../../../../../../components/ui/form/select/SelectField';
-import { Button } from '../../../../../../components/ui/Button';
 import {
   Control,
   FieldValues,
@@ -11,7 +10,7 @@ import {
 } from 'react-hook-form';
 import attributes from '../../../../../../data/attributes';
 import { cn } from '@mono/util';
-import { CardContent } from '@mono/ui';
+import { Button, CardContent } from '@mono/ui';
 
 const ProductFormVariationOptions = ({
   control,

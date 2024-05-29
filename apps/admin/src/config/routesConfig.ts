@@ -3,6 +3,10 @@ import { ID } from "../types/common"
 const routesConfig = {
     dashboard: '/',
 
+    orders: '/orders',
+    offers: '/offers',
+    auctions: '/auctions',
+
     products: '/products',
     addNewProduct: '/products/create',
     editProduct: (id: ID) => `/products/${id}/edit`,

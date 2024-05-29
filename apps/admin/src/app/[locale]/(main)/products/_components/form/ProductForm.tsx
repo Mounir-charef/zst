@@ -7,6 +7,10 @@ import ProductFormVariation from './ProductFormVariation';
 import ProductFormStatus from './ProductFormStatus';
 import ProductFormImages from './ProductFormImages';
 import ProductFormCategory from './ProductFormCategory';
+import BoundedSectionWrapper from '../../../../../../components/common/BoundedSectionWrapper';
+import PageTitle from '../../../../../../components/common/PageTitle';
+import FormHeader from '../../../../../../components/ui/form/FormHeader';
+import routesConfig from '../../../../../../config/routesConfig';
 
 const ProductForm = ({
   variant,
@@ -35,6 +39,7 @@ const ProductForm = ({
 
   return (
     <>
+      <FormHeader backHref={routesConfig.products} title="Add Product" />
       <Form {...form}>
         <FormGridWrapper
           leftSide={

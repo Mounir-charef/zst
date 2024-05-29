@@ -6,6 +6,7 @@ import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
 import ColumnText from '../../../../../../components/common/columns/ColumnText';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from '@mono/ui';
+import AdminColumnActions from './AdminColumnActions';
 
 // const adminColumns: ColumnsType<TypedAdmin> = [
 //   {
@@ -76,12 +77,7 @@ const adminColumns: ColumnDef<TypedAdmin>[] = [
       <DataTableColumnHeader column={column} title="Actions" />
     ),
     cell: ({ row: { original } }) => {
-      return (
-        <ColumnActionWrapper>
-          <ColumnView href="#" />
-          <ColumnEdit href="#" />
-        </ColumnActionWrapper>
-      );
+      return <AdminColumnActions id={original.id} />;
     },
   },
 ];

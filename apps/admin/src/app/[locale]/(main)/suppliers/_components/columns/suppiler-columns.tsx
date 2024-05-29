@@ -6,6 +6,7 @@ import ColumnText from '../../../../../../components/common/columns/ColumnText';
 import { TypedSupplier } from '../../../../../../types/user';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from '@mono/ui';
+import SupplierColumnActions from './SupplierColumnActions';
 
 // const supplierColumns: ColumnsType<TypedSupplier> = [
 //   {
@@ -76,12 +77,7 @@ const supplierColumns: ColumnDef<TypedSupplier>[] = [
       <DataTableColumnHeader column={column} title="Actions" />
     ),
     cell: ({ row: { original } }) => {
-      return (
-        <ColumnActionWrapper>
-          <ColumnView href="#" />
-          <ColumnEdit href="#" />
-        </ColumnActionWrapper>
-      );
+      return <SupplierColumnActions id={original.id} />;
     },
   },
 ];

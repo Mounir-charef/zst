@@ -1,17 +1,22 @@
 import { ColumnType } from 'rc-table';
 import { TypedProductListing } from '../../../../../../types/product';
-import ColumnID from '../../../../../../components/common/columns/ColumnID';
-import ProductColumnInfo from './ProductColumnInfo';
-import ColumnText from '../../../../../../components/common/columns/ColumnText';
 import ColumnView from '../../../../../../components/table-columns/ColumnView';
 import routesConfig from '../../../../../../config/routesConfig';
 import ColumnEdit from '../../../../../../components/table-columns/ColumnEdit';
 import ColumnActionWrapper from '../../../../../../components/table-columns/ColumnActionWrapper';
 import ColumnDelete from '../../../../../../components/table-columns/ColumnDelete';
 import { ColumnDef } from '@tanstack/react-table';
-import { Badge, Checkbox, DataTableColumnHeader } from '@mono/ui';
+import {
+  Badge,
+  Checkbox,
+  DataTableColumnHeader,
+  DropdownMenuItem,
+} from '@mono/ui';
 import Image from 'next/image';
 import { cn } from '@mono/util';
+import StatusBadge from '../../../../../../components/common/StatusBadge';
+import ProductColumnActions from './ProductColumnActions';
+import ProductInfoCell from '../../../../../../components/products/ProductInfoCell';
 
 // const productColumns: ColumnType<TypedProductListing>[] = [
 //   {
@@ -74,18 +79,7 @@ export const productColumns: ColumnDef<TypedProductListing>[] = [
       <DataTableColumnHeader column={column} title="Product" />
     ),
     cell: ({ row: { original } }) => {
-      return (
-        <div className="flex items-center gap-x-4">
-          <Image
-            alt="Product image"
-            className="aspect-square rounded-md object-cover"
-            height="64"
-            src={original.image?.path}
-            width="64"
-          />
-          <span className="max-w-80 truncate font-medium">{original.name}</span>
-        </div>
-      );
+      return <ProductInfoCell product={original} />;
     },
   },
   {
@@ -94,7 +88,7 @@ export const productColumns: ColumnDef<TypedProductListing>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row: { original } }) => {
-      return <Badge variant={'success'}>Active</Badge>;
+      return <StatusBadge status={original.status} />;
     },
     filterFn: (row, id, value) => value === row.getValue(id),
   },
@@ -133,13 +127,7 @@ export const productColumns: ColumnDef<TypedProductListing>[] = [
       <DataTableColumnHeader column={column} title="Actions" />
     ),
     cell: ({ row: { original } }) => {
-      return (
-        <ColumnActionWrapper>
-          <ColumnEdit href={routesConfig.editProduct(original.id)} />
-          <ColumnView href={routesConfig.editProduct(original.id)} />
-          <ColumnDelete id={original.id} />
-        </ColumnActionWrapper>
-      );
+      return <ProductColumnActions id={original.id} />;
     },
   },
 ];
