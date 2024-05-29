@@ -79,4 +79,12 @@
       'rlig' 1,
       'calt' 1;
   }
+  .flexCenter {
+    @apply flex items-center justify-center;
+  }
+}
+.hide-arrow[type='number']::-webkit-inner-spin-button,
+.hide-arrow[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

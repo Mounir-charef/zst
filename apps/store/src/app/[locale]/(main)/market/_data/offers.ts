@@ -1,3 +1,4 @@
+import { ColorVariant } from '../../products/types';
 import { Offer } from '../_types';
 
 export const offers: Offer[] = [
@@ -99,5 +100,71 @@ export const offers: Offer[] = [
     variations: ['red', 'blue', 'green'],
     min: 1,
     max: 10,
+  },
+];
+
+export const ColorVariants: ColorVariant[] = [
+  {
+    color: '#18181B',
+    name: 'Black',
+    sizes: [
+      {
+        size: 'S',
+        quantity: '0',
+        price: '100',
+      },
+      {
+        size: 'M',
+        quantity: '0',
+        price: '69',
+      },
+      {
+        size: 'L',
+        quantity: '0',
+        price: '420',
+      },
+    ],
+  },
+  {
+    color: '#FED7AA',
+    name: 'Beige',
+    sizes: [
+      {
+        size: 'S',
+        quantity: '0',
+        price: '100',
+      },
+      {
+        size: 'M',
+        quantity: '0',
+        price: '69',
+      },
+      {
+        size: 'L',
+        quantity: '0',
+        price: '420',
+      },
+    ],
+  },
+  {
+    color: '#0C4A6E',
+    name: 'Blue',
+    sizes: [
+      {
+        size: 'S',
+        quantity: '0',
+        price: '100',
+      },
+      {
+        size: 'M',
+        quantity: '0',
+        price: '69',
+      },
+      {
+        size: 'L',
+        quantity: '0',
+        price: '420',
+      },
+    ],
   },
 ];
