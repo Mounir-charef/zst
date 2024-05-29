@@ -60,12 +60,14 @@ export type GlobalFilterOption<TData> = {
 export type GlobalAction<TData> = (table: TableType<TData>) => React.ReactNode;
 
 interface TableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+
+  className?: string;
   header?: {
     title: string;
     description?: string;
   };
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
   globalAction?: GlobalAction<TData>;
   searchOptions?: {
     column: keyof TData;
@@ -91,7 +93,7 @@ interface ItemsTableProps<TData, TValue> extends TableProps<TData, TValue> {
       value: string;
     }[];
   };
-  variant: 'items-table';
+  variant?: 'items-table';
 }
 
 type DataTableProps<TData, TValue> =
@@ -107,7 +109,8 @@ export function DataTable<TData, TValue>({
   globalFilter,
   globalAction,
   rowProps,
-  variant = 'default',
+  variant,
+  className,
 }: DataTableProps<TData, TValue>) {
   // if global filter's column is in filterOptions's columns throw an error
   if (
@@ -179,7 +182,7 @@ export function DataTable<TData, TValue>({
   }, []);
 
   return (
-    <Card>
+    <Card className={className}>
       {header ? (
         <CardHeader className="flex flex-row flex-wrap items-end justify-between gap-2">
           <div className="flex flex-col justify-center gap-1.5">
@@ -212,14 +215,14 @@ export function DataTable<TData, TValue>({
       <CardContent className="space-y-4">
         {variant === 'default' ? (
           <DefaultTableToolbar table={table} filterOptions={filters} />
-        ) : (
+        ) : variant === 'items-table' ? (
           <ItemsTableToolbar
             table={table}
             filterOptions={filters}
             globalFilter={globalFilterOption}
             globalAction={globalAction}
           />
-        )}
+        ) : null}
         <div className="bg-background rounded-md border p-4">
           <Table>
             <TableHeader>

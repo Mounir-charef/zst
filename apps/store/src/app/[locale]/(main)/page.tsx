@@ -2,45 +2,26 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  Badge,
   Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  buttonVariants,
 } from '@mono/ui';
-import { promises as fs } from 'fs';
 import {
   Activity,
   ArrowUpRight,
   CreditCard,
   DollarSignIcon,
+  Loader2,
   Users,
 } from 'lucide-react';
-import path from 'path';
-import { z } from 'zod';
-import { productSchema } from './products/_data/schema';
 import InfoCard from '../../../components/cards/InfoCard';
-
-async function getProducts() {
-  const data = await fs.readFile(
-    path.join(
-      process.cwd(),
-      'src/app/[locale]/(main)/products/_data/products.json',
-    ),
-  );
-
-  const products = JSON.parse(data.toString());
-
-  return z.array(productSchema).parse(products);
-}
+import RecentTransactionsTable from './_components/RecentTransactionsTable';
+import { Link } from '../../../navigation';
+import { Suspense } from 'react';
 
 export default async function Dashboard() {
   return (
@@ -75,10 +56,7 @@ export default async function Dashboard() {
         />
       </div>
       <div className="grid w-full gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-5">
-        <Card
-          className="w-full overflow-x-auto xl:col-span-3"
-          x-chunk="A card showing a table of recent transactions with a link to view all transactions."
-        >
+        <Card className="w-full overflow-x-auto xl:col-span-3">
           <CardHeader className="flex flex-row items-center">
             <div className="grid gap-2">
               <CardTitle>Transactions</CardTitle>
@@ -86,127 +64,29 @@ export default async function Dashboard() {
                 Recent transactions from your store.
               </CardDescription>
             </div>
-            <Button asChild size="sm" className="ml-auto gap-1">
+            <Link
+              target="_blank"
+              className={buttonVariants({
+                size: 'sm',
+                className: 'ml-auto gap-1',
+              })}
+              href="#"
+            >
               View All
               <ArrowUpRight className="h-4 w-4" />
-            </Button>
+            </Link>
           </CardHeader>
-          <CardContent className="w-full">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Customer</TableHead>
-                  <TableHead className="hidden xl:table-column">Type</TableHead>
-                  <TableHead className="hidden xl:table-column">
-                    Status
-                  </TableHead>
-                  <TableHead className="hidden xl:table-column">Date</TableHead>
-                  <TableHead className="text-right">Amount</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">Liam Johnson</div>
-                    <div className="text-muted-foreground hidden text-sm md:inline">
-                      liam@example.com
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden xl:table-column">Sale</TableCell>
-                  <TableCell className="hidden xl:table-column">
-                    <Badge className="text-xs" variant="outline">
-                      Approved
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                    2023-06-23
-                  </TableCell>
-                  <TableCell className="text-right">$250.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">Olivia Smith</div>
-                    <div className="text-muted-foreground hidden text-sm md:inline">
-                      olivia@example.com
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden xl:table-column">
-                    Refund
-                  </TableCell>
-                  <TableCell className="hidden xl:table-column">
-                    <Badge className="text-xs" variant="outline">
-                      Declined
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                    2023-06-24
-                  </TableCell>
-                  <TableCell className="text-right">$150.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">Noah Williams</div>
-                    <div className="text-muted-foreground hidden text-sm md:inline">
-                      noah@example.com
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden xl:table-column">
-                    Subscription
-                  </TableCell>
-                  <TableCell className="hidden xl:table-column">
-                    <Badge className="text-xs" variant="outline">
-                      Approved
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                    2023-06-25
-                  </TableCell>
-                  <TableCell className="text-right">$350.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">Emma Brown</div>
-                    <div className="text-muted-foreground hidden text-sm md:inline">
-                      emma@example.com
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden xl:table-column">Sale</TableCell>
-                  <TableCell className="hidden xl:table-column">
-                    <Badge className="text-xs" variant="outline">
-                      Approved
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                    2023-06-26
-                  </TableCell>
-                  <TableCell className="text-right">$450.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">Liam Johnson</div>
-                    <div className="text-muted-foreground hidden text-sm md:inline">
-                      liam@example.com
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden xl:table-column">Sale</TableCell>
-                  <TableCell className="hidden xl:table-column">
-                    <Badge className="text-xs" variant="outline">
-                      Approved
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                    2023-06-27
-                  </TableCell>
-                  <TableCell className="text-right">$550.00</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </CardContent>
+          <Suspense
+            fallback={
+              <CardContent className="flex h-44 items-center justify-center">
+                <Loader2 className="text-primary h-8 w-8 animate-spin" />
+              </CardContent>
+            }
+          >
+            <RecentTransactionsTable />
+          </Suspense>
         </Card>
-        <Card
-          className="xl:col-span-2"
-          x-chunk="A card showing a list of recent sales with customer names and email addresses."
-        >
+        <Card className="h-fit xl:col-span-2">
           <CardHeader>
             <CardTitle>Recent Sales</CardTitle>
           </CardHeader>
