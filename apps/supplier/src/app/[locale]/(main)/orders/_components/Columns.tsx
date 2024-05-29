@@ -94,6 +94,7 @@ export const columns: ColumnDef<Order>[] = [
 
   {
     id: 'actions',
+    header: () => <div className="text-center">Actions</div>,
     cell: ({ row }) => <OrderRowActions row={row} />,
   },
 ];
