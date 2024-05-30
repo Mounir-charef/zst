@@ -21,7 +21,7 @@ const AnimationCarousel = ({ className, dataArray }: CarouselProps) => {
     <div>
       <Carousel
         orientation="vertical"
-        className={cn('h-full w-full max-w-md', className)}
+        className={cn('h-full w-full max-w-md')}
         opts={{
           align: 'start',
           dragFree: true,
@@ -33,16 +33,16 @@ const AnimationCarousel = ({ className, dataArray }: CarouselProps) => {
           }),
         ]}
       >
-        <CarouselContent className={cn('-mt-1 h-[600px]')}>
+        <CarouselContent className={cn('mt-7 h-[600px]', className)}>
           {dataArray.map((data, index) => (
-            <CarouselItem key={index} className="basis-1/2 pt-1">
+            <CarouselItem key={index} className="pt-1 md:basis-1/2 ">
               <div className="h-full p-2">
-                <Card className="h-full">
+                <Card className="h-full rounded-3xl">
                   <CardContent className="relative h-full w-full rounded-[300px]  ">
                     <Image
                       src={data}
-                      width={100}
-                      height={150}
+                      width={300}
+                      height={400}
                       alt={'carouselImage' + index}
                       className="absolute left-0 top-0 h-full w-full object-contain"
                     />

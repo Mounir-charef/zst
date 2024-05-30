@@ -11,7 +11,7 @@ const ShowCaseBackground = () => {
         <AnimationCarousel dataArray={carouse1} />
       </div>
       <div className="h-full w-full">
-        <AnimationCarousel dataArray={carouse2} />
+        <AnimationCarousel dataArray={carouse2} className="mt-20" />
       </div>{' '}
       <div className="h-full w-full">
         <AnimationCarousel dataArray={carouse3} />
