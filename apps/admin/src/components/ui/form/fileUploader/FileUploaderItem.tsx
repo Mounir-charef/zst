@@ -22,6 +22,7 @@ const imgTypes = [
 
 interface FileUploaderItemProps extends FileUploaderItemType {
   disabled?: boolean;
+  multiple: boolean | undefined;
   handleDelete?: () => unknown;
 }
 
@@ -29,6 +30,7 @@ const FileUploaderItem = ({
   disabled,
   url,
   name,
+  multiple,
   handleDelete,
 }: FileUploaderItemProps) => {
   const splitName = name.split('.');
@@ -37,19 +39,28 @@ const FileUploaderItem = ({
   return (
     <div
       className={cn(
-        'relative me-2 mt-2 inline-flex flex-col overflow-hidden rounded',
+        'relative inline-flex flex-col overflow-hidden rounded',
         isImage ? 'border-border-200 border' : '',
         disabled ? 'cursor-not-allowed border-[#D4D8DD] bg-[#EEF1F4]' : '',
+        !multiple && 'h-full w-full',
       )}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       {isImage ? (
-        <figure className="relative flex aspect-square h-16 w-28 items-center justify-center">
+        <figure
+          className={cn(
+            'relative flex aspect-square h-16 w-28 items-center justify-center',
+            !multiple && 'h-full w-full',
+          )}
+        >
           <Image
             src={url}
             alt={name}
             fill
             sizes="(max-width: 768px) 100vw"
-            className="object-cover"
+            className={cn(!multiple ? 'object-contain' : 'object-cover')}
           />
         </figure>
       ) : (
@@ -80,7 +91,10 @@ const FileUploaderItem = ({
           size="icon"
           variant="ghost"
           className="text-light absolute end-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs shadow-xl outline-none"
-          onClick={() => handleDelete?.()}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete?.();
+          }}
         >
           <IoMdClose size={10} />
         </Button>

@@ -8,11 +8,16 @@ import routesConfig from '../../config/routesConfig';
 import Image from 'next/image';
 import { cn } from '@mono/util';
 import { Link } from '../../navigation';
+import { useTheme } from 'next-themes';
+import themeConfig from '../../config/themeConfig';
 
 const Sidebar = () => {
   const {
     sidebarStatus: { isCollapsed },
   } = useAppContext();
+
+  const { theme } = useTheme();
+
   return (
     <>
       <aside
@@ -27,7 +32,11 @@ const Sidebar = () => {
               <Image
                 width={32}
                 height={32}
-                src={'/images/logo-sm.png'}
+                src={
+                  theme === themeConfig.LIGHT
+                    ? '/images/logo-sm.png'
+                    : '/images/logo-sm-dark.png'
+                }
                 alt=""
               />
             </Link>

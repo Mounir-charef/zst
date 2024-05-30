@@ -10,7 +10,7 @@ const UserFormAvatar = ({ control }: { control: Control }) => {
         <CardTitle>Avatar</CardTitle>
       </CardHeader>
       <CardContent>
-        <FileUploaderField control={control} name="avatar" multiple />
+        <FileUploaderField control={control} name="avatar" />
       </CardContent>
     </Card>
   );
