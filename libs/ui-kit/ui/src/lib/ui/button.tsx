@@ -21,6 +21,8 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         reverse: 'bg-foreground text-background hover:bg-foreground/90',
         success: 'bg-green-600 text-white hover:bg-green-600/90',
+        main: 'text-background bg-foreground hover:text-foreground border border-transparent hover:bg-primary  hover:border-primary rounded-full',
+        alt: 'hover:text-background hover:bg-foreground text-foreground bg-background border border-foreground hover:border-transparent rounded-full ',
       },
       size: {
         default: 'h-10 px-4 py-2',
