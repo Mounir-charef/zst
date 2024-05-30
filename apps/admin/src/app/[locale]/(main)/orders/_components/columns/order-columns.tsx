@@ -3,6 +3,8 @@ import { TypedOrderListing } from '../../../../../../types/order';
 import { Badge, DataTableColumnHeader } from '@mono/ui';
 import Image from 'next/image';
 import ProductInfoCell from '../../../../../../components/products/ProductInfoCell';
+import OrderColumnActions from './OrderColumnActions';
+import { orderStatues } from '../../../../../../data/orders';
 
 const orderColumns: ColumnDef<TypedOrderListing>[] = [
   {
@@ -51,7 +53,26 @@ const orderColumns: ColumnDef<TypedOrderListing>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row: { original } }) => {
-      return <Badge variant={'elevated'}>{original.status}</Badge>;
+      return (
+        <Badge
+          variant={
+            orderStatues[original.status as keyof typeof orderStatues]
+              .variant as 'default'
+          }
+        >
+          {orderStatues[original.status as keyof typeof orderStatues].text}
+        </Badge>
+      );
+    },
+  },
+
+  {
+    id: 'actions',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Actions" />
+    ),
+    cell: ({ row: { original } }) => {
+      return <OrderColumnActions status={original.status} id={original.id} />;
     },
   },
 ];
