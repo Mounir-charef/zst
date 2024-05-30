@@ -21,7 +21,7 @@ const AnimationCarousel = ({ className, dataArray }: CarouselProps) => {
     <div>
       <Carousel
         orientation="vertical"
-        className={cn('h-full w-full max-w-md')}
+        className={cn('pointer-events-none h-full w-full max-w-md')}
         opts={{
           align: 'start',
           dragFree: true,
@@ -29,7 +29,10 @@ const AnimationCarousel = ({ className, dataArray }: CarouselProps) => {
         }}
         plugins={[
           Autoplay({
-            delay: 800,
+            delay: 1000,
+            stopOnMouseEnter: false,
+            stopOnFocusIn: false,
+            stopOnInteraction: false,
           }),
         ]}
       >
