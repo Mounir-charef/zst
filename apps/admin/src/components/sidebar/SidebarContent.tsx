@@ -7,7 +7,12 @@ import { useAppContext } from '../../contexts/appContext';
 import { cn } from '@mono/util';
 import { usePathname } from '../../navigation';
 import { ID } from '../../types/common';
-import SidebarThemeToggle from './SidebarThemeToggle';
+import dynamic from 'next/dynamic';
+// import SidebarThemeToggle from './SidebarThemeToggle';
+
+const SidebarThemeToggle = dynamic(() => import('./SidebarThemeToggle'), {
+  ssr: false,
+});
 
 const handleCollapsedItems = (pathname: string) => {
   const result: ID[] = [];

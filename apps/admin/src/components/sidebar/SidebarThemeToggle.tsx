@@ -9,14 +9,14 @@ import { useAppContext } from '../../contexts/appContext';
 import themeConfig from '../../config/themeConfig';
 
 const OpenedThemeToggler = () => {
-  const { setTheme, resolvedTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   return (
     <ToggleGroup
       variant="filter"
       type="single"
       className="bg-muted text-muted-foreground w-full rounded-md p-1"
-      value={resolvedTheme}
+      value={theme}
       onValueChange={(value) => {
         if (value) setTheme(value);
       }}
