@@ -5,7 +5,7 @@ import {
   useMemo,
   useTransition,
 } from 'react';
-import { SubFilter } from './SubFilters';
+import { SubFilter } from '../../../../../components/filters/SubFilters';
 import { usePathname, useRouter } from '../../../../../navigation';
 import { useSearchParams } from 'next/navigation';
 import {

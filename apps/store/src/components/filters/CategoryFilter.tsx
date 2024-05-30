@@ -3,7 +3,7 @@
 import { ToggleGroup, ToggleGroupItem } from '@mono/ui';
 import { useSearchParams } from 'next/navigation';
 import { memo, useCallback, useMemo, useTransition } from 'react';
-import { usePathname, useRouter } from '../../../../../navigation';
+import { usePathname, useRouter } from '../../navigation';
 
 export interface CategoryFilterOption {
   label: string;

@@ -27,12 +27,12 @@
 
     /* Custom Colors */
     --info: 214 95% 93%;
-    --info-foreground: 214 95% 93%;
+    --info-foreground: 221 83% 53%;
     --warning: 53 98% 77%;
     --warning-foreground: 35 92% 33%;
     --elevated: 240 5% 96%;
     --elevated-foreground: 240 4% 46%;
-    --success: 47.9 95.8% 53.1%;
+    --success: 141 84% 93%;
     --success-foreground: 163 94% 24%;
   }
 
@@ -58,13 +58,13 @@
     --ring: 35.5 91.7% 32.9%;
 
     /* Custom Colors */
-    --info: 221 83% 53%;
+    --info: 214 95% 93%;
     --info-foreground: 221 83% 53%;
     --warning: 53 98% 77%;
     --warning-foreground: 35 92% 33%;
-    --elevated: 12 6.5% 15.1%;
-    --elevated-foreground: 24 9.8% 10%;
-    --success: 47.9 95.8% 53.1%;
+    --elevated: 240 5% 96%;
+    --elevated-foreground: 240 4% 46%;
+    --success: 141 84% 93%;
     --success-foreground: 163 94% 24%;
   }
 }

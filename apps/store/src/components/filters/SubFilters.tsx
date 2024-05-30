@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger,
 } from '@mono/ui';
 import { ListFilter } from 'lucide-react';
-import { Fragment, TransitionStartFunction, memo, useTransition } from 'react';
-import MenuFilter from './MenuFilter';
+import { Fragment, memo, useTransition } from 'react';
+import MenuFilter from '../../app/[locale]/(main)/market/_components/MenuFilter';
 
 export interface SubFilter {
   label: string;
