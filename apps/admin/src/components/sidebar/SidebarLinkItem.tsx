@@ -48,11 +48,11 @@ const SidebarLinkItem = ({
       <Wrapper
         href={href || '#'}
         className={cn(
-          'flex cursor-pointer items-center justify-between rounded-md px-4 py-2 text-sm text-gray-700 transition',
+          'text-muted-foreground flex cursor-pointer items-center justify-between rounded-md px-4 py-2 text-sm transition',
           isLinkActive && !hasChildren
             ? 'bg-primary/10 text-primary'
-            : `hover:bg-gray-100 ${isSidebarCollapsed && 'lg:hover:text-primary lg:hover:bg-transparent'}`,
-          isSubMenuOpen && 'bg-gray-100',
+            : `hover:bg-muted ${isSidebarCollapsed && 'lg:hover:text-primary lg:hover:bg-transparent'}`,
+          isSubMenuOpen && 'bg-muted',
         )}
         onClick={(e) => {
           if (!href || href === '#' || hasChildren) {
