@@ -2,6 +2,7 @@ import React from 'react';
 import Navlink from './Navlink';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { Button } from '@mono/ui';
+import Link from 'next/link';
 const NavigationLinks = () => {
   return (
     <nav className="p flex items-center gap-4">
@@ -13,8 +14,12 @@ const NavigationLinks = () => {
       </Navlink>
       <Navlink href="/#">Help Center</Navlink>
       <Navlink href="/#">Sell your product</Navlink>
-      <Button variant="main">Sign up</Button>
-      <Button variant="alt">Sign up</Button>
+      <Link href="/sign-up">
+        <Button variant="main">Sign up</Button>
+      </Link>
+      <Link href="/sign-in">
+        <Button variant="alt">Log in</Button>
+      </Link>
     </nav>
   );
 };

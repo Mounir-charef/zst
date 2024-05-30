@@ -64,7 +64,6 @@ export default async function RootLayout({
         <SessionProvider session={session} refetchInterval={60 * 60 * 24}>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
             <Providers>
-              <Navigation />
               {children}
               <Toaster richColors closeButton position="top-right" />
             </Providers>
