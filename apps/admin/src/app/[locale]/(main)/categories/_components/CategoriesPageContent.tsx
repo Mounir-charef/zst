@@ -1,22 +1,37 @@
 'use client';
 
-import useTable from '../../../../../hooks/useTable';
 import { useGetCategoriesQuery } from '../../../../../apis/categoryApis';
+import AddNewButton from '../../../../../components/common/AddNewButton';
+import routesConfig from '../../../../../config/routesConfig';
 import categoryColumns from './columns/category-columns';
-import ListingHeaderCard from '../../../../../components/common/listingHeader/ListingHeaderCard';
-import ListingHeaderTitle from '../../../../../components/common/listingHeader/ListingHeaderTitle';
+import { DataTable } from '@mono/ui';
 
-const CategoriesPageContent = () => {
-  const { Table } = useTable({
-    useQuery: useGetCategoriesQuery,
-    columns: categoryColumns,
-  });
+const globalAction = () => {
   return (
     <>
-      <ListingHeaderCard>
-        <ListingHeaderTitle title="Categories" />
-      </ListingHeaderCard>
-      {Table}
+      <AddNewButton href={routesConfig.addNewCategory} text="Add Category" />
+    </>
+  );
+};
+
+const CategoriesPageContent = () => {
+  const { data } = useGetCategoriesQuery({});
+  return (
+    <>
+      <DataTable
+        variant="items-table"
+        header={{
+          title: 'Categories',
+          description: 'Manage your categories',
+        }}
+        data={data?.data || []}
+        columns={categoryColumns}
+        searchOptions={{
+          column: 'name',
+          placeholder: 'Search for categories',
+        }}
+        globalAction={globalAction}
+      />
     </>
   );
 };

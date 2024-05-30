@@ -39,6 +39,67 @@ const sidebarLinks: SidebarLinks = {
             }
         ]
     },
+
+    orderManagement: {
+        title: 'Order Management',
+        links: [
+            {
+                id: 30,
+                title: 'Orders',
+                Icon: PiPackageDuotone,
+                href: '#',
+                children: [
+                    {
+                        id: 31,
+                        title: 'All Orders',
+                        href: routesConfig.orders
+                    },
+                    // {
+                    //     id: 32,
+                    //     title: 'Add New Order',
+                    //     href: routesConfig.addNewProduct
+                    // },
+                ],
+            },
+            {
+                id: 33,
+                title: 'Offers',
+                Icon: BiCategory,
+                href: '#',
+                children: [
+                    {
+                        id: 34,
+                        title: 'All Offers',
+                        href: routesConfig.offers
+                    },
+                    // {
+                    //     id: 35,
+                    //     title: 'Add New Category',
+                    //     href: routesConfig.addNewCategory
+                    // },
+                ]
+            },
+            {
+                id: 36,
+                title: 'Auctions',
+                Icon: PiShootingStarDuotone,
+                href: '#',
+                children: [
+                    {
+                        id: 37,
+                        title: 'All Auctions',
+                        href: routesConfig.auctions
+                    },
+                    // {
+                    //     id: 38,
+                    //     title: 'Add New Attribute',
+                    //     href: routesConfig.addNewAttribute
+                    // },
+                ]
+            },
+        ]
+    },
+
     productManagement: {
         title: 'Product Management',
         links: [
@@ -177,53 +238,53 @@ const sidebarLinks: SidebarLinks = {
         ]
     },
 
-    examples: {
-        title: 'Examples',
-        links: [
-            {
-                id: 20,
-                title: 'Form',
-                Icon: FaWpforms,
-                href: '/examples/form',
-            },
-            {
-                id: 21,
-                title: 'Listing',
-                Icon: CiViewTable,
-                href: '/examples/listing',
-            },
-            {
-                id: 22,
-                title: 'Modal',
-                Icon: SiDialogflow,
-                href: '/examples/modal',
-            },
-            {
-                id: 23,
-                title: 'Badge',
-                Icon: RxBadge,
-                href: '/examples/badge',
-            },
-            {
-                id: 24,
-                title: 'Popover',
-                Icon: MdOutlineFormatOverline,
-                href: '/examples/popover',
-            },
-            {
-                id: 25,
-                title: 'Button',
-                Icon: MdAdsClick,
-                href: '/examples/button',
-            },
-            {
-                id: 26,
-                title: 'Client/Store Table',
-                Icon: FaTable,
-                href: '/examples/table',
-            },
-        ]
-    },
+    // examples: {
+    //     title: 'Examples',
+    //     links: [
+    //         {
+    //             id: 20,
+    //             title: 'Form (Old Implementation)',
+    //             Icon: FaWpforms,
+    //             href: '/examples/form',
+    //         },
+    //         {
+    //             id: 21,
+    //             title: 'Listing',
+    //             Icon: CiViewTable,
+    //             href: '/examples/table',
+    //         },
+    //         {
+    //             id: 22,
+    //             title: 'Modal',
+    //             Icon: SiDialogflow,
+    //             href: '/examples/modal',
+    //         },
+    //         {
+    //             id: 23,
+    //             title: 'Badge',
+    //             Icon: RxBadge,
+    //             href: '/examples/badge',
+    //         },
+    //         {
+    //             id: 24,
+    //             title: 'Popover',
+    //             Icon: MdOutlineFormatOverline,
+    //             href: '/examples/popover',
+    //         },
+    //         {
+    //             id: 25,
+    //             title: 'Button',
+    //             Icon: MdAdsClick,
+    //             href: '/examples/button',
+    //         },
+    //         {
+    //             id: 26,
+    //             title: 'Table',
+    //             Icon: FaTable,
+    //             href: '/examples/table',
+    //         },
+    //     ]
+    // },
 }
 
 

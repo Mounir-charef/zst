@@ -1,24 +1,37 @@
 'use client';
 
 import attributeColumns from './columns/attribute-columns';
-import ListingHeaderCard from '../../../../../components/common/listingHeader/ListingHeaderCard';
-import ListingHeaderTitle from '../../../../../components/common/listingHeader/ListingHeaderTitle';
-import useTable from '../../../../../hooks/useTable';
-import { TypedAttributeListing } from '../../../../../types/attribute';
-import { BaseDataItem } from '../../../../../types/common';
 import { useGetAttributesQuery } from '../../../../../apis/attributeApis';
+import { DataTable } from '@mono/ui';
+import AddNewButton from '../../../../../components/common/AddNewButton';
+import routesConfig from '../../../../../config/routesConfig';
 
-const AttributesPageContent = () => {
-  const { Table } = useTable({
-    columns: attributeColumns,
-    useQuery: useGetAttributesQuery,
-  });
+const globalAction = () => {
   return (
     <>
-      <ListingHeaderCard>
-        <ListingHeaderTitle title="Attributes" />
-      </ListingHeaderCard>
-      {Table}
+      <AddNewButton href={routesConfig.addNewAttribute} text="Add Attribute" />
+    </>
+  );
+};
+
+const AttributesPageContent = () => {
+  const { data } = useGetAttributesQuery({});
+  return (
+    <>
+      <DataTable
+        variant="items-table"
+        header={{
+          title: 'Attributes',
+          description: 'Manage your attributes',
+        }}
+        columns={attributeColumns}
+        globalAction={globalAction}
+        data={data?.data || []}
+        searchOptions={{
+          column: 'name',
+          placeholder: 'Search for attributes',
+        }}
+      />
     </>
   );
 };

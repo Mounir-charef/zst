@@ -1,20 +1,16 @@
 'use client';
 import { FormProps } from '../../../../../../types/form';
-import { Form } from '@mono/ui';
+import { Form, FormGridWrapper } from '@mono/ui';
 import { useForm } from 'react-hook-form';
-import FormFooter from '../../../../../../components/ui/form/FormFooter';
-import { Button } from '../../../../../../components/ui/Button';
-import { Link } from '../../../../../../navigation';
-import routesConfig from '../../../../../../config/routesConfig';
 import ProductFormInfo from './ProductFormInfo';
 import ProductFormVariation from './ProductFormVariation';
-import BoundedSectionWrapper from '../../../../../../components/common/BoundedSectionWrapper';
-import PageTitle from '../../../../../../components/common/PageTitle';
-import { CREATE_VARIANT } from '../../../../../../constants';
-import useFormActions from '../../../../../../hooks/useFormActions';
 import ProductFormStatus from './ProductFormStatus';
 import ProductFormImages from './ProductFormImages';
 import ProductFormCategory from './ProductFormCategory';
+import BoundedSectionWrapper from '../../../../../../components/common/BoundedSectionWrapper';
+import PageTitle from '../../../../../../components/common/PageTitle';
+import FormHeader from '../../../../../../components/ui/form/FormHeader';
+import routesConfig from '../../../../../../config/routesConfig';
 
 const ProductForm = ({
   variant,
@@ -43,21 +39,23 @@ const ProductForm = ({
 
   return (
     <>
-      <BoundedSectionWrapper noSpacing>
-        <PageTitle>{pageTitle}</PageTitle>
-      </BoundedSectionWrapper>
+      <FormHeader backHref={routesConfig.products} title="Add Product" />
       <Form {...form}>
-        <ProductFormStatus control={control} />
-        <ProductFormInfo control={control} />
-        <ProductFormCategory control={control} />
-        <ProductFormImages control={control} />
-        <ProductFormVariation control={control} watch={watch} />
-        <FormFooter>
-          <Link href={routesConfig.products}>
-            <Button variant="outline">Back</Button>
-          </Link>
-          <Button onClick={handleSubmit(onSubmit)}>{pageTitle}</Button>
-        </FormFooter>
+        <FormGridWrapper
+          leftSide={
+            <>
+              <ProductFormInfo control={control} />
+              <ProductFormVariation control={control} watch={watch} />
+            </>
+          }
+          rightSide={
+            <>
+              <ProductFormStatus control={control} />
+              <ProductFormCategory control={control} />
+              <ProductFormImages control={control} />
+            </>
+          }
+        />
       </Form>
     </>
   );

@@ -1,10 +1,9 @@
 import React from 'react';
-import { CardContent } from '../../../../../../components/ui/Card';
 import { Control, FieldValues, UseFormWatch } from 'react-hook-form';
 import generateVariations from '../../../../../../utils/generateVariations';
 import attributes from '../../../../../../data/attributes';
 import FormFieldsWrapper from '../../../../../../components/ui/form/FormFieldsWrapper';
-import { InputField } from '@mono/ui';
+import { CardContent, InputField } from '@mono/ui';
 import FileUploaderField from '../../../../../../components/ui/form/fileUploader/FileUploaderField';
 
 const ProductFormVariationGenerated = ({
