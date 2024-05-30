@@ -42,7 +42,7 @@ export const NavItems: NavigationItem[] = [
     type: 'link',
     title: 'Auctions',
     icon: <PieChart className="h-4 w-4" />,
-    href: '#',
+    href: '/auctions',
   },
   {
     type: 'link',

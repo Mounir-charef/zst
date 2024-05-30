@@ -12,7 +12,7 @@ import {
 import { cn } from '@mono/util';
 import * as React from 'react';
 import { NavItems } from '../../config';
-import { Link } from '../../navigation';
+import { Link, usePathname } from '../../navigation';
 
 export interface BaseItem {
   title: string;
@@ -36,6 +36,7 @@ export interface NavigationMenu extends BaseItem {
 export type NavigationItem = NavigationLink | NavigationMenu;
 
 function NavMenu() {
+  const pathname = usePathname();
   return (
     <NavigationMenu className="hidden lg:flex">
       <NavigationMenuList>
@@ -46,7 +47,12 @@ function NavMenu() {
                 <Link
                   href={item.href}
                   className={navigationMenuTriggerStyle({
-                    className: 'gap-1',
+                    className: [
+                      'gap-1',
+                      {
+                        'text-primary': pathname === item.href,
+                      },
+                    ],
                   })}
                 >
                   {item.icon} <span>{item.title}</span>
