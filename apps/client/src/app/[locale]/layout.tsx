@@ -49,18 +49,8 @@ export default async function RootLayout({
 
   const { langDir, hrefLang } = availableLocalesMap[locale] || defaultLocale;
   return (
-    <html
-      lang={hrefLang}
-      dir={langDir}
-      className="h-full"
-      suppressHydrationWarning
-    >
-      <body
-        className={cn(
-          'text-foreground bg-background h-full font-sans antialiased',
-          poppins.className,
-        )}
-      >
+    <html lang={hrefLang} dir={langDir} suppressHydrationWarning>
+      <body className={cn('text-foreground bg-background', poppins.className)}>
         <SessionProvider session={session} refetchInterval={60 * 60 * 24}>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
             <Providers>

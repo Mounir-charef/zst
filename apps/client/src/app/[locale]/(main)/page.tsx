@@ -1,7 +1,11 @@
-'use client';
+import Hero from '../../../components/home/Hero';
 
 const Page = () => {
-  return <div className="text-center font-bold"></div>;
+  return (
+    <div className="p-6 text-center">
+      <Hero />
+    </div>
+  );
 };
 
 export default Page;
