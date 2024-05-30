@@ -34,7 +34,9 @@ const UserMenu = () => {
         <Button variant="ghost" className="h-full gap-2 rounded-none border-x">
           <UserAvatar className="h-8 w-8 cursor-pointer" user={data.user} />
           <div className="flex flex-col items-start">
-            <span className="text-sm font-semibold">{data.user.username}</span>
+            <span className="text-foreground text-sm font-semibold">
+              {data.user.username}
+            </span>
             <span className="text-muted-foreground text-sm">
               {data.user.email}
             </span>

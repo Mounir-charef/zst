@@ -25,7 +25,7 @@ const HeaderMenuIcon = ({
     <CgMenuLeft
       onClick={onClick}
       className={cn(
-        'hover:text-primary cursor-pointer transition-all',
+        'hover:text-primary text-foreground cursor-pointer transition-all',
         className,
       )}
       size={28}

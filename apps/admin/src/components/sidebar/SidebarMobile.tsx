@@ -26,7 +26,7 @@ const SidebarMobile = () => {
           <HeadingLargeLogo />
           <button
             onClick={closeSidebar}
-            className="flex h-7 w-7 items-center justify-center rounded-full border bg-gray-200"
+            className="bg-muted flex h-7 w-7 items-center justify-center rounded-full border"
           >
             <IoIosClose size={16} />
           </button>

@@ -11,7 +11,7 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
     redirect('/sign-in');
   }
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="admin-layout flex min-h-screen w-full flex-col">
       <Header />
       <Sidebar />
       {children}

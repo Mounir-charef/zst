@@ -1,8 +1,8 @@
+import { Badge } from '@mono/ui';
 import React from 'react';
-import Badge from '../../../../../components/ui/Badge';
 
 // Admins
-// Seller / Vendor
+// Seller / Vendor / Store
 // Supplier / Wholeseller
 // Client (not important)
 
@@ -10,8 +10,10 @@ const BadgePage = () => {
   return (
     <div className="flex flex-wrap gap-4">
       <Badge>Primary</Badge>
-      <Badge variant="danger">Danger</Badge>
-      <Badge variant="simple">Simple</Badge>
+      <Badge variant="secondary">Secondary</Badge>
+      <Badge variant="destructive">Danger</Badge>
+      <Badge variant="outline">Outline</Badge>
+      <Badge variant="success">Success</Badge>
     </div>
   );
 };

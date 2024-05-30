@@ -2,7 +2,7 @@ export const selectStyles = {
     option: (provided: any, state: any) => ({
       ...provided,
       fontSize: '0.875rem',
-      color: '#6B7280',
+      color: 'hsl(var(--text-foreground))',
       paddingLeft: 16,
       paddingRight: 16,
       paddingTop: 12,
@@ -10,16 +10,16 @@ export const selectStyles = {
       cursor: 'pointer',
       borderBottom: '1px solid #E5E7EB',
       backgroundColor: state.isSelected
-        ? '#E5E7EB'
+        ? 'hsl(var(--muted))'
         : state.isFocused
-        ? '#F9FAFB'
-        : '#ffffff',
+        ? 'hsl(var(--muted))'
+        : 'hsl(var(--background))',
     }),
     control: (_: any, state: any) => ({
       display: 'flex',
       alignItems: 'center',
       // minHeight: 50,
-      backgroundColor: state?.isDisabled ? '#EEF1F4' : '#ffffff',
+      backgroundColor: state?.isDisabled ? 'hsl(var(--muted))' : 'hsl(var(--background))',
       borderRadius: 5,
       border: '1px solid #D1D5DB',
       borderColor: state?.isDisabled ? '#D4D8DD' : state.isFocused ? 'hsl(var(--primary))' : '#D1D5DB',
@@ -51,6 +51,7 @@ export const selectStyles = {
       ...provided,
       borderRadius: 5,
       border: '1px solid #E5E7EB',
+      backgroundColor: 'hsl(var(--background))',
       boxShadow:
         '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
     }),
@@ -61,13 +62,14 @@ export const selectStyles = {
     singleValue: (provided: any, _: any) => ({
       ...provided,
       fontSize: '0.875rem',
-      color: '#4B5563',
+      color: 'hsl(var(--text-foreground))',
     }),
     multiValue: (provided: any, _: any) => ({
       ...provided,
       backgroundColor: 'hsl(var(--primary))',
       borderRadius: 9999,
       overflow: 'hidden',
+      color: '#000',
       boxShadow:
         '0 0px 3px 0 rgba(0, 0, 0, 0.1), 0 0px 2px 0 rgba(0, 0, 0, 0.06)',
     }),

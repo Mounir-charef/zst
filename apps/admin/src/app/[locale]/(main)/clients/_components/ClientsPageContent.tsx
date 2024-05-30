@@ -1,23 +1,38 @@
 'use client';
 
 import React from 'react';
-import useTable from '../../../../../hooks/useTable';
-import ListingHeaderCard from '../../../../../components/common/listingHeader/ListingHeaderCard';
-import ListingHeaderTitle from '../../../../../components/common/listingHeader/ListingHeaderTitle';
 import clientColumns from './columns/client-columns';
 import { useGetClientsQuery } from '../../../../../apis/clientApis';
+import { DataTable } from '@mono/ui';
+import AddNewButton from '../../../../../components/common/AddNewButton';
+import routesConfig from '../../../../../config/routesConfig';
 
-const ClientsPageContent = () => {
-  const { Table } = useTable({
-    useQuery: useGetClientsQuery,
-    columns: clientColumns,
-  });
+const globalAction = () => {
   return (
     <>
-      <ListingHeaderCard>
-        <ListingHeaderTitle title="Clients" />
-      </ListingHeaderCard>
-      {Table}
+      <AddNewButton href={routesConfig.addNewClient} text="Add Client" />
+    </>
+  );
+};
+
+const ClientsPageContent = () => {
+  const { data } = useGetClientsQuery({});
+  return (
+    <>
+      <DataTable
+        variant="items-table"
+        header={{
+          title: 'Clients',
+          description: 'Manage your clients',
+        }}
+        columns={clientColumns}
+        globalAction={globalAction}
+        data={data?.data || []}
+        searchOptions={{
+          column: 'username',
+          placeholder: 'Search for clients',
+        }}
+      />
     </>
   );
 };

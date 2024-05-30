@@ -3,12 +3,20 @@ import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, InputField, PasswordField } from '@mono/ui';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Form,
+  InputField,
+  PasswordField,
+} from '@mono/ui';
 import ProfileCell from './ProfileCell';
 import BoundedSectionWrapper from '../../../../../components/common/BoundedSectionWrapper';
 import FormSection from '../../../../../components/ui/form/formSection/FormSection';
 import ProfileSubmitButton from './ProfileSubmitButton';
-import { Card, CardContent } from '../../../../../components/ui/Card';
 
 const EmailForm = () => {
   const schema = useMemo(
@@ -43,35 +51,30 @@ const EmailForm = () => {
 
   return (
     <Form {...form}>
-      <BoundedSectionWrapper>
-        <FormSection
-          title="Password"
-          description="Change your password from here"
-        >
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <Card>
-              <CardContent className="space-y-4">
-                <PasswordField
-                  control={form.control}
-                  name="oldPassword"
-                  label="Old Password"
-                />
-                <PasswordField
-                  control={form.control}
-                  name="newPassword"
-                  label="New Password"
-                />
-                <PasswordField
-                  control={form.control}
-                  name="confirmPassword"
-                  label="Confirm Password"
-                />
-              </CardContent>
-            </Card>
-            <ProfileSubmitButton />
-          </form>
-        </FormSection>
-      </BoundedSectionWrapper>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Card>
+          <CardHeader>
+            <CardTitle>Password</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <PasswordField
+              control={form.control}
+              name="oldPassword"
+              label="Old Password"
+            />
+            <PasswordField
+              control={form.control}
+              name="newPassword"
+              label="New Password"
+            />
+            <PasswordField
+              control={form.control}
+              name="confirmPassword"
+              label="Confirm Password"
+            />
+          </CardContent>
+        </Card>
+      </form>
     </Form>
   );
 };
