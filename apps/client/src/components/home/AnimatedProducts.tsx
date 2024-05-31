@@ -21,7 +21,7 @@ const AnimationCarousel = ({ className, dataArray }: CarouselProps) => {
     <div>
       <Carousel
         orientation="vertical"
-        className={cn('pointer-events-none h-full w-full max-w-md')}
+        className="pointer-events-none h-full w-full max-w-md select-none"
         opts={{
           align: 'start',
           dragFree: true,
