@@ -18,6 +18,7 @@ import type {
   AuctionWithOffers,
 } from '../../../../../validation/auction-schema';
 import { AuctionsParams } from '../../../../../validation/auction-schema';
+import FiltersList from './FiltersList';
 
 function renderAuctionBadge(auction: AuctionType) {
   switch (auction.status) {
@@ -234,6 +235,7 @@ const Auction = (params: AuctionsParams) => {
       <h2 className="text-lg font-semibold">
         {data.length} results found for you
       </h2>
+      <FiltersList />
       <div className="grid grid-cols-1 gap-4">
         {data.map((auction) => renderAuction(auction))}
       </div>
