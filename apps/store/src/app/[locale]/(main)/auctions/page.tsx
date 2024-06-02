@@ -9,15 +9,13 @@ import {
 } from '@mono/ui';
 import { useSearchParams } from 'next/navigation';
 import { memo } from 'react';
-import { z } from 'zod';
 import SearchBar from '../../../../components/SearchBar';
-import { SubFilter } from '../../../../components/filters/SubFilters';
-import Filters, { Filter } from './_components/Filters';
-import ToolBar from './_components/ToolBar';
 import { GlobalFilterProps } from '../../../../components/filters/GlobalFilter';
-import { useGetAuctions } from '../../../../hooks/auction/useGetAuctions';
+import { SubFilter } from '../../../../components/filters/SubFilters';
 import { auctionFiltersSchema } from '../../../../validation/auction-schema';
 import Auction from './_components/Auction';
+import Filters, { Filter } from './_components/Filters';
+import ToolBar from './_components/ToolBar';
 
 const CATEGORIES_OPTIONS: GlobalFilterProps['options'] = [
   { label: 'Pending', value: 'pending' },

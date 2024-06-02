@@ -12,7 +12,7 @@ import {
   Slider,
 } from '@mono/ui';
 import { useSearchParams } from 'next/navigation';
-import { memo, useCallback, useId, useState } from 'react';
+import { memo, useCallback, useEffect, useId, useState } from 'react';
 import { useDebounceCallback } from 'usehooks-ts';
 import { usePathname, useRouter } from '../../../../../navigation';
 
@@ -58,21 +58,49 @@ interface FiltersProps {
   filters: Filter[];
 }
 
+function getRangeFilterValue(
+  searchParams: URLSearchParams,
+  name: string,
+  defaultValue: [number, number],
+) {
+  const params = searchParams.getAll(name).map(Number);
+  const isValid =
+    params.length === 2 &&
+    params[0] < params[1] &&
+    params.every((value) => !isNaN(value));
+
+  return isValid ? params : defaultValue;
+}
+
+function getRadioFilterValue(
+  searchParams: URLSearchParams,
+  name: string,
+  options: string[],
+) {
+  return (
+    searchParams.getAll(name).find((value) => options.includes(value)) || ''
+  );
+}
+
+function getCheckboxFilterValue(
+  searchParams: URLSearchParams,
+  name: string,
+  options: string[],
+) {
+  return searchParams.getAll(name).filter((value) => options.includes(value));
+}
+
 const RangeFilter = memo(
   ({ label, name, step = 1, applyFilter, defaultValue }: RangeFilterProps) => {
     const searchParams = useSearchParams();
-    const valueFromUrl = searchParams.getAll(name).map(Number);
 
-    const isValid =
-      valueFromUrl.length === 2 &&
-      valueFromUrl.every(
-        (value) => value >= defaultValue[0] && value <= defaultValue[1],
-      ) &&
-      valueFromUrl[0] < valueFromUrl[1] &&
-      valueFromUrl.every((value) => !isNaN(value)) &&
-      valueFromUrl.every((value) => typeof value === 'number');
+    const [value, setValue] = useState(
+      getRangeFilterValue(searchParams, name, defaultValue),
+    );
 
-    const [value, setValue] = useState(isValid ? valueFromUrl : defaultValue);
+    useEffect(() => {
+      setValue(getRangeFilterValue(searchParams, name, defaultValue));
+    }, [searchParams]);
 
     return (
       <AccordionItem value={name}>
@@ -139,10 +167,22 @@ const CheckboxFilter = memo(
   ({ applyFilter, label, name, options, type }: CheckboxFilterProps) => {
     const searchParams = useSearchParams();
     const [value, setValue] = useState(
-      searchParams
-        .getAll(name)
-        .filter((v) => options.some((o) => o.value === v)),
+      getCheckboxFilterValue(
+        searchParams,
+        name,
+        options.map((option) => option.value),
+      ),
     );
+
+    useEffect(() => {
+      setValue(
+        getCheckboxFilterValue(
+          searchParams,
+          name,
+          options.map((option) => option.value),
+        ),
+      );
+    }, [searchParams]);
 
     return (
       <AccordionItem value={name}>
@@ -179,13 +219,37 @@ const RadioItem = memo(
 );
 
 const RadioFilter = memo(
-  ({ applyFilter, label, name, options, type }: RadioFilterProps) => {
+  ({ applyFilter, label, name, options }: RadioFilterProps) => {
+    const searchParams = useSearchParams();
+    const [value, setValue] = useState(
+      getRadioFilterValue(
+        searchParams,
+        name,
+        options.map((option) => option.value),
+      ),
+    );
+
+    useEffect(() => {
+      setValue(
+        getRadioFilterValue(
+          searchParams,
+          name,
+          options.map((option) => option.value),
+        ),
+      );
+    }, [searchParams]);
     return (
       <AccordionItem value={name}>
         <AccordionTrigger className="py-3 text-sm">{label}</AccordionTrigger>
         <AccordionContent>
           <div className="space-y-2">
-            <RadioGroup onValueChange={(value) => applyFilter(name, value)}>
+            <RadioGroup
+              value={value}
+              onValueChange={(value) => {
+                setValue(value);
+                applyFilter(name, value);
+              }}
+            >
               {options.map((option) => (
                 <RadioItem key={option.value} option={option} />
               ))}
