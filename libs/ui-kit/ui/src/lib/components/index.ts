@@ -17,6 +17,8 @@ export * from './form/PhoneInputField';
 export * from './form/SelectField';
 export * from './client-table/DataTable';
 export * from './client-table/ColumnHeader';
+export * from './FormGridWrapper';
+export * from './FormFieldsWrapper';
 export * from './form/CheckBoxField';
 export * from './form/MultiSelectField';
 export * from './form/DateRangeField';

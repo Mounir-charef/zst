@@ -54,7 +54,7 @@ function FileUploader({
     ...props,
   });
 
-  const handleDelete = (idx: number) => {
+  const handleDelete = (idx?: number) => {
     if (multiple) {
       setFiles((files) => {
         if (files && Array.isArray(files)) {
@@ -67,11 +67,12 @@ function FileUploader({
     }
   };
 
-  const thumbs = (files ? (Array.isArray(files) ? files : [files]) : [])?.map(
+  const thumbs = (files ? (Array.isArray(files) ? files : []) : [])?.map(
     (file: any, idx) => {
       return (
         <FileUploaderItem
           key={idx}
+          multiple
           handleDelete={() => handleDelete(idx)}
           {...file}
         />
@@ -79,7 +80,9 @@ function FileUploader({
     },
   );
 
-  useEffect(() => {}, [files]);
+  // useEffect(() => {}, [files]);
+
+  // console.log({ files });
 
   return (
     <section className="upload">
@@ -93,23 +96,37 @@ function FileUploader({
           ),
         })}
       >
-        {!disabled ? <input {...getInputProps()} /> : ''}
-        <FaCloudUploadAlt className="text-muted-foreground" size={40} />
-        <p className="text-body mt-4 text-center text-sm">
-          {helperText ? (
-            <span className="font-semibold text-gray-500">{helperText}</span>
-          ) : (
-            <>
-              <span className="text-primary font-semibold">
-                Upload an image
-              </span>{' '}
-              or drag and drop <br />
-            </>
-          )}
-        </p>
+        {multiple || (!multiple && !files) ? (
+          <>
+            {!disabled ? <input {...getInputProps()} /> : ''}
+            <FaCloudUploadAlt className="text-muted-foreground" size={40} />
+            <p className="text-body mt-4 text-center text-sm">
+              {helperText ? (
+                <span className="font-semibold text-gray-500">
+                  {helperText}
+                </span>
+              ) : (
+                <>
+                  <span className="text-primary font-semibold">
+                    Upload an image
+                  </span>{' '}
+                  or drag and drop <br />
+                </>
+              )}
+            </p>
+          </>
+        ) : (
+          <FileUploaderItem
+            {...(files as FileUploaderItemType)}
+            multiple={false}
+            handleDelete={handleDelete}
+          />
+        )}
       </div>
 
-      {!!thumbs.length && <div className="mt-2 flex flex-wrap">{thumbs}</div>}
+      {!!thumbs.length && (
+        <div className="mt-2 flex flex-wrap gap-2">{thumbs}</div>
+      )}
     </section>
   );
 }

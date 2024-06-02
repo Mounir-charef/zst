@@ -20,8 +20,8 @@ const Profile = ({
     <div className={cn('flex items-center gap-2', className)}>
       <CustomisableAvatar src="/images/user-avatar.webp" />
       <div className={cn(contentClassName)}>
-        <h2 className="font-semibold text-sm">John Doe</h2>
-        <h3 className="text-gray-400 text-xs">Super Admin</h3>
+        <h2 className="text-sm font-semibold">John Doe</h2>
+        <h3 className="text-xs text-gray-400">Super Admin</h3>
       </div>
     </div>
   );
@@ -46,7 +46,7 @@ const ProfileMenuLink = ({
           e.preventDefault();
         }
       }}
-      className="flex items-center gap-2 px-3 py-2 text-sm hover:text-primary"
+      className="hover:text-primary flex items-center gap-2 px-3 py-2 text-sm"
     >
       <Icon />
       <span>{title}</span>
@@ -59,7 +59,7 @@ const HeaderProfile = () => {
   return (
     <>
       <div
-        className="border-l pl-5 h-full flex items-center lg:pr-20 cursor-pointer"
+        className="flex h-full cursor-pointer items-center border-l pl-5 lg:pr-20"
         onClick={onOpen}
       >
         <Profile contentClassName="hidden lg:block" />
@@ -73,8 +73,8 @@ const HeaderProfile = () => {
         align="end"
         className="w-[220px]"
       >
-        <div className="p-2 border-b border-dashed">
-          <div className="bg-gray-100 p-2 rounded-md">
+        <div className="border-b border-dashed p-2">
+          <div className="rounded-md bg-gray-100 p-2">
             <Profile />
           </div>
         </div>
@@ -87,7 +87,7 @@ const HeaderProfile = () => {
           <ProfileMenuLink title="Create Shop" Icon={MdOutlineShoppingCart} />
           <ProfileMenuLink title="Settings" Icon={VscSettings} />
         </div>
-        <div className="p-2 border-t border-dashed">
+        <div className="border-t border-dashed p-2">
           <ProfileMenuLink title="Logout" Icon={MdLogout} />
         </div>
       </CustomisablePopover>

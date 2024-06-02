@@ -19,7 +19,8 @@ type SelectFieldProps<
   Pick<SelectProps, 'options' | 'isMulti'>,
   TFieldValues,
   TName
->;
+> &
+  Omit<SelectProps, 'value' | 'onChange'>;
 
 const SelectField = <
   TFieldValues extends FieldValues = FieldValues,
@@ -32,6 +33,7 @@ const SelectField = <
   options,
   isMulti,
   formItemClassName,
+  ...props
 }: SelectFieldProps<TFieldValues, TName>) => {
   return (
     <FormField
@@ -46,6 +48,7 @@ const SelectField = <
               onChange={field.onChange}
               options={options}
               isMulti={isMulti}
+              {...props}
             />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}

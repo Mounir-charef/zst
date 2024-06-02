@@ -7,9 +7,6 @@ import { CREATE_VARIANT } from '../../../../../constants';
 const CreateAttributePage = () => {
   return (
     <>
-      <BoundedSectionWrapper noSpacing>
-        <PageTitle>Create New Attribute</PageTitle>
-      </BoundedSectionWrapper>
       <AttributeForm variant={CREATE_VARIANT} />
     </>
   );

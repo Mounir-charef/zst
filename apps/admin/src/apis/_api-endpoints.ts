@@ -1,4 +1,7 @@
 const API_ENDPOINTS = {
+    ORDERS: 'orders',
+    OFFERS: 'offers',
+    AUCTIONS: 'auctions',
     PRODUCTS: 'products',
     CATEGORIES: 'categories',
     ATTRIBUTES: 'attributes',

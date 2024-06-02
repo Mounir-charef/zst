@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { selectStyles } from './select-styles';
 
 export interface SelectOption {
-  label: string;
+  label: React.ReactNode;
   value: ID;
 }
 
@@ -21,6 +21,7 @@ const Select = ({
   value,
   options,
   isMulti,
+  styles,
   onChange,
   ...props
 }: SelectProps) => {
@@ -46,7 +47,10 @@ const Select = ({
       }}
       isMulti={isMulti}
       options={options}
-      styles={selectStyles}
+      styles={{
+        ...selectStyles,
+        ...styles,
+      }}
       {...props}
     />
   );

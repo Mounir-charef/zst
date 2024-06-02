@@ -1,9 +1,6 @@
 import React from 'react';
-import BoundedSectionWrapper from '../../../../../../components/common/BoundedSectionWrapper';
-import FormSection from '../../../../../../components/ui/form/formSection/FormSection';
-import { Card, CardContent } from '../../../../../../components/ui/Card';
 import { Control } from 'react-hook-form';
-import { InputField } from '@mono/ui';
+import { Card, CardContent, CardHeader, CardTitle, InputField } from '@mono/ui';
 import { AttributeValues } from '../../../../../../schemas/attribute-schema';
 
 interface AttributeFormInfoProps {
@@ -12,18 +9,14 @@ interface AttributeFormInfoProps {
 
 const AttributeFormInfo = ({ control }: AttributeFormInfoProps) => {
   return (
-    <BoundedSectionWrapper>
-      <FormSection
-        title="Attribute"
-        description="Your attribute name and necessary information from here"
-      >
-        <Card>
-          <CardContent>
-            <InputField label="Name" name="name" control={control} />
-          </CardContent>
-        </Card>
-      </FormSection>
-    </BoundedSectionWrapper>
+    <Card>
+      <CardHeader>
+        <CardTitle>Attribute Details</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <InputField label="Name" name="name" control={control} />
+      </CardContent>
+    </Card>
   );
 };
 

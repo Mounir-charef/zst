@@ -22,7 +22,7 @@ const SublinksCollapse = ({
     <Collapse isOpen={isOpen}>
       <div className={cn('py-1 pl-6', isCollapsed && 'lg:hidden')}>
         <ul
-          className="flex flex-col gap-0.5 border-l border-dashed"
+          className="border-muted-foreground flex flex-col gap-0.5 border-l border-dashed"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -32,9 +32,10 @@ const SublinksCollapse = ({
               <li key={child.id}>
                 <Link
                   className={cn(
-                    'hover:text-primary text-dark text-base-color relative inline-block border-dashed py-2 pl-5 text-sm',
-                    'before:absolute before:left-0.5 before:top-1/2 before:w-3 before:-translate-y-1/2 before:border before:border-dashed',
-                    pathname === child.href && 'text-primary',
+                    'hover:text-primary hover:before:border-primary text-foreground relative inline-block border-dashed py-2 pl-5 text-sm',
+                    'before:border-muted-foreground before:absolute before:left-0.5 before:top-1/2 before:w-3 before:-translate-y-1/2 before:border before:border-dashed',
+                    pathname === child.href &&
+                      'text-primary before:border-primary',
                   )}
                   href={child.href}
                 >

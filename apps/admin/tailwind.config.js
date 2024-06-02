@@ -11,19 +11,6 @@ module.exports = {
       },
       colors: {
         ...TailwindConfig.theme.extend.colors,
-        // primary: {
-        //   DEFAULT: 'hsl(var(--color-primary))'
-        // },
-        // danger: {
-        //   DEFAULT: 'hsl(var(--color-danger), <alpha-value>)',
-        //   dark: 'hsl(var(--color-danger-dark), <alpha-value>)'
-        // },
-        // "base-color": {
-        //   DEFAULT: '#333'
-        // },
-        // body: {
-        //   DEFAULT: 'hsl(var(--color-text-base))'
-        // }
       }
     }
   }

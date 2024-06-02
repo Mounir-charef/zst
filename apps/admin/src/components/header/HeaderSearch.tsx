@@ -9,7 +9,7 @@ const SearchField = () => {
     <div className="relative">
       <IoIosSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
       <Input
-        className="rounded-3xl bg-gray-50 px-5 py-2.5 pl-9"
+        className="rounded-3xl px-5 py-2.5 pl-9"
         placeholder="Search your route..."
       />
     </div>
@@ -22,7 +22,7 @@ const MobileSearchField = () => {
     <>
       <div
         onClick={onOpen}
-        className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border bg-gray-50 lg:hidden "
+        className="bg-muted ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border lg:hidden"
       >
         <IoIosSearch />
       </div>
