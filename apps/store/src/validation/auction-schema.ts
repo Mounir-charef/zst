@@ -39,12 +39,20 @@ export const auctionSchema = z.discriminatedUnion('status', [
 ]);
 
 export const auctionFiltersSchema = z.object({
-  status: z.string().optional(),
-  filter: z.string().optional(),
-  price: z.array(z.coerce.number().positive()).length(2).optional(),
-  quantity: z.array(z.coerce.number().positive()).length(2).optional(),
-  category: z.array(z.string()).optional(),
-  type: z.string().optional(),
+  status: z.string().nullable().optional(),
+  filter: z.string().nullable().optional(),
+  price: z
+    .array(z.coerce.number().int().min(0))
+    .length(2)
+    .nullable()
+    .optional(),
+  quantity: z
+    .array(z.coerce.number().int().min(0))
+    .length(2)
+    .nullable()
+    .optional(),
+  category: z.array(z.string()).nullable().optional(),
+  type: z.string().nullable().optional(),
 });
 
 export type AuctionsParams = z.infer<typeof auctionFiltersSchema> | undefined;

@@ -6,7 +6,8 @@ import { useAuthQuery } from '../useAuthQuery';
 export const useGetAuctions = (params?: AuctionsParams) => {
   return useAuthQuery(
     params ? ['auctions', params] : ['auctions'],
-    async () => {
+    async (params) => {
+      console.log(params);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return z.array(auctionSchema).parse(auction);
     },

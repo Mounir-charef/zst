@@ -16,6 +16,7 @@ import { auctionFiltersSchema } from '../../../../validation/auction-schema';
 import Auction from './_components/Auction';
 import Filters, { Filter } from './_components/Filters';
 import ToolBar from './_components/ToolBar';
+import { getRangeFilterValue } from './_utils';
 
 const CATEGORIES_OPTIONS: GlobalFilterProps['options'] = [
   { label: 'Pending', value: 'pending' },
@@ -88,7 +89,19 @@ const filters: Filter[] = [
 
 const Auctions = () => {
   const searchParams = useSearchParams();
-  const { data: params } = auctionFiltersSchema.safeParse(searchParams);
+  const { data: params } = auctionFiltersSchema.safeParse({
+    price: getRangeFilterValue(searchParams, 'price', DEFAULT_PRICE_FILTER),
+    quantity: getRangeFilterValue(
+      searchParams,
+      'quantity',
+      DEFAULT_QUANTITY_FILTER,
+    ),
+    category: searchParams.getAll('category'),
+    type: searchParams.get('type'),
+    search: searchParams.get('search'),
+    status: searchParams.get('status'),
+    filter: searchParams.get('filter'),
+  });
 
   return (
     <Card className="bg-transparent shadow-none">
