@@ -11,12 +11,12 @@ import { useSearchParams } from 'next/navigation';
 import { memo } from 'react';
 import { z } from 'zod';
 import SearchBar from '../../../../components/SearchBar';
-import { CategoryFilterOption } from '../../../../components/filters/CategoryFilter';
 import { SubFilter } from '../../../../components/filters/SubFilters';
 import Filters, { Filter } from './_components/Filters';
 import ToolBar from './_components/ToolBar';
+import { GlobalFilterProps } from '../../../../components/filters/GlobalFilter';
 
-const CATEGORIES_OPTIONS: CategoryFilterOption[] = [
+const CATEGORIES_OPTIONS: GlobalFilterProps['options'] = [
   { label: 'Pending', value: 'pending' },
   { label: 'On Auction', value: 'on_auction' },
   { label: 'Has offers', value: 'has_offer' },
@@ -107,7 +107,10 @@ const Auctions = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         <ToolBar
-          categoryFilters={CATEGORIES_OPTIONS}
+          globalFilter={{
+            options: CATEGORIES_OPTIONS,
+            filterName: 'status',
+          }}
           subFilters={SUB_FILTERS}
         />
         {/* sidebar and main content to show auctions */}

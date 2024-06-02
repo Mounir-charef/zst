@@ -5,17 +5,17 @@ import { useSearchParams } from 'next/navigation';
 import { memo, useCallback, useMemo, useTransition } from 'react';
 import { usePathname, useRouter } from '../../navigation';
 
-export interface CategoryFilterOption {
+export interface GlobalFilterOption {
   label: string;
   value: string;
 }
 
-interface CategoryFilterProps {
-  options: CategoryFilterOption[];
+export interface GlobalFilterProps {
+  options: GlobalFilterOption[];
   filterName: string;
 }
 
-const CategoryFilter = ({ filterName, options }: CategoryFilterProps) => {
+const GlobalFilter = ({ filterName, options }: GlobalFilterProps) => {
   const { replace } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -67,4 +67,4 @@ const CategoryFilter = ({ filterName, options }: CategoryFilterProps) => {
   );
 };
 
-export default memo(CategoryFilter);
+export default memo(GlobalFilter);

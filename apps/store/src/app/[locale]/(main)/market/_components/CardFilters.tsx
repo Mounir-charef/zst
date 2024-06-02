@@ -2,7 +2,7 @@ import { Button } from '@mono/ui';
 import { memo } from 'react';
 import CategoryFilter, {
   type CategoryFilterOption,
-} from '../../../../../components/filters/CategoryFilter';
+} from '../../../../../components/filters/GlobalFilter';
 import SubFilters, {
   SubFilter,
 } from '../../../../../components/filters/SubFilters';

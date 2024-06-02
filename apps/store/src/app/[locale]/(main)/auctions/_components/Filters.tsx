@@ -16,9 +16,7 @@ import { memo, useCallback, useId, useState } from 'react';
 import { useDebounceCallback } from 'usehooks-ts';
 import { usePathname, useRouter } from '../../../../../navigation';
 
-type FilterType = 'range' | 'checkbox' | 'radio';
 type Value = string | number;
-type FilterValue = Value | Value[];
 
 interface defaultFilter {
   name: string;
@@ -45,15 +43,15 @@ interface TRadioFilter extends defaultFilter {
 export type Filter = TRangeFilter | TCheckboxFilter | TRadioFilter;
 
 interface RangeFilterProps extends TRangeFilter {
-  applyFilter: (type: FilterType, name: string, value: Value[]) => void;
+  applyFilter: (name: string, value: Value[]) => void;
 }
 
 interface CheckboxFilterProps extends TCheckboxFilter {
-  applyFilter: (type: FilterType, name: string, value: Value[]) => void;
+  applyFilter: (name: string, value: Value[]) => void;
 }
 
 interface RadioFilterProps extends TRadioFilter {
-  applyFilter: (type: FilterType, name: string, value: Value) => void;
+  applyFilter: (name: string, value: Value) => void;
 }
 
 interface FiltersProps {
@@ -61,14 +59,7 @@ interface FiltersProps {
 }
 
 const RangeFilter = memo(
-  ({
-    label,
-    name,
-    step = 1,
-    type,
-    applyFilter,
-    defaultValue,
-  }: RangeFilterProps) => {
+  ({ label, name, step = 1, applyFilter, defaultValue }: RangeFilterProps) => {
     const searchParams = useSearchParams();
     const valueFromUrl = searchParams.getAll(name).map(Number);
 
@@ -76,7 +67,10 @@ const RangeFilter = memo(
       valueFromUrl.length === 2 &&
       valueFromUrl.every(
         (value) => value >= defaultValue[0] && value <= defaultValue[1],
-      );
+      ) &&
+      valueFromUrl[0] < valueFromUrl[1] &&
+      valueFromUrl.every((value) => !isNaN(value)) &&
+      valueFromUrl.every((value) => typeof value === 'number');
 
     const [value, setValue] = useState(isValid ? valueFromUrl : defaultValue);
 
@@ -94,7 +88,7 @@ const RangeFilter = memo(
               max={defaultValue[1]}
               onValueChange={(value) => {
                 setValue(value);
-                applyFilter(type, name, value);
+                applyFilter(name, value);
               }}
               step={step}
               value={value}
@@ -113,19 +107,18 @@ const CheckBoxItem = memo(
     value,
     option,
     name,
-    type,
   }: {
     value: string[];
     setValue: (value: string[]) => void;
-    applyFilter: (type: FilterType, name: string, value: Value[]) => void;
+    applyFilter: (name: string, value: Value[]) => void;
     option: { label: string; value: string };
     name: string;
-    type: FilterType;
   }) => {
     const id = useId();
     return (
       <div className="flex items-center space-x-2 ps-4">
         <Checkbox
+          id={id}
           checked={value.includes(option.value)}
           onCheckedChange={(checked) => {
             const newValue = checked
@@ -133,7 +126,7 @@ const CheckBoxItem = memo(
               : value.filter((v) => v !== option.value);
 
             setValue(newValue);
-            applyFilter(type, name, newValue);
+            applyFilter(name, newValue);
           }}
         />
         <Label htmlFor={id}>{option.label}</Label>
@@ -145,7 +138,11 @@ const CheckBoxItem = memo(
 const CheckboxFilter = memo(
   ({ applyFilter, label, name, options, type }: CheckboxFilterProps) => {
     const searchParams = useSearchParams();
-    const [value, setValue] = useState(searchParams.getAll(name));
+    const [value, setValue] = useState(
+      searchParams
+        .getAll(name)
+        .filter((v) => options.some((o) => o.value === v)),
+    );
 
     return (
       <AccordionItem value={name}>
@@ -160,7 +157,6 @@ const CheckboxFilter = memo(
                 value={value}
                 option={option}
                 name={name}
-                type={type}
               />
             ))}
           </div>
@@ -189,11 +185,9 @@ const RadioFilter = memo(
         <AccordionTrigger className="py-3 text-sm">{label}</AccordionTrigger>
         <AccordionContent>
           <div className="space-y-2">
-            <RadioGroup
-              onValueChange={(value) => applyFilter(type, name, value)}
-            >
+            <RadioGroup onValueChange={(value) => applyFilter(name, value)}>
               {options.map((option) => (
-                <RadioItem option={option} />
+                <RadioItem key={option.value} option={option} />
               ))}
             </RadioGroup>
           </div>
@@ -216,7 +210,9 @@ const Filters = memo(({ filters }: FiltersProps) => {
         params.set(name, value.toString());
       }
 
-      replace(`${pathname}?${params.toString()}`);
+      replace(`${pathname}?${params.toString()}`, {
+        scroll: false,
+      });
     },
     [searchParams],
   );
@@ -230,23 +226,18 @@ const Filters = memo(({ filters }: FiltersProps) => {
         value.forEach((v) => params.append(name, v.toString()));
       }
 
-      replace(`${pathname}?${params.toString()}`);
+      replace(`${pathname}?${params.toString()}`, {
+        scroll: false,
+      });
     },
     [searchParams],
   );
 
-  const applyFilter = useCallback(
-    (type: FilterType, name: string, value: FilterValue | FilterValue[]) => {
-      if (type === 'radio') {
-        applyStringFilter(name, value as Value);
-      } else {
-        applyArrayFilter(name, value as Value[]);
-      }
-    },
-    [applyArrayFilter, applyStringFilter],
+  const debouncedApplyArrayFilter = useDebounceCallback(applyArrayFilter, 500);
+  const debouncedApplyStringFilter = useDebounceCallback(
+    applyStringFilter,
+    500,
   );
-
-  const debouncedApplyFilter = useDebounceCallback(applyFilter, 500);
   return (
     <Accordion
       type="multiple"
@@ -261,7 +252,7 @@ const Filters = memo(({ filters }: FiltersProps) => {
               <RangeFilter
                 key={filter.name}
                 {...filter}
-                applyFilter={debouncedApplyFilter}
+                applyFilter={debouncedApplyArrayFilter}
               />
             );
           case 'checkbox':
@@ -269,7 +260,7 @@ const Filters = memo(({ filters }: FiltersProps) => {
               <CheckboxFilter
                 key={filter.name}
                 {...filter}
-                applyFilter={debouncedApplyFilter}
+                applyFilter={debouncedApplyArrayFilter}
               />
             );
           case 'radio':
@@ -277,7 +268,7 @@ const Filters = memo(({ filters }: FiltersProps) => {
               <RadioFilter
                 key={filter.name}
                 {...filter}
-                applyFilter={debouncedApplyFilter}
+                applyFilter={debouncedApplyStringFilter}
               />
             );
 
