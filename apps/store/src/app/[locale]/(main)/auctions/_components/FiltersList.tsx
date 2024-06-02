@@ -1,30 +1,23 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 import { memo, useCallback, useEffect, useState } from 'react';
-import FilterBadge from './FilterBadge';
-import { usePathname, useRouter } from '../../../../../navigation';
 import { useDebounceCallback } from 'usehooks-ts';
-
-function getFilterFromSearchParams(searchParams: URLSearchParams) {
-  const filters = [];
-  for (const [name, value] of searchParams) {
-    filters.push({ name, value });
-  }
-  return filters;
-}
+import { usePathname, useRouter } from '../../../../../navigation';
+import FilterBadge from './FilterBadge';
+import { Button } from '@mono/ui';
 
 const FiltersList = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const [filters, setFilters] = useState(
-    getFilterFromSearchParams(searchParams),
-  );
+  const [filters, setFilters] = useState(new Set(searchParams.keys()));
 
   const replaceFilter = useCallback(
     (params: URLSearchParams) => {
-      replace(`${pathname}?${params.toString()}`);
+      replace(`${pathname}?${params.toString()}`, {
+        scroll: false,
+      });
     },
     [pathname, replace],
   );
@@ -32,38 +25,42 @@ const FiltersList = () => {
   const debouncedReplaceFilter = useDebounceCallback(replaceFilter, 500);
 
   const removeFilter = useCallback(
-    (name: string, value: string) => {
-      if (!searchParams.has(name)) return;
-      const params = new URLSearchParams(searchParams.toString());
-      if (params.getAll(name).length === 1) {
-        params.delete(name);
-      } else {
-        params.delete(name, value);
-      }
-      setFilters((prevFilters) => {
-        return prevFilters.filter((filter) => {
-          return filter.name !== name || filter.value !== value;
+    (name: string) => {
+      const newFilters = new Set(filters);
+      newFilters.delete(name);
+      setFilters(newFilters);
+      const newParams = new URLSearchParams();
+      newFilters.forEach((filter) => {
+        const values = searchParams.getAll(filter);
+        if (filter === name || !values) return;
+        values.forEach((value) => {
+          newParams.append(filter, value);
         });
       });
-
-      debouncedReplaceFilter(params);
+      debouncedReplaceFilter(newParams);
     },
-    [name, searchParams],
+    [debouncedReplaceFilter, filters, searchParams],
   );
 
+  const removeAllFilters = useCallback(() => {
+    setFilters(new Set());
+    debouncedReplaceFilter(new URLSearchParams());
+  }, [debouncedReplaceFilter]);
+
   useEffect(() => {
-    setFilters(getFilterFromSearchParams(searchParams));
+    setFilters(new Set(searchParams.keys()));
   }, [searchParams]);
 
   return (
     <div className="flex flex-wrap gap-4">
-      {filters.map((filter) => (
-        <FilterBadge
-          key={filter.name}
-          {...filter}
-          removeFilter={removeFilter}
-        />
+      {Array.from(filters).map((filter) => (
+        <FilterBadge key={filter} name={filter} removeFilter={removeFilter} />
       ))}
+      {filters.size > 0 && (
+        <Button variant="outline" onClick={removeAllFilters}>
+          Clear All
+        </Button>
+      )}
     </div>
   );
 };

@@ -2,25 +2,17 @@
 
 import { Button } from '@mono/ui';
 import { XIcon } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import { memo, useCallback } from 'react';
-import { usePathname, useRouter } from '../../../../../navigation';
-import { useDebounceCallback } from 'usehooks-ts';
+import { memo } from 'react';
 
 interface FilterBadgeProps {
   name: string;
-  value: string;
-  removeFilter: (name: string, value: string) => void;
+  removeFilter: (name: string) => void;
 }
 
-const FilterBadge = ({ name, value, removeFilter }: FilterBadgeProps) => {
+const FilterBadge = ({ name, removeFilter }: FilterBadgeProps) => {
   return (
-    <Button
-      variant="secondary"
-      onClick={() => removeFilter(name, value)}
-      size="sm"
-    >
-      {name}: {value} <XIcon className="ms-2 h-4 w-4" />
+    <Button variant="secondary" onClick={() => removeFilter(name)} size="sm">
+      {name} <XIcon className="ms-2 h-4 w-4" />
     </Button>
   );
 };
