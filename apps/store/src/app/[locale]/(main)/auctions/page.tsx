@@ -112,7 +112,7 @@ const Auctions = () => {
         {/* sidebar and main content to show auctions */}
         <section className="flex gap-8">
           {/* filters sidebar */}
-          <Card className="hidden w-1/4 divide-y md:block">
+          <Card className="hidden h-fit w-1/4 divide-y md:block">
             <CardHeader>
               <CardTitle>Filters</CardTitle>
             </CardHeader>
