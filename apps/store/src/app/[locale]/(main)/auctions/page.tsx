@@ -15,6 +15,9 @@ import { SubFilter } from '../../../../components/filters/SubFilters';
 import Filters, { Filter } from './_components/Filters';
 import ToolBar from './_components/ToolBar';
 import { GlobalFilterProps } from '../../../../components/filters/GlobalFilter';
+import { useGetAuctions } from '../../../../hooks/auction/useGetAuctions';
+import { auctionFiltersSchema } from '../../../../validation/auction-schema';
+import Auction from './_components/Auction';
 
 const CATEGORIES_OPTIONS: GlobalFilterProps['options'] = [
   { label: 'Pending', value: 'pending' },
@@ -34,12 +37,6 @@ const SUB_FILTERS: SubFilter[] = [
     ],
   },
 ];
-
-const filtersSchema = z.object({
-  category: z.string().optional(),
-  filter: z.string().optional(),
-  price: z.array(z.coerce.number().positive()).length(2).optional(),
-});
 
 const DEFAULT_PRICE_FILTER = [0, 1000] satisfies [number, number];
 const DEFAULT_QUANTITY_FILTER = [0, 10000] satisfies [number, number];
@@ -93,8 +90,7 @@ const filters: Filter[] = [
 
 const Auctions = () => {
   const searchParams = useSearchParams();
-  const { data: filterValues } = filtersSchema.safeParse(searchParams);
-  const price = filterValues?.price || DEFAULT_PRICE_FILTER;
+  const { data: params } = auctionFiltersSchema.safeParse(searchParams);
 
   return (
     <Card className="bg-transparent shadow-none">
@@ -114,9 +110,9 @@ const Auctions = () => {
           subFilters={SUB_FILTERS}
         />
         {/* sidebar and main content to show auctions */}
-        <section className="flex flex-col gap-8 md:flex-row">
+        <section className="flex gap-8">
           {/* filters sidebar */}
-          <Card className="w-full divide-y md:w-1/4">
+          <Card className="hidden w-1/4 divide-y md:block">
             <CardHeader>
               <CardTitle>Filters</CardTitle>
             </CardHeader>
@@ -124,6 +120,9 @@ const Auctions = () => {
               <Filters filters={filters} />
             </CardContent>
           </Card>
+
+          {/* auction content */}
+          <Auction {...params} />
         </section>
       </CardContent>
     </Card>

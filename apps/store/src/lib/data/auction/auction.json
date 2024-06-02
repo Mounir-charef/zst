@@ -1,0 +1,202 @@
+[
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "has_offers",
+    "price": { "min": 100, "max": 200 },
+    "quantity": { "min": 1, "max": 5 },
+    "id": 1,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 1",
+    "offers": [
+      { "price": 150, "quantity": 2, "id": 101, "orders": 5 },
+      { "price": 175, "quantity": 1, "id": 102, "orders": 3 }
+    ]
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "pending",
+    "price": { "min": 50, "max": 100 },
+    "quantity": { "min": 1, "max": 10 },
+    "id": 2,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 2"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "on_auction",
+    "price": { "min": 200, "max": 300 },
+    "quantity": { "min": 1, "max": 2 },
+    "id": 3,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 3"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "canceled",
+    "price": { "min": 300, "max": 400 },
+    "quantity": { "min": 3, "max": 7 },
+    "id": 4,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 4"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "has_offers",
+    "price": { "min": 150, "max": 250 },
+    "quantity": { "min": 1, "max": 4 },
+    "id": 5,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 5",
+    "offers": [
+      { "price": 200, "quantity": 1, "id": 103, "orders": 2 },
+      { "price": 225, "quantity": 2, "id": 104, "orders": 1 }
+    ]
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "pending",
+    "price": { "min": 70, "max": 120 },
+    "quantity": { "min": 1, "max": 8 },
+    "id": 6,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 6"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "on_auction",
+    "price": { "min": 120, "max": 180 },
+    "quantity": { "min": 2, "max": 6 },
+    "id": 7,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 7"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "canceled",
+    "price": { "min": 90, "max": 150 },
+    "quantity": { "min": 1, "max": 3 },
+    "id": 8,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 8"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "has_offers",
+    "price": { "min": 110, "max": 220 },
+    "quantity": { "min": 1, "max": 5 },
+    "id": 9,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 9",
+    "offers": [
+      { "price": 150, "quantity": 3, "id": 105, "orders": 4 },
+      { "price": 175, "quantity": 1, "id": 106, "orders": 2 }
+    ]
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "pending",
+    "price": { "min": 130, "max": 170 },
+    "quantity": { "min": 2, "max": 4 },
+    "id": 10,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 10"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "on_auction",
+    "price": { "min": 180, "max": 220 },
+    "quantity": { "min": 1, "max": 3 },
+    "id": 11,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 11"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "canceled",
+    "price": { "min": 75, "max": 125 },
+    "quantity": { "min": 1, "max": 6 },
+    "id": 12,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 12"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "has_offers",
+    "price": { "min": 90, "max": 180 },
+    "quantity": { "min": 1, "max": 4 },
+    "id": 13,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 13",
+    "offers": [
+      { "price": 120, "quantity": 2, "id": 107, "orders": 3 },
+      { "price": 150, "quantity": 1, "id": 108, "orders": 1 }
+    ]
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "pending",
+    "price": { "min": 60, "max": 100 },
+    "quantity": { "min": 2, "max": 5 },
+    "id": 14,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 14"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "on_auction",
+    "price": { "min": 140, "max": 200 },
+    "quantity": { "min": 1, "max": 2 },
+    "id": 15,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 15"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "canceled",
+    "price": { "min": 50, "max": 90 },
+    "quantity": { "min": 1, "max": 7 },
+    "id": 16,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 16"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "has_offers",
+    "price": { "min": 100, "max": 150 },
+    "quantity": { "min": 1, "max": 3 },
+    "id": 17,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 17",
+    "offers": [
+      { "price": 125, "quantity": 1, "id": 109, "orders": 5 },
+      { "price": 135, "quantity": 2, "id": 110, "orders": 2 }
+    ]
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "pending",
+    "price": { "min": 200, "max": 300 },
+    "quantity": { "min": 1, "max": 2 },
+    "id": 18,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 18"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "on_auction",
+    "price": { "min": 170, "max": 250 },
+    "quantity": { "min": 1, "max": 5 },
+    "id": 19,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 19"
+  },
+  {
+    "image": "/product/placeholder_1.png",
+    "status": "canceled",
+    "price": { "min": 110, "max": 160 },
+    "quantity": { "min": 2, "max": 4 },
+    "id": 20,
+    "created_at": "2020-01-01T00:00:00Z",
+    "name": "Auction 20"
+  }
+]
