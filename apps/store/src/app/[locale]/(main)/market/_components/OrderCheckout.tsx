@@ -200,7 +200,7 @@ const OrderCheckout = ({ id }: OrderCheckoutProps) => {
             <div className="col-span-2 flex flex-col gap-2">
               <Label>Address</Label>
               <InputField
-                placeholder={'Phone number'}
+                placeholder={'Address'}
                 control={form.control}
                 name="personalInfo.address"
               />

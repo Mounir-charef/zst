@@ -23,6 +23,7 @@ export const InputField = <
   className,
   showErrors = true,
   Icon,
+  IconStart,
   placeholder,
   description,
   descriptionProps,
@@ -43,6 +44,7 @@ export const InputField = <
   className?: string;
   type?: InputHTMLAttributes<HTMLInputElement>['type'];
   Icon?: LucideIcon;
+  IconStart?: LucideIcon;
   InputProps?: Omit<InputProps, 'name' | 'type' | 'placeholder' | 'required'>;
   labelProps?: LabelProps;
   descreptionPlacement?: 'before' | 'after';
@@ -60,7 +62,10 @@ export const InputField = <
                 {description}
               </FormDescription>
             )}
-            <div className="relative flex w-full items-center">
+            <div className={cn('relative flex w-full items-center')}>
+              {IconStart && (
+                <IconStart className="absolute start-4 flex h-5 w-5 items-center text-gray-500" />
+              )}
               <FormControl>
                 <Input
                   {...field}
