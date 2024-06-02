@@ -8,15 +8,13 @@ const HeroText = () => {
   const secondTextSplit = secondaryText.split('.');
   return (
     <>
-      <h1 className="w-full text-4xl font-semibold">
-        <h1 className="w-full text-5xl">
-          {firstTextSplit.map((part, index) => (
-            <span key={index}>
-              {part}
-              {index < firstTextSplit.length - 1 && <br />}
-            </span>
-          ))}
-        </h1>
+      <h1 className="w-full text-5xl font-semibold">
+        {firstTextSplit.map((part, index) => (
+          <span key={index}>
+            {part}
+            {index < firstTextSplit.length - 1 && <br />}
+          </span>
+        ))}
       </h1>
       <p className="">
         {secondTextSplit.map((part, index) => (
