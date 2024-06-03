@@ -111,9 +111,9 @@ const HasOfferAuction = memo(({ auction }: { auction: AuctionWithOffers }) => {
       </div>
       {isOpen
         ? auction.offers.map((offer) => (
-            <div className="text-muted-foreground flex items-start gap-8 p-4 text-xs">
-              <div className="size-[100px]" />
-              <div className="flex flex-1 items-start justify-between gap-2">
+            <div className="text-muted-foreground animate-in slide-in-from-top-5 fade-in-20 flex gap-8 p-4 text-xs duration-300">
+              <div className="w-[100px]" />
+              <div className="flex h-full flex-1 items-end justify-between gap-2">
                 <div className="space-y-4">
                   <div className="flex items-center gap-1.5">
                     <Badge variant="reverse">Offer #{offer.id}</Badge>

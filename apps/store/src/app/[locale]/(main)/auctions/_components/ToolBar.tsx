@@ -1,9 +1,12 @@
+import { buttonVariants } from '@mono/ui';
 import GlobalFilter, {
   GlobalFilterProps,
 } from '../../../../../components/filters/GlobalFilter';
 import SubFilters, {
   SubFilter,
 } from '../../../../../components/filters/SubFilters';
+import { Link } from '../../../../../navigation';
+import { PlusCircle } from 'lucide-react';
 
 interface ToolBarProps {
   globalFilter: GlobalFilterProps;
@@ -18,6 +21,14 @@ const ToolBar = ({ globalFilter, subFilters }: ToolBarProps) => {
       </div>
       <div className="flex flex-wrap justify-end gap-2">
         <SubFilters filters={subFilters} />
+        <Link
+          href="/auctions/new"
+          className={buttonVariants({
+            className: 'h-8',
+          })}
+        >
+          <PlusCircle className="me-2 h-4 w-4" /> Add Auction
+        </Link>
       </div>
     </div>
   );

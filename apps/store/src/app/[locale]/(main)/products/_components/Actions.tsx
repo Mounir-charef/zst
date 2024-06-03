@@ -73,7 +73,6 @@ export const globalAction: GlobalAction<Product> = () => {
       <Link
         href={'/products/create'}
         className={buttonVariants({
-          variant: 'reverse',
           className: 'h-8',
         })}
       >
