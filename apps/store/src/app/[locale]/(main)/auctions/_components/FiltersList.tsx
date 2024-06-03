@@ -51,6 +51,8 @@ const FiltersList = () => {
     setFilters(new Set(searchParams.keys()));
   }, [searchParams]);
 
+  if (filters.size === 0) return null;
+
   return (
     <div className="flex flex-wrap gap-4">
       {Array.from(filters).map((filter) => (

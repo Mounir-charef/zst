@@ -231,7 +231,7 @@ const Auction = (params: AuctionsParams) => {
   }
 
   return (
-    <div className="flex-1 space-y-8">
+    <div className="flex-1 space-y-4">
       <h2 className="text-lg font-semibold">
         {data.length} results found for you
       </h2>
