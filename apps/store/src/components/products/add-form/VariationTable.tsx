@@ -12,12 +12,9 @@ import {
 import { cn } from '@mono/util';
 import { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
-import { getAllPermutations } from '../../../../../../lib/permutations';
-import {
-  IProductDetails,
-  Stock,
-} from '../../../../../../validation/add-product-schema';
+import { ImageUploaderField } from '../../ImageUploaderField';
+import { getAllPermutations } from '../../../lib/permutations';
+import { IProductDetails, Stock } from '../../../validation/add-product-schema';
 
 const VariationTable = ({ defaultStock }: { defaultStock?: Stock }) => {
   const { control, watch, setValue, formState } =

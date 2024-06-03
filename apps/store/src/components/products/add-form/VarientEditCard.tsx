@@ -10,58 +10,67 @@ import {
 } from '@mono/ui';
 import { X } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo } from 'react';
-import {
-  SubmitHandler,
-  useFieldArray,
-  useForm,
-  useFormContext,
-} from 'react-hook-form';
+import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
-import { IProductDetails } from '../../../../../../validation/add-product-schema';
 import { VARIANT_NAMES, VARIANT_VALUES_BY_NAME } from './ProductVariants';
+import {
+  IProductDetails,
+  Variant,
+} from '../../../validation/add-product-schema';
 
-const AddVarientForm = ({ close }: { close: () => void }) => {
+interface VariantEditCardProps {
+  variant: Variant;
+  update: (data: Variant) => void;
+  remove: () => void;
+  close: () => void;
+}
+
+const VariantEditCard = ({
+  variant,
+  update,
+  remove,
+  close,
+}: VariantEditCardProps) => {
   const VariantSchema = useMemo(
     () =>
       z.object({
         name: z.enum(VARIANT_NAMES),
-        values: z.array(z.string().min(1, 'Required').max(255)).min(1),
+        values: z.array(z.string().min(1, 'Required').max(255)),
       }),
     [],
   );
 
   type FormValues = z.infer<typeof VariantSchema>;
 
-  const { watch } = useFormContext<IProductDetails>();
-
-  const selectedVariants = watch('variants');
-
   const form = useForm<FormValues>({
     resolver: zodResolver(VariantSchema),
-    defaultValues: {
-      name: VARIANT_NAMES[selectedVariants.length],
-      values: [],
-    },
-  });
-  const { control } = useFormContext<IProductDetails>();
-  const { append } = useFieldArray({
-    control: control,
-    name: 'variants',
+    defaultValues: variant as FormValues,
   });
 
   const { values, name } = form.watch();
 
+  const { watch } = useFormContext<IProductDetails>();
+
+  const selectedVariants = watch('variants');
+
   const selectableValues = useMemo(
     () => (name ? VARIANT_VALUES_BY_NAME[name] : []),
-    [values, name],
+    [values],
   );
 
-  const selectableVariants = useMemo(
-    () =>
-      VARIANT_NAMES.filter(
-        (name) => !selectedVariants.some((variant) => variant.name === name),
-      ),
-    [selectedVariants],
+  const selectableVariants = useMemo(() => {
+    const notSelectedVariants = VARIANT_NAMES.filter(
+      (name) => !selectedVariants.some((variant) => variant.name === name),
+    );
+    const variantsNames = [...notSelectedVariants, variant.name];
+    return variantsNames.map((name) => ({ label: name, value: name }));
+  }, [selectedVariants]);
+
+  const addValue = useCallback(
+    (newValue: string) => {
+      form.setValue('values', [...values, newValue]);
+    },
+    [form, values],
   );
 
   const removeValue = useCallback(
@@ -74,14 +83,25 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
     [form, values],
   );
 
+  useEffect(() => {
+    if (name === variant.name) {
+      form.setValue('values', variant.values);
+    } else {
+      form.setValue('values', []);
+    }
+  }, [name]);
+
   const checkNameNotSelected = useCallback(
     (name: string) => {
-      return selectedVariants.every((variant) => variant.name !== name);
+      const isNotSelected = selectedVariants.every(
+        (variant) => variant.name !== name,
+      );
+      return isNotSelected || name === variant.name;
     },
     [selectedVariants],
   );
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<Variant> = (data) => {
     if (!checkNameNotSelected(data.name)) {
       form.setError('name', {
         type: 'manual',
@@ -89,28 +109,28 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
       });
       return;
     }
-    append(data);
+    update(data);
     close();
   };
 
-  useEffect(() => {
-    form.setValue('values', []);
-  }, [name]);
-
   return (
     <Form {...form}>
-      <CardContent className="grid gap-4 pt-6">
+      <CardContent className="relative grid gap-4 pt-6">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={close}
+          className="absolute right-2 top-2"
+        >
+          <X className="h-5 w-5" />
+        </Button>
         <SelectField
-          options={selectableVariants.map((name) => ({
-            value: name,
-            label: name,
-          }))}
+          options={selectableVariants}
           control={form.control}
           name="name"
           label="Option Name"
         />
 
-        {/* TODO: make this a component (select multiple) */}
         <MultiSelectField
           control={form.control}
           options={selectableValues.map((value) => ({
@@ -141,14 +161,12 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
           ))}
         </div>
         <div className="flex items-center justify-between">
-          <Button type="button" variant="outline" onClick={() => close()}>
-            Cancel
-          </Button>
-          <Button
-            type="button"
-            variant="reverse"
-            onClick={form.handleSubmit(onSubmit)}
-          >
+          <div className="flex items-center gap-2">
+            <Button variant="destructive" onClick={() => remove()}>
+              Delete
+            </Button>
+          </div>
+          <Button variant="reverse" onClick={form.handleSubmit(onSubmit)}>
             Save
           </Button>
         </div>
@@ -157,4 +175,4 @@ const AddVarientForm = ({ close }: { close: () => void }) => {
   );
 };
 
-export default memo(AddVarientForm);
+export default memo(VariantEditCard);

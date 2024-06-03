@@ -5,11 +5,11 @@ import { Badge, Button, Form } from '@mono/ui';
 import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import GoBackButton from '../../../../../../components/GoBackButton';
+import GoBackButton from '../../GoBackButton';
 import {
   IProductDetails,
   addProductSchema,
-} from '../../../../../../validation/add-product-schema';
+} from '../../../validation/add-product-schema';
 import ProductCategory from './ProductCategory';
 import ProductDetails from './ProductDetails';
 import ProductImages from './ProductImages';

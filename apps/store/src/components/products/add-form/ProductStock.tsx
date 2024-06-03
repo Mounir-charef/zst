@@ -3,10 +3,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@mono/ui';
 import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import {
-  IProductDetails,
-  Stock,
-} from '../../../../../../validation/add-product-schema';
+import { IProductDetails, Stock } from '../../../validation/add-product-schema';
 import VariationTable from './VariationTable';
 
 const ProductStock = ({ defaultStock }: { defaultStock?: Stock }) => {

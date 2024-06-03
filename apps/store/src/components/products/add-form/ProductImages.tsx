@@ -10,8 +10,8 @@ import { Trash2, Upload } from 'lucide-react';
 import Image from 'next/image';
 import { memo, useCallback, useRef } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
-import { IProductDetails } from '../../../../../../validation/add-product-schema';
+import { ImageUploaderField } from '../../ImageUploaderField';
+import { IProductDetails } from '../../../validation/add-product-schema';
 const ProductImages = () => {
   const { control, watch } = useFormContext<IProductDetails>();
   const productImages = watch('productImages');

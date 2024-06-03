@@ -21,7 +21,7 @@ import {
 import {
   IProductDetails,
   Variant,
-} from '../../../../../../validation/add-product-schema';
+} from '../../../validation/add-product-schema';
 import AddVarientForm from './AddVarientForm';
 import VariantEditCard from './VarientEditCard';
 

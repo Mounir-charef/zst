@@ -9,7 +9,7 @@ import {
 } from '@mono/ui';
 import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { IProductDetails } from '../../../../../../validation/add-product-schema';
+import { IProductDetails } from '../../../validation/add-product-schema';
 
 const PRODUCT_POSSIBLE_CATEGORIES = [
   {
