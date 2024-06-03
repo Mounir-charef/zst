@@ -16,7 +16,10 @@ import {
 } from '@mono/ui';
 import { FileIcon, PlusCircle } from 'lucide-react';
 import { Link } from '../../../../../navigation';
-import { Product, productSchema } from '../_data/schema';
+import {
+  Product,
+  productSchema,
+} from '../../../../../validation/product-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

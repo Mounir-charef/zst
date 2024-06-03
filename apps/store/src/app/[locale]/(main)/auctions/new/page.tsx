@@ -16,6 +16,7 @@ import {
   addProductSchema,
 } from '../../../../../validation/add-product-schema';
 import SelectProductDialog from './_components/SelectProductDialog';
+import { useEffect, useState } from 'react';
 
 const DEFAULTS: IProductDetails = {
   details: {
@@ -31,14 +32,19 @@ const DEFAULTS: IProductDetails = {
 };
 
 const Page = () => {
+  const [defaultValues, setDefaultValues] = useState<IProductDetails>(DEFAULTS);
   const form = useForm<IProductDetails>({
     resolver: zodResolver(addProductSchema),
-    defaultValues: DEFAULTS,
+    defaultValues,
   });
 
   const onSubmit: SubmitHandler<IProductDetails> = (data) => {
     toast.info(JSON.stringify(data));
   };
+
+  useEffect(() => {
+    form.reset(defaultValues);
+  }, [defaultValues]);
 
   return (
     <Form {...form}>
@@ -53,7 +59,7 @@ const Page = () => {
             <Button variant="outline" size="sm" type="button">
               Discard
             </Button>
-            <SelectProductDialog />
+            <SelectProductDialog setDefaultValues={setDefaultValues} />
             <Button size="sm" type="submit">
               Submit Auction
             </Button>

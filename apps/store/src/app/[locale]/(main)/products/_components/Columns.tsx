@@ -5,7 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Badge, DataTableColumnHeader } from '@mono/ui';
 import Image from 'next/image';
 import { statuses } from '../_data/Data';
-import { Product } from '../_data/schema';
+import { Product } from '../../../../../validation/product-schema';
 import { DataTableRowActions } from './Actions';
 import { cn } from '@mono/util';
 
