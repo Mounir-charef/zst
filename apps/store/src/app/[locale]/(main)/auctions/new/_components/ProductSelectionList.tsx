@@ -1,9 +1,10 @@
 'use client';
 
 import { Input, ScrollArea } from '@mono/ui';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { Loader2, SearchIcon, XIcon } from 'lucide-react';
-import { memo, useCallback, useRef } from 'react';
+import { Fragment, memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useDebounceValue } from 'usehooks-ts';
 import { z } from 'zod';
 import products from '../../../../../../lib/data/products/products.json';
@@ -21,17 +22,6 @@ const ProductSelectionList = ({
 }: ProductSelectionListProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useDebounceValue('', 500);
-  const { data, isFetching } = useQuery({
-    queryKey: ['products', search],
-    queryFn: async () => {
-      const data = z.array(productSchema).parse(products);
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      return data.filter((product) =>
-        product.name.toLowerCase().includes(search.toLowerCase()),
-      );
-    },
-    placeholderData: keepPreviousData,
-  });
 
   const handleClear = useCallback(() => {
     if (inputRef.current) {
@@ -42,6 +32,36 @@ const ProductSelectionList = ({
     }
     setSearch('');
   }, [setSearch]);
+  const { ref, inView } = useInView();
+
+  const { data, error, fetchNextPage, hasNextPage, isFetching } =
+    useInfiniteQuery({
+      queryKey: ['products', search],
+      initialPageParam: 1,
+      queryFn: async ({ pageParam = 1 }) => {
+        const data = z.array(productSchema).parse(products);
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return data
+          .filter((product) =>
+            product.name.toLowerCase().includes(search.toLowerCase()),
+          )
+          .slice((pageParam - 1) * 10, pageParam * 10);
+      },
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length === 10 ? allPages.length + 1 : undefined;
+      },
+      placeholderData: keepPreviousData,
+    });
+
+  const fetchedProducts = useMemo(() => {
+    return data?.pages.flat();
+  }, [data]);
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, inView]);
 
   return (
     <div className="flex flex-col divide-y">
@@ -71,18 +91,28 @@ const ProductSelectionList = ({
         </div>
       </div>
       <ScrollArea className="flex h-72 flex-col">
-        {!data || data.length === 0 ? (
+        {!fetchedProducts || fetchedProducts.length === 0 ? (
           <div className="flex h-72 items-center justify-center">
             No products found
           </div>
         ) : null}
-        {data?.map((product) => (
-          <ProductSelectionItem
-            key={product.id}
-            changeProduct={changeProduct}
-            selectedProduct={selectedProduct}
-            product={product}
-          />
+        {fetchedProducts?.map((product, index) => (
+          <Fragment>
+            <ProductSelectionItem
+              key={product.id}
+              changeProduct={changeProduct}
+              selectedProduct={selectedProduct}
+              product={product}
+            />
+            {index === fetchedProducts.length - 1 && hasNextPage ? (
+              <div ref={ref} className="flex h-12 items-center justify-center">
+                <Loader2
+                  ref={ref}
+                  className="text-muted-foreground h-4 w-4 animate-spin"
+                />
+              </div>
+            ) : null}
+          </Fragment>
         ))}
       </ScrollArea>
     </div>
