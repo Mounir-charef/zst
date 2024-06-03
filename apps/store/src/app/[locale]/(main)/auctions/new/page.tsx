@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Form } from '@mono/ui';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import GoBackButton from '../../../../../components/GoBackButton';
@@ -16,7 +17,6 @@ import {
   addProductSchema,
 } from '../../../../../validation/add-product-schema';
 import SelectProductDialog from './_components/SelectProductDialog';
-import { useEffect, useState } from 'react';
 
 const DEFAULTS: IProductDetails = {
   details: {
@@ -77,11 +77,16 @@ const Page = () => {
             <ProductImages />
           </div>
         </div>
-        <div className="flex items-center justify-center gap-2 md:hidden">
-          <Button variant="outline" size="sm" type="button">
-            Discard
+        <div className="grid justify-center gap-0.5 md:hidden">
+          <div className="flex gap-1">
+            <Button variant="outline" size="sm" type="button">
+              Discard
+            </Button>
+            <SelectProductDialog setDefaultValues={setDefaultValues} />
+          </div>
+          <Button size="sm" type="submit">
+            Submit Auction
           </Button>
-          <Button size="sm">Submit Auction</Button>
         </div>
       </form>
     </Form>

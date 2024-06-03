@@ -90,7 +90,7 @@ const ProductSelectionList = ({
           )}
         </div>
       </div>
-      <ScrollArea className="flex h-72 flex-col">
+      <ScrollArea className="flex h-72 flex-col" key={search}>
         {!fetchedProducts || fetchedProducts.length === 0 ? (
           <div className="flex h-72 items-center justify-center">
             No products found
