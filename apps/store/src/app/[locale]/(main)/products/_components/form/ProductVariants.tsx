@@ -18,9 +18,12 @@ import {
   useFieldArray,
   useFormContext,
 } from 'react-hook-form';
-import VariantEditCard from './VarientEditCard';
+import {
+  IProductDetails,
+  Variant,
+} from '../../../../../../validation/add-product-schema';
 import AddVarientForm from './AddVarientForm';
-import { IProductDetails, Variant } from '../../types';
+import VariantEditCard from './VarientEditCard';
 
 export const VARIANT_NAMES = ['size', 'color', 'material'] as const;
 

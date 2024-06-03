@@ -17,7 +17,7 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { z } from 'zod';
-import { IProductDetails } from '../../types';
+import { IProductDetails } from '../../../../../../validation/add-product-schema';
 import { VARIANT_NAMES, VARIANT_VALUES_BY_NAME } from './ProductVariants';
 
 const AddVarientForm = ({ close }: { close: () => void }) => {
