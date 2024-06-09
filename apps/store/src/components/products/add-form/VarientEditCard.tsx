@@ -12,8 +12,11 @@ import { X } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
-import { IProductDetails, Variant } from '../../types';
 import { VARIANT_NAMES, VARIANT_VALUES_BY_NAME } from './ProductVariants';
+import {
+  IProductDetails,
+  Variant,
+} from '../../../validation/add-product-schema';
 
 interface VariantEditCardProps {
   variant: Variant;

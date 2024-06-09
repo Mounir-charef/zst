@@ -2,7 +2,7 @@
 
 import { FilterOption, GlobalFilterOption } from '@mono/ui';
 import { statuses } from '../_data/Data';
-import { type Product } from '../_data/schema';
+import { type Product } from '../../../../../validation/product-schema';
 
 export const itemsFilters: FilterOption<Product>[] = [
   // {

@@ -16,7 +16,10 @@ import {
 } from '@mono/ui';
 import { FileIcon, PlusCircle } from 'lucide-react';
 import { Link } from '../../../../../navigation';
-import { Product, productSchema } from '../_data/schema';
+import {
+  Product,
+  productSchema,
+} from '../../../../../validation/product-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -73,7 +76,6 @@ export const globalAction: GlobalAction<Product> = () => {
       <Link
         href={'/products/create'}
         className={buttonVariants({
-          variant: 'reverse',
           className: 'h-8',
         })}
       >

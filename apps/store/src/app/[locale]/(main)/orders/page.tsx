@@ -28,7 +28,7 @@ import {
 } from 'lucide-react';
 import path from 'path';
 import { z } from 'zod';
-import { productSchema } from '../products/_data/schema';
+import { productSchema } from '../../../../validation/product-schema';
 import { columns } from '../products/_components/Columns';
 import { globalFilter, itemsFilters } from '../products/_components/filters';
 import ActionCard from '../../../../components/cards/ActionCard';

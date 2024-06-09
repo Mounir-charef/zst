@@ -33,3 +33,5 @@ export * from './lib/ui/scroll-area';
 export * from './lib/ui/calendar';
 export * from './lib/ui/switch';
 export * from './lib/ui/alert-dialog';
+export * from './lib/ui/accordion';
+export * from './lib/ui/slider';

@@ -8,7 +8,7 @@ import {
 } from '@mono/ui';
 import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { IProductDetails } from '../../types';
+import { IProductDetails } from '../../../validation/add-product-schema';
 
 const ProductDetails = () => {
   const { control } = useFormContext<IProductDetails>();

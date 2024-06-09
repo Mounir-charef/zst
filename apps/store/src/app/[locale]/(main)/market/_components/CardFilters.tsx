@@ -1,7 +1,11 @@
 import { Button } from '@mono/ui';
-import { TransitionStartFunction, memo, useTransition } from 'react';
-import CategoryFilter, { CategoryFilterOption } from './CategoryFilter';
-import SubFilters, { SubFilter } from './SubFilters';
+import { memo } from 'react';
+import CategoryFilter, {
+  type CategoryFilterOption,
+} from '../../../../../components/filters/GlobalFilter';
+import SubFilters, {
+  SubFilter,
+} from '../../../../../components/filters/SubFilters';
 
 const categoryFilters: CategoryFilterOption[] = [
   { label: 'New', value: 'new' },

@@ -12,15 +12,11 @@ import {
 import { cn } from '@mono/util';
 import { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { ImageUploaderField } from '../../../../../../components/ImageUploaderField';
-import { getAllPermutations } from '../../../../../../lib/permutations';
-import { IProductDetails, Variant, VariantValue } from '../../types';
+import { ImageUploaderField } from '../../ImageUploaderField';
+import { getAllPermutations } from '../../../lib/permutations';
+import { IProductDetails, Stock } from '../../../validation/add-product-schema';
 
-const VariationTable = ({
-  defaultStock,
-}: {
-  defaultStock?: IProductDetails['stock'];
-}) => {
+const VariationTable = ({ defaultStock }: { defaultStock?: Stock }) => {
   const { control, watch, setValue, formState } =
     useFormContext<IProductDetails>();
   const { variants, stock } = watch();
@@ -35,13 +31,14 @@ const VariationTable = ({
   const mainVariant = useMemo(() => variants.at(0), [variants]);
   const subVariants = useMemo(() => variants.slice(1), [variants]);
 
-  const defaultValue: IProductDetails['stock'] = useMemo(() => {
+  const defaultValue: Stock = useMemo(() => {
     if (!mainVariant) return [];
     if (!subVariants.length) {
       return mainVariant.values.map((value) => ({
         mainVariant: { name: mainVariant.name, value },
         price: 0,
         quantity: 0,
+        image: '',
       }));
     }
 
@@ -53,13 +50,15 @@ const VariationTable = ({
 
     return mainVariant.values.map((value) => ({
       mainVariant: { name: mainVariant.name, value },
-      values: permutations.map((variants) => ({
+      image: '',
+      variations: permutations.map((variants) => ({
         variants,
         price: 0,
         quantity: 0,
+        image: '',
       })),
     }));
-  }, [mainVariant, subVariants]) satisfies IProductDetails['stock'];
+  }, [mainVariant, subVariants]) satisfies Stock;
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -136,10 +135,10 @@ const VariationTable = ({
             );
           }
 
-          const priceString = mainRow.values
+          const priceString = mainRow.variations
             .map(({ price }) => price)
             .join(' - ');
-          const quantity = mainRow.values.reduce(
+          const quantity = mainRow.variations.reduce(
             (acc, { quantity }) => acc + Number(quantity),
             0,
           );
@@ -170,7 +169,7 @@ const VariationTable = ({
                   />
                 </TableCell>
               </TableRow>
-              {mainRow.values.map((variantStock, subIndex) => {
+              {mainRow.variations.map((variantStock, subIndex) => {
                 const variation = variantStock.variants
                   .map((v) => `${v.name} ${v.value}`)
                   .join(' - ');
@@ -183,7 +182,7 @@ const VariationTable = ({
                       <div className="flex items-center gap-2">
                         <ImageUploaderField
                           control={control}
-                          name={`stock.${index}.values.${subIndex}.image`}
+                          name={`stock.${index}.variations.${subIndex}.image`}
                           className="h-16 w-16"
                           shouldUnregister
                         />
@@ -196,7 +195,7 @@ const VariationTable = ({
                       <InputField
                         className="min-w-24"
                         control={control}
-                        name={`stock.${index}.values.${subIndex}.price`}
+                        name={`stock.${index}.variations.${subIndex}.price`}
                         type="number"
                         InputProps={{
                           onKeyDown: handleKeyDown,
@@ -209,7 +208,7 @@ const VariationTable = ({
                       <InputField
                         className="min-w-24"
                         control={control}
-                        name={`stock.${index}.values.${subIndex}.quantity`}
+                        name={`stock.${index}.variations.${subIndex}.quantity`}
                         type="number"
                         InputProps={{
                           onKeyDown: handleKeyDown,

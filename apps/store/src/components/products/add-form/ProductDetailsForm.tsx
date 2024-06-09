@@ -5,9 +5,11 @@ import { Badge, Button, Form } from '@mono/ui';
 import { memo, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { z } from 'zod';
-import GoBackButton from '../../../../../../components/GoBackButton';
-import type { IProductDetails } from '../../types';
+import GoBackButton from '../../GoBackButton';
+import {
+  IProductDetails,
+  addProductSchema,
+} from '../../../validation/add-product-schema';
 import ProductCategory from './ProductCategory';
 import ProductDetails from './ProductDetails';
 import ProductImages from './ProductImages';
@@ -25,7 +27,7 @@ const DEFAULTS: IProductDetails = {
   mainImage: '',
   productImages: [],
   category: '',
-  stock: []
+  stock: [],
 };
 
 interface ProductDetailsFormProps {
@@ -34,79 +36,9 @@ interface ProductDetailsFormProps {
 
 const ProductDetailsForm = ({ defaultValues }: ProductDetailsFormProps) => {
   const isNew = useMemo(() => !defaultValues, [defaultValues]);
-  const ProductDetailsSchema = useMemo(
-    () =>
-      z.object({
-        details: z.object({
-          name: z.string().min(3).max(255),
-          description: z.string().min(3).max(500),
-        }),
-        variants: z.array(
-          z.object({
-            name: z.string().min(3).max(255),
-            values: z.array(z.string().min(1, 'Required')),
-          }),
-        ),
-        status: z.string().min(1, 'Required'),
-        category: z.string().min(1, 'Required'),
-        subcategory: z.string().optional(),
-        stock: z.array(
-          z
-            .object({
-              mainVariant: z.object({
-                name: z.string().min(3).max(255),
-                value: z.string().min(1, 'Required'),
-              }),
-              image: z.string().min(1, 'required').url(),
-              variations: z.array(
-                z.object({
-                  variants: z.array(
-                    z.object({
-                      name: z.string().min(3).max(255),
-                      value: z.string().min(1, 'Required'),
-                    }),
-                  ),
-                  image: z.string().min(1, 'required').url(),
-                  price: z.coerce
-                    .number()
-                    .min(0, { message: 'Price must be greater than 0' }),
-                  quantity: z.coerce
-                    .number()
-                    .min(0, { message: 'Quantity must be greater than 0' }),
-                }),
-              ),
-            })
-            .or(
-              z.array(
-                z.object({
-                  mainVariant: z.object({
-                    name: z.string().min(3).max(255),
-                    value: z.string().min(1, 'Required'),
-                  }),
-                  image: z.string().min(1, 'required').url(),
-                  price: z.coerce
-                    .number()
-                    .min(0, { message: 'Price must be greater than 0' }),
-                  quantity: z.coerce
-                    .number()
-                    .min(0, { message: 'Quantity must be greater than 0' }),
-                }),
-              ),
-            ),
-        ),
-        productImages: z.array(
-          z.object({
-            id: z.string().min(1, 'required').or(z.number().min(1, 'required')),
-            url: z.string().min(1, 'required').url(),
-          }),
-        ),
-        mainImage: z.string().min(1, 'required').url(),
-      }),
-    [],
-  );
 
   const form = useForm<IProductDetails>({
-    resolver: zodResolver(ProductDetailsSchema),
+    resolver: zodResolver(addProductSchema),
     defaultValues: defaultValues ?? DEFAULTS,
   });
 

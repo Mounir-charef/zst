@@ -15,7 +15,7 @@ const MobileNavMenu = dynamic(() => import('./MobileNavMenu'));
 const NavBar = () => {
   return (
     <div className="bg-background text-foreground border-border dark fixed top-0 z-50 w-full border-b">
-      <div className="mx-auto flex h-20 w-full max-w-[1700px] items-center justify-between gap-x-6 p-2 md:p-4">
+      <div className="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between gap-x-6 p-2 md:p-4">
         <nav className="flex items-center gap-6">
           <Link
             href="/"

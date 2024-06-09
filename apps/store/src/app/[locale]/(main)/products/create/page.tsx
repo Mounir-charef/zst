@@ -1,5 +1,5 @@
-import ProductDetailsForm from '../_components/form/ProductDetailsForm';
-import { IProductDetails } from '../types';
+import { IProductDetails } from '../../../../../validation/add-product-schema';
+import ProductDetailsForm from '../../../../../components/products/add-form/ProductDetailsForm';
 
 async function getProductDetails(id: string): Promise<IProductDetails> {
   console.log('fetching product with id :', id);
