@@ -18,10 +18,14 @@ const AuctionSheet = () => {
           Place Offer
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex h-auto w-full flex-col gap-4 overflow-auto p-0 sm:w-full sm:max-w-full md:w-3/4 lg:w-1/2">
-        <SheetHeader className="p-6">
-          <SheetTitle>Create offer </SheetTitle>
-          <SheetDescription>Fill order information</SheetDescription>
+      <SheetContent className="flex h-auto w-full flex-col gap-0 overflow-auto p-0 sm:w-full sm:max-w-full md:w-3/4 lg:w-1/2">
+        <SheetHeader className="p-6 pb-8">
+          <SheetTitle className="text-2xl font-semibold">
+            Create offer
+          </SheetTitle>
+          <SheetDescription className="text-base">
+            Fill order information
+          </SheetDescription>
         </SheetHeader>
 
         <AuctionSheetContent />

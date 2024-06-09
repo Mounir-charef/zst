@@ -81,24 +81,33 @@ const ProductDetails = ({ auction }: { auction: AuctionWithOffers }) => {
 
 const OfferDetails = () => {
   return (
-    <Table className="border">
-      <TableHeader>
-        <TableRow className="divide-x">
-          <TableHead>Variations</TableHead>
-          <TableHead>Price</TableHead>
-          <TableHead>Quantity Available</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {offerData.map((row) => (
-          <TableRow className="divide-x" key={row.variations.join('')}>
-            <TableCell>{row.variations.join(', ')}</TableCell>
-            <TableCell>{`$${row.price}`}</TableCell>
-            <TableCell>{`${row.quantity} pieces`}</TableCell>
+    <div className="flex flex-col gap-4">
+      <div className="space-y-2">
+        <h5 className="text-lg font-medium">Product details</h5>
+        <p className="text-muted-foreground text-sm">
+          Fill in the table with the variants and quantities you have, and the
+          prices you are asking for
+        </p>
+      </div>
+      <Table className="border">
+        <TableHeader>
+          <TableRow className="divide-x">
+            <TableHead>Variations</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Quantity Available</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {offerData.map((row) => (
+            <TableRow className="divide-x" key={row.variations.join('')}>
+              <TableCell>{row.variations.join(', ')}</TableCell>
+              <TableCell>{`$${row.price}`}</TableCell>
+              <TableCell>{`${row.quantity} pieces`}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 

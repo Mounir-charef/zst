@@ -1,5 +1,6 @@
 import {
   Button,
+  Form,
   Input,
   SheetClose,
   SheetFooter,
@@ -14,6 +15,7 @@ import {
 import { Clock2Icon, DollarSignIcon, StoreIcon } from 'lucide-react';
 import Image from 'next/image';
 import { memo } from 'react';
+import { useForm } from 'react-hook-form';
 
 const offerData = [
   {
@@ -94,50 +96,60 @@ const ProductDetails = () => {
 
 const OfferDetails = () => {
   return (
-    <Table className="border">
-      <TableHeader>
-        <TableRow className="divide-x">
-          <TableHead>Variations needs</TableHead>
-          <TableHead>Price need</TableHead>
-          <TableHead>Quantity need</TableHead>
-          <TableHead>Price offered</TableHead>
-          <TableHead>Quantity Available</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {offerData.map((row) => (
-          <TableRow className="divide-x" key={row.variations.join('')}>
-            <TableCell>{row.variations.join(', ')}</TableCell>
-            <TableCell>{`$${row.price}`}</TableCell>
-            <TableCell>{`${row.quantity} pieces`}</TableCell>
-            <TableCell>
-              <Input />
-            </TableCell>
-            <TableCell>
-              <Input />
-            </TableCell>
+    <div className="flex flex-col gap-4">
+      <div className="space-y-2">
+        <h5 className="text-lg font-medium">Product details</h5>
+        <p className="text-muted-foreground text-sm">
+          Fill in the table with the variants and quantities you have, and the
+          prices you are asking for
+        </p>
+      </div>
+      <Table className="border">
+        <TableHeader>
+          <TableRow className="divide-x">
+            <TableHead>Variations needs</TableHead>
+            <TableHead>Price need</TableHead>
+            <TableHead>Quantity need</TableHead>
+            <TableHead>Price offered</TableHead>
+            <TableHead>Quantity Available</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {offerData.map((row) => (
+            <TableRow className="divide-x" key={row.variations.join('')}>
+              <TableCell>{row.variations.join(', ')}</TableCell>
+              <TableCell>{`$${row.price}`}</TableCell>
+              <TableCell>{`${row.quantity} pieces`}</TableCell>
+              <TableCell>
+                <Input placeholder="Offered price" type="number" />
+              </TableCell>
+              <TableCell>
+                <Input placeholder="Offered Quantity" type="number" />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
 const OfferSheetContent = () => {
+  const form = useForm();
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex h-full flex-1 flex-col gap-4 p-6">
-        <ProductDetails />
-        <OfferDetails />
-      </div>
-      <SheetFooter className="flex flex-col gap-2 border-t p-6 shadow-2xl shadow-black sm:flex-col sm:space-x-0">
-        <SheetClose asChild>
-          <Button variant="success" size="lg">
-            Place Order
-          </Button>
-        </SheetClose>
-      </SheetFooter>
-    </div>
+    <Form {...form}>
+      <form className="flex flex-1 flex-col">
+        <div className="flex h-full flex-1 flex-col gap-8 px-6">
+          <ProductDetails />
+          <OfferDetails />
+        </div>
+        <SheetFooter className="flex flex-col gap-2 border-t p-6 shadow-2xl shadow-black sm:flex-col sm:space-x-0">
+          <SheetClose asChild>
+            <Button size="lg">Place Order</Button>
+          </SheetClose>
+        </SheetFooter>
+      </form>
+    </Form>
   );
 };
 
