@@ -4,7 +4,8 @@ import { Row } from '@tanstack/react-table';
 
 import { Button } from '@mono/ui';
 import { useMemo } from 'react';
-import { Auction, auctionSchema } from '../../../validation/auction-schema';
+import { Auction } from '../../../validation/auction-schema';
+import OfferSheet from './OfferSheet';
 
 interface AuctionRowActionsProps {
   row: Row<Auction>;
@@ -24,9 +25,7 @@ export function AuctionRowActions({ row }: AuctionRowActionsProps) {
         Details
       </Button>
       {isPending ? (
-        <Button className="flex-1" variant="success">
-          Place Offer
-        </Button>
+        <OfferSheet />
       ) : (
         <Button className="flex-1" variant="secondary" disabled>
           Place Offer
