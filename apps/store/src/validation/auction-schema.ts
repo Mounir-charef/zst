@@ -59,3 +59,6 @@ export type AuctionsParams = z.infer<typeof auctionFiltersSchema> | undefined;
 
 export type Auction = z.infer<typeof auctionSchema>;
 export type AuctionWithOffers = z.infer<typeof hasOffersAuctionSchema>;
+export type AuctionOffer = z.infer<
+  typeof hasOffersAuctionSchema
+>['offers'][number];

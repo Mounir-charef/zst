@@ -19,6 +19,7 @@ import type {
 } from '../../../../../validation/auction-schema';
 import { AuctionsParams } from '../../../../../validation/auction-schema';
 import FiltersList from './FiltersList';
+import Offer from './Offer';
 
 function renderAuctionBadge(auction: AuctionType) {
   switch (auction.status) {
@@ -111,32 +112,7 @@ const HasOfferAuction = memo(({ auction }: { auction: AuctionWithOffers }) => {
       </div>
       {isOpen
         ? auction.offers.map((offer) => (
-            <div className="text-muted-foreground animate-in slide-in-from-top-5 fade-in-20 flex gap-8 p-4 text-xs duration-300">
-              <div className="w-[100px]" />
-              <div className="flex h-full flex-1 items-end justify-between gap-2">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-1.5">
-                    <Badge variant="reverse">Offer #{offer.id}</Badge>
-                    <span className="font-medium">{offer.orders} orders</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div>
-                      Available Quantity:{' '}
-                      <span className="text-foreground font-medium">
-                        {offer.quantity}
-                      </span>
-                    </div>
-                    <div>
-                      Price:{' '}
-                      <span className="text-foreground text-lg font-semibold">
-                        {offer.price} $
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <Button variant="success">Place Order</Button>
-              </div>
-            </div>
+            <Offer offer={offer} key={offer.id} auction={auction} />
           ))
         : null}
     </Card>
