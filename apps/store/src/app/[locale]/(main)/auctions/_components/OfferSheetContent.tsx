@@ -114,7 +114,7 @@ const OfferDetails = () => {
 const OfferSheetContent = ({ auction }: { auction: AuctionWithOffers }) => {
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex h-full flex-1 flex-col gap-4 p-6">
+      <div className="flex h-full flex-1 flex-col gap-4 px-6">
         <ProductDetails auction={auction} />
         <OfferDetails />
       </div>

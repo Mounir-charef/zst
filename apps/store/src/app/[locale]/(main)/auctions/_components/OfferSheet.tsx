@@ -21,8 +21,8 @@ const OfferSheet = ({ auction }: OfferSheetProps) => {
       <SheetTrigger>
         <Button variant="success">Place Order</Button>
       </SheetTrigger>
-      <SheetContent className="flex h-auto w-full flex-col gap-4 overflow-auto p-0 sm:w-full sm:max-w-full md:w-3/4 lg:w-[644px]">
-        <SheetHeader className="p-6">
+      <SheetContent className="flex h-auto w-full flex-col gap-0 overflow-auto p-0 sm:w-full sm:max-w-full md:w-3/4 lg:w-[644px]">
+        <SheetHeader className="p-6 pb-8">
           <SheetTitle>Offer details</SheetTitle>
           <SheetDescription>
             Check the offer details before confirming it
