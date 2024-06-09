@@ -2,26 +2,11 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { Badge, DataTableColumnHeader } from '@mono/ui';
+import { DataTableColumnHeader, renderStatus } from '@mono/ui';
 import { cn } from '@mono/util';
 import Image from 'next/image';
 import { Order } from '../../../../../validation/order-schema';
 import { OrderRowActions } from './Actions';
-
-export function renderStatus(status: Order['status']) {
-  switch (status) {
-    case 'active':
-      return <Badge variant="success">Active</Badge>;
-    case 'in_review':
-      return <Badge variant="info">In Review</Badge>;
-    case 'pending':
-      return <Badge variant="warning">Pending</Badge>;
-    case 'delivered':
-      return <Badge variant="elevated">Delivered</Badge>;
-    default:
-      return null;
-  }
-}
 
 export const columns: ColumnDef<Order>[] = [
   {

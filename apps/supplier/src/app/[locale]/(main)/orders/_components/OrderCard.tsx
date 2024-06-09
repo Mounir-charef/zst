@@ -13,6 +13,7 @@ import {
   Separator,
   TextAreaField,
   Textarea,
+  renderStatus,
 } from '@mono/ui';
 import { format } from 'date-fns';
 import {
@@ -30,7 +31,6 @@ import { useDeliverOrder } from '../../../../../hooks/orders/useDeliverOrder';
 import { useGetOrder } from '../../../../../hooks/orders/useGetOrder';
 import { Order } from '../../../../../validation/order-schema';
 import AcceptOrderButton from './AcceptOrderButton';
-import { renderStatus } from './Columns';
 import { useOrderContext } from './OrderProvider';
 import RejectOrderButton from './RejectOrderButton';
 
