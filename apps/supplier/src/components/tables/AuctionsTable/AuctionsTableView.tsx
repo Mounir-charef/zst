@@ -3,10 +3,18 @@
 import { DataTable } from '@mono/ui';
 import { memo } from 'react';
 import { useGetAuctions } from '../../../hooks/auctions/useGetAuctions';
-import { columns } from './columns';
+import { columns as DefaultColumns } from './columns';
 import { statuses } from './filters';
+import { ColumnDef } from '@tanstack/react-table';
+import { Auction } from '../../../validation/auction-schema';
 
-const AuctionsTableView = () => {
+interface AuctionsTableViewProps {
+  columns?: ColumnDef<Auction>[];
+}
+
+const AuctionsTableView = ({
+  columns = DefaultColumns,
+}: AuctionsTableViewProps) => {
   const { data: auctions } = useGetAuctions();
   return (
     <DataTable
