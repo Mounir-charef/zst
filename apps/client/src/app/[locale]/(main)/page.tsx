@@ -1,9 +1,13 @@
-import Hero from '../../../components/home/Hero';
+import { Separator } from '@mono/ui';
+import Content from './Content';
+import Hero from './_components/Hero/Hero';
 
 const Page = () => {
   return (
-    <div className="p-6 text-center">
+    <div>
       <Hero />
+      <Separator />
+      <Content />
     </div>
   );
 };
