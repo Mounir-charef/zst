@@ -17,7 +17,7 @@ export const userMenuLinks = [
   },
   {
     label: 'Settings',
-    href: '#',
+    href: '/settings',
     icon: <SettingsIcon className="size-4" />,
     desktopOnly: false,
   },
@@ -40,11 +40,6 @@ export const NavItems = [
         href: '/market',
         description: 'Discover our latest offers and get best deals',
       },
-      {
-        title: 'Auctions',
-        href: '#',
-        description: 'View all auctions',
-      },
     ],
   },
   {
@@ -57,7 +52,7 @@ export const NavItems = [
     type: 'link',
     title: 'Auctions',
     icon: <PieChart className="size-4" />,
-    href: '#',
+    href: '/auctions',
   },
   {
     type: 'link',

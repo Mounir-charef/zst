@@ -1,13 +1,13 @@
 import { cn } from '@mono/util';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTimeZone } from 'next-intl/server';
-import { Poppins } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
 import { Providers } from '../../components/Providers';
 import SessionProvider from '../../components/auth/SessionProvider';
-import { getAuthSession } from '../../lib/auth/auth';
 import '../../global.css';
+import { getAuthSession } from '../../lib/auth/auth';
 
 export const metadata = {
   title: 'Welcome to supplier',
@@ -28,9 +28,8 @@ export const metadata = {
   },
 };
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['200', '300', '400', '500', '600'],
 });
 
 export default async function RootLayout({
@@ -57,7 +56,7 @@ export default async function RootLayout({
       <body
         className={cn(
           'text-foreground bg-background h-full font-sans antialiased',
-          poppins.className,
+          inter.className,
         )}
       >
         <SessionProvider session={session} refetchInterval={60 * 60}>
