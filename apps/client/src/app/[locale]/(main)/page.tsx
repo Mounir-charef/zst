@@ -1,14 +1,16 @@
 import { Separator } from '@mono/ui';
 import Content from './_components/Content';
 import Hero from './_components/Hero/Hero';
+import Footer from './_components/Footer/Footer';
 
 const Page = () => {
   return (
-    <div>
+    <>
       <Hero />
       <Separator />
       <Content />
-    </div>
+      <Footer />
+    </>
   );
 };
 

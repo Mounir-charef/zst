@@ -3,6 +3,7 @@ import Section from './Section';
 import products from '../_data/products.json';
 import ProductsList from './ProductsList';
 import CategoryList from './CategoryList';
+import Ad from './Ad';
 const trendingProducts = products.map((product) => ({
   ...product,
   trending: true,
@@ -18,6 +19,7 @@ const Content = () => {
       <ProductsList title="New arrivals" allLink="#" products={products} />
       <CategoryList />
       <ProductsList title="New arrivals" allLink="#" products={products} />
+      <Ad />
     </Section>
   );
 };

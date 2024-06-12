@@ -29,6 +29,7 @@ const ProductCard = ({
           variant: 'outline',
           className: 'relative aspect-square h-full',
         })}
+        target="_blank"
       >
         <Image
           src={image}
