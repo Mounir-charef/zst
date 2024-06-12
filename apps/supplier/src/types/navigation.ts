@@ -1,5 +1,3 @@
-import { SidebarMenuProps } from '../components/sidebar/SidebarMenu';
-
 export type NavigationLink = {
   type: 'link';
   title: string;

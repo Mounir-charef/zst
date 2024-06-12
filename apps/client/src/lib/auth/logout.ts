@@ -7,8 +7,9 @@ export async function logout() {
     await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`, {
       method: 'POST',
     });
-
-    await signOut({ callbackUrl: `${window.location.origin}/sign-in` });
+    await signOut({
+      redirect: false,
+    });
   } catch (error) {
     toast.error('Something went wrong. Please try again.');
   }

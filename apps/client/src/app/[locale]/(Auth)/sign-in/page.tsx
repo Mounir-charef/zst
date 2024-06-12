@@ -1,9 +1,14 @@
 import Image from 'next/image';
 import { memo } from 'react';
-import { Link } from '../../../../navigation';
+import { Link, redirect } from '../../../../navigation';
 import SignInForm from '../_components/SignInForm';
+import { getAuthSession } from '../../../../lib/auth/auth';
 
-const page = () => {
+const page = async () => {
+  const session = await getAuthSession();
+  if (session && !session.error) {
+    redirect('/');
+  }
   return (
     <div className="bg-background text-foreground dark grid h-full w-full max-lg:place-items-center lg:grid-cols-2">
       <div className="bg-background text-foreground flex items-center justify-center px-2 py-12">

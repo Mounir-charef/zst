@@ -1,9 +1,11 @@
-import React from 'react';
-import Navlink from './Navlink';
-import { Heart, ShoppingCart } from 'lucide-react';
 import { Button } from '@mono/ui';
+import { Heart, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
-const NavigationLinks = () => {
+import { getAuthSession } from '../../lib/auth/auth';
+import Navlink from './Navlink';
+import UserNav from './UserNav';
+const NavigationLinks = async () => {
+  const session = await getAuthSession();
   return (
     <nav className="p flex items-center gap-4">
       <Navlink href="/#">
@@ -14,12 +16,18 @@ const NavigationLinks = () => {
       </Navlink>
       <Navlink href="/#">Help Center</Navlink>
       <Navlink href="/#">Sell your product</Navlink>
-      <Link href="/sign-up">
-        <Button variant="main">Sign up</Button>
-      </Link>
-      <Link href="/sign-in">
-        <Button variant="alt">Log in</Button>
-      </Link>
+      {session ? (
+        <UserNav />
+      ) : (
+        <>
+          <Link href="/sign-up">
+            <Button variant="main">Sign up</Button>
+          </Link>
+          <Link href="/sign-in">
+            <Button variant="alt">Log in</Button>
+          </Link>
+        </>
+      )}
     </nav>
   );
 };

@@ -13,7 +13,6 @@ import GoogleIcon from '../../../../assets/icons/GoogleIcon';
 
 const LoginForm = () => {
   const router = useRouter();
-  const [isRedirecting, startTransition] = useTransition();
   const { mutate, isPending } = useMutation({
     mutationKey: ['login'],
     mutationFn: async ({
@@ -42,9 +41,7 @@ const LoginForm = () => {
       toast.success(
         'You have successfully signed in. Redirecting you to the dashboard...',
       );
-      startTransition(() => {
-        router.push('/');
-      });
+      router.refresh();
     },
   });
 
@@ -100,7 +97,7 @@ const LoginForm = () => {
         <div className="space-y-4">
           <Button
             disabled={isPending}
-            isLoading={isPending || isRedirecting}
+            isLoading={isPending}
             type="submit"
             className="w-full gap-2"
           >

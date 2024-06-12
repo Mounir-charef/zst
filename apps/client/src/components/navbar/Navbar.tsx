@@ -5,7 +5,7 @@ import { Link } from '../../navigation';
 
 const Navbar = () => {
   return (
-    <header className="flex w-full items-center justify-between p-4 px-6">
+    <header className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-2">
       <Link href="/">
         <Logo />
       </Link>

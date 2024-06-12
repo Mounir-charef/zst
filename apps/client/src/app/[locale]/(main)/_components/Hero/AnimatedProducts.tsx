@@ -1,20 +1,12 @@
 'use client';
-import {
-  Card,
-  CardContent,
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-} from '@mono/ui';
+import { Card, Carousel, CarouselContent, CarouselItem } from '@mono/ui';
 import { cn } from '@mono/util';
 import Autoplay from 'embla-carousel-autoplay';
-import Image, { StaticImageData } from 'next/image';
-import React from 'react';
+import Image from 'next/image';
 
 type CarouselProps = {
   className?: string;
-  dataArray: StaticImageData[];
+  dataArray: string[];
 };
 const AnimationCarousel = ({ className, dataArray }: CarouselProps) => {
   return (
@@ -36,20 +28,17 @@ const AnimationCarousel = ({ className, dataArray }: CarouselProps) => {
           }),
         ]}
       >
-        <CarouselContent className={cn('mt-7 h-[600px]', className)}>
+        <CarouselContent className={cn('mt-7 h-96', className)}>
           {dataArray.map((data, index) => (
             <CarouselItem key={index} className="pt-1 md:basis-1/2 ">
               <div className="h-full p-2">
-                <Card className="h-full rounded-3xl">
-                  <CardContent className="relative h-full w-full rounded-[300px]  ">
-                    <Image
-                      src={data}
-                      width={300}
-                      height={400}
-                      alt={'carouselImage' + index}
-                      className="absolute left-0 top-0 h-full w-full object-contain"
-                    />
-                  </CardContent>
+                <Card className="relative h-full overflow-clip rounded-xl">
+                  <Image
+                    src={data}
+                    fill
+                    alt={'carouselImage' + index}
+                    className="object-contain"
+                  />
                 </Card>
               </div>
             </CarouselItem>

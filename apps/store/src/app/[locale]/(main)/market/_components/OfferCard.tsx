@@ -1,4 +1,3 @@
-import { Button } from '@mono/ui';
 import { cn } from '@mono/util';
 import Image from 'next/image';
 import { HTMLAttributes, memo } from 'react';
