@@ -10,42 +10,45 @@ type CarouselProps = {
 };
 const AnimationCarousel = ({ className, dataArray }: CarouselProps) => {
   return (
-    <div>
-      <Carousel
-        orientation="vertical"
-        className="pointer-events-none h-full w-full max-w-md select-none"
-        opts={{
-          align: 'start',
-          dragFree: true,
-          loop: true,
-        }}
-        plugins={[
-          Autoplay({
-            delay: 1000,
-            stopOnMouseEnter: false,
-            stopOnFocusIn: false,
-            stopOnInteraction: false,
-          }),
-        ]}
+    <Carousel
+      orientation="vertical"
+      className="pointer-events-none h-full w-full max-w-md select-none"
+      opts={{
+        align: 'start',
+        dragFree: true,
+        loop: true,
+      }}
+      plugins={[
+        Autoplay({
+          delay: 1000,
+          stopOnMouseEnter: false,
+          stopOnFocusIn: false,
+          stopOnInteraction: false,
+        }),
+      ]}
+    >
+      <CarouselContent
+        className={cn(
+          '-mt-2 h-[min(calc(65vh_-_8px),_calc(600px_-_8px))]',
+          className,
+        )}
       >
-        <CarouselContent className={cn('mt-7 h-96', className)}>
-          {dataArray.map((data, index) => (
-            <CarouselItem key={index} className="pt-1 md:basis-1/2 ">
-              <div className="h-full p-2">
-                <Card className="relative h-full overflow-clip rounded-xl">
-                  <Image
-                    src={data}
-                    fill
-                    alt={'carouselImage' + index}
-                    className="object-contain"
-                  />
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    </div>
+        {dataArray.map((data, index) => (
+          <CarouselItem key={index} className="basis-1/3 pt-1 ">
+            <div className="h-full p-2">
+              <Card className="relative h-full overflow-clip rounded-xl">
+                <Image
+                  src={data}
+                  fill
+                  alt={'carouselImage' + index}
+                  className="object-contain"
+                />
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
 };
 

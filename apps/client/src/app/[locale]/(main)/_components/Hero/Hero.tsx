@@ -7,8 +7,8 @@ import ShowCaseBackground from './ShowCaseBackground';
 
 const Hero = () => {
   return (
-    <Section className="h-[calc(100dvh_-_7.75rem_-1px)]">
-      <div className="flex h-[65vh] w-full flex-col items-center overflow-hidden rounded-3xl bg-black px-10 text-base text-white md:flex-row">
+    <Section>
+      <div className="flex h-[65vh] max-h-[600px] w-full flex-col items-center overflow-hidden rounded-3xl bg-black px-10 text-base text-white md:flex-row">
         <div className="flex h-full flex-col justify-center gap-6 p-16 py-24 text-start">
           <HeroText />
           <HeroSearch />
