@@ -1,5 +1,5 @@
 import { Separator } from '@mono/ui';
-import Content from './Content';
+import Content from './_components/Content';
 import Hero from './_components/Hero/Hero';
 
 const Page = () => {
