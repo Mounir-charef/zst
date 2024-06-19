@@ -10,4 +10,8 @@ export const steps: step[] = [
     Step: Welcome,
     image: '/cover.png',
   },
+  {
+    Step: Welcome,
+    image: '/cover.png',
+  },
 ];

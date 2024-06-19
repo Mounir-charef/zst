@@ -2,49 +2,37 @@ import { cn } from '@mono/util';
 import { memo } from 'react';
 import { Link } from '../../../../../../navigation';
 import NextButton from '../NextButton';
+import BackButton from '../BackButton';
+import Step from '../Step';
 
 const Welcome = () => {
   return (
-    <div className="flex max-w-3xl flex-col gap-8 px-10">
-      <div className="max-w-2xl space-y-4">
-        <h1 className="text-2xl font-bold lg:text-4xl">Welcome to ZST</h1>
-        <p className="text-sm">
-          We're thrilled to welcome you to our marketplace for unique and
+    <Step
+      title="Welcome to ZST"
+      description="We're thrilled to welcome you to our marketplace for unique and
           creative goods, where special items with a personal touch shine. Ready
-          to bring your shop to life?
-        </p>
-      </div>
+          to bring your shop to life?"
+    >
       <Stepper />
       <NextButton className="w-fit">Let's do this</NextButton>
-      <p className="text-muted-foreground text-sm">
-        By continuing, you acknowledge and agree to Zadtrip's General{' '}
-        <Link href="#" className="text-blue-500 underline">
-          Terms of Use
-        </Link>{' '}
-        and{' '}
-        <Link href="#" className="text-blue-500 underline">
-          Privacy Policy
-        </Link>
-        .
-      </p>
-    </div>
+    </Step>
   );
 };
 
 const Stepper = () => {
   return (
     <div className="flex max-w-lg flex-col">
-      <Step
+      <Item
         title="Make your shop uniquely yours"
         description="We'll walk you through every steps, from choosing a name to creating your first  listing"
         active
       />
-      <Step
+      <Item
         title="Tell us a bit about yourself"
         description="Share some info and set up  how you'll get paid with Zst"
         active
       />
-      <Step
+      <Item
         title="Get your first sale"
         description="We'll give you some of tips to help you start selling and grow your business in no time."
       />
@@ -52,7 +40,7 @@ const Stepper = () => {
   );
 };
 
-const Step = ({
+const Item = ({
   title,
   description,
   active = false,

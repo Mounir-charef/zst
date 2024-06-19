@@ -11,7 +11,9 @@ import {
 import { steps } from './steps';
 
 interface OnboardingContextContent {
-  step: ReactNode;
+  step: number;
+  direction: number;
+  content: ReactNode;
   image: string;
   next: () => void;
   back: () => void;
@@ -34,23 +36,28 @@ export const OnboardingProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [index, setIndex] = useState(0);
+  const [step, setStep] = useState(0);
+  const [direction, setDirection] = useState(0);
 
   const next = useCallback(() => {
-    if (index === steps.length - 1) return;
-    setIndex((prev) => prev + 1);
-  }, [index]);
+    if (step === steps.length - 1) return;
+    setDirection(1);
+    setStep((prev) => prev + 1);
+  }, [step]);
 
   const back = useCallback(() => {
-    if (index === 0) return;
-    setIndex((prev) => prev - 1);
-  }, [index]);
+    if (step === 0) return;
+    setDirection(-1);
+    setStep((prev) => prev - 1);
+  }, [step]);
 
-  const Step = useMemo(() => steps[index].Step, [index]);
-  const image = useMemo(() => steps[index].image, [index]);
+  const Content = useMemo(() => steps[step].Step, [step]);
+  const image = useMemo(() => steps[step].image, [step]);
 
   return (
-    <OnboardingContext.Provider value={{ step: <Step />, next, back, image }}>
+    <OnboardingContext.Provider
+      value={{ step, direction, next, back, image, content: <Content /> }}
+    >
       {children}
     </OnboardingContext.Provider>
   );
