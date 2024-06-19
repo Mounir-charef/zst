@@ -20,7 +20,7 @@ const NavigationLinks = async () => {
         <UserNav />
       ) : (
         <>
-          <Link href="/sign-up">
+          <Link href="/onboarding">
             <Button variant="main">Sign up</Button>
           </Link>
           <Link href="/sign-in">
