@@ -1,8 +1,10 @@
+import RoleSelection from './RoleSelection';
 import Welcome from './Welcome';
 
 type step = {
   Step: React.FC;
   image: string;
+  fields?: string[];
 };
 
 export const steps: step[] = [
@@ -11,7 +13,7 @@ export const steps: step[] = [
     image: '/cover.png',
   },
   {
-    Step: Welcome,
+    Step: RoleSelection,
     image: '/cover.png',
   },
 ];

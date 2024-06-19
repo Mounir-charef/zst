@@ -1,8 +1,13 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { OnboardingForm, onboardingFormSchema } from '../formValidator';
 import { useOnboarding } from './Context';
+import { steps } from './steps';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form } from '@mono/ui';
 
 const stepVariants = {
   enter: (direction: number) => ({
@@ -32,7 +37,23 @@ const imageVariants = {
   },
 };
 const Onboarding = () => {
-  const { step, direction, image, content } = useOnboarding();
+  const { step, direction, image, content, next } = useOnboarding();
+  const form = useForm<OnboardingForm>({
+    resolver: zodResolver(onboardingFormSchema),
+  });
+
+  const submit: SubmitHandler<OnboardingForm> = async (payload) => {
+    const fields = steps[step].fields;
+    if (!fields) return next();
+    // validate fields
+    const isValid = await form.trigger(fields as any, { shouldFocus: true });
+    if (!isValid) return;
+
+    if (step === steps.length - 1) {
+      // submit form
+      console.log;
+    } else next();
+  };
 
   return (
     <div className="relative flex h-full overflow-hidden">
@@ -61,18 +82,21 @@ const Onboarding = () => {
       </div>
       <div className="flex h-full flex-[3] items-center overflow-hidden">
         <AnimatePresence custom={direction} mode="wait">
-          <motion.div
-            key={step}
-            className="w-full overflow-hidden"
-            custom={direction}
-            variants={stepVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-          >
-            {content}
-          </motion.div>
+          <Form {...form}>
+            <motion.form
+              key={step}
+              className="w-full overflow-hidden"
+              custom={direction}
+              variants={stepVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              onSubmit={form.handleSubmit(submit)}
+            >
+              {content}
+            </motion.form>
+          </Form>
         </AnimatePresence>
       </div>
     </div>

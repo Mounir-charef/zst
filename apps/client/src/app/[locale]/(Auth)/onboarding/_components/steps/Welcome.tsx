@@ -1,11 +1,11 @@
 import { cn } from '@mono/util';
 import { memo } from 'react';
-import { Link } from '../../../../../../navigation';
-import NextButton from '../NextButton';
-import BackButton from '../BackButton';
 import Step from '../Step';
+import { Button } from '@mono/ui';
+import { useOnboarding } from '../Context';
 
 const Welcome = () => {
+  const { next } = useOnboarding();
   return (
     <Step
       title="Welcome to ZST"
@@ -14,7 +14,9 @@ const Welcome = () => {
           to bring your shop to life?"
     >
       <Stepper />
-      <NextButton className="w-fit">Let's do this</NextButton>
+      <Button onClick={next} type="button" className="w-fit">
+        Let's do this
+      </Button>
     </Step>
   );
 };
