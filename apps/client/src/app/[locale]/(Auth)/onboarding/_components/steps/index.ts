@@ -1,10 +1,11 @@
+import { OnboardingForm } from '../../formValidator';
 import RoleSelection from './RoleSelection';
 import Welcome from './Welcome';
 
 type step = {
   Step: React.FC;
   image: string;
-  fields?: string[];
+  fields?: (keyof OnboardingForm)[];
 };
 
 export const steps: step[] = [
@@ -15,5 +16,6 @@ export const steps: step[] = [
   {
     Step: RoleSelection,
     image: '/cover.png',
+    fields: ['role'],
   },
 ];

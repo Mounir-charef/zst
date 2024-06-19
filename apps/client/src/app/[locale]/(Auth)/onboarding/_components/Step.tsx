@@ -16,7 +16,7 @@ const Step = ({ description, title, children }: StepProps) => {
       </div>
       {children}
       <p className="text-muted-foreground text-sm">
-        By continuing, you acknowledge and agree to Zadtrip's General{' '}
+        By continuing, you acknowledge and agree to ZST's General{' '}
         <Link href="#" className="text-blue-500 underline">
           Terms of Use
         </Link>{' '}
