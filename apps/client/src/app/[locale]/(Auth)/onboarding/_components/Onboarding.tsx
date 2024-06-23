@@ -34,7 +34,7 @@ const Onboarding = () => {
   return (
     <div className="flex min-h-screen overflow-x-clip max-md:py-6">
       <div className="relative hidden h-[100dvh] flex-[2] lg:block">
-        <div className="absolute inset-0 z-10">
+        <div className="absolute inset-0 z-50">
           {steps.map(({ image: stepImage }) => (
             <Image
               key={stepImage}
@@ -58,7 +58,7 @@ const Onboarding = () => {
         <AnimatePresence custom={direction} mode="wait">
           <motion.form
             key={step}
-            className="flex min-h-full items-center justify-center"
+            className="z-0 flex min-h-full w-full items-center max-lg:justify-center"
             custom={direction}
             variants={stepVariants}
             initial="enter"

@@ -81,8 +81,13 @@ const RoleSelection = () => {
           </FormItem>
         )}
       />
-      <div className="grid max-w-xl grid-cols-2 gap-8 pt-2">
-        <Button onClick={validateAndNext} type="button">
+      <div className="pt-2 md:grid md:max-w-xl md:grid-cols-2 md:gap-8">
+        <Button
+          onClick={validateAndNext}
+          type="button"
+          size="lg"
+          className="w-full md:w-fit"
+        >
           Let's Get Started
         </Button>
       </div>

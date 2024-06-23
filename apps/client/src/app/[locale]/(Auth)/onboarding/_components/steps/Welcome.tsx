@@ -14,7 +14,7 @@ const Welcome = () => {
           to bring your shop to life?"
     >
       <Stepper />
-      <Button onClick={next} type="button" className="w-fit">
+      <Button onClick={next} type="button" size="lg" className="md:w-fit">
         Let's do this
       </Button>
     </Step>

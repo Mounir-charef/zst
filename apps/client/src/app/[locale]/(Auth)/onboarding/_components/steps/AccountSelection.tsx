@@ -79,7 +79,7 @@ const AccountSelection = () => {
           </FormItem>
         )}
       />
-      <div className="ms-auto flex justify-end gap-4 ps-2 md:w-1/2">
+      <div className="ms-auto flex w-full justify-end gap-4 md:w-1/2 md:ps-2">
         <Button
           variant="secondary"
           className="flex-1"
