@@ -55,7 +55,7 @@ const AccountSelection = () => {
                 <FormItem key={item.value} className="space-y-0">
                   <FormLabel
                     className={cn(
-                      'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
+                      'text-foreground border-muted hover:border-accent relative flex h-full cursor-pointer flex-col items-start gap-2 rounded-md border-2 p-4',
                       {
                         'border-foreground hover:border-foreground':
                           field.value === item.value,

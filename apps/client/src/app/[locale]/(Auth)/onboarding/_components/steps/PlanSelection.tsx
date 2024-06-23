@@ -61,7 +61,7 @@ const PlanSelection = () => {
                 <FormItem className="space-y-0" key={item.value}>
                   <FormLabel
                     className={cn(
-                      'text-foreground border-muted hover:border-accent relative flex h-full justify-start gap-4 rounded-md border-2 p-4',
+                      'text-foreground border-muted hover:border-accent relative flex h-full cursor-pointer justify-start gap-4 rounded-md border-2 p-4',
                       {
                         'border-foreground hover:border-foreground':
                           field.value?.includes(item.value),
@@ -98,7 +98,7 @@ const PlanSelection = () => {
               <FormItem className="space-y-0">
                 <FormLabel
                   className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full items-center justify-between gap-4 rounded-md border-2 p-4 pe-2',
+                    'text-foreground  border-muted hover:border-accent relative flex h-full cursor-pointer items-center justify-between gap-4 rounded-md border-2 p-4 pe-2',
                     {
                       'border-foreground hover:border-foreground':
                         field.value?.includes('Other'),
