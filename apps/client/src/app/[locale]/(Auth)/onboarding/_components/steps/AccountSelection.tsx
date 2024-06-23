@@ -27,12 +27,12 @@ const AccountSelection = () => {
         control={control}
         name="newAccount"
         render={({ field }) => (
-          <FormItem className="space-y-1">
+          <FormItem>
             <FormMessage />
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="grid max-w-xl grid-cols-2 gap-4"
+              className="grid grid-cols-2 gap-4"
             >
               <FormItem className="space-y-0">
                 <FormLabel
@@ -82,9 +82,14 @@ const AccountSelection = () => {
           </FormItem>
         )}
       />
-      <div className="ms-auto flex justify-end gap-4 md:w-1/2">
-        <Button variant="secondary" className="flex-1" onClick={back}>
-          Go Back
+      <div className="ms-auto flex justify-end gap-4 ps-2 md:w-1/2">
+        <Button
+          variant="secondary"
+          className="flex-1"
+          onClick={back}
+          type="button"
+        >
+          Back
         </Button>
         <Button onClick={validateAndNext} className="flex-1" type="button">
           Next
