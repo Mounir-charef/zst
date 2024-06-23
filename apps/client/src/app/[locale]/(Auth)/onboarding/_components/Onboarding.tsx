@@ -2,12 +2,11 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
-import { OnboardingForm, onboardingFormSchema } from '../formValidator';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
+import { OnboardingForm } from '../formValidator';
 import { useOnboarding } from './Context';
 import { steps } from './steps';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form } from '@mono/ui';
+import { cn } from '@mono/util';
 
 const stepVariants = {
   enter: (direction: number) => ({
@@ -24,18 +23,6 @@ const stepVariants = {
   }),
 };
 
-const imageVariants = {
-  enter: {
-    opacity: 0,
-  },
-  center: {
-    x: 0,
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  },
-};
 const Onboarding = () => {
   const { step, direction, image, content } = useOnboarding();
   const { handleSubmit } = useFormContext<OnboardingForm>();
@@ -47,27 +34,25 @@ const Onboarding = () => {
   return (
     <div className="relative flex h-full overflow-hidden">
       <div className="relative hidden h-full flex-[2] lg:block">
-        <AnimatePresence custom={direction} mode="wait">
-          <motion.div
-            key={image}
-            className="absolute inset-0 z-10 overflow-hidden"
-            custom={direction}
-            variants={imageVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-          >
+        <div className="absolute inset-0 z-10 overflow-hidden">
+          {steps.map(({ image: stepImage }) => (
             <Image
-              src={image}
-              className="object-fill"
+              key={stepImage}
+              src={stepImage}
+              className={cn(
+                'object-fill opacity-0 transition-opacity duration-500 ease-in-out',
+                {
+                  'opacity-100': stepImage === image,
+                },
+              )}
               priority
               quality={100}
               fill
+              rel="preload"
               alt="cover"
             />
-          </motion.div>
-        </AnimatePresence>
+          ))}
+        </div>
       </div>
       <div className="flex h-full flex-[3] items-center overflow-hidden">
         <AnimatePresence custom={direction} mode="wait">
