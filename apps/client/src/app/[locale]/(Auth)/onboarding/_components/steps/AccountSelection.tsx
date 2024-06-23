@@ -15,6 +15,23 @@ import { OnboardingForm } from '../../formValidator';
 import { useOnboarding } from '../Context';
 import Step from '../Step';
 
+const Items: {
+  value: 'new' | 'existing';
+  label: string;
+  description: string;
+}[] = [
+  {
+    value: 'new',
+    label: "I'm new to selling online",
+    description: 'I am starting to supply products online for the first time.',
+  },
+  {
+    value: 'existing',
+    label: 'I already selling online',
+    description: 'I have experience selling products through online platforms.',
+  },
+];
+
 const AccountSelection = () => {
   const { control } = useFormContext<OnboardingForm>();
   const { validateAndNext, back } = useOnboarding();
@@ -32,52 +49,32 @@ const AccountSelection = () => {
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-1 gap-4 md:grid-cols-2"
             >
-              <FormItem className="space-y-0">
-                <FormLabel
-                  className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
-                    {
-                      'border-foreground hover:border-foreground':
-                        field.value === 'new',
-                    },
-                  )}
-                >
-                  <FormControl>
-                    <RadioGroupItem
-                      value="new"
-                      className="text-foreground border-foreground absolute end-2 top-2"
-                    />
-                  </FormControl>
-                  <h5 className="font-medium">I'm new to selling online</h5>
-                  <p className="text-muted-foreground text-sm">
-                    I am starting to supply products online for the first time.
-                  </p>
-                </FormLabel>
-              </FormItem>
-              <FormItem className="space-y-0">
-                <FormLabel
-                  className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
-                    {
-                      'border-foreground hover:border-foreground':
-                        field.value === 'existing',
-                    },
-                  )}
-                >
-                  <FormControl>
-                    <RadioGroupItem
-                      value="existing"
-                      className="text-foreground border-foreground absolute end-2 top-2"
-                    />
-                  </FormControl>
-                  <h5 className="font-medium">I already selling online</h5>
-                  <p className="text-muted-foreground text-sm">
-                    I have experience selling products through online platforms.
-                  </p>
-                </FormLabel>
-              </FormItem>
+              {Items.map((item) => (
+                <FormItem className="space-y-0">
+                  <FormLabel
+                    className={cn(
+                      'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
+                      {
+                        'border-foreground hover:border-foreground':
+                          field.value === item.value,
+                      },
+                    )}
+                  >
+                    <FormControl>
+                      <RadioGroupItem
+                        value={item.value}
+                        className="text-foreground border-foreground absolute end-2 top-2"
+                      />
+                    </FormControl>
+                    <h5 className="font-medium">{item.label}</h5>
+                    <p className="text-muted-foreground text-sm">
+                      {item.description}
+                    </p>
+                  </FormLabel>
+                </FormItem>
+              ))}
             </RadioGroup>
           </FormItem>
         )}

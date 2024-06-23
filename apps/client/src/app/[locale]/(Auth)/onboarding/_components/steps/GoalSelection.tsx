@@ -15,6 +15,34 @@ import { OnboardingForm } from '../../formValidator';
 import { useOnboarding } from '../Context';
 import Step from '../Step';
 
+const goals: {
+  value: string;
+  label: string;
+  description: string;
+}[] = [
+  {
+    value: 'Expanding customer base',
+    label: 'Expanding customer base',
+    description: 'I aim to reach more customers with my products.',
+  },
+  {
+    value: 'Increasing sales volume',
+    label: 'Increasing sales volume',
+    description: 'I aim to sell more units of my products.',
+  },
+  {
+    value: 'Entering new markets',
+    label: 'Entering new markets',
+    description:
+      'I aim to sell my products in new geographical or market segments.',
+  },
+  {
+    value: 'Improving brand recognition',
+    label: 'Improving brand recognition',
+    description: 'I aim to make my brand more well-known.',
+  },
+];
+
 const GoalSelection = () => {
   const { control } = useFormContext<OnboardingForm>();
   const { validateAndNext, back } = useOnboarding();
@@ -32,116 +60,50 @@ const GoalSelection = () => {
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-1 gap-4 md:grid-cols-2"
             >
-              <FormItem className="space-y-0">
-                <FormLabel
-                  className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
-                    {
-                      'border-foreground hover:border-foreground':
-                        field.value === 'Expanding customer base',
-                    },
-                  )}
-                >
-                  <FormControl>
-                    <RadioGroupItem
-                      value="Expanding customer base"
-                      className="text-foreground border-foreground absolute end-2 top-2"
-                    />
-                  </FormControl>
-                  <h5 className="font-medium">Expanding customer base</h5>
-                  <p className="text-muted-foreground text-sm">
-                    I aim to reach more customers with my products.
-                  </p>
-                </FormLabel>
-              </FormItem>
-              <FormItem className="space-y-0">
-                <FormLabel
-                  className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
-                    {
-                      'border-foreground hover:border-foreground':
-                        field.value === 'Increasing sales volume',
-                    },
-                  )}
-                >
-                  <FormControl>
-                    <RadioGroupItem
-                      value="Increasing sales volume"
-                      className="text-foreground border-foreground absolute end-2 top-2"
-                    />
-                  </FormControl>
-                  <h5 className="font-medium">Increasing sales volume</h5>
-                  <p className="text-muted-foreground text-sm">
-                    I aim to sell more units of my products.
-                  </p>
-                </FormLabel>
-              </FormItem>
+              {goals.map((goal) => (
+                <FormItem key={goal.value} className="space-y-0">
+                  <FormLabel
+                    className={cn(
+                      'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
+                      {
+                        'border-foreground hover:border-foreground':
+                          field.value === goal.value,
+                      },
+                    )}
+                  >
+                    <FormControl>
+                      <RadioGroupItem
+                        value={goal.value}
+                        className="text-foreground border-foreground absolute end-2 top-2"
+                      />
+                    </FormControl>
+                    <h5 className="font-medium">{goal.label}</h5>
+                    <p className="text-muted-foreground text-sm">
+                      {goal.description}
+                    </p>
+                  </FormLabel>
+                </FormItem>
+              ))}
 
               <FormItem className="space-y-0">
                 <FormLabel
                   className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
-                    {
-                      'border-foreground hover:border-foreground':
-                        field.value === 'Entering new markets',
-                    },
-                  )}
-                >
-                  <FormControl>
-                    <RadioGroupItem
-                      value="Entering new markets"
-                      className="text-foreground border-foreground absolute end-2 top-2"
-                    />
-                  </FormControl>
-                  <h5 className="font-medium">Entering new markets</h5>
-                  <p className="text-muted-foreground text-sm">
-                    I aim to sell my products in new geographical or market
-                    segments.
-                  </p>
-                </FormLabel>
-              </FormItem>
-              <FormItem className="space-y-0">
-                <FormLabel
-                  className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
-                    {
-                      'border-foreground hover:border-foreground':
-                        field.value === 'Improving brand recognition',
-                    },
-                  )}
-                >
-                  <FormControl>
-                    <RadioGroupItem
-                      value="Improving brand recognition"
-                      className="text-foreground border-foreground absolute end-2 top-2"
-                    />
-                  </FormControl>
-                  <h5 className="font-medium">Improving brand recognition</h5>
-                  <p className="text-muted-foreground text-sm">
-                    I aim to make my brand more well-known.
-                  </p>
-                </FormLabel>
-              </FormItem>
-
-              <FormItem className="space-y-0">
-                <FormLabel
-                  className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',
+                    'text-foreground border-muted hover:border-accent relative flex h-full items-center justify-between gap-2 rounded-md border-2 p-4 pe-2',
                     {
                       'border-foreground hover:border-foreground':
                         field.value === 'Other business goals',
                     },
                   )}
                 >
+                  <h5 className="font-medium">Other business goals</h5>
                   <FormControl>
                     <RadioGroupItem
                       value="Other business goals"
-                      className="text-foreground border-foreground absolute end-2 top-2"
+                      className="text-foreground border-foreground"
                     />
                   </FormControl>
-                  <h5 className="font-medium">Other business goals</h5>
                 </FormLabel>
               </FormItem>
             </RadioGroup>

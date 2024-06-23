@@ -56,7 +56,7 @@ const PlanSelection = () => {
         render={({ field }) => (
           <FormItem>
             <FormMessage />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {PLANS.map((item) => (
                 <FormItem className="space-y-0" key={item.value}>
                   <FormLabel
@@ -98,7 +98,7 @@ const PlanSelection = () => {
               <FormItem className="space-y-0">
                 <FormLabel
                   className={cn(
-                    'text-foreground border-muted hover:border-accent relative flex h-full items-center justify-between gap-4 rounded-md border-2 p-4',
+                    'text-foreground border-muted hover:border-accent relative flex h-full items-center justify-between gap-4 rounded-md border-2 p-4 pe-2',
                     {
                       'border-foreground hover:border-foreground':
                         field.value?.includes('Other'),
