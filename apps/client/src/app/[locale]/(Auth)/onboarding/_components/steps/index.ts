@@ -1,6 +1,7 @@
 import { OnboardingForm } from '../../formValidator';
 import AccountSelection from './AccountSelection';
 import GoalSelection from './GoalSelection';
+import PlanSelection from './PlanSelection';
 import RoleSelection from './RoleSelection';
 import Welcome from './Welcome';
 
@@ -29,5 +30,10 @@ export const steps: step[] = [
     Step: GoalSelection,
     image: '/onboarding/cover-3.png',
     fields: ['primaryGoal'],
+  },
+  {
+    Step: PlanSelection,
+    image: '/onboarding/cover-4.png',
+    fields: ['whatToSell'],
   },
 ];
