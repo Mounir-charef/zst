@@ -15,12 +15,12 @@ const NavigationLinks = async () => {
         <ShoppingCart size={16} />
       </Navlink>
       <Navlink href="/#">Help Center</Navlink>
-      <Navlink href="/#">Sell your product</Navlink>
+      <Navlink href="/onboarding">Sell your product</Navlink>
       {session ? (
         <UserNav />
       ) : (
         <>
-          <Link href="/onboarding">
+          <Link href="/sign-up">
             <Button variant="main">Sign up</Button>
           </Link>
           <Link href="/sign-in">
