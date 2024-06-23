@@ -35,9 +35,9 @@ const Onboarding = () => {
     <div className="flex min-h-screen overflow-x-clip max-md:py-6">
       <div className="relative hidden h-[100dvh] flex-[2] lg:block">
         <div className="absolute inset-0 z-50">
-          {steps.map(({ image: stepImage }) => (
+          {steps.map(({ image: stepImage }, index) => (
             <Image
-              key={stepImage}
+              key={stepImage + index}
               src={stepImage}
               className={cn(
                 'object-fill opacity-0 transition-opacity duration-500 ease-in-out',

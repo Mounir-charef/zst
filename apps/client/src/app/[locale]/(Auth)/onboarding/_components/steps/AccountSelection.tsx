@@ -52,7 +52,7 @@ const AccountSelection = () => {
               className="grid grid-cols-1 gap-4 md:grid-cols-2"
             >
               {Items.map((item) => (
-                <FormItem className="space-y-0">
+                <FormItem key={item.value} className="space-y-0">
                   <FormLabel
                     className={cn(
                       'text-foreground border-muted hover:border-accent relative flex h-full flex-col items-start gap-2 rounded-md border-2 p-4',

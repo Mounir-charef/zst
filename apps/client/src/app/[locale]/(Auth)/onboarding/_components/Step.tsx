@@ -1,5 +1,6 @@
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { Link } from '../../../../../navigation';
+import { useOnboarding } from './Context';
 
 interface StepProps {
   title: string;
@@ -8,6 +9,9 @@ interface StepProps {
 }
 
 const Step = ({ description, title, children }: StepProps) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="flex max-w-3xl flex-col gap-8 px-10">
       <div className="max-w-2xl space-y-4">

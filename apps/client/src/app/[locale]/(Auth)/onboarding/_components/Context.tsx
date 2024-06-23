@@ -1,5 +1,6 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@mono/ui';
 import {
   ReactNode,
@@ -9,10 +10,9 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { steps } from './steps';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { OnboardingForm, onboardingFormSchema } from '../formValidator';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { steps } from './steps';
 
 interface OnboardingContextContent {
   step: number;

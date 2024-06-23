@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 const Ad = () => {
   return (
-    <div className="relative flex h-[500px] w-full items-center justify-between rounded-3xl bg-black px-10 text-base text-white">
+    <div className="relative flex h-[450px] w-full items-center justify-between rounded-3xl bg-black px-10 text-base text-white">
       <div className="h-full flex-1">
         <Image
           src="/ad.png"
