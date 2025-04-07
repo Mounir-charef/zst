@@ -1,40 +1,14 @@
-# Project Overview
+# ZST: Streamlining Wholesale-to-Retail Transactions
 
-This repository is a monorepo managed with Nx, housing multiple applications and libraries.
-Zst is an all-in-one e-commerce platform, designed to handle everything from storefronts to backend operations in a modular and scalable architecture.
+ZST is a powerful e-commerce platform designed to connect wholesalers and retailers, making transactions seamless.
 
-## Project Structure
+With features like product management, bidding, and order processing, ZST enhances efficiency, reduces costs, and promotes transparency.
 
-The project is organized as follows:
-
-```
-.
-├── .editorconfig          # Editor configuration for consistent coding styles
-├── .eslintignore          # Files and directories ignored by ESLint
-├── .eslintrc.json         # ESLint configuration
-├── .gitignore             # Git ignored files
-├── .npmrc                 # npm configuration
-├── .prettierignore        # Files and directories ignored by Prettier
-├── .prettierrc            # Prettier configuration
-├── components.json        # Component configuration (if applicable)
-├── jest.config.ts         # Jest configuration for testing
-├── jest.preset.js         # Jest preset configuration
-├── nx.json                # Nx workspace configuration
-├── package.json           # Project dependencies and scripts
-├── pnpm-lock.yaml         # Lockfile for pnpm package manager
-├── README.md              # Project documentation (this file)
-├── tsconfig.base.json     # Base TypeScript configuration
-├── tsconfig.json          # Root TypeScript configuration
-├── .nx/                   # Nx cache and metadata
-├── .vscode/               # VS Code workspace settings
-├── apps/                  # Applications in the monorepo
-│   ├── admin/             # Admin application
-│   ├── client/            # Client application
-│   ├── store/             # Store application
-│   └── supplier/          # Supplier application
-└── libs/                  # Shared libraries
-    └── ui-kit/            # UI components library
-```
+## Features:
+- Product Management: Organize and showcase goods effortlessly.
+- Bidding System: Enable competitive pricing.
+- Efficient Order Processing: Speed up wholesale purchases.
+- Transform your wholesale business with ZST.
 
 ## Applications
 

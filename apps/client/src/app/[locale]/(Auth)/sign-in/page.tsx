@@ -2,11 +2,11 @@ import Image from 'next/image';
 import { memo } from 'react';
 import { Link, redirect } from '../../../../navigation';
 import SignInForm from '../_components/SignInForm';
-import { getAuthSession } from '../../../../lib/auth/auth';
+import { auth } from '../../../../lib/auth/auth';
 
 const page = async () => {
-  const session = await getAuthSession();
-  if (session && !session.error) {
+  const session = await auth();
+  if (session?.user) {
     redirect('/');
   }
   return (
@@ -16,7 +16,8 @@ const page = async () => {
           <div className="grid gap-6 text-center">
             <h1 className="text-3xl font-bold md:text-4xl">Log In</h1>
             <p className="text-pretty">
-              Enter your email below to login to your account
+              We only support Google sign-in for now. Please use your Google
+              account to log in.
             </p>
           </div>
           <SignInForm />
