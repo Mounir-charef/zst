@@ -9,8 +9,6 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
-    NEXTAUTH_SECRET: z.string().default('secret'),
-    NEXTAUTH_URL: z.string().optional(),
   },
 
   /**
@@ -19,7 +17,6 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    NEXT_PUBLIC_BACKEND_API: z.string().url(),
     NEXT_PUBLIC_BASE_URL: z.string().url(),
   },
 

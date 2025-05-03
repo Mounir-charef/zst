@@ -4,7 +4,6 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  Badge,
   Button,
   Separator,
   Sheet,
@@ -16,22 +15,19 @@ import {
   buttonVariants,
 } from '@mono/ui';
 import { cn } from '@mono/util';
-import { LogOutIcon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { useLocale } from 'next-intl';
-import { useTransition } from 'react';
 import { NavItems, userMenuLinks } from '../../config';
-import useSession from '../../hooks/useSession';
-import { logout } from '../../lib/auth/logout';
 import { nameToSlug } from '../../lib/utils';
 import { Link } from '../../navigation';
+import LogoutButton from '../LogoutButton';
 import MobileMenuLink from './MobileMenuLink';
 
 const MobileNavMenu = () => {
   const locale = useLocale();
   const session = useSession();
-  const [isPending, startTransition] = useTransition();
 
-  if (!session.user) {
+  if (!session.data?.user) {
     return null;
   }
   return (
@@ -40,10 +36,12 @@ const MobileNavMenu = () => {
         <Button variant="ghost" size="icon" className="rounded-full lg:hidden">
           <Avatar>
             <AvatarImage
-              src={session.user.avatar}
-              alt={session.user.username}
+              src={session.data.user.image}
+              alt={session.data.user.name!}
             />
-            <AvatarFallback>{nameToSlug(session.user.username)}</AvatarFallback>
+            <AvatarFallback>
+              {nameToSlug(session.data.user.name!)}
+            </AvatarFallback>
           </Avatar>
         </Button>
       </SheetTrigger>
@@ -52,17 +50,16 @@ const MobileNavMenu = () => {
           <div className="flex items-center gap-2">
             <Avatar>
               <AvatarImage
-                src={session.user.avatar}
-                alt={session.user.username}
+                src={session.data.user.image}
+                alt={session.data.user.name!}
               />
               <AvatarFallback>
-                {nameToSlug(session.user.username)}
+                {nameToSlug(session.data.user.name!)}
               </AvatarFallback>
             </Avatar>
-            <SheetTitle>{session.user.username}</SheetTitle>
-            <Badge>{session.user.role}</Badge>
+            <SheetTitle>{session.data.user.name!}</SheetTitle>
           </div>
-          <SheetDescription>{session.user.email}</SheetDescription>
+          <SheetDescription>{session.data.user.email}</SheetDescription>
         </SheetHeader>
         <Separator />
         <div className="flex flex-col gap-2 divide-y py-6">
@@ -103,19 +100,7 @@ const MobileNavMenu = () => {
             return <MobileMenuLink key={item.title} {...item} />;
           })}
 
-          <Button
-            variant="link"
-            isLoading={isPending}
-            onClick={() => startTransition(logout)}
-            className="text-foreground justify-start gap-2"
-          >
-            <LogOutIcon
-              className={cn('h-4 w-4', {
-                hidden: isPending,
-              })}
-            />{' '}
-            Sign out
-          </Button>
+          <LogoutButton />
         </div>
       </SheetContent>
     </Sheet>

@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { memo, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useSuspenseAuthQuery } from '../../../../../hooks/useAuthQuery';
 import { usePathname } from '../../../../../navigation';
 import { ColorVariant } from '../../products/types';
 import { getOffer } from '../_data/getData';
@@ -15,6 +14,7 @@ import OrderDetailCard from './OrderDetailCard';
 import OrderSheetFooter from './OrderSheetFooter';
 import { QuantityInputField } from './QuantityInputField';
 import VariationSelect from './VariationSelect';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 interface OrderContentProps {
   id: string;
@@ -22,8 +22,10 @@ interface OrderContentProps {
 const OrderContent = ({ id }: OrderContentProps) => {
   const router = useRouter();
   const pathName = usePathname();
-  const { data } = useSuspenseAuthQuery(['offer', id], () => {
-    return getOffer(id);
+
+  const { data } = useSuspenseQuery({
+    queryKey: ['offer', id],
+    queryFn: () => getOffer(id),
   });
   const SizeSchema = z.object({
     size: z.string(),

@@ -1,6 +1,6 @@
 import ProgressBar from '../../../components/ProgressBar';
 import NavBar from '../../../components/navbar/NavBar';
-import { getAuthSession } from '../../../lib/auth/auth';
+import { auth } from '../../../lib/auth/auth';
 import { redirect } from '../../../navigation';
 
 export default async function RootLayout({
@@ -8,8 +8,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getAuthSession();
-  if (!session || session.error) {
+  const session = await auth();
+  if (!session || !session.user) {
     redirect('/sign-in');
   }
   return (

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Mouse",
+    "status": "active",
+    "price": 29.99,
+    "stock": 150,
+    "created_at": "2025-04-20T10:15:00Z"
+  },
+  {
+    "id": "2a",
+    "name": "Mechanical Keyboard",
+    "status": "active",
+    "price": 89.99,
+    "stock": 75,
+    "created_at": "2025-03-18T14:30:00Z"
+  },
+  {
+    "id": 3,
+    "name": "HD Monitor 24 inch",
+    "status": "inactive",
+    "price": 149.5,
+    "stock": 0,
+    "created_at": "2024-12-01T09:00:00Z"
+  },
+  {
+    "id": "4b",
+    "name": "USB-C Charger 65W",
+    "status": "active",
+    "price": 39.0,
+    "stock": 320,
+    "created_at": "2025-01-05T11:45:00Z"
+  },
+  {
+    "id": 5,
+    "name": "Laptop Stand Adjustable",
+    "status": "archived",
+    "price": 24.99,
+    "stock": 5,
+    "created_at": "2024-11-15T08:20:00Z"
+  }
+]
