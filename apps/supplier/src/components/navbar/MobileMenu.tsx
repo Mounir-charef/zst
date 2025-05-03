@@ -45,11 +45,8 @@ const MobileMenu = () => {
       <SheetTrigger aria-label="mobile-navbar" asChild>
         <Button variant="ghost" size="icon" className="rounded-full lg:hidden">
           <Avatar>
-            <AvatarImage
-              src={session.user.avatar}
-              alt={session.user.username}
-            />
-            <AvatarFallback>{nameToSlug(session.user.username)}</AvatarFallback>
+            <AvatarImage src={session.user.image} alt={session.user.name!} />
+            <AvatarFallback>{nameToSlug(session.user.name!)}</AvatarFallback>
           </Avatar>
         </Button>
       </SheetTrigger>
@@ -57,16 +54,10 @@ const MobileMenu = () => {
         <SheetHeader className="items-center py-6">
           <div className="flex items-center gap-2">
             <Avatar>
-              <AvatarImage
-                src={session.user.avatar}
-                alt={session.user.username}
-              />
-              <AvatarFallback>
-                {nameToSlug(session.user.username)}
-              </AvatarFallback>
+              <AvatarImage src={session.user.image} alt={session.user.name!} />
+              <AvatarFallback>{nameToSlug(session.user.name!)}</AvatarFallback>
             </Avatar>
-            <SheetTitle>{session.user.username}</SheetTitle>
-            <Badge>{session.user.role}</Badge>
+            <SheetTitle>{session.user.name!}</SheetTitle>
           </div>
           <SheetDescription>{session.user.email}</SheetDescription>
         </SheetHeader>

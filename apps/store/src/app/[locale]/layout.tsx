@@ -5,9 +5,8 @@ import { Poppins } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
 import { Providers } from '../../components/Providers';
-import SessionProvider from '../../components/auth/SessionProvider';
-import { getAuthSession } from '../../lib/auth/auth';
 import '../../global.css';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata = {
   title: 'Welcome to store',
@@ -40,10 +39,9 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const [messages, timezone, session] = await Promise.all([
+  const [messages, timezone] = await Promise.all([
     getMessages(),
     getTimeZone(),
-    getAuthSession(),
   ]);
 
   const { langDir, hrefLang } = availableLocalesMap[locale] || defaultLocale;
@@ -60,7 +58,7 @@ export default async function RootLayout({
           poppins.className,
         )}
       >
-        <SessionProvider session={session} refetchInterval={60 * 60 * 24}>
+        <SessionProvider>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
             <Providers>
               {children}

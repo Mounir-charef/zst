@@ -5,9 +5,8 @@ import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { availableLocalesMap, defaultLocale } from '../../../i18n/locales';
 import { Providers } from '../../components/Providers';
-import SessionProvider from '../../components/auth/SessionProvider';
 import '../../global.css';
-import { getAuthSession } from '../../lib/auth/auth';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata = {
   title: 'Welcome to supplier',
@@ -39,10 +38,9 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const [messages, timezone, session] = await Promise.all([
+  const [messages, timezone] = await Promise.all([
     getMessages(),
     getTimeZone(),
-    getAuthSession(),
   ]);
 
   const { langDir, hrefLang } = availableLocalesMap[locale] || defaultLocale;
@@ -59,7 +57,7 @@ export default async function RootLayout({
           inter.className,
         )}
       >
-        <SessionProvider session={session} refetchInterval={60 * 60}>
+        <SessionProvider>
           <NextIntlClientProvider messages={messages} timeZone={timezone}>
             <Providers>
               {children}

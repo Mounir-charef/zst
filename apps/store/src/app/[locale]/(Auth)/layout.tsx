@@ -1,4 +1,4 @@
-import { getAuthSession } from '../../../lib/auth/auth';
+import { auth } from '../../../lib/auth/auth';
 import { redirect } from '../../../navigation';
 
 export default async function RootLayout({
@@ -6,9 +6,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getAuthSession();
+  const session = await auth();
 
-  if (session && !session.error) {
+  if (session && session.user) {
     redirect('/');
   }
 

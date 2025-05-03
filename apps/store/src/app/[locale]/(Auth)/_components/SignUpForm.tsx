@@ -1,99 +1,23 @@
-'use client';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, InputField, PasswordField } from '@mono/ui';
-import { memo, useMemo } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { Button } from '@mono/ui';
 import GoogleIcon from '../../../../assets/icons/GoogleIcon';
+import { signIn } from '../../../../lib/auth/auth';
 
 const SignUpForm = () => {
-  const schema = useMemo(
-    () =>
-      z
-        .object({
-          fullName: z.string().min(3),
-          email: z.string().email(),
-          password: z.string().min(6),
-          confirmPassword: z.string().min(6),
-        })
-        .refine((data) => data.password === data.confirmPassword, {
-          message: 'Passwords do not match',
-          path: ['confirmPassword'],
-        }),
-    [],
-  );
-
-  type SignUpFormValues = z.infer<typeof schema>;
-
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      fullName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-  });
-
-  const submit: SubmitHandler<SignUpFormValues> = (values) => {
-    // TODO: Implement sign-up logic
-    console.log(values);
-  };
-
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(submit)} className="grid gap-4">
-        <InputField
-          control={form.control}
-          name="fullName"
-          label="Full Name"
-          placeholder="Enter your full name"
-          required
-        />
-
-        <InputField
-          control={form.control}
-          name="email"
-          label="Email"
-          placeholder="Enter your email address"
-          required
-        />
-
-        <InputField
-          control={form.control}
-          name="password"
-          label="Password"
-          placeholder="Enter your password"
-          type="password"
-          required
-        />
-
-        <InputField
-          control={form.control}
-          name="confirmPassword"
-          label="Confirm Password"
-          placeholder="Confirm your password"
-          type="password"
-          required
-        />
-
-        <div className="mt-8 space-y-4">
-          <Button type="submit" className="w-full gap-2">
-            SignUp
-          </Button>
-          <Button
-            variant="outline"
-            disabled
-            type="button"
-            className="w-full gap-2"
-          >
-            <GoogleIcon /> SignUp with Google
-          </Button>
-        </div>
-      </form>
-    </Form>
+    <form
+      action={async () => {
+        'use server';
+        await signIn('google', {
+          redirectTo: '/',
+        });
+      }}
+      className="flex w-full justify-center"
+    >
+      <Button variant="outline" type="submit" className="space-x-2">
+        <GoogleIcon className="me-2" /> Sign-up with Google
+      </Button>
+    </form>
   );
 };
 
-export default memo(SignUpForm);
+export default SignUpForm;
