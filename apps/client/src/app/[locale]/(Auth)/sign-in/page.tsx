@@ -15,10 +15,6 @@ const page = async () => {
         <div className="mx-auto grid gap-6">
           <div className="grid gap-6 text-center">
             <h1 className="text-3xl font-bold md:text-4xl">Log In</h1>
-            <p className="text-pretty">
-              We only support Google sign-in for now. Please use your Google
-              account to log in.
-            </p>
           </div>
           <SignInForm />
           <div className="mt-4 text-center text-sm">

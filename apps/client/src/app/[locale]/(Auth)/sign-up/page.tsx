@@ -10,9 +10,6 @@ const page = () => {
         <div className="mx-auto grid gap-6 lg:w-[500px]">
           <div className="grid gap-6 text-center">
             <h1 className="text-3xl font-bold md:text-4xl">Sign Up</h1>
-            <p className="text-pretty">
-              Enter your email below to login to your account
-            </p>
           </div>
           <SignUpForm />
           <div className="mt-4 text-center text-sm">
